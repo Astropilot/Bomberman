@@ -8,7 +8,8 @@ NAME	= bomberman
 RM		= rm -f
 
 SRC		= \
-		src/frame_test.c \
+		src/frame_game.c \
+		src/frame_menu.c \
 		src/main_test.c \
 
 OBJ		= $(SRC:.c=.o)

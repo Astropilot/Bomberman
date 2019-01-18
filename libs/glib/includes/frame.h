@@ -14,10 +14,18 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
+#include "sprite.h"
+
 typedef struct TWindow TWindow;
 
 typedef struct TFrame {
     /*  Les pointeurs sur fonctions (membres) :                       */
+
+    void(*Add_Sprite)(struct TFrame*, TSprite*);
+
+    TSprite*(*Get_Sprite)(struct TFrame*, const char *id);
+
+    void(*Draw_Sprites)(struct TFrame*, TWindow*);
 
     // Executé une seul fois lors de l'ajout à la fenêtre principale
     void(*Init)(struct TFrame*, TWindow*);
@@ -31,6 +39,9 @@ typedef struct TFrame {
     // A chaque tour de boucle
     void(*On_Tick)(struct TFrame*, TWindow*);
 
+    // Executé à chaque fois que cette Frame ne sera plus affichée.
+    void(*On_Unload)(struct TFrame*, TWindow*);
+
     // Executé lorsque la fenêtre dois se fermer
     void(*Finish)(struct TFrame*, TWindow*);
 
@@ -41,6 +52,7 @@ typedef struct TFrame {
     char *frame_id;
     unsigned int initialized;
     // Liste de sprites (textures)
+    TSprite_Node *sprites_head;
 
 } TFrame ;
 
@@ -51,9 +63,9 @@ typedef struct TFrame_Node {
 } TFrame_Node ;
 
 TFrame* New_TFrame(const char *frame_id);
-void TFrame_On_Load(TFrame *this, TWindow *window);
-void TFrame_On_Event(TFrame *this, TWindow *window, SDL_Event event);
-void TFrame_On_Tick(TFrame *this, TWindow *window);
+void TFrame_Add_Sprite(TFrame *this, TSprite *sprite);
+TSprite *TFrame_Get_Sprite(TFrame *this, const char *id);
+void TFrame_Draw_Sprites(TFrame *this, TWindow *win);
 void TFrame_New_Free(TFrame *this);
 
 #endif

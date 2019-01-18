@@ -5,14 +5,14 @@
 **      Some game
 */
 
-#ifndef FRAME_TEST_H_
-#define FRAME_TEST_H_
+#ifndef FRAME_MENU_H_
+#define FRAME_MENU_H_
 
 #include <stdio.h>
 #include <unistd.h>
 
 #include "glib.h"
 
-TFrame* New_TestFrame(void);
+TFrame* New_MenuFrame(void);
 
 #endif

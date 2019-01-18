@@ -7,25 +7,25 @@ static void TWindow_Loop(TWindow *this);
 
 TWindow* New_TWindow(void)
 {
-       TWindow *this = malloc(sizeof(TWindow));
+    TWindow *this = malloc(sizeof(TWindow));
 
-       if(!this) return NULL;
-       TWindow_Init(this);
-       this->Free = TWindow_New_Free;
-       return this;
+    if(!this) return NULL;
+    TWindow_Init(this);
+    this->Free = TWindow_New_Free;
+    return this;
 }
 
 static void TWindow_Init(TWindow *this)
 {
-       this->Create_Window = TWindow_Create_Window;
-       this->Add_Frame = TWindow_Add_Frame;
-       this->Show_Frame = TWindow_Show_Frame;
-       this->Wait_Quit = TWindow_Wait_Quit;
-       this->screen_window = NULL;
-       this->renderer_window = NULL;
-       this->finished = 0;
-       this->frames_head = NULL;
-       this->shown_frame = NULL;
+    this->Create_Window = TWindow_Create_Window;
+    this->Add_Frame = TWindow_Add_Frame;
+    this->Show_Frame = TWindow_Show_Frame;
+    this->Wait_Quit = TWindow_Wait_Quit;
+    this->screen_window = NULL;
+    this->renderer_window = NULL;
+    this->finished = 0;
+    this->frames_head = NULL;
+    this->shown_frame = NULL;
 }
 
 static void TWindow_Free_Frames(TWindow *this)
@@ -57,8 +57,6 @@ static void TWindow_Loop(TWindow *this)
     SDL_Event event;
     unsigned int current_time = 0;
     unsigned int last_time = 0;
-
-    printf("In game loop!\n");
 
     while (!this->finished) {
         while( SDL_PollEvent( &event ) != 0 ) {
@@ -139,12 +137,13 @@ void TWindow_Show_Frame(TWindow *this, const char *frame_id)
     TFrame_Node *current = this->frames_head;
     while (current != NULL) {
         if (strcmp(current->frame->frame_id, frame_id) == 0) {
-            printf("Frame [%s] trouvée, prêt à l'affichage !\n", frame_id);
             if (this->shown_frame) {
-                this->shown_frame->Finish(this->shown_frame, this);
+                this->shown_frame->On_Unload(this->shown_frame, this);
             }
-            if (!current->frame->initialized)
+            if (!current->frame->initialized) {
                 current->frame->Init(current->frame, this);
+                current->frame->initialized = 1;
+            }
             current->frame->On_Load(current->frame, this);
             this->shown_frame = current->frame;
             return;
@@ -163,6 +162,7 @@ void TWindow_New_Free(TWindow *this)
 {
     if (this) {
         TWindow_Free_Frames(this);
+        TTF_Quit();
         IMG_Quit();
         SDL_DestroyRenderer(this->renderer_window);
         SDL_DestroyWindow(this->screen_window);

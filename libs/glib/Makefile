@@ -8,6 +8,7 @@ RM		= rm -f
 SRC		= \
 		src/window.c \
 		src/frame.c \
+		src/sprite.c \
 		src/utils.c \
 
 OBJ		= $(SRC:.c=.o)

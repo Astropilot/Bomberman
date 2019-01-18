@@ -13,8 +13,4 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-#include "window.h"
-
-SDL_Texture *create_texture(const char *file, TWindow *window);
-
 #endif
