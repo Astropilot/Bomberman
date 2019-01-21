@@ -23,6 +23,10 @@ typedef struct TFrame {
 
     void(*Add_Sprite)(struct TFrame*, TSprite*);
 
+    void(*AddTop_Sprite)(struct TFrame*, TSprite*);
+
+    TSprite*(*Remove_Sprite)(struct TFrame*, const char *id);
+
     TSprite*(*Get_Sprite)(struct TFrame*, const char *id);
 
     void(*Draw_Sprites)(struct TFrame*, TWindow*);
@@ -64,6 +68,8 @@ typedef struct TFrame_Node {
 
 TFrame* New_TFrame(const char *frame_id);
 void TFrame_Add_Sprite(TFrame *this, TSprite *sprite);
+void TFrame_AddTop_Sprite(TFrame *this, TSprite *sprite);
+TSprite *TFrame_Remove_Sprite(TFrame *this, const char *id);
 TSprite *TFrame_Get_Sprite(TFrame *this, const char *id);
 void TFrame_Draw_Sprites(TFrame *this, TWindow *win);
 void TFrame_New_Free(TFrame *this);

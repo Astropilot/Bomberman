@@ -18,6 +18,8 @@ TFrame* New_TFrame(const char *frame_id)
 static void TFrame_Init(TFrame *this, const char *frame_id)
 {
     this->Add_Sprite = TFrame_Add_Sprite;
+    this->AddTop_Sprite = TFrame_AddTop_Sprite;
+    this->Remove_Sprite = TFrame_Remove_Sprite;
     this->Get_Sprite = TFrame_Get_Sprite;
     this->Draw_Sprites = TFrame_Draw_Sprites;
     this->frame_id = strdup(frame_id);
@@ -56,6 +58,40 @@ void TFrame_Add_Sprite(TFrame *this, TSprite *sprite)
         current->next->sprite = sprite;
         current->next->next = NULL;
     }
+}
+
+void TFrame_AddTop_Sprite(TFrame *this, TSprite *sprite)
+{
+    TSprite_Node *sprite_node = malloc(sizeof(TSprite_Node));
+
+    sprite_node->sprite = sprite;
+    if (!this->sprites_head)
+        sprite_node->next = NULL;
+    else
+        sprite_node->next = this->sprites_head;
+    this->sprites_head = sprite_node;
+}
+
+TSprite *TFrame_Remove_Sprite(TFrame *this, const char *id)
+{
+    TSprite_Node *current = this->sprites_head;
+    TSprite_Node *previous = NULL;
+    TSprite *sprite = NULL;
+
+    while (current != NULL) {
+        if (strcmp(current->sprite->sprite_id, id) == 0) {
+            sprite = current->sprite;
+            if (!previous)
+                this->sprites_head = current->next;
+            else
+                previous->next = current->next;
+            free(current);
+            return sprite;
+        }
+        previous = current;
+        current = current->next;
+    }
+    return sprite;
 }
 
 TSprite *TFrame_Get_Sprite(TFrame *this, const char *id)
