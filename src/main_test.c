@@ -14,7 +14,7 @@ int main(void)
     if (window) {
         window->Add_Frame(window, frame_game);
         window->Add_Frame(window, frame_menu);
-        window->Create_Window(window, "Sample #1 GLib", 600, 300, "FRAME_MENU");
+        window->Create_Window(window, "Sample #1 GLib", 800, 800, "FRAME_MENU");
 
         window->Free(window);
         window = NULL;

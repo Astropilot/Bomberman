@@ -17,6 +17,7 @@
 #include "window.h"
 #include "frame.h"
 #include "sprite.h"
+#include "button.h"
 #include "utils.h"
 
 #endif

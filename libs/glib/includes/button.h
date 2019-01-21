@@ -16,32 +16,38 @@
 
 #include "sprite.h"
 
+typedef enum EButton_State {
+    BUTTON_NORMAL,
+    BUTTON_HOVER
+} EButton_State ;
+
 typedef struct TButton {
     /*  Les pointeurs sur fonctions (membres) :                       */
 
-    // Executé une seul fois lors de l'ajout à la fenêtre principale
-    void(*Init)(struct TButton*, TWindow*);
+    void(*Draw)(struct TButton*, TWindow*);
 
-    // Executé à chaque fois que cette Frame devient celle visible
+    // Executé à chaque clique gauche sur le bouton
     void(*On_Click)(struct TButton*, TWindow*);
 
     // A chaque évènement SDL
-    void(*Event_Handler)(struct TButton*, SDL_Event);
+    void(*Event_Handler)(struct TButton*, TWindow *, SDL_Event);
 
     // Libération des ressources et destruction de l'objet
     void(*Free)(struct TButton*);
 
     /*  Les données membres :                                         */
-    char *text;
+    //char *text;
     TSprite *btn_sprite;
     TSprite *btn_hover_sprite;
+    EButton_State state;
     SDL_Rect pos;
     // Liste de sprites (textures)
 
 } TButton ;
 
-TButton* New_TButton(const char *text, int w, int h);
-void TFrame_Event_Handler(TButton *this, SDL_Event event);
-void TFrame_New_Free(TFrame *this);
+TButton* New_TButton(const char *btn_s, const char *btn_hs, SDL_Rect pos, TWindow *win);
+void TButton_Draw(TButton *this, TWindow *window);
+void TButton_Event_Handler(TButton *this, TWindow *win, SDL_Event event);
+void TButton_New_Free(TButton *this);
 
 #endif

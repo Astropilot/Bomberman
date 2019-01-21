@@ -9,6 +9,7 @@ SRC		= \
 		src/window.c \
 		src/frame.c \
 		src/sprite.c \
+		src/button.c \
 		src/utils.c \
 
 OBJ		= $(SRC:.c=.o)
