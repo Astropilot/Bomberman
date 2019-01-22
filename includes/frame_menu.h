@@ -5,11 +5,12 @@
 **      Some game
 */
 
-#ifndef FRAME_MENU_H_
-#define FRAME_MENU_H_
+#ifndef FRAME_INPUT_H_
+#define FRAME_INPUT_H_
 
 #include <stdio.h>
 #include <unistd.h>
+#include <stdarg.h>
 
 #include "glib.h"
 

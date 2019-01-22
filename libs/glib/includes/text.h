@@ -5,40 +5,37 @@
 **      Graphic library with SDL2
 */
 
-#ifndef SPRITE_H_
-#define SPRITE_H_
+#ifndef TEXT_H_
+#define TEXT_H_
 
 #include <stdlib.h>
 #include <unistd.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+
+#include "utils.h"
 
 typedef struct TWindow TWindow;
 
-typedef struct TSprite {
+typedef struct TText {
     /*  Les pointeurs sur fonctions (membres) :                       */
 
     // Desinne le sprite dans le buffer
-    void(*Draw)(struct TSprite*, TWindow*);
+    void(*Draw)(struct TText*, TWindow*);
 
     // Libération des ressources et destruction de l'objet
-    void(*Free)(struct TSprite*);
+    void(*Free)(struct TText*);
 
     /*  Les données membres :                                         */
+    char *text;
     SDL_Texture *texture;
     SDL_Rect pos;
-    char *file;
 
-} TSprite ;
+} TText ;
 
-/* Linked list
-typedef struct TSprite_Node {
-    TSprite *sprite;
-    struct TSprite_Node *next;
-} TSprite_Node ;*/
-
-TSprite* New_TSprite(TWindow *win, const char *file, SDL_Rect size);
-void TSprite_Draw(TSprite *this, TWindow *win);
-void TSprite_New_Free(TSprite *this);
+TText* New_TText(const char *text, TWindow *win, TTF_Font *font, SDL_Color color, SDL_Rect pos);
+void TText_Draw(TText *this, TWindow *win);
+void TText_New_Free(TText *this);
 
 #endif

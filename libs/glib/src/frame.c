@@ -3,7 +3,7 @@
 #include "frame.h"
 
 static void TFrame_Init(TFrame *this, const char *frame_id);
-static void TFrame_Free_Sprites(TFrame *this);
+static void TFrame_Free_Drawables(TFrame *this);
 
 TFrame* New_TFrame(const char *frame_id)
 {
@@ -17,102 +17,108 @@ TFrame* New_TFrame(const char *frame_id)
 
 static void TFrame_Init(TFrame *this, const char *frame_id)
 {
-    this->Add_Sprite = TFrame_Add_Sprite;
-    this->AddTop_Sprite = TFrame_AddTop_Sprite;
-    this->Remove_Sprite = TFrame_Remove_Sprite;
-    this->Get_Sprite = TFrame_Get_Sprite;
-    this->Draw_Sprites = TFrame_Draw_Sprites;
+    this->Add_Drawable = TFrame_Add_Drawable;
+    //this->AddTop_Sprite = TFrame_AddTop_Sprite;
+    this->Remove_Drawable = TFrame_Remove_Drawable;
+    this->Get_Drawable = TFrame_Get_Drawable;
+    this->Draw_Drawables = TFrame_Draw_Drawables;
     this->frame_id = strdup(frame_id);
     this->initialized = 0;
-    this->sprites_head = NULL;
+    this->drawables_head = NULL;
 }
 
-static void TFrame_Free_Sprites(TFrame *this)
+static void TFrame_Free_Drawables(TFrame *this)
 {
-    TSprite_Node *current = this->sprites_head;
-    TSprite_Node *tmp = NULL;
+    Drawable_Node *current = this->drawables_head;
+    Drawable_Node *tmp = NULL;
 
     while (current != NULL) {
-        current->sprite->Free(current->sprite);
+        drawableCallFree(current);
 
         tmp = current;
         current = current->next;
+        free(tmp->id);
         free(tmp);
     }
 }
 
-void TFrame_Add_Sprite(TFrame *this, TSprite *sprite)
+void TFrame_Add_Drawable(TFrame *this, void *drawable, drawables_e type, const char *id, unsigned int priority)
 {
-    if (!this->sprites_head) {
-        TSprite_Node *sprite_node = malloc(sizeof(TSprite_Node));
+    Drawable_Node *drawable_node = malloc(sizeof(Drawable_Node));
 
-        sprite_node->sprite = sprite;
-        sprite_node->next = NULL;
-        this->sprites_head = sprite_node;
+    drawable_node->id = strdup(id);
+    drawable_node->drawable = drawable;
+    drawable_node->type = type;
+    drawable_node->priority = priority;
+    printf("Drawable node ready to be added: %s\n", id);
+    if (this->drawables_head == NULL) {
+        drawable_node->next = NULL;
+        this->drawables_head = drawable_node;
     } else {
-        TSprite_Node *current = this->sprites_head;
+        Drawable_Node *current = this->drawables_head;
+        Drawable_Node *previous = NULL;
+        unsigned int found = 0;
 
-        while (current->next != NULL)
-            current = current->next;
-        current->next = malloc(sizeof(TSprite_Node));
-        current->next->sprite = sprite;
-        current->next->next = NULL;
+        while (current != NULL && !found) {
+            if (current->priority < priority)
+                found = 1;
+            else {
+                previous = current;
+                current = current->next;
+            }
+        }
+        printf("[%s] current: %p, previous: %p, found: %u\n", id, current, previous, found);
+        drawable_node->next = current;
+        if (!previous)
+            this->drawables_head = drawable_node;
+        else
+            previous->next = drawable_node;
     }
+    printf("Finish adding drawable %s\n", id);
 }
 
-void TFrame_AddTop_Sprite(TFrame *this, TSprite *sprite)
+void *TFrame_Remove_Drawable(TFrame *this, const char *id)
 {
-    TSprite_Node *sprite_node = malloc(sizeof(TSprite_Node));
-
-    sprite_node->sprite = sprite;
-    if (!this->sprites_head)
-        sprite_node->next = NULL;
-    else
-        sprite_node->next = this->sprites_head;
-    this->sprites_head = sprite_node;
-}
-
-TSprite *TFrame_Remove_Sprite(TFrame *this, const char *id)
-{
-    TSprite_Node *current = this->sprites_head;
-    TSprite_Node *previous = NULL;
-    TSprite *sprite = NULL;
+    Drawable_Node *current = this->drawables_head;
+    Drawable_Node *previous = NULL;
+    void *drawable = NULL;
 
     while (current != NULL) {
-        if (strcmp(current->sprite->sprite_id, id) == 0) {
-            sprite = current->sprite;
+        if (strcmp(current->id, id) == 0) {
+            drawable = current->drawable;
             if (!previous)
-                this->sprites_head = current->next;
+                this->drawables_head = current->next;
             else
                 previous->next = current->next;
+            free(current->id);
             free(current);
-            return sprite;
+            return drawable;
         }
         previous = current;
         current = current->next;
     }
-    return sprite;
+    return drawable;
 }
 
-TSprite *TFrame_Get_Sprite(TFrame *this, const char *id)
+void *TFrame_Get_Drawable(TFrame *this, const char *id)
 {
-    TSprite_Node *current = this->sprites_head;
+    Drawable_Node *current = this->drawables_head;
 
     while (current != NULL) {
-        if (strcmp(current->sprite->sprite_id, id) == 0)
-            return current->sprite;
+        if (strcmp(current->id, id) == 0)
+            return current->drawable;
         current = current->next;
     }
 
     return (NULL);
 }
 
-void TFrame_Draw_Sprites(TFrame *this, TWindow *win)
+void TFrame_Draw_Drawables(TFrame *this, TWindow *win)
 {
-    TSprite_Node *current = this->sprites_head;
+    Drawable_Node *current = this->drawables_head;
 
     while (current != NULL) {
-        current->sprite->Draw(current->sprite, win);
+        drawableCallDraw(current, win);
         current = current->next;
     }
 }
@@ -120,7 +126,7 @@ void TFrame_Draw_Sprites(TFrame *this, TWindow *win)
 void TFrame_New_Free(TFrame *this)
 {
     if (this) {
-        TFrame_Free_Sprites(this);
+        TFrame_Free_Drawables(this);
         free(this->frame_id);
     }
     free(this);

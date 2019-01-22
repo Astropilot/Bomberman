@@ -6,10 +6,13 @@ NAME	= libglib.a
 RM		= rm -f
 
 SRC		= \
+		src/drawables.c \
 		src/window.c \
 		src/frame.c \
 		src/sprite.c \
+		src/text.c \
 		src/button.c \
+		src/inputbox.c \
 		src/utils.c \
 
 OBJ		= $(SRC:.c=.o)

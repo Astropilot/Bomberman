@@ -16,8 +16,8 @@ static void TButton_Init(TButton *this, const char *btn_s, const char *btn_hs, S
 {
     this->Draw = TButton_Draw;
     this->Event_Handler = TButton_Event_Handler;
-    this->btn_sprite = New_TSprite("BTN", win, btn_s, pos);
-    this->btn_hover_sprite = New_TSprite("BTN_HOVER", win, btn_hs, pos);
+    this->btn_sprite = New_TSprite(win, btn_s, pos);
+    this->btn_hover_sprite = New_TSprite(win, btn_hs, pos);
     this->state = BUTTON_NORMAL;
     this->pos = pos;
 }
@@ -59,4 +59,5 @@ void TButton_New_Free(TButton *this)
         this->btn_hover_sprite->Free(this->btn_hover_sprite);
     }
     free(this);
+    printf("Button Free called!\n");
 }

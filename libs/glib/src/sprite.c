@@ -1,24 +1,23 @@
 #include "window.h"
 #include "sprite.h"
 
-static void TSprite_Init(TSprite *this, TWindow *win, const char *id, const char *file, SDL_Rect size);
+static void TSprite_Init(TSprite *this, TWindow *win, const char *file, SDL_Rect size);
 
-TSprite* New_TSprite(const char *id, TWindow *win, const char *file, SDL_Rect size)
+TSprite* New_TSprite(TWindow *win, const char *file, SDL_Rect size)
 {
     TSprite *this = malloc(sizeof(TSprite));
 
     if(!this) return NULL;
-    TSprite_Init(this, win, id, file, size);
+    TSprite_Init(this, win, file, size);
     this->Free = TSprite_New_Free;
     return this;
 }
 
-static void TSprite_Init(TSprite *this, TWindow *win, const char *id, const char *file, SDL_Rect size)
+static void TSprite_Init(TSprite *this, TWindow *win, const char *file, SDL_Rect size)
 {
     SDL_Surface *surface = IMG_Load(file);
 
     this->Draw = TSprite_Draw;
-    this->sprite_id = strdup(id);
     this->file = strdup(file);
     this->pos = size;
     this->texture = SDL_CreateTextureFromSurface(win->renderer_window, surface);
@@ -33,7 +32,6 @@ void TSprite_Draw(TSprite *this, TWindow *win)
 void TSprite_New_Free(TSprite *this)
 {
     if (this) {
-        free(this->sprite_id);
         free(this->file);
         SDL_DestroyTexture(this->texture);
     }

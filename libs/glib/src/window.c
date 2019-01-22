@@ -107,7 +107,7 @@ int TWindow_Create_Window(TWindow *this, const char *title, int width, int heigh
         return (0);
     }
 
-    TWindow_Show_Frame(this, frame_id);
+    TWindow_Show_Frame(this, frame_id, 0);
     TWindow_Loop(this);
 
     return (1);
@@ -132,7 +132,7 @@ void TWindow_Add_Frame(TWindow *this, TFrame *frame)
     }
 }
 
-void TWindow_Show_Frame(TWindow *this, const char *frame_id)
+void TWindow_Show_Frame(TWindow *this, const char *frame_id, int argc, ...)
 {
     TFrame_Node *current = this->frames_head;
     while (current != NULL) {
@@ -144,7 +144,10 @@ void TWindow_Show_Frame(TWindow *this, const char *frame_id)
                 current->frame->Init(current->frame, this);
                 current->frame->initialized = 1;
             }
-            current->frame->On_Load(current->frame, this);
+            va_list argp;
+            va_start(argp, argc);
+            current->frame->On_Load(current->frame, this, argp);
+            va_end(argp);
             this->shown_frame = current->frame;
             return;
         }

@@ -17,7 +17,10 @@
 #include "window.h"
 #include "frame.h"
 #include "sprite.h"
+#include "text.h"
 #include "button.h"
+#include "inputbox.h"
+#include "drawables.h"
 #include "utils.h"
 
 #endif
