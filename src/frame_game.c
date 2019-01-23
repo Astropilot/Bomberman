@@ -24,8 +24,7 @@ TFrame* New_GameFrame(void)
 static void Init(TFrame* frame, TWindow *window)
 {
     printf("Frame [%s]: Init method called | Window finished: %d\n", frame->frame_id, window->finished);
-    // Ajout dans la Frame pour une gestion automatique du dessin et de
-    // la libération des ressources
+
     SDL_Rect pos_sprite = {120, 223, 24, 24};
     TSprite *sp = New_TSprite(window, "images/sprite.png", pos_sprite);
 

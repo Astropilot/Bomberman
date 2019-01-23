@@ -22,26 +22,19 @@ typedef enum EButton_State {
 } EButton_State ;
 
 typedef struct TButton {
-    /*  Les pointeurs sur fonctions (membres) :                       */
 
     void(*Draw)(struct TButton*, TWindow*);
 
-    // Executé à chaque clique gauche sur le bouton
     void(*On_Click)(struct TButton*, TWindow*);
 
-    // A chaque évènement SDL
     void(*Event_Handler)(struct TButton*, TWindow *, SDL_Event);
 
-    // Libération des ressources et destruction de l'objet
     void(*Free)(struct TButton*);
 
-    /*  Les données membres :                                         */
-    //char *text;
     TSprite *btn_sprite;
     TSprite *btn_hover_sprite;
     EButton_State state;
     SDL_Rect pos;
-    // Liste de sprites (textures)
 
 } TButton ;
 

@@ -18,7 +18,6 @@ TFrame* New_TFrame(const char *frame_id)
 static void TFrame_Init(TFrame *this, const char *frame_id)
 {
     this->Add_Drawable = TFrame_Add_Drawable;
-    //this->AddTop_Sprite = TFrame_AddTop_Sprite;
     this->Remove_Drawable = TFrame_Remove_Drawable;
     this->Get_Drawable = TFrame_Get_Drawable;
     this->Draw_Drawables = TFrame_Draw_Drawables;
@@ -50,7 +49,6 @@ void TFrame_Add_Drawable(TFrame *this, void *drawable, drawables_e type, const c
     drawable_node->drawable = drawable;
     drawable_node->type = type;
     drawable_node->priority = priority;
-    printf("Drawable node ready to be added: %s\n", id);
     if (this->drawables_head == NULL) {
         drawable_node->next = NULL;
         this->drawables_head = drawable_node;
@@ -67,14 +65,12 @@ void TFrame_Add_Drawable(TFrame *this, void *drawable, drawables_e type, const c
                 current = current->next;
             }
         }
-        printf("[%s] current: %p, previous: %p, found: %u\n", id, current, previous, found);
         drawable_node->next = current;
         if (!previous)
             this->drawables_head = drawable_node;
         else
             previous->next = drawable_node;
     }
-    printf("Finish adding drawable %s\n", id);
 }
 
 void *TFrame_Remove_Drawable(TFrame *this, const char *id)

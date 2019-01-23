@@ -22,17 +22,13 @@
 #define MAX_STR_LEN 15
 
 typedef struct TInput {
-    /*  Les pointeurs sur fonctions (membres) :                       */
 
     void(*Draw)(struct TInput*, TWindow*);
 
-    // A chaque évènement SDL
     void(*Event_Handler)(struct TInput*, TWindow *, SDL_Event);
 
-    // Libération des ressources et destruction de l'objet
     void(*Free)(struct TInput*);
 
-    /*  Les données membres :                                         */
     char text[MAX_STR_LEN];
     TSprite *input_sprite;
     TTF_Font *font;
@@ -41,7 +37,6 @@ typedef struct TInput {
     SDL_Rect pos_text;
     unsigned int is_focus;
     unsigned int last_time;
-    // Liste de sprites (textures)
 
 } TInput ;
 

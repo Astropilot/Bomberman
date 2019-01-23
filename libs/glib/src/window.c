@@ -20,7 +20,6 @@ static void TWindow_Init(TWindow *this)
     this->Create_Window = TWindow_Create_Window;
     this->Add_Frame = TWindow_Add_Frame;
     this->Show_Frame = TWindow_Show_Frame;
-    this->Wait_Quit = TWindow_Wait_Quit;
     this->screen_window = NULL;
     this->renderer_window = NULL;
     this->finished = 0;
@@ -153,12 +152,6 @@ void TWindow_Show_Frame(TWindow *this, const char *frame_id, int argc, ...)
         }
         current = current->next;
     }
-    printf("Frame [%s] non trouvée !\n", frame_id);
-}
-
-void TWindow_Wait_Quit(TWindow *this)
-{
-    while (!this->finished);
 }
 
 void TWindow_New_Free(TWindow *this)

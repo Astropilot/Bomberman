@@ -20,7 +20,6 @@ typedef enum drawables_e {
     INPUT
 } drawables_e ;
 
-/* Linked list */
 typedef struct Drawable_Node {
     char *id;
     unsigned int priority;

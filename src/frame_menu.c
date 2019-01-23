@@ -56,7 +56,7 @@ static void On_Load(TFrame* frame, TWindow *window, va_list args)
     TButton *btn_start = (TButton*)frame->Get_Drawable(frame, "BTN_START");
 
     printf("Frame [%s]: On_Load method called | Window finished: %d, %p\n", frame->frame_id, window->finished, &args);
-    // On définit la couleur de fond de la fenêtre.
+
     SDL_StartTextInput();
 
     btn_start->state = BUTTON_NORMAL;

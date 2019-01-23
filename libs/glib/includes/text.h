@@ -19,15 +19,11 @@
 typedef struct TWindow TWindow;
 
 typedef struct TText {
-    /*  Les pointeurs sur fonctions (membres) :                       */
 
-    // Desinne le sprite dans le buffer
     void(*Draw)(struct TText*, TWindow*);
 
-    // Libération des ressources et destruction de l'objet
     void(*Free)(struct TText*);
 
-    /*  Les données membres :                                         */
     char *text;
     SDL_Texture *texture;
     SDL_Rect pos;
