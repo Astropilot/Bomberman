@@ -5,8 +5,8 @@
 **      Graphic library with SDL2
 */
 
-#ifndef TEXT_H_
-#define TEXT_H_
+#ifndef GLIB_TEXT_H_
+#define GLIB_TEXT_H_
 
 #include <stdlib.h>
 #include <unistd.h>

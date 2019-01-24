@@ -5,8 +5,8 @@
 **      Graphic library with SDL2
 */
 
-#ifndef DRAWABLES_H_
-#define DRAWABLES_H_
+#ifndef GLIB_DRAWABLES_H_
+#define GLIB_DRAWABLES_H_
 
 #include <stdlib.h>
 #include <unistd.h>
@@ -15,6 +15,7 @@ typedef struct TWindow TWindow;
 
 typedef enum drawables_e {
     SPRITE,
+    ANIMATED_SPRITE,
     TEXT,
     BUTTON,
     INPUT

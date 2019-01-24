@@ -5,8 +5,8 @@
 **      Graphic library with SDL2
 */
 
-#ifndef FRAME_H_
-#define FRAME_H_
+#ifndef GLIB_FRAME_H_
+#define GLIB_FRAME_H_
 
 #include <stdlib.h>
 #include <unistd.h>

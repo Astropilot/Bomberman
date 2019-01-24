@@ -46,7 +46,8 @@ static void TWindow_Finish_Frames(TWindow *this)
     TFrame_Node *current = this->frames_head;
 
     while (current != NULL) {
-        current->frame->Finish(current->frame, this);
+        if (current->frame->Finish)
+            current->frame->Finish(current->frame, this);
         current = current->next;
     }
 }
@@ -62,13 +63,13 @@ static void TWindow_Loop(TWindow *this)
             if( event.type == SDL_QUIT )
                 this->finished = 1;
             else {
-                if (this->shown_frame)
+                if (this->shown_frame && this->shown_frame->On_Event)
                     this->shown_frame->On_Event(this->shown_frame, this, event);
             }
         }
-        if (this->shown_frame) {
+        if (this->shown_frame && this->shown_frame->On_Tick) {
             current_time = SDL_GetTicks();
-            if (current_time > last_time + 50) {
+            if (current_time > last_time + 30) {
                 this->shown_frame->On_Tick(this->shown_frame, this);
                 last_time = current_time;
             }
@@ -81,7 +82,7 @@ static void TWindow_Loop(TWindow *this)
 int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *frame_id)
 {
     if (SDL_Init(SDL_INIT_VIDEO) != 0 ) {
-        printf("Error while loading game window (SDL)!\n");
+        fprintf(stderr, "Error while loading game window (SDL)!\n");
         return (0);
     }
 
@@ -91,18 +92,18 @@ int TWindow_Create_Window(TWindow *this, const char *title, int width, int heigh
                                     height,
                                     SDL_WINDOW_SHOWN);
     if (this->screen_window == NULL) {
-        printf("Error while loading game window (SDL)!\n");
+        fprintf(stderr, "Error while loading game window (SDL)!\n");
         return (0);
     }
     this->renderer_window = SDL_CreateRenderer(this->screen_window, -1, SDL_RENDERER_ACCELERATED);
     if (this->renderer_window == NULL) {
-        printf("Error while loading game window (SDL)!\n");
+        fprintf(stderr, "Error while loading game window (SDL)!\n");
         return (0);
     }
     IMG_Init(IMG_INIT_PNG);
 
     if(TTF_Init()==-1) {
-        printf("Error while loading TTF (SDL)!\n");
+        fprintf(stderr, "Error while loading TTF (SDL)!\n");
         return (0);
     }
 
@@ -114,6 +115,8 @@ int TWindow_Create_Window(TWindow *this, const char *title, int width, int heigh
 
 void TWindow_Add_Frame(TWindow *this, TFrame *frame)
 {
+    if (!frame)
+        return;
     if (!this->frames_head) {
         TFrame_Node *frame_node = malloc(sizeof(TFrame_Node));
 
@@ -136,16 +139,17 @@ void TWindow_Show_Frame(TWindow *this, const char *frame_id, int argc, ...)
     TFrame_Node *current = this->frames_head;
     while (current != NULL) {
         if (strcmp(current->frame->frame_id, frame_id) == 0) {
-            if (this->shown_frame) {
+            if (this->shown_frame && this->shown_frame->On_Unload) {
                 this->shown_frame->On_Unload(this->shown_frame, this);
             }
-            if (!current->frame->initialized) {
+            if (!current->frame->initialized && current->frame->Init) {
                 current->frame->Init(current->frame, this);
                 current->frame->initialized = 1;
             }
             va_list argp;
             va_start(argp, argc);
-            current->frame->On_Load(current->frame, this, argp);
+            if (current->frame->On_Load)
+                current->frame->On_Load(current->frame, this, argp);
             va_end(argp);
             this->shown_frame = current->frame;
             return;

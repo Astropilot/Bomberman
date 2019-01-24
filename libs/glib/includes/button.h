@@ -5,8 +5,8 @@
 **      Graphic library with SDL2
 */
 
-#ifndef BUTTON_H_
-#define BUTTON_H_
+#ifndef GLIB_BUTTON_H_
+#define GLIB_BUTTON_H_
 
 #include <stdlib.h>
 #include <unistd.h>

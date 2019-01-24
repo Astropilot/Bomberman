@@ -17,6 +17,7 @@
 #include "window.h"
 #include "frame.h"
 #include "sprite.h"
+#include "sprite_animated.h"
 #include "text.h"
 #include "button.h"
 #include "inputbox.h"

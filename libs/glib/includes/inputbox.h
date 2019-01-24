@@ -5,8 +5,8 @@
 **      Graphic library with SDL2
 */
 
-#ifndef INPUTBOX_H_
-#define INPUTBOX_H_
+#ifndef GLIB_INPUTBOX_H_
+#define GLIB_INPUTBOX_H_
 
 #include <stdlib.h>
 #include <unistd.h>

@@ -5,8 +5,8 @@
 **      Graphic library with SDL2
 */
 
-#ifndef WINDOW_H_
-#define WINDOW_H_
+#ifndef GLIB_WINDOW_H_
+#define GLIB_WINDOW_H_
 
 #include <stdlib.h>
 #include <unistd.h>

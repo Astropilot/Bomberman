@@ -5,8 +5,8 @@
 **      Graphic library with SDL2
 */
 
-#ifndef SPRITE_H_
-#define SPRITE_H_
+#ifndef GLIB_SPRITE_H_
+#define GLIB_SPRITE_H_
 
 #include <stdlib.h>
 #include <unistd.h>

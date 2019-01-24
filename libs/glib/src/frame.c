@@ -43,8 +43,12 @@ static void TFrame_Free_Drawables(TFrame *this)
 
 void TFrame_Add_Drawable(TFrame *this, void *drawable, drawables_e type, const char *id, unsigned int priority)
 {
-    Drawable_Node *drawable_node = malloc(sizeof(Drawable_Node));
+    Drawable_Node *drawable_node;
 
+    if (drawable)
+        drawable_node = malloc(sizeof(Drawable_Node));
+    else
+        return;
     drawable_node->id = strdup(id);
     drawable_node->drawable = drawable;
     drawable_node->type = type;

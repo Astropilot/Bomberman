@@ -31,8 +31,12 @@ static void Init(TFrame* frame, TWindow *window)
     SDL_Rect pos_sprite2 = {0, 0, 700, 800};
     TSprite *sp2 = New_TSprite(window, "images/bomberman_game.png", pos_sprite2);
 
+    SDL_Rect pos_anim_sprite = {15, 15, 256, 256};
+    TAnimatedSprite *asp = New_TAnimatedSprite(window, "images/sprite_animated.png", pos_anim_sprite, 100);
+
     frame->Add_Drawable(frame, (void*)sp2, SPRITE, "BG", 999);
     frame->Add_Drawable(frame, (void*)sp, SPRITE, "ICO", 1);
+    frame->Add_Drawable(frame, (void*)asp, ANIMATED_SPRITE, "ANIM", 2);
 }
 
 static void On_Load(TFrame* frame, TWindow *window, va_list args)
