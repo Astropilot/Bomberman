@@ -22,6 +22,7 @@ typedef struct TAnimatedSprite {
     void(*Free)(struct TAnimatedSprite*);
 
     SDL_Texture *texture;
+    SDL_Rect size;
     SDL_Rect pos;
     char *file;
     size_t speed;
@@ -31,7 +32,7 @@ typedef struct TAnimatedSprite {
 
 } TAnimatedSprite ;
 
-TAnimatedSprite* New_TAnimatedSprite(TWindow *win, const char *file, SDL_Rect pos, size_t speed);
+TAnimatedSprite* New_TAnimatedSprite(TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed);
 void TAnimatedSprite_Draw(TAnimatedSprite *this, TWindow *win);
 void TAnimatedSprite_New_Free(TAnimatedSprite *this);
 

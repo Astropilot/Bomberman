@@ -1,38 +1,39 @@
 #include "window.h"
 #include "sprite_animated.h"
 
-static void TAnimatedSprite_Init(TAnimatedSprite *this, TWindow *win, const char *file, SDL_Rect pos, size_t speed);
+static void TAnimatedSprite_Init(TAnimatedSprite *this, TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed);
 
-TAnimatedSprite* New_TAnimatedSprite(TWindow *win, const char *file, SDL_Rect pos, size_t speed)
+TAnimatedSprite* New_TAnimatedSprite(TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed)
 {
     TAnimatedSprite *this = malloc(sizeof(TAnimatedSprite));
 
     if(!this) return NULL;
-    TAnimatedSprite_Init(this, win, file, pos, speed);
+    TAnimatedSprite_Init(this, win, file, size, pos, speed);
     this->Free = TAnimatedSprite_New_Free;
     return this;
 }
 
-static void TAnimatedSprite_Init(TAnimatedSprite *this, TWindow *win, const char *file, SDL_Rect pos, size_t speed)
+static void TAnimatedSprite_Init(TAnimatedSprite *this, TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed)
 {
     SDL_Surface *surface = IMG_Load(file);
     int w, h;
 
     this->Draw = TAnimatedSprite_Draw;
     this->file = strdup(file);
+    this->size = size;
     this->pos = pos;
     this->speed = speed;
     this->actual_frame = 0;
     this->texture = SDL_CreateTextureFromSurface(win->renderer_window, surface);
     SDL_QueryTexture(this->texture, NULL, NULL, &w, &h);
-    this->len_frames = w / pos.w;
+    this->len_frames = w / size.w;
     this->last_time = 0;
     SDL_FreeSurface(surface);
 }
 
 void TAnimatedSprite_Draw(TAnimatedSprite *this, TWindow *win)
 {
-    SDL_Rect tmp_frame = {this->pos.w * this->actual_frame, this->pos.y, this->pos.w, this->pos.h};
+    SDL_Rect tmp_frame = {this->size.w * this->actual_frame, this->size.y, this->size.w, this->size.h};
     unsigned int current_time = 0;
 
     current_time = SDL_GetTicks();
