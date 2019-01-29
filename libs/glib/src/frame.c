@@ -2,7 +2,7 @@
 ** ETNA PROJECT, 28/01/2019 by martin_h, hamide_a, despla_g, weber_w
 ** gLib
 ** File description:
-**      Source file for the frame of GLib.
+**      Source file of the frame of GLib.
 */
 
 #include <string.h>

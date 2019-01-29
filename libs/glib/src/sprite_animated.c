@@ -2,7 +2,7 @@
 ** ETNA PROJECT, 28/01/2019 by martin_h, hamide_a, despla_g, weber_w
 ** gLib
 ** File description:
-**      Source file for the animated sprite component of GLib.
+**      Source file of the animated sprite component of GLib.
 */
 
 #include "window.h"
@@ -58,5 +58,5 @@ void TAnimatedSprite_New_Free(TAnimatedSprite *this)
         SDL_DestroyTexture(this->texture);
     }
     free(this);
-    printf("Sprite Free called!\n");
+    printf("Animated Sprite Free called!\n");
 }

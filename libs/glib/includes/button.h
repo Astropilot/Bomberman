@@ -2,12 +2,12 @@
 ** ETNA PROJECT, 28/01/2019 by martin_h, hamide_a, despla_g, weber_w
 ** gLib
 ** File description:
-**      Header file for the button component of GLib.
+**      Header file of the button component of GLib.
 */
 
 /**
  * \file button.h
- * \brief Header file for the button component of GLib.
+ * \brief Header file of the button component of GLib.
  * \author Yohann.M, Gauthier.D, Aziz.H, William.W
  * \version 1.0
  * \date 28 janvier 2019
