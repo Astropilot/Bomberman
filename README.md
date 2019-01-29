@@ -8,9 +8,9 @@ Bomberman game with networked multiplayer (up to 4 players) programmed in C with
 
 ## Team
 
-Lead developper: @Astropilot
+Lead developper: [@Astropilot](https://github.com/Astropilot)
 
-Developpers: @heinsenbergggg @gaudesp
+Developpers: [@heinsenbergggg](https://github.com/heinsenbergggg) [@gaudesp](https://github.com/gaudesp) and [@GhostRolly](https://github.com/GhostRolly)
 
 ## First Part - SDL
 
