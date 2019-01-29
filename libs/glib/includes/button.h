@@ -6,11 +6,11 @@
 */
 
 /**
- * \file button.h
- * \brief Header file of the button component of GLib.
- * \author Yohann.M, Gauthier.D, Aziz.H, William.W
- * \version 1.0
- * \date 28 janvier 2019
+ * @file button.h
+ * @brief Header file of the button component of GLib.
+ * @author Yohann.M, Gauthier.D, Aziz.H, William.W
+ * @version 1.0
+ * @date 28 janvier 2019
  *
  * The button component allows you to create a graphical button that can
  * be manipulated by GLib.
@@ -29,8 +29,8 @@
 #include "sprite.h"
 
 /**
- * \enum EButton_State
- * \brief Constants of the states of a button.
+ * @enum EButton_State
+ * @brief Constants of the states of a button.
  *
  * EButton_State is a series of predefined constants for the different
  * states of a button.
@@ -41,8 +41,8 @@ typedef enum EButton_State {
 } EButton_State ;
 
 /**
- * \struct TButton
- * \brief Object oriented structure representing a button.
+ * @struct TButton
+ * @brief Object oriented structure representing a button.
  *
  * TButton is an object that allows you to create and display a button.
  */
@@ -64,23 +64,23 @@ typedef struct TButton {
 } TButton ;
 
 /**
- * \fn TButton* New_TButton(const char *btn_s, const char *btn_hs, SDL_Rect pos, TWindow *win)
- * \brief The constructor for create a TButton object.
+ * @fn TButton* New_TButton(const char *btn_s, const char *btn_hs, SDL_Rect pos, TWindow *win)
+ * @brief The constructor for create a TButton object.
  *
- * \param btn_s The path of an image file for the button in normal state.
- * \param btn_hs The path of an image file for the button in hover state.
- * \param pos The position and size of the button.
- * \param win A pointer to the window object.
- * \return A memory allocated object of the button.
+ * @param btn_s The path of an image file for the button in normal state.
+ * @param btn_hs The path of an image file for the button in hover state.
+ * @param pos The position and size of the button.
+ * @param win A pointer to the window object.
+ * @return A memory allocated object of the button.
  */
 TButton* New_TButton(const char *btn_s, const char *btn_hs, SDL_Rect pos, TWindow *win);
 
 /**
- * \fn void TButton_Draw(TButton *this, TWindow *window)
- * \brief Method for drawing the button in the interface.
+ * @fn void TButton_Draw(TButton *this, TWindow *window)
+ * @brief Method for drawing the button in the interface.
  *
- * \param this A pointer to the button object to draw.
- * \param window A pointer to the window object.
+ * @param this A pointer to the button object to draw.
+ * @param window A pointer to the window object.
  *
  * You do not have to call this method directly. You must use the
  * Draw method of the TButton structure like this:
@@ -89,12 +89,12 @@ TButton* New_TButton(const char *btn_s, const char *btn_hs, SDL_Rect pos, TWindo
 void TButton_Draw(TButton *this, TWindow *window);
 
 /**
- * \fn void TButton_Event_Handler(TButton *this, TWindow *win, SDL_Event event)
- * \brief Method to process an SDL event and change the status of the button or manage clicks.
+ * @fn void TButton_Event_Handler(TButton *this, TWindow *win, SDL_Event event)
+ * @brief Method to process an SDL event and change the status of the button or manage clicks.
  *
- * \param this A pointer to the button object.
- * \param win A pointer to the window object.
- * \param event A SDL event.
+ * @param this A pointer to the button object.
+ * @param win A pointer to the window object.
+ * @param event A SDL event.
  *
  * You do not have to call this method directly. You must use the
  * Event_Handler method of the TButton structure like this:
@@ -103,10 +103,10 @@ void TButton_Draw(TButton *this, TWindow *window);
 void TButton_Event_Handler(TButton *this, TWindow *win, SDL_Event event);
 
 /**
- * \fn void TButton_New_Free(TButton *this)
- * \brief Method to free all ressources take by the button.
+ * @fn void TButton_New_Free(TButton *this)
+ * @brief Method to free all ressources take by the button.
  *
- * \param this A pointer to the button object to free.
+ * @param this A pointer to the button object to free.
  *
  * You do not have to call this method directly. You must use the
  * Free method of the TButton structure like this:

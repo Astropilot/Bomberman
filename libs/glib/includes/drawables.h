@@ -6,11 +6,11 @@
 */
 
 /**
- * \file drawables.h
- * \brief Header file of the drawables tools of GLib.
- * \author Yohann.M, Gauthier.D, Aziz.H, William.W
- * \version 1.0
- * \date 28 janvier 2019
+ * @file drawables.h
+ * @brief Header file of the drawables tools of GLib.
+ * @author Yohann.M, Gauthier.D, Aziz.H, William.W
+ * @version 1.0
+ * @date 28 janvier 2019
  *
  * The button component allows you to create a graphical button that can
  * be manipulated by GLib.
@@ -26,8 +26,8 @@
 typedef struct TWindow TWindow;
 
 /**
- * \enum drawables_e
- * \brief Constants of all the drawables type.
+ * @enum drawables_e
+ * @brief Constants of all the drawables type.
  *
  * drawables_e is a series of predefined constants for the different
  * types of drawable.
@@ -41,8 +41,8 @@ typedef enum drawables_e {
 } drawables_e ;
 
 /**
- * \struct Drawable_Node
- * \brief A linked list for generic drawables.
+ * @struct Drawable_Node
+ * @brief A linked list for generic drawables.
  *
  * Drawable_Node is an linked list for stock differents types of drawables.
  */
@@ -55,19 +55,19 @@ typedef struct Drawable_Node {
 } Drawable_Node ;
 
 /**
- * \fn void drawableCallDraw(Drawable_Node *drawable, TWindow *win)
- * \brief This function will call the Draw method of the drawable given.
+ * @fn void drawableCallDraw(Drawable_Node *drawable, TWindow *win)
+ * @brief This function will call the Draw method of the drawable given.
  *
- * \param drawable A pointer to a drawable node (of the linked list).
- * \param win A pointer to the window object.
+ * @param drawable A pointer to a drawable node (of the linked list).
+ * @param win A pointer to the window object.
  */
 void drawableCallDraw(Drawable_Node *drawable, TWindow *win);
 
 /**
- * \fn void drawableCallFree(Drawable_Node *drawable)
- * \brief This function will call the Free method of the drawable given.
+ * @fn void drawableCallFree(Drawable_Node *drawable)
+ * @brief This function will call the Free method of the drawable given.
  *
- * \param drawable A pointer to a drawable node (of the linked list).
+ * @param drawable A pointer to a drawable node (of the linked list).
  */
 void drawableCallFree(Drawable_Node *drawable);
 

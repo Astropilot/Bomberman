@@ -6,11 +6,11 @@
 */
 
 /**
- * \file frame.h
- * \brief Header file of the TFrame of GLib.
- * \author Yohann.M, Gauthier.D, Aziz.H, William.W
- * \version 1.0
- * \date 28 janvier 2019
+ * @file frame.h
+ * @brief Header file of the TFrame of GLib.
+ * @author Yohann.M, Gauthier.D, Aziz.H, William.W
+ * @version 1.0
+ * @date 28 janvier 2019
  *
  * The TFrame object allow you to create an isolated graphic environnement
  * whith it own logic.
@@ -33,8 +33,8 @@
 typedef struct TWindow TWindow;
 
 /**
- * \struct TFrame
- * \brief Object oriented structure representing a frame.
+ * @struct TFrame
+ * @brief Object oriented structure representing a frame.
  *
  * TFrame is an object that allows you to create and define a new frame.
  */
@@ -69,8 +69,8 @@ typedef struct TFrame {
 } TFrame ;
 
 /**
- * \struct TFrame_Node
- * \brief A linked list node for frames.
+ * @struct TFrame_Node
+ * @brief A linked list node for frames.
  *
  * TFrame_Node is an linked list node for stock TFrame objects.
  */
@@ -80,23 +80,23 @@ typedef struct TFrame_Node {
 } TFrame_Node ;
 
 /**
- * \fn TFrame* New_TFrame(const char *frame_id)
- * \brief The constructor for create a TFrame object.
+ * @fn TFrame* New_TFrame(const char *frame_id)
+ * @brief The constructor for create a TFrame object.
  *
- * \param frame_id A unique ID.
- * \return A memory allocated object of the frame.
+ * @param frame_id A unique ID.
+ * @return A memory allocated object of the frame.
  */
 TFrame* New_TFrame(const char *frame_id);
 
 /**
- * \fn void TFrame_Add_Drawable(TFrame *this, void *drawable, drawables_e type, const char *id, unsigned int priority)
- * \brief Method for adding a drawable to the frame.
+ * @fn void TFrame_Add_Drawable(TFrame *this, void *drawable, drawables_e type, const char *id, unsigned int priority)
+ * @brief Method for adding a drawable to the frame.
  *
- * \param this A pointer to the frame object.
- * \param drawable A generic drawable.
- * \param type The type of drawable. See drawables_e enum in drawables.h header.
- * \param id An unique ID for the drawable.
- * \param priority The drawing priority. The lower the priority (close to 1), the more it will be drawn last.
+ * @param this A pointer to the frame object.
+ * @param drawable A generic drawable.
+ * @param type The type of drawable. See drawables_e enum in drawables.h header.
+ * @param id An unique ID for the drawable.
+ * @param priority The drawing priority. The lower the priority (close to 1), the more it will be drawn last.
  *
  * You do not have to call this method directly. You must use the
  * Add_Drawable method of the TFrame structure like this:
@@ -105,12 +105,12 @@ TFrame* New_TFrame(const char *frame_id);
 void TFrame_Add_Drawable(TFrame *this, void *drawable, drawables_e type, const char *id, unsigned int priority);
 
 /**
- * \fn void *TFrame_Remove_Drawable(TFrame *this, const char *id)
- * \brief Method for deleting a drawable. The drawable is not free !
+ * @fn void *TFrame_Remove_Drawable(TFrame *this, const char *id)
+ * @brief Method for deleting a drawable. The drawable is not free !
  *
- * \param this A pointer to the frame object.
- * \param id The ID of the drawable to delete.
- * \return The drawable object deleted from the frame.
+ * @param this A pointer to the frame object.
+ * @param id The ID of the drawable to delete.
+ * @return The drawable object deleted from the frame.
  *
  * You do not have to call this method directly. You must use the
  * Add_Drawable method of the TFrame structure like this:
@@ -119,12 +119,12 @@ void TFrame_Add_Drawable(TFrame *this, void *drawable, drawables_e type, const c
 void *TFrame_Remove_Drawable(TFrame *this, const char *id);
 
 /**
- * \fn void *TFrame_Get_Drawable(TFrame *this, const char *id)
- * \brief Method for getting a drawable.
+ * @fn void *TFrame_Get_Drawable(TFrame *this, const char *id)
+ * @brief Method for getting a drawable.
  *
- * \param this A pointer to the frame object.
- * \param id The ID of the drawable to get.
- * \return The drawable object.
+ * @param this A pointer to the frame object.
+ * @param id The ID of the drawable to get.
+ * @return The drawable object.
  *
  * You do not have to call this method directly. You must use the
  * Get_Drawable method of the TFrame structure like this:
@@ -133,11 +133,11 @@ void *TFrame_Remove_Drawable(TFrame *this, const char *id);
 void *TFrame_Get_Drawable(TFrame *this, const char *id);
 
 /**
- * \fn void TFrame_Draw_Drawables(TFrame *this, TWindow *win)
- * \brief Method for drawing all drawables in the frame.
+ * @fn void TFrame_Draw_Drawables(TFrame *this, TWindow *win)
+ * @brief Method for drawing all drawables in the frame.
  *
- * \param this A pointer to the frame object.
- * \param win A pointer to the window object.
+ * @param this A pointer to the frame object.
+ * @param win A pointer to the window object.
  *
  * You do not have to call this method directly. You must use the
  * Draw_Drawables method of the TFrame structure like this:
@@ -146,10 +146,10 @@ void *TFrame_Get_Drawable(TFrame *this, const char *id);
 void TFrame_Draw_Drawables(TFrame *this, TWindow *win);
 
 /**
- * \fn void TFrame_New_Free(TFrame *this)
- * \brief Method to free all ressources take by the frame, drawables included.
+ * @fn void TFrame_New_Free(TFrame *this)
+ * @brief Method to free all ressources take by the frame, drawables included.
  *
- * \param this A pointer to the frame object to free.
+ * @param this A pointer to the frame object to free.
  *
  * You do not have to call this method directly. You must use the
  * Free method of the TFrame structure like this:

@@ -42,17 +42,17 @@ static void Init(TFrame* frame, TWindow *window)
     TSprite *sp_title = New_TSprite(window, "images/bomberman_logo_title.png", pos_title);
 
     SDL_Rect pos = {(WIN_WIDTH / 2) - (400 / 2), 250, 400, 92};
-    TInput *input_username = New_TInput("images/input.png", pos, window, color);
+    TInput *input_username = New_TInput("images/input.png", pos, window, color, 15, "Username");
     ptr_username = (input_username->text);
 
     SDL_Rect pos2 = {(WIN_WIDTH / 2) - (400 / 2), (pos.y + pos.h) + 15, 400, 92};
-    TInput *input_serverip = New_TInput("images/input.png", pos2, window, color);
+    TInput *input_serverip = New_TInput("images/input.png", pos2, window, color, 15, "Server IP");
 
     SDL_Rect pos3 = {(WIN_WIDTH / 2) - (400 / 2), (pos2.y + pos2.h) + 15, 400, 92};
-    TInput *input_serverport = New_TInput("images/input.png", pos3, window, color);
+    TInput *input_serverport = New_TInput("images/input.png", pos3, window, color, 5, "Server port");
 
     SDL_Rect pos_button_play = {(WIN_WIDTH / 2) - (410 / 2), (pos3.y + pos3.h) + 15, 410, 64};
-    TButton *btn_play = New_TButton("images/button_quit_normal.png", "images/button_quit_hover.png", pos_button_play, window);
+    TButton *btn_play = New_TButton("images/button_join_normal.png", "images/button_join_hover.png", pos_button_play, window);
     btn_play->On_Click = On_Click_Play_Button;
 
     frame->Add_Drawable(frame, (void*)sp_bg, ANIMATED_SPRITE, "BG", 999);

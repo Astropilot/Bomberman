@@ -6,11 +6,11 @@
 */
 
 /**
- * \file glib.h
- * \brief Graphic wrapper around the SDL2.
- * \author Yohann.M, Gauthier.D, Aziz.H, William.W
- * \version 1.0
- * \date 28 janvier 2019
+ * @file glib.h
+ * @brief Graphic wrapper around the SDL2.
+ * @author Yohann.M, Gauthier.D, Aziz.H, William.W
+ * @version 1.0
+ * @date 28 janvier 2019
  *
  * The GLib framework is a wrapper around the SDL2 library providing higher-level
  * methods for creating graphical games.

@@ -8,7 +8,9 @@ var struct_t_input =
     [ "input_sprite", "struct_t_input.html#aa066b33a76c969e7fb18d047c50bee46", null ],
     [ "is_focus", "struct_t_input.html#aa3cb47471d49b3c9204c215fd35a6e7f", null ],
     [ "last_time", "struct_t_input.html#a4887403d586b66ce3f5c1b1fea45414b", null ],
+    [ "max_len", "struct_t_input.html#a956cb5a3c4322e6d67c2f2b21077716c", null ],
+    [ "placeholder", "struct_t_input.html#a1932d697ff6510c20e56ec0792a5e278", null ],
     [ "pos_input", "struct_t_input.html#a5bdbaba925d0e8b4353e9c68cc998b8b", null ],
     [ "pos_text", "struct_t_input.html#a32ba87dc154f7893650a34526c939de5", null ],
-    [ "text", "struct_t_input.html#a7f21881bcea7e7f123c69e4da4c17e36", null ]
+    [ "text", "struct_t_input.html#a5633b1433389cec21ade3811bbe9ca5b", null ]
 ];

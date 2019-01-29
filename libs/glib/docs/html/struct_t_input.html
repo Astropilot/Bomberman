@@ -83,8 +83,12 @@ Data Fields</h2></td></tr>
 <tr class="separator:a93c16af935f6971949597877d29fe633"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd2a3cc6c02fac621f76ea68689d6a7a"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_input.html#acd2a3cc6c02fac621f76ea68689d6a7a">Free</a> )(struct <a class="el" href="struct_t_input.html">TInput</a> *)</td></tr>
 <tr class="separator:acd2a3cc6c02fac621f76ea68689d6a7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f21881bcea7e7f123c69e4da4c17e36"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_input.html#a7f21881bcea7e7f123c69e4da4c17e36">text</a> [<a class="el" href="inputbox_8h.html#a58ce36916c399104e18d32ff090f21c6">MAX_STR_LEN</a>]</td></tr>
-<tr class="separator:a7f21881bcea7e7f123c69e4da4c17e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5633b1433389cec21ade3811bbe9ca5b"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_input.html#a5633b1433389cec21ade3811bbe9ca5b">text</a></td></tr>
+<tr class="separator:a5633b1433389cec21ade3811bbe9ca5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1932d697ff6510c20e56ec0792a5e278"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_input.html#a1932d697ff6510c20e56ec0792a5e278">placeholder</a></td></tr>
+<tr class="separator:a1932d697ff6510c20e56ec0792a5e278"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a956cb5a3c4322e6d67c2f2b21077716c"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_input.html#a956cb5a3c4322e6d67c2f2b21077716c">max_len</a></td></tr>
+<tr class="separator:a956cb5a3c4322e6d67c2f2b21077716c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa066b33a76c969e7fb18d047c50bee46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_sprite.html">TSprite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_input.html#aa066b33a76c969e7fb18d047c50bee46">input_sprite</a></td></tr>
 <tr class="separator:aa066b33a76c969e7fb18d047c50bee46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf5bfa705e66ffc1ddaa6ce46c960873"><td class="memItemLeft" align="right" valign="top">TTF_Font *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_input.html#abf5bfa705e66ffc1ddaa6ce46c960873">font</a></td></tr>
@@ -224,6 +228,36 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="a956cb5a3c4322e6d67c2f2b21077716c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a956cb5a3c4322e6d67c2f2b21077716c">&#9670;&nbsp;</a></span>max_len</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t max_len</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The maximum length of the input text. </p>
+
+</div>
+</div>
+<a id="a1932d697ff6510c20e56ec0792a5e278"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1932d697ff6510c20e56ec0792a5e278">&#9670;&nbsp;</a></span>placeholder</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* placeholder</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The placeholder text in the input box. </p>
+
+</div>
+</div>
 <a id="a5bdbaba925d0e8b4353e9c68cc998b8b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5bdbaba925d0e8b4353e9c68cc998b8b">&#9670;&nbsp;</a></span>pos_input</h2>
 
@@ -254,14 +288,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a7f21881bcea7e7f123c69e4da4c17e36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f21881bcea7e7f123c69e4da4c17e36">&#9670;&nbsp;</a></span>text</h2>
+<a id="a5633b1433389cec21ade3811bbe9ca5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5633b1433389cec21ade3811bbe9ca5b">&#9670;&nbsp;</a></span>text</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char text[<a class="el" href="inputbox_8h.html#a58ce36916c399104e18d32ff090f21c6">MAX_STR_LEN</a>]</td>
+          <td class="memname">char* text</td>
         </tr>
       </table>
 </div><div class="memdoc">

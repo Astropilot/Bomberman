@@ -6,11 +6,11 @@
 */
 
 /**
- * \file window.h
- * \brief Header file of the TWindow of GLib.
- * \author Yohann.M, Gauthier.D, Aziz.H, William.W
- * \version 1.0
- * \date 28 janvier 2019
+ * @file window.h
+ * @brief Header file of the TWindow of GLib.
+ * @author Yohann.M, Gauthier.D, Aziz.H, William.W
+ * @version 1.0
+ * @date 28 janvier 2019
  *
  * The TWindow allows you to create a SDL window that can
  * be manipulated by GLib and handle TFrames and game loop.
@@ -30,8 +30,8 @@
 #include "frame.h"
 
 /**
- * \struct TWindow
- * \brief Object oriented structure representing a window.
+ * @struct TWindow
+ * @brief Object oriented structure representing a window.
  *
  * TWindow is an object that allows you to create and display a window.
  */
@@ -51,22 +51,22 @@ typedef struct TWindow {
 } TWindow ;
 
 /**
- * \fn TWindow* New_TWindow(void)
- * \brief The constructor for create a TWindow object.
+ * @fn TWindow* New_TWindow(void)
+ * @brief The constructor for create a TWindow object.
  *
- * \return A memory allocated object of the window.
+ * @return A memory allocated object of the window.
  */
 TWindow* New_TWindow(void);
 
 /**
- * \fn int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *frame_id)
- * \brief Method for creating and showing the SDL window.
+ * @fn int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *frame_id)
+ * @brief Method for creating and showing the SDL window.
  *
- * \param this A pointer to the window object.
- * \param title The title of the SDL window.
- * \param width The width of the SDL window.
- * \param height The height of the SDL window.
- * \param frame_id The ID of the frame to be show first.
+ * @param this A pointer to the window object.
+ * @param title The title of the SDL window.
+ * @param width The width of the SDL window.
+ * @param height The height of the SDL window.
+ * @param frame_id The ID of the frame to be show first.
  *
  * You do not have to call this method directly. You must use the
  * Create_Window method of the TWindow structure like this:
@@ -75,11 +75,11 @@ TWindow* New_TWindow(void);
 int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *frame_id);
 
 /**
- * \fn void TWindow_Add_Frame(TWindow *this, TFrame *frame)
- * \brief Method for adding a frame to the window.
+ * @fn void TWindow_Add_Frame(TWindow *this, TFrame *frame)
+ * @brief Method for adding a frame to the window.
  *
- * \param this A pointer to the window object.
- * \param frame The frame to add.
+ * @param this A pointer to the window object.
+ * @param frame The frame to add.
  *
  * You do not have to call this method directly. You must use the
  * Add_Frame method of the TWindow structure like this:
@@ -88,12 +88,12 @@ int TWindow_Create_Window(TWindow *this, const char *title, int width, int heigh
 void TWindow_Add_Frame(TWindow *this, TFrame *frame);
 
 /**
- * \fn void TWindow_Show_Frame(TWindow *this, const char *frame_id, int argc, ...)
- * \brief Method for showing a frame to the window.
+ * @fn void TWindow_Show_Frame(TWindow *this, const char *frame_id, int argc, ...)
+ * @brief Method for showing a frame to the window.
  *
- * \param this A pointer to the window object.
- * \param frame The frame ID to show.
- * \param argc The number of optionnals parameters for the frame to show. To be followed by the parameters if argc > 0.
+ * @param this A pointer to the window object.
+ * @param frame The frame ID to show.
+ * @param argc The number of optionnals parameters for the frame to show. To be followed by the parameters if argc > 0.
  *
  * You do not have to call this method directly. You must use the
  * Show_Frame method of the TWindow structure like this:
@@ -102,10 +102,10 @@ void TWindow_Add_Frame(TWindow *this, TFrame *frame);
 void TWindow_Show_Frame(TWindow *this, const char *frame_id, int argc, ...);
 
 /**
- * \fn void TWindow_New_Free(TWindow *this)
- * \brief Method to free all ressources take by the window and frames.
+ * @fn void TWindow_New_Free(TWindow *this)
+ * @brief Method to free all ressources take by the window and frames.
  *
- * \param this A pointer to the window object to free.
+ * @param this A pointer to the window object to free.
  *
  * You do not have to call this method directly. You must use the
  * Free method of the TWindow structure like this:

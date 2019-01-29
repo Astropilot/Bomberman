@@ -6,11 +6,11 @@
 */
 
 /**
- * \file sprite_animated.h
- * \brief Header file of the animated sprite component of GLib.
- * \author Yohann.M, Gauthier.D, Aziz.H, William.W
- * \version 1.0
- * \date 28 janvier 2019
+ * @file sprite_animated.h
+ * @brief Header file of the animated sprite component of GLib.
+ * @author Yohann.M, Gauthier.D, Aziz.H, William.W
+ * @version 1.0
+ * @date 28 janvier 2019
  *
  * The animated sprite component allows you to create a graphical animated
  * sprite that can be manipulated by GLib.
@@ -28,8 +28,8 @@
 typedef struct TWindow TWindow;
 
 /**
- * \struct TAnimatedSprite
- * \brief Object oriented structure representing a animated sprite.
+ * @struct TAnimatedSprite
+ * @brief Object oriented structure representing a animated sprite.
  *
  * TAnimatedSprite is an object that allows you to create and display a animated sprite.
  */
@@ -51,24 +51,24 @@ typedef struct TAnimatedSprite {
 } TAnimatedSprite ;
 
 /**
- * \fn TAnimatedSprite* New_TAnimatedSprite(TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed)
- * \brief The constructor for create a TAnimatedSprite object.
+ * @fn TAnimatedSprite* New_TAnimatedSprite(TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed)
+ * @brief The constructor for create a TAnimatedSprite object.
  *
- * \param win A pointer to the window object.
- * \param file The path of an image file containing all the sprite frames.
- * \param size The size of a single frame, the x and y are ignored.
- * \param pos The position and size of the sprite on the screen.
- * \param speed The delay in milliseconds between each frame.
- * \return A memory allocated object of the animated sprite.
+ * @param win A pointer to the window object.
+ * @param file The path of an image file containing all the sprite frames.
+ * @param size The size of a single frame, the x and y are ignored.
+ * @param pos The position and size of the sprite on the screen.
+ * @param speed The delay in milliseconds between each frame.
+ * @return A memory allocated object of the animated sprite.
  */
 TAnimatedSprite* New_TAnimatedSprite(TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed);
 
 /**
- * \fn void TAnimatedSprite_Draw(TAnimatedSprite *this, TWindow *win)
- * \brief Method for drawing the animated sprite in the interface.
+ * @fn void TAnimatedSprite_Draw(TAnimatedSprite *this, TWindow *win)
+ * @brief Method for drawing the animated sprite in the interface.
  *
- * \param this A pointer to the animated sprite object to draw.
- * \param win A pointer to the window object.
+ * @param this A pointer to the animated sprite object to draw.
+ * @param win A pointer to the window object.
  *
  * You do not have to call this method directly. You must use the
  * Draw method of the TAnimatedSprite structure like this:
@@ -77,10 +77,10 @@ TAnimatedSprite* New_TAnimatedSprite(TWindow *win, const char *file, SDL_Rect si
 void TAnimatedSprite_Draw(TAnimatedSprite *this, TWindow *win);
 
 /**
- * \fn void TAnimatedSprite_New_Free(TAnimatedSprite *this)
- * \brief Method to free all ressources take by the animated sprite.
+ * @fn void TAnimatedSprite_New_Free(TAnimatedSprite *this)
+ * @brief Method to free all ressources take by the animated sprite.
  *
- * \param this A pointer to the animated sprite object to free.
+ * @param this A pointer to the animated sprite object to free.
  *
  * You do not have to call this method directly. You must use the
  * Free method of the TAnimatedSprite structure like this:
