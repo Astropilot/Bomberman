@@ -1,3 +1,10 @@
+/*
+** ETNA PROJECT, 28/01/2019 by martin_h, hamide_a, despla_g, weber_w
+** gLib
+** File description:
+**      Source file for the animated sprite component of GLib.
+*/
+
 #include "window.h"
 #include "sprite_animated.h"
 

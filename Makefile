@@ -26,8 +26,8 @@ makereslib:
 
 all: $(NAME)
 
-$(NAME): makeglib makereslib $(OBJ)
-	gcc $(CFLAGS) $(OBJ) -o $(NAME) $(SDL) $(GLIB) $(RESLIB)
+$(NAME): makeglib $(OBJ)
+	gcc $(CFLAGS) $(OBJ) -o $(NAME) $(SDL) $(GLIB)
 
 clean:
 	$(RM) $(OBJ)
@@ -43,4 +43,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: makeglib makereslib all $(NAME) clean fclean re
+.PHONY: makeglib all $(NAME) clean fclean re

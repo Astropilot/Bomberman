@@ -1,9 +1,21 @@
 /*
-** ETNA PROJECT, 16/01/2019 by group
+** ETNA PROJECT, 28/01/2019 by martin_h, hamide_a, despla_g, weber_w
 ** gLib
 ** File description:
-**      Graphic library with SDL2
+**      Graphic wrapper around the SDL2
 */
+
+/**
+ * \file glib.h
+ * \brief Graphic wrapper around the SDL2.
+ * \author Yohann.M, Gauthier.D, Aziz.H, William.W
+ * \version 1.0
+ * \date 28 janvier 2019
+ *
+ * The GLib framework is a wrapper around the SDL2 library providing higher-level
+ * methods for creating graphical games.
+ *
+ */
 
 #ifndef GLIB_H_
 #define GLIB_H_

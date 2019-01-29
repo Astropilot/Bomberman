@@ -1,9 +1,21 @@
 /*
-** ETNA PROJECT, 16/01/2019 by group
+** ETNA PROJECT, 28/01/2019 by martin_h, hamide_a, despla_g, weber_w
 ** gLib
 ** File description:
-**      Graphic library with SDL2
+**      Header file for the animated sprite component of GLib.
 */
+
+/**
+ * \file sprite_animated.h
+ * \brief Header file for the animated sprite component of GLib.
+ * \author Yohann.M, Gauthier.D, Aziz.H, William.W
+ * \version 1.0
+ * \date 28 janvier 2019
+ *
+ * The animated sprite component allows you to create a graphical animated
+ * sprite that can be manipulated by GLib.
+ *
+ */
 
 #ifndef GLIB_SPRITE_ANIMATED_H_
 #define GLIB_SPRITE_ANIMATED_H_
@@ -15,25 +27,65 @@
 
 typedef struct TWindow TWindow;
 
+/**
+ * \struct TAnimatedSprite
+ * \brief Object oriented structure representing a animated sprite.
+ *
+ * TAnimatedSprite is an object that allows you to create and display a animated sprite.
+ */
 typedef struct TAnimatedSprite {
 
-    void(*Draw)(struct TAnimatedSprite*, TWindow*);
+    void(*Draw)(struct TAnimatedSprite*, TWindow*);     /*!< Draw method. */
 
-    void(*Free)(struct TAnimatedSprite*);
+    void(*Free)(struct TAnimatedSprite*);               /*!< Free (ressources) method. */
 
-    SDL_Texture *texture;
-    SDL_Rect size;
-    SDL_Rect pos;
-    char *file;
-    size_t speed;
-    size_t len_frames;
-    unsigned int actual_frame;
-    unsigned int last_time;
+    SDL_Texture *texture;                               /*!< The texture with all frames of the sprite. */
+    SDL_Rect size;                                      /*!< The size of a single frame. */
+    SDL_Rect pos;                                       /*!< The size and position of the animated sprite on the screen. */
+    char *file;                                         /*!< The image file of the sprite. */
+    size_t speed;                                       /*!< The delay in milliseconds between each frame. */
+    size_t len_frames;                                  /*!< The number of frames, automatically calculated. */
+    unsigned int actual_frame;                          /*!< The actual index frame to draw. */
+    unsigned int last_time;                             /*!< Internal variable for sprite animation timing */
 
 } TAnimatedSprite ;
 
+/**
+ * \fn TAnimatedSprite* New_TAnimatedSprite(TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed)
+ * \brief The constructor for create a TAnimatedSprite object.
+ *
+ * \param win A pointer to the window object.
+ * \param file The path of an image file containing all the sprite frames.
+ * \param size The size of a single frame, the x and y are ignored.
+ * \param pos The position and size of the sprite on the screen.
+ * \param speed The delay in milliseconds between each frame.
+ * \return A memory allocated object of the animated sprite.
+ */
 TAnimatedSprite* New_TAnimatedSprite(TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed);
+
+/**
+ * \fn void TAnimatedSprite_Draw(TAnimatedSprite *this, TWindow *win)
+ * \brief Method for drawing the animated sprite in the interface.
+ *
+ * \param this A pointer to the animated sprite object to draw.
+ * \param win A pointer to the window object.
+ *
+ * You do not have to call this method directly. You must use the
+ * Draw method of the TAnimatedSprite structure like this:
+ * my_sprite->Draw(my_sprite, window);
+ */
 void TAnimatedSprite_Draw(TAnimatedSprite *this, TWindow *win);
+
+/**
+ * \fn void TAnimatedSprite_New_Free(TAnimatedSprite *this)
+ * \brief Method to free all ressources take by the animated sprite.
+ *
+ * \param this A pointer to the animated sprite object to free.
+ *
+ * You do not have to call this method directly. You must use the
+ * Free method of the TAnimatedSprite structure like this:
+ * my_sprite->Free(my_sprite);
+ */
 void TAnimatedSprite_New_Free(TAnimatedSprite *this);
 
 #endif

@@ -1,3 +1,10 @@
+/*
+** ETNA PROJECT, 28/01/2019 by martin_h, hamide_a, despla_g, weber_w
+** gLib
+** File description:
+**      Source file for the button component of GLib.
+*/
+
 #include "button.h"
 
 static void TButton_Init(TButton *this, const char *btn_s, const char *btn_hs, SDL_Rect pos, TWindow *win);
@@ -21,6 +28,7 @@ static void TButton_Init(TButton *this, const char *btn_s, const char *btn_hs, S
     this->state = BUTTON_NORMAL;
     this->pos = pos;
 }
+
 
 void TButton_Draw(TButton *this, TWindow *window)
 {

@@ -19,15 +19,21 @@ typedef struct TSClient {
 typedef struct TSClient_Node {
     TSClient client;
     struct TSClient_Node *next;
-}
+} TSClient_Node ;
 
 typedef struct TServer {
 
     int(*Listen)(struct TServer*, unsigned short int, size_t);
 
+    TSClient(*AddClient)(struct TServer*);
+
     TSClient(*AddClient_Async)(struct TServer*);
 
+    void(*SendTo)(TServer*, const void*, size_t, TSClient);
+
     void(*SendTo_Async)(TServer*, const void*, size_t, TSClient);
+
+    int(*Recv)(TServer*);
 
     SOCKET server_sock; // int
     TSClient_Node *clients_head;
