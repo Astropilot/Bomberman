@@ -5,10 +5,12 @@
 #include "glib.h"
 #include "frame_game.h"
 #include "frame_menu.h"
+#include "main.h"
 
 #include "reslib.h"
 
 #define BUF_SIZE 4096
+
 
 void client_code(void);
 void server_code(void);
@@ -22,7 +24,7 @@ int main()
     if (window) {
         window->Add_Frame(window, frame_game);
         window->Add_Frame(window, frame_menu);
-        window->Create_Window(window, "Sample #1 GLib", 700, 800, "FRAME_MENU");
+        window->Create_Window(window, "Bomberman", WIN_WIDTH, WIN_HEIGHT, "FRAME_MENU");
 
         window->Free(window);
         window = NULL;

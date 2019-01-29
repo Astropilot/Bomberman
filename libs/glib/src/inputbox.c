@@ -31,7 +31,7 @@ static void TInput_Init(TInput *this, const char *file, SDL_Rect pos, TWindow *w
     this->color = color;
     this->pos_input = pos;
     s_tmp = TTF_RenderText_Solid(this->font, "TmP", this->color);
-    pos.x += 20;
+    pos.x += 40;
     pos.y = ( (pos.y + pos.h) / 2) - ( (s_tmp->h - pos.y) / 2);
     this->pos_text = pos;
     this->is_focus = 0;
