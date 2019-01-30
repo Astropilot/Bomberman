@@ -91,10 +91,11 @@ static void On_Event(TFrame* frame, TWindow *window, SDL_Event event)
         if (event.key.keysym.sym == SDLK_ESCAPE)
             window->Show_Frame(window, "FRAME_MAIN_MENU", 0);
         if (event.key.keysym.sym == SDLK_SPACE) {
-            SDL_Rect pos_bomb = {asp->pos.x + (asp->pos.w / 2), asp->pos.y + (asp->pos.h / 2), 24, 24};
-            TSprite *sp = New_TSprite(window, "images/bomb.png", pos_bomb);
-
-            frame->Add_Drawable(frame, (void*)sp, SPRITE, "BOMB", 2);
+            SDL_Rect size_bomb = {0, 0, 256, 256};
+            SDL_Rect pos_bomb = {asp->pos.x + (asp->pos.w / 2), asp->pos.y + (asp->pos.h / 2), 32, 32};
+            TAnimatedSprite *sp = New_TAnimatedSprite(window, "images/bomberman_bomb_animated.png", size_bomb, pos_bomb, 128);
+            
+            frame->Add_Drawable(frame, (void*)sp, ANIMATED_SPRITE, "BOMB", 2);
         }
     }
 }
