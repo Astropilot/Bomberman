@@ -77,8 +77,8 @@ $(document).ready(function(){initNavTree('struct_t_window.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:ab7062b98bb4cc6180008fda1ca843580"><td class="memItemLeft" align="right" valign="top">int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_window.html#ab7062b98bb4cc6180008fda1ca843580">Create_Window</a> )(struct <a class="el" href="struct_t_window.html">TWindow</a> *, const char *, int, int, const char *)</td></tr>
-<tr class="separator:ab7062b98bb4cc6180008fda1ca843580"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf122b8529870e9ba4f4bd4debb953e0"><td class="memItemLeft" align="right" valign="top">int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_window.html#abf122b8529870e9ba4f4bd4debb953e0">Create_Window</a> )(struct <a class="el" href="struct_t_window.html">TWindow</a> *, const char *, int, int, const char *, unsigned int)</td></tr>
+<tr class="separator:abf122b8529870e9ba4f4bd4debb953e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6fd63a58baa61deab3d7853bbe3ee9c9"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_window.html#a6fd63a58baa61deab3d7853bbe3ee9c9">Add_Frame</a> )(struct <a class="el" href="struct_t_window.html">TWindow</a> *, <a class="el" href="struct_t_frame.html">TFrame</a> *)</td></tr>
 <tr class="separator:a6fd63a58baa61deab3d7853bbe3ee9c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5adafc1727973800554462d9704d5bcd"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_window.html#a5adafc1727973800554462d9704d5bcd">Show_Frame</a> )(struct <a class="el" href="struct_t_window.html">TWindow</a> *, const char *, int argc,...)</td></tr>
@@ -95,6 +95,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a1c023e022dc0f39e1359762b032372ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a921363106fd140a0c08e670db03e19a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_frame.html">TFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_window.html#a921363106fd140a0c08e670db03e19a8">shown_frame</a></td></tr>
 <tr class="separator:a921363106fd140a0c08e670db03e19a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0256d25b86a9f6d108e63e630fd20cf2"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_window.html#a0256d25b86a9f6d108e63e630fd20cf2">fps</a></td></tr>
+<tr class="separator:a0256d25b86a9f6d108e63e630fd20cf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Object oriented structure representing a window. </p>
@@ -115,14 +117,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="ab7062b98bb4cc6180008fda1ca843580"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7062b98bb4cc6180008fda1ca843580">&#9670;&nbsp;</a></span>Create_Window</h2>
+<a id="abf122b8529870e9ba4f4bd4debb953e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf122b8529870e9ba4f4bd4debb953e0">&#9670;&nbsp;</a></span>Create_Window</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int(* Create_Window) (struct <a class="el" href="struct_t_window.html">TWindow</a> *, const char *, int, int, const char *)</td>
+          <td class="memname">int(* Create_Window) (struct <a class="el" href="struct_t_window.html">TWindow</a> *, const char *, int, int, const char *, unsigned int)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -142,6 +144,21 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Boolean to know if the window need to be closed. </p>
+
+</div>
+</div>
+<a id="a0256d25b86a9f6d108e63e630fd20cf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0256d25b86a9f6d108e63e630fd20cf2">&#9670;&nbsp;</a></span>fps</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int fps</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The delay in milliseconds between each game loop. </p>
 
 </div>
 </div>

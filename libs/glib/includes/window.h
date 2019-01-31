@@ -37,16 +37,17 @@
  */
 typedef struct TWindow {
 
-    int(*Create_Window)(struct TWindow*, const char*, int, int, const char*);   /*!< Method for creating the SDL window. */
-    void(*Add_Frame)(struct TWindow*, TFrame*);                                 /*!< Method for adding a TFrame to the window. */
-    void(*Show_Frame)(struct TWindow*, const char *, int argc, ...);            /*!< Method for showing a frame by its ID with optionnals parameters. */
-    void(*Free)(struct TWindow*);                                               /*!< Method for free all ressources. */
+    int(*Create_Window)(struct TWindow*, const char*, int, int, const char*, unsigned int);     /*!< Method for creating the SDL window. */
+    void(*Add_Frame)(struct TWindow*, TFrame*);                                                 /*!< Method for adding a TFrame to the window. */
+    void(*Show_Frame)(struct TWindow*, const char *, int argc, ...);                            /*!< Method for showing a frame by its ID with optionnals parameters. */
+    void(*Free)(struct TWindow*);                                                               /*!< Method for free all ressources. */
 
     SDL_Window *screen_window;                                                  /*!< The SDL_Window pointer. */
     SDL_Renderer *renderer_window;                                              /*!< The SDL_Renderer pointer. */
     unsigned int finished;                                                      /*!< Boolean to know if the window need to be closed. */
     TFrame_Node *frames_head;                                                   /*!< A linked list of frames (TFrame). */
     TFrame *shown_frame;                                                        /*!< The actual frame to be show. */
+    unsigned int fps;                                                           /*!< The delay in milliseconds between each game loop. */
 
 } TWindow ;
 
@@ -67,12 +68,13 @@ TWindow* New_TWindow(void);
  * @param width The width of the SDL window.
  * @param height The height of the SDL window.
  * @param frame_id The ID of the frame to be show first.
+ * @param fps The delay in milliseconds between each game loop.
  *
  * You do not have to call this method directly. You must use the
  * Create_Window method of the TWindow structure like this:
  * my_window->Create_Window(my_window, "My window", 50, 50, "MY_FRAME");
  */
-int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *frame_id);
+int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *frame_id, unsigned int fps);
 
 /**
  * @fn void TWindow_Add_Frame(TWindow *this, TFrame *frame)

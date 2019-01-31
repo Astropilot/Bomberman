@@ -36,7 +36,7 @@ static void Init(TFrame* frame, TWindow *window)
     SDL_Color color = {255, 255, 255, 255};
     SDL_Rect pos_sprite_bg = {0, 0, 430, 242};
     SDL_Rect size_sprite_bg = {0, 0, 1280, 720};
-    TAnimatedSprite *sp_bg = New_TAnimatedSprite(window, "images/animated_background.png", pos_sprite_bg, size_sprite_bg, 52);
+    TAnimatedSprite *sp_bg = New_TAnimatedSprite(window, "images/animated_background.png", pos_sprite_bg, size_sprite_bg, 52, -1);
 
     SDL_Rect pos_title = {(WIN_WIDTH / 2) - (644 / 2), 100, 644, 104};
     TSprite *sp_title = New_TSprite(window, "images/bomberman_logo_title.png", pos_title);
@@ -81,8 +81,8 @@ static void On_Event(TFrame* frame, TWindow *window, SDL_Event event)
     TButton *btn_play = (TButton*)frame->Get_Drawable(frame, "BTN_PLAY");
 
     btn_play->Event_Handler(btn_play, window, event);
-    input_username->Event_Handler(input_username, window, event);
-    input_serverport->Event_Handler(input_serverport, window, event);
+    input_username->Event_Handler(input_username, event);
+    input_serverport->Event_Handler(input_serverport, event);
 }
 
 static void On_Click_Play_Button(TButton *button, TWindow *window)

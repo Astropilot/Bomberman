@@ -35,7 +35,7 @@ static void Init(TFrame* frame, TWindow *window)
 {
     SDL_Rect size_sprite_bg = {0, 0, 430, 242};
     SDL_Rect pos_sprite_bg = {0, 0, 1280, 720};
-    TAnimatedSprite *sp_bg = New_TAnimatedSprite(window, "images/animated_background.png", size_sprite_bg, pos_sprite_bg , 52);
+    TAnimatedSprite *sp_bg = New_TAnimatedSprite(window, "images/animated_background.png", size_sprite_bg, pos_sprite_bg , 52, -1);
 
     SDL_Rect pos_title = {(WIN_WIDTH / 2) - (644 / 2), 100, 644, 104};
     TSprite *sp_title = New_TSprite(window, "images/bomberman_logo_title.png", pos_title);

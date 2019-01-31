@@ -28,7 +28,7 @@ int main()
         window->Add_Frame(window, frame_main_menu);
         window->Add_Frame(window, frame_host_menu);
         window->Add_Frame(window, frame_join_menu);
-        window->Create_Window(window, "Bomberman", WIN_WIDTH, WIN_HEIGHT, "FRAME_MAIN_MENU");
+        window->Create_Window(window, "Bomberman", WIN_WIDTH, WIN_HEIGHT, "FRAME_MAIN_MENU", 30);
 
         window->Free(window);
         window = NULL;

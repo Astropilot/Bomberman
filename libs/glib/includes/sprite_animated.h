@@ -47,6 +47,7 @@ typedef struct TAnimatedSprite {
     size_t len_frames;                                  /*!< The number of frames, automatically calculated. */
     unsigned int actual_frame;                          /*!< The actual index frame to draw. */
     unsigned int last_time;                             /*!< Internal variable for sprite animation timing */
+    int animations;                                     /*!< The number of animations. */
 
 } TAnimatedSprite ;
 
@@ -59,9 +60,10 @@ typedef struct TAnimatedSprite {
  * @param size The size of a single frame, the x and y are ignored.
  * @param pos The position and size of the sprite on the screen.
  * @param speed The delay in milliseconds between each frame.
+ * @param animations The number of animations, can be -1 for infinite loop.
  * @return A memory allocated object of the animated sprite.
  */
-TAnimatedSprite* New_TAnimatedSprite(TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed);
+TAnimatedSprite* New_TAnimatedSprite(TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations);
 
 /**
  * @fn void TAnimatedSprite_Draw(TAnimatedSprite *this, TWindow *win)

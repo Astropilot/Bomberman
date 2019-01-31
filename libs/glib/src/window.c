@@ -76,7 +76,7 @@ static void TWindow_Loop(TWindow *this)
         }
         if (this->shown_frame && this->shown_frame->On_Tick) {
             current_time = SDL_GetTicks();
-            if (current_time > last_time + 30) {
+            if (current_time > last_time + this->fps) {
                 this->shown_frame->On_Tick(this->shown_frame, this);
                 last_time = current_time;
             }
@@ -86,7 +86,7 @@ static void TWindow_Loop(TWindow *this)
     return;
 }
 
-int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *frame_id)
+int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *frame_id, unsigned int fps)
 {
     if (SDL_Init(SDL_INIT_VIDEO) != 0 ) {
         fprintf(stderr, "Error while loading game window (SDL)!\n");
@@ -114,6 +114,7 @@ int TWindow_Create_Window(TWindow *this, const char *title, int width, int heigh
         return (0);
     }
 
+    this->fps = fps;
     TWindow_Show_Frame(this, frame_id, 0);
     TWindow_Loop(this);
 

@@ -36,7 +36,7 @@ static void Init(TFrame* frame, TWindow *window)
 
     SDL_Rect pos_anim_sprite = {200, 223, 64, 64};
     SDL_Rect size_anim_sprite = {0, 0, 256, 256};
-    TAnimatedSprite *asp = New_TAnimatedSprite(window, "images/sprite_animated.png", size_anim_sprite, pos_anim_sprite , 100);
+    TAnimatedSprite *asp = New_TAnimatedSprite(window, "images/sprite_animated.png", size_anim_sprite, pos_anim_sprite , 100, -1);
 
     frame->Add_Drawable(frame, (void*)sp2, SPRITE, "BG", 999);
     frame->Add_Drawable(frame, (void*)asp, ANIMATED_SPRITE, "PLAYER", 1);
@@ -93,8 +93,8 @@ static void On_Event(TFrame* frame, TWindow *window, SDL_Event event)
         if (event.key.keysym.sym == SDLK_SPACE) {
             SDL_Rect size_bomb = {0, 0, 256, 256};
             SDL_Rect pos_bomb = {asp->pos.x + (asp->pos.w / 2), asp->pos.y + (asp->pos.h / 2), 32, 32};
-            TAnimatedSprite *sp = New_TAnimatedSprite(window, "images/bomberman_bomb_animated.png", size_bomb, pos_bomb, 128);
-            
+            TAnimatedSprite *sp = New_TAnimatedSprite(window, "images/bomberman_bomb_animated.png", size_bomb, pos_bomb, 128, 1);
+
             frame->Add_Drawable(frame, (void*)sp, ANIMATED_SPRITE, "BOMB", 2);
         }
     }

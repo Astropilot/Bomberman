@@ -8,19 +8,19 @@
 #include "window.h"
 #include "sprite_animated.h"
 
-static void TAnimatedSprite_Init(TAnimatedSprite *this, TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed);
+static void TAnimatedSprite_Init(TAnimatedSprite *this, TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations);
 
-TAnimatedSprite* New_TAnimatedSprite(TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed)
+TAnimatedSprite* New_TAnimatedSprite(TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
 {
     TAnimatedSprite *this = malloc(sizeof(TAnimatedSprite));
 
     if(!this) return NULL;
-    TAnimatedSprite_Init(this, win, file, size, pos, speed);
+    TAnimatedSprite_Init(this, win, file, size, pos, speed, animations);
     this->Free = TAnimatedSprite_New_Free;
     return this;
 }
 
-static void TAnimatedSprite_Init(TAnimatedSprite *this, TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed)
+static void TAnimatedSprite_Init(TAnimatedSprite *this, TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
 {
     SDL_Surface *surface = IMG_Load(file);
     int w, h;
@@ -35,6 +35,7 @@ static void TAnimatedSprite_Init(TAnimatedSprite *this, TWindow *win, const char
     SDL_QueryTexture(this->texture, NULL, NULL, &w, &h);
     this->len_frames = w / size.w;
     this->last_time = 0;
+    this->animations = animations;
     SDL_FreeSurface(surface);
 }
 
@@ -44,11 +45,14 @@ void TAnimatedSprite_Draw(TAnimatedSprite *this, TWindow *win)
     unsigned int current_time = 0;
 
     current_time = SDL_GetTicks();
-    if (current_time > this->last_time + this->speed) {
+    if (current_time > this->last_time + this->speed && this->animations != 0) {
         this->actual_frame = (this->actual_frame + 1) % this->len_frames;
         this->last_time = current_time;
+        if (this->actual_frame == 0 && this->animations > 0)
+            (this->animations)--;
     }
-    SDL_RenderCopy(win->renderer_window, this->texture, &tmp_frame, &this->pos);
+    if (this->animations != 0)
+        SDL_RenderCopy(win->renderer_window, this->texture, &tmp_frame, &this->pos);
 }
 
 void TAnimatedSprite_New_Free(TAnimatedSprite *this)

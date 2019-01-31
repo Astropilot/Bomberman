@@ -48,7 +48,7 @@ typedef struct TInput {
 
     void(*Draw)(struct TInput*, TWindow*);                          /*!< Draw method. */
 
-    void(*Event_Handler)(struct TInput*, TWindow *, SDL_Event);     /*!< Method call for processing SDL event */
+    void(*Event_Handler)(struct TInput*, SDL_Event);                /*!< Method call for processing SDL event */
 
     void(*Free)(struct TInput*);                                    /*!< Free (ressources) method. */
 
@@ -97,14 +97,13 @@ void TInput_Draw(TInput *this, TWindow *window);
  * @brief Method to process an SDL event for manage text input and click focus.
  *
  * @param this A pointer to the input box object.
- * @param win A pointer to the window object.
  * @param event A SDL event.
  *
  * You do not have to call this method directly. You must use the
  * Event_Handler method of the TInput structure like this:
  * my_input->Event_Handler(my_input, window, event);
  */
-void TInput_Event_Handler(TInput *this, TWindow *win, SDL_Event event);
+void TInput_Event_Handler(TInput *this, SDL_Event event);
 
 /**
  * @fn void TInput_New_Free(TInput *this)

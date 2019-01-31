@@ -106,9 +106,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a43a32a1080306b3d3f0366ff5ff1abc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inputbox_8h.html#a43a32a1080306b3d3f0366ff5ff1abc2">TInput_Draw</a> (<a class="el" href="struct_t_input.html">TInput</a> *this, <a class="el" href="struct_t_window.html">TWindow</a> *window)</td></tr>
 <tr class="memdesc:a43a32a1080306b3d3f0366ff5ff1abc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for drawing the input box in the interface.  <a href="#a43a32a1080306b3d3f0366ff5ff1abc2">More...</a><br /></td></tr>
 <tr class="separator:a43a32a1080306b3d3f0366ff5ff1abc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a51429066144e9bdfa7ebebaabbbaa8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inputbox_8h.html#a4a51429066144e9bdfa7ebebaabbbaa8">TInput_Event_Handler</a> (<a class="el" href="struct_t_input.html">TInput</a> *this, <a class="el" href="struct_t_window.html">TWindow</a> *win, SDL_Event event)</td></tr>
-<tr class="memdesc:a4a51429066144e9bdfa7ebebaabbbaa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to process an SDL event for manage text input and click focus.  <a href="#a4a51429066144e9bdfa7ebebaabbbaa8">More...</a><br /></td></tr>
-<tr class="separator:a4a51429066144e9bdfa7ebebaabbbaa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcd5d2f7c6f555791e9411cae5eae4bf"><td class="memItemLeft" align="right" valign="top"><a id="afcd5d2f7c6f555791e9411cae5eae4bf"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>TInput_Event_Handler</b> (<a class="el" href="struct_t_input.html">TInput</a> *this, SDL_Event event)</td></tr>
+<tr class="separator:afcd5d2f7c6f555791e9411cae5eae4bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae129553481e1e29f8c83eb528e4d8661"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inputbox_8h.html#ae129553481e1e29f8c83eb528e4d8661">TInput_New_Free</a> (<a class="el" href="struct_t_input.html">TInput</a> *this)</td></tr>
 <tr class="memdesc:ae129553481e1e29f8c83eb528e4d8661"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to free all ressources take by the input box.  <a href="#ae129553481e1e29f8c83eb528e4d8661">More...</a><br /></td></tr>
 <tr class="separator:ae129553481e1e29f8c83eb528e4d8661"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -155,51 +155,6 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <p>You do not have to call this method directly. You must use the Draw method of the <a class="el" href="struct_t_input.html" title="Object oriented structure representing a input box.">TInput</a> structure like this: my_input-&gt;Draw(my_input, window); </p>
-
-</div>
-</div>
-<a id="a4a51429066144e9bdfa7ebebaabbbaa8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a51429066144e9bdfa7ebebaabbbaa8">&#9670;&nbsp;</a></span>TInput_Event_Handler()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void TInput_Event_Handler </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_t_input.html">TInput</a> *&#160;</td>
-          <td class="paramname"><em>this</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="struct_t_window.html">TWindow</a> *&#160;</td>
-          <td class="paramname"><em>win</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">SDL_Event&#160;</td>
-          <td class="paramname"><em>event</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Method to process an SDL event for manage text input and click focus. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">this</td><td>A pointer to the input box object. </td></tr>
-    <tr><td class="paramname">win</td><td>A pointer to the window object. </td></tr>
-    <tr><td class="paramname">event</td><td>A SDL event.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>You do not have to call this method directly. You must use the Event_Handler method of the <a class="el" href="struct_t_input.html" title="Object oriented structure representing a input box.">TInput</a> structure like this: my_input-&gt;Event_Handler(my_input, window, event); </p>
 
 </div>
 </div>

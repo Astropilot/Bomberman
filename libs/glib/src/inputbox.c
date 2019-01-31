@@ -77,7 +77,7 @@ void TInput_Draw(TInput *this, TWindow *window)
     }
 }
 
-void TInput_Event_Handler(TInput *this, TWindow *win, SDL_Event event)
+void TInput_Event_Handler(TInput *this, SDL_Event event)
 {
     if( event.type == SDL_MOUSEBUTTONUP ) {
         int x;
@@ -102,7 +102,6 @@ void TInput_Event_Handler(TInput *this, TWindow *win, SDL_Event event)
 
             if ( (text_len + new_text_len) <= this->max_len)
                 strcat(this->text, event.text.text);
-            printf("Input event %p\n", win);
         }
     } else if (event.type == SDL_KEYDOWN) {
         if (event.key.keysym.sym == SDLK_BACKSPACE) {

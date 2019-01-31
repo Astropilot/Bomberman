@@ -98,9 +98,9 @@ typedef struct <a class="el" href="struct_t_animated_sprite.html">TAnimatedSprit
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad6ea77de585949a6a6c3bf139be675e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_animated_sprite.html">TAnimatedSprite</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite__animated_8h.html#ad6ea77de585949a6a6c3bf139be675e6">New_TAnimatedSprite</a> (<a class="el" href="struct_t_window.html">TWindow</a> *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed)</td></tr>
-<tr class="memdesc:ad6ea77de585949a6a6c3bf139be675e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor for create a <a class="el" href="struct_t_animated_sprite.html" title="Object oriented structure representing a animated sprite.">TAnimatedSprite</a> object.  <a href="#ad6ea77de585949a6a6c3bf139be675e6">More...</a><br /></td></tr>
-<tr class="separator:ad6ea77de585949a6a6c3bf139be675e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20be1eab53f16b37da5f548a60b65b7a"><td class="memItemLeft" align="right" valign="top"><a id="a20be1eab53f16b37da5f548a60b65b7a"></a>
+<a class="el" href="struct_t_animated_sprite.html">TAnimatedSprite</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>New_TAnimatedSprite</b> (<a class="el" href="struct_t_window.html">TWindow</a> *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)</td></tr>
+<tr class="separator:a20be1eab53f16b37da5f548a60b65b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fe4a26cbbad0e7d9ed68ce0b4c6acf2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sprite__animated_8h.html#a1fe4a26cbbad0e7d9ed68ce0b4c6acf2">TAnimatedSprite_Draw</a> (<a class="el" href="struct_t_animated_sprite.html">TAnimatedSprite</a> *this, <a class="el" href="struct_t_window.html">TWindow</a> *win)</td></tr>
 <tr class="memdesc:a1fe4a26cbbad0e7d9ed68ce0b4c6acf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for drawing the animated sprite in the interface.  <a href="#a1fe4a26cbbad0e7d9ed68ce0b4c6acf2">More...</a><br /></td></tr>
 <tr class="separator:a1fe4a26cbbad0e7d9ed68ce0b4c6acf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -115,65 +115,6 @@ Functions</h2></td></tr>
 <dl class="section date"><dt>Date</dt><dd>28 janvier 2019</dd></dl>
 <p>The animated sprite component allows you to create a graphical animated sprite that can be manipulated by GLib. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="ad6ea77de585949a6a6c3bf139be675e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6ea77de585949a6a6c3bf139be675e6">&#9670;&nbsp;</a></span>New_TAnimatedSprite()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="struct_t_animated_sprite.html">TAnimatedSprite</a> * New_TAnimatedSprite </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_t_window.html">TWindow</a> *&#160;</td>
-          <td class="paramname"><em>win</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>file</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">SDL_Rect&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">SDL_Rect&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>speed</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The constructor for create a <a class="el" href="struct_t_animated_sprite.html" title="Object oriented structure representing a animated sprite.">TAnimatedSprite</a> object. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">win</td><td>A pointer to the window object. </td></tr>
-    <tr><td class="paramname">file</td><td>The path of an image file containing all the sprite frames. </td></tr>
-    <tr><td class="paramname">size</td><td>The size of a single frame, the x and y are ignored. </td></tr>
-    <tr><td class="paramname">pos</td><td>The position and size of the sprite on the screen. </td></tr>
-    <tr><td class="paramname">speed</td><td>The delay in milliseconds between each frame. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A memory allocated object of the animated sprite. </dd></dl>
-
-</div>
-</div>
 <a id="a1fe4a26cbbad0e7d9ed68ce0b4c6acf2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1fe4a26cbbad0e7d9ed68ce0b4c6acf2">&#9670;&nbsp;</a></span>TAnimatedSprite_Draw()</h2>
 
