@@ -88,8 +88,10 @@ static void TWindow_Loop(TWindow *this)
 
 int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *frame_id, unsigned int fps)
 {
-    if (SDL_Init(SDL_INIT_VIDEO) != 0 ) {
-        fprintf(stderr, "Error while loading game window (SDL)!\n");
+    if (!title)
+        return (0);
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+        fprintf(stderr, "Error while loading game window (SDL): %s!\n", SDL_GetError());
         return (0);
     }
 
@@ -99,18 +101,22 @@ int TWindow_Create_Window(TWindow *this, const char *title, int width, int heigh
                                     height,
                                     SDL_WINDOW_SHOWN);
     if (this->screen_window == NULL) {
-        fprintf(stderr, "Error while loading game window (SDL)!\n");
+        fprintf(stderr, "Error while loading game window (SDL): %s!\n", SDL_GetError());
         return (0);
     }
     this->renderer_window = SDL_CreateRenderer(this->screen_window, -1, SDL_RENDERER_ACCELERATED);
     if (this->renderer_window == NULL) {
-        fprintf(stderr, "Error while loading game window (SDL)!\n");
+        fprintf(stderr, "Error while loading game window (SDL): %s!\n", SDL_GetError());
         return (0);
     }
-    IMG_Init(IMG_INIT_PNG);
 
-    if(TTF_Init()==-1) {
-        fprintf(stderr, "Error while loading TTF (SDL)!\n");
+    if ( (IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG ) {
+        fprintf(stderr, "Error while loading IMG Plugin (SDL): %s!\n", IMG_GetError());
+        return (0);
+    }
+
+    if(TTF_Init() == -1) {
+        fprintf(stderr, "Error while loading TTF (SDL): %s!\n", TTF_GetError());
         return (0);
     }
 
@@ -145,6 +151,9 @@ void TWindow_Add_Frame(TWindow *this, TFrame *frame)
 void TWindow_Show_Frame(TWindow *this, const char *frame_id, int argc, ...)
 {
     TFrame_Node *current = this->frames_head;
+
+    if (!frame_id)
+        return;
     while (current != NULL) {
         if (strcmp(current->frame->frame_id, frame_id) == 0) {
             if (this->shown_frame && this->shown_frame->On_Unload) {

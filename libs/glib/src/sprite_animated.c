@@ -41,6 +41,9 @@ static void TAnimatedSprite_Init(TAnimatedSprite *this, TWindow *win, const char
 
 void TAnimatedSprite_Draw(TAnimatedSprite *this, TWindow *win)
 {
+    if (!this || !win)
+        return;
+
     SDL_Rect tmp_frame = {this->size.w * this->actual_frame, this->size.y, this->size.w, this->size.h};
     unsigned int current_time = 0;
 

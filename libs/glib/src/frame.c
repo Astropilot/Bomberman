@@ -52,7 +52,7 @@ void TFrame_Add_Drawable(TFrame *this, void *drawable, drawables_e type, const c
 {
     Drawable_Node *drawable_node;
 
-    if (drawable)
+    if (drawable && this && id)
         drawable_node = malloc(sizeof(Drawable_Node));
     else
         return;
@@ -86,6 +86,9 @@ void TFrame_Add_Drawable(TFrame *this, void *drawable, drawables_e type, const c
 
 void *TFrame_Remove_Drawable(TFrame *this, const char *id)
 {
+    if (!this || !id)
+        return (NULL);
+
     Drawable_Node *current = this->drawables_head;
     Drawable_Node *previous = NULL;
     void *drawable = NULL;
@@ -109,6 +112,9 @@ void *TFrame_Remove_Drawable(TFrame *this, const char *id)
 
 void *TFrame_Get_Drawable(TFrame *this, const char *id)
 {
+    if (!this || !id)
+        return (NULL);
+
     Drawable_Node *current = this->drawables_head;
 
     while (current != NULL) {

@@ -33,6 +33,9 @@ static void TSprite_Init(TSprite *this, TWindow *win, const char *file, SDL_Rect
 
 void TSprite_Draw(TSprite *this, TWindow *win)
 {
+    if (!this || !win)
+        return;
+
     SDL_RenderCopy(win->renderer_window, this->texture, NULL, &this->pos);
 }
 

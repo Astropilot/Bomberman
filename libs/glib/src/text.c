@@ -30,6 +30,9 @@ static void TText_Init(TText *this, const char *text, TWindow *win, TTF_Font *fo
 
 void TText_Draw(TText *this, TWindow *win)
 {
+    if (!this || !win)
+        return;
+
     SDL_RenderCopy(win->renderer_window, this->texture, NULL, &this->pos);
 }
 

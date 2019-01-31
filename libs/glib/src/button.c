@@ -32,6 +32,9 @@ static void TButton_Init(TButton *this, const char *btn_s, const char *btn_hs, S
 
 void TButton_Draw(TButton *this, TWindow *window)
 {
+    if (!this || !window)
+        return;
+
     this->btn_sprite->pos = this->pos;
     this->btn_hover_sprite->pos = this->pos;
 
@@ -46,6 +49,9 @@ void TButton_Draw(TButton *this, TWindow *window)
 
 void TButton_Event_Handler(TButton *this, TWindow *win, SDL_Event event)
 {
+    if (!this || !win)
+        return;
+
     if( event.type == SDL_MOUSEMOTION || event.type == SDL_MOUSEBUTTONUP ) {
         int x;
         int y;

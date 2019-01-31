@@ -47,6 +47,9 @@ static void TInput_Init(TInput *this, const char *file, SDL_Rect pos, TWindow *w
 
 void TInput_Draw(TInput *this, TWindow *window)
 {
+    if (!this || !window)
+        return;
+
     SDL_Texture *text_texture = NULL;
     unsigned int current_time = 0;
     SDL_Color color = {189, 189, 189, 255};

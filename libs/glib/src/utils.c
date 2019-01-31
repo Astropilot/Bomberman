@@ -11,6 +11,9 @@
 
 SDL_Texture *createText(const char *text, TTF_Font *font, SDL_Color color, SDL_Rect *pos, TWindow *win)
 {
+    if (!text || !font || !pos || !win)
+        return (NULL);
+
     SDL_Surface *s_text = NULL;
     SDL_Texture *text_texture = NULL;
 

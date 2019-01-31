@@ -15,6 +15,9 @@
 
 void drawableCallDraw(Drawable_Node *drawable, TWindow *win)
 {
+    if (!drawable || !win)
+        return;
+
     switch (drawable->type) {
         case SPRITE: ;
             TSprite *sprite = (TSprite*)drawable->drawable;
@@ -41,6 +44,9 @@ void drawableCallDraw(Drawable_Node *drawable, TWindow *win)
 
 void drawableCallFree(Drawable_Node *drawable)
 {
+    if (!drawable)
+        return;
+
     switch (drawable->type) {
         case SPRITE: ;
             TSprite *sprite = (TSprite*)drawable->drawable;
