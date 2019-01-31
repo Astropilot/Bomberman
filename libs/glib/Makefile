@@ -23,6 +23,8 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	ar rcs $(NAME) $(OBJ)
 
+.PHONY: clean fclean re
+
 clean:
 	$(RM) $(OBJ)
 
@@ -30,5 +32,3 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
-
-.PHONY: all $(NAME) clean fclean re

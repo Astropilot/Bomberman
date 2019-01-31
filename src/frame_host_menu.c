@@ -89,7 +89,8 @@ static void On_Click_Play_Button(TButton *button, TWindow *window)
 {
     if (IS_DEBUG)
         printf("Button [%p]: Play Button pressed!\n", button);
-    window->Show_Frame(window, "FRAME_GAME", 1, ptr_username);
+    if (strlen(ptr_username) > 0)
+        window->Show_Frame(window, "FRAME_GAME", 1, ptr_username);
 }
 
 static void On_Tick(TFrame* frame, TWindow *window)
