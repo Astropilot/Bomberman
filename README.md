@@ -1,8 +1,9 @@
-# Bomberman
+# Bomberman ![Made with love](https://img.shields.io/badge/Made%20with-%E2%9D%A4%EF%B8%8F-yellow.svg)
 
 ![Image of Bomberman](https://static.tvtropes.org/pmwiki/pub/images/bomberman.png)
 
 ## Description
+[![MIT license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 Bomberman game with networked multiplayer (up to 4 players) programmed in C with the SDL graphics library.
 
