@@ -1,49 +1,64 @@
 /*
-** ETNA PROJECT, 16/01/2019 by group
-** gLib
+** ETNA PROJECT, 05/02/2019 by martin_h, hamide_a, despla_g, weber_w
+** resLib
 ** File description:
-**      Graphic library with SDL2
+**      Wrapper around the socket API.
 */
 
 #ifndef RESLIB_SERVER_H_
 #define RESLIB_SERVER_H_
 
 #include <stdlib.h>
+#include <pthread.h>
 
-#include "reslib.h"
+#include "sockets.h"
+#include "client.h"
+#include "message.h"
 
-typedef struct TSClient {
-   SOCKET sock;
-} TSClient ;
-
-typedef struct TSClient_Node {
-    TSClient client;
-    struct TSClient_Node *next;
-} TSClient_Node ;
+typedef struct TClient_Node {
+    TClient *client;
+    pthread_t thread;
+    struct TClient_Node *next;
+} TClient_Node ;
 
 typedef struct TServer {
 
-    int(*Listen)(struct TServer*, unsigned short int, size_t);
+    void(*Start_Listenning)(struct TServer*);
 
-    TSClient(*AddClient)(struct TServer*);
+    void(*Stop_Listenning)(struct TServer*);
 
-    TSClient(*AddClient_Async)(struct TServer*);
+    void(*Send_Broadcast)(struct TServer*, TMessage);
 
-    void(*SendTo)(TServer*, const void*, size_t, TSClient);
+    size_t(*CountClients)(struct TServer*);
 
-    void(*SendTo_Async)(TServer*, const void*, size_t, TSClient);
+    void(*Free)(struct TServer*);
 
-    int(*Recv)(TServer*);
+    /* Callbacks */
 
-    SOCKET server_sock; // int
-    TSClient_Node *clients_head;
+    void(*On_Connect)(struct TServer*, TClient*);
+
+    void(*On_Message)(struct TServer*, TClient*, TMessage);
+
+    void(*On_Disconnect)(struct TServer*, TClient*);
+
+    SOCKET server_sock;
+    unsigned int is_listenning;
+    size_t max_c;
+    pthread_t server_thread;
+    TClient_Node *clients_head;
 
 } TServer ;
 
-TServer* New_TServer(void);
-int TServer_Listen(TServer *this, unsigned short int port, size_t max_c);
-TSClient TServer_AddClient_Async(TServer *this);
-void TServer_SendTo_Async(TServer *this, const void *buf, size_t len, TSClient client);
+typedef struct params_s {
+    TServer *server;
+    TClient *client;
+} params_t ;
+
+TServer* New_TServer(unsigned short int port, size_t max_c);
+void TServer_Start_Listenning(TServer *this);
+void TServer_Stop_Listenning(TServer *this);
+void TServer_Send_Broadcast(TServer *this, TMessage message);
+size_t TServer_CountClients(TServer *this);
 void TServer_New_Free(TServer *this);
 
 #endif

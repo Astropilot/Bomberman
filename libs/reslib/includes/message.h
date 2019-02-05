@@ -1,8 +1,8 @@
 /*
-** ETNA PROJECT, 16/01/2019 by group
-** gLib
+** ETNA PROJECT, 05/02/2019 by martin_h, hamide_a, despla_g, weber_w
+** resLib
 ** File description:
-**      Graphic library with SDL2
+**      Wrapper around the socket API.
 */
 
 #ifndef RESLIB_MESSAGE_H_
@@ -12,13 +12,12 @@
 
 typedef struct TMessage {
 
-    void *message;
     size_t len;
-    int checksum;
-    char[3] ender;
+    char *message;
+    //int checksum;
 
 } TMessage ;
 
-static char ENDER_MARK[3] = {0xFE, 0xFF, 0xFE};
+
 
 #endif

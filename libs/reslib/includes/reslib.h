@@ -1,8 +1,8 @@
 /*
-** ETNA PROJECT, 16/01/2019 by group
-** gLib
+** ETNA PROJECT, 05/02/2019 by martin_h, hamide_a, despla_g, weber_w
+** resLib
 ** File description:
-**      Graphic library with SDL2
+**      Wrapper around the socket API.
 */
 
 #ifndef RESLIB_H_
@@ -10,7 +10,9 @@
 
 #include <stdlib.h>
 
+#include "message.h"
 #include "client.h"
+#include "server.h"
 
 void init_network(void);
 void end_network(void);

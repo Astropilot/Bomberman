@@ -1,4 +1,10 @@
-#include "sockets.h"
+/*
+** ETNA PROJECT, 05/02/2019 by martin_h, hamide_a, despla_g, weber_w
+** resLib
+** File description:
+**      Wrapper around the socket API.
+*/
+
 #include "client.h"
 
 static void TClient_Init(TClient *this);
@@ -19,11 +25,15 @@ static void TClient_Init(TClient *this)
     this->Send = TClient_Send;
     this->Recv = TClient_Recv;
     this->Disconnect = TClient_Disconnect;
+
     this->sock = -1;
 }
 
 int TClient_Connect(TClient *this, const char *addr, unsigned short int port)
 {
+    if (this->sock != -1)
+        return (-1);
+
     SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
     SOCKADDR_IN sin = { 0 };
     struct hostent *hostinfo;
@@ -46,33 +56,47 @@ int TClient_Connect(TClient *this, const char *addr, unsigned short int port)
     return (0);
 }
 
-int TClient_Send(TClient *this, const void *buffer, size_t len)
+int TClient_Send(TClient *this, TMessage message)
 {
-    if(send(this->sock, buffer, len, 0) < 0)
-        return (-1);
-    return (0);
+    if (this->sock == -1)
+        return (0);
+
+    int total = 0;
+    int bytesleft = (int)(message.len);
+    int n;
+
+    while(total < (int)(message.len)) {
+        n = send(this->sock, (message.message) + total, bytesleft, 0);
+        if (n == -1) { break; }
+        total += n;
+        bytesleft -= n;
+    }
+
+    return (n == -1 ? -1 : 0);
 }
 
-int TClient_Recv(TClient *this, void *buffer, size_t len)
+int TClient_Recv(TClient *this, TMessage *message)
 {
-    int n = recv(this->sock, buffer, len, 0);
+    if (this->sock == -1)
+        return (0);
 
-    if(n < 0)
-        return (-1);
+    int nb_read = recv(this->sock, message->message, (int)(message->len), 0);
 
-    return 0;
+    return (nb_read);
 }
 
 void TClient_Disconnect(TClient *this)
 {
-    closesocket(this->sock);
+    if (this->sock == -1) {
+        closesocket(this->sock);
+        this->sock = -1;
+    }
 }
 
 void TClient_New_Free(TClient *this)
 {
     if (this) {
-        closesocket(this->sock);
-        // free ressources here
+        this->Disconnect(this);
     }
     free(this);
 }
