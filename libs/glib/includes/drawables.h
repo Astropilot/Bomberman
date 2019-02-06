@@ -35,6 +35,7 @@ typedef struct TWindow TWindow;
 typedef enum drawables_e {
     SPRITE,                 /*!< TSprite object type. */
     ANIMATED_SPRITE,        /*!< TAnimatedSprite object type. */
+    ANIMATED_SPRITES,       /*!< TAnimatedSprites object type. */
     TEXT,                   /*!< TText object type. */
     BUTTON,                 /*!< TButton object type. */
     INPUT                   /*!< TInput object type. */

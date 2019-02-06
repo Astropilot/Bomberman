@@ -11,6 +11,7 @@ SRC		= \
 		src/frame.c \
 		src/sprite.c \
 		src/sprite_animated.c \
+		src/sprites_animated.c \
 		src/text.c \
 		src/button.c \
 		src/inputbox.c \

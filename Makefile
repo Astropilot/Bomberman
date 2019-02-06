@@ -9,14 +9,14 @@ LIBRESLIB	= libreslib.a
 TARGET	= bomberman
 RM		= rm -f
 
-#SRC		= \
+SRC		= \
 		src/frame_game.c \
 		src/frame_main_menu.c \
 		src/frame_host_menu.c \
 		src/frame_join_menu.c \
 		src/main.c
 
-SRC			= \
+#SRC			= \
 		src/network_test.c
 
 OBJ		= $(SRC:.c=.o)

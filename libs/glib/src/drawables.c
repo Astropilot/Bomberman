@@ -9,6 +9,7 @@
 
 #include "sprite.h"
 #include "sprite_animated.h"
+#include "sprites_animated.h"
 #include "text.h"
 #include "inputbox.h"
 #include "button.h"
@@ -39,6 +40,10 @@ void drawableCallDraw(Drawable_Node *drawable, TWindow *win)
             TAnimatedSprite *anim_sprite = (TAnimatedSprite*)drawable->drawable;
             anim_sprite->Draw(anim_sprite, win);
             break;
+        case ANIMATED_SPRITES: ;
+            TAnimatedSprites *anim_sprites = (TAnimatedSprites*)drawable->drawable;
+            anim_sprites->Draw(anim_sprites, win);
+            break;
     }
 }
 
@@ -67,6 +72,10 @@ void drawableCallFree(Drawable_Node *drawable)
         case ANIMATED_SPRITE: ;
             TAnimatedSprite *anim_sprite = (TAnimatedSprite*)drawable->drawable;
             anim_sprite->Free(anim_sprite);
+            break;
+        case ANIMATED_SPRITES: ;
+            TAnimatedSprites *anim_sprites = (TAnimatedSprites*)drawable->drawable;
+            anim_sprites->Free(anim_sprites);
             break;
     }
 }
