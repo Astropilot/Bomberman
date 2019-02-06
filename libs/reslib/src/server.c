@@ -5,12 +5,14 @@
 **      Wrapper around the socket API.
 */
 
+#include <stdio.h>
+
 #include "server.h"
 
 static void TServer_Init(TServer *this, unsigned short int port, size_t max_c);
 static void *TServer_Listenning(void *p_args);
 static void TServer_Client_OnMessage(TClient *client, TServer *server, TMessage message);
-static void TServer_RemoveClient(TServer *this, TClient *client);
+static void TServer_RemoveDisconnectedClients(TServer *this);
 static void TServer_AddClient(TServer *this, TClient *client);
 static void TServer_Free_Clients(TServer *this);
 
@@ -118,32 +120,34 @@ static void *TServer_Listenning(void *p_args)
 
 static void TServer_Client_OnMessage(TClient *client, TServer *server, TMessage message)
 {
-    if (message.len == -1)
+    if (message.len == -1) {
+        printf("[DEBUG][SERVER_RESLIB] Recv message with len = -1\n");
         return;
+    }
     if (message.len) {
         if (server->On_Message)
             server->On_Message(server, client, message);
     } else {
         if (server->On_Disconnect)
             server->On_Disconnect(server, client);
-        TServer_RemoveClient(server, client);
+        client->Disconnect(client);
+        TServer_RemoveDisconnectedClients(server);
     }
 }
 
-static void TServer_RemoveClient(TServer *this, TClient *client)
+static void TServer_RemoveDisconnectedClients(TServer *this)
 {
     TClient_Node *current = this->clients_head;
     TClient_Node *previous = NULL;
 
     while (current != NULL) {
-        if (current->client->sock == client->sock) {
+        if (current->client->sock == -1) {
             if (!previous)
                 this->clients_head = current->next;
             else
                 previous->next = current->next;
             current->client->Free(current->client);
             free(current);
-            return;
         }
         previous = current;
         current = current->next;
@@ -188,8 +192,6 @@ static void TServer_Free_Clients(TServer *this)
     TClient_Node *tmp = NULL;
 
     while (current != NULL) {
-        current->client->Disconnect(current->client);
-        //pthread_join(current->thread, NULL);
         current->client->Free(current->client);
 
         tmp = current;

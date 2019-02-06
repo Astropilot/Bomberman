@@ -63,19 +63,19 @@ void client_code(void)
             if ((strlen(buffer) > 0) && (buffer[strlen (buffer) - 1] == '\n'))
                 buffer[strlen (buffer) - 1] = '\0';
 
-            if (strcmp(buffer, "exit") == 0) {
-                keep_alive = 0;
-                client->Stop_Recv(client);
-            }
             TMessage message = {strlen(buffer), buffer};
             client->Send(client, message);
             printf("\n[Client] Sended message [%d]\"%s\" to server\n", (int)strlen(buffer), buffer);
+            if (strcmp(buffer, "exit") == 0) {
+                keep_alive = 0;
+                client->Disconnect(client);
+                //client->Stop_Recv(client);
+            }
         }
     } else {
         printf("\nConnexion error\n");
     }
 
-    client->Disconnect(client);
     client->Free(client);
 }
 

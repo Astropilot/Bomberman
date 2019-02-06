@@ -5,6 +5,7 @@
 **      Wrapper around the socket API.
 */
 
+#include <stdio.h>
 #include <string.h>
 
 #include "packer.h"
@@ -100,6 +101,7 @@ static int TClient_Recv(TClient *this, TMessage *message)
 
     char buffer_len[2];
     int recv_res = recv(this->sock, buffer_len, 2, 0);
+    message->len = recv_res;
     if (recv_res <= 0) return (recv_res);
 
     unpack_int(buffer_len, &(message->len));
@@ -131,9 +133,8 @@ static void *TClient_Receving(void *p_args)
 {
     TClient *client = (TClient*)p_args;
     TMessage message;
-    unsigned int is_connected = 1;
 
-    while (is_connected) {
+    while (client->is_receving) {
         int res_read = TClient_Recv(client, &message);
 
         pthread_mutex_lock(&mutex_message_event);
@@ -142,9 +143,12 @@ static void *TClient_Receving(void *p_args)
         if (client->Server_On_Message && client->server)
             client->Server_On_Message(client, client->server, message);
         if (!res_read) {
+            printf("[DEBUG][CLIENT] Disconnect detected\n");
             // Disconnect user here
-            is_connected = 0;
-            client->Disconnect(client);
+            closesocket(client->sock);
+            client->sock = -1;
+            client->is_receving = 0;
+            client->server = NULL;
         }
         pthread_mutex_unlock(&mutex_message_event);
     }
