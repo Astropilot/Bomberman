@@ -15,7 +15,7 @@
 #include "frame_host_menu.h"
 #include "frame_join_menu.h"
 
-int main()
+int main(void)
 {
     TWindow *window = New_TWindow();
     TFrame *frame_game = New_GameFrame();

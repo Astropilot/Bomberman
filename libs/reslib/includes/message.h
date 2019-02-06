@@ -12,7 +12,7 @@
 
 typedef struct TMessage {
 
-    size_t len;
+    int len;
     char *message;
     //int checksum;
 

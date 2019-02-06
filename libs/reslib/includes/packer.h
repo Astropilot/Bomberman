@@ -5,17 +5,12 @@
 **      Wrapper around the socket API.
 */
 
-#ifndef RESLIB_H_
-#define RESLIB_H_
+#ifndef RESLIB_PACKER_H_
+#define RESLIB_PACKER_H_
 
 #include <stdlib.h>
 
-#include "packer.h"
-#include "message.h"
-#include "client.h"
-#include "server.h"
-
-void init_network(void);
-void end_network(void);
+char *pack_int(char *buffer, int i);
+char *unpack_int(char *buffer, int *i);
 
 #endif

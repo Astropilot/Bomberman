@@ -9,13 +9,10 @@
 
 static void TServer_Init(TServer *this, unsigned short int port, size_t max_c);
 static void *TServer_Listenning(void *p_args);
-static void *TServer_ClientThread(void *p_args);
+static void TServer_Client_OnMessage(TClient *client, TServer *server, TMessage message);
 static void TServer_RemoveClient(TServer *this, TClient *client);
-static void TServer_AddClient(TServer *this, TClient *client, pthread_t thread);
+static void TServer_AddClient(TServer *this, TClient *client);
 static void TServer_Free_Clients(TServer *this);
-
-static pthread_mutex_t mutex_message = PTHREAD_MUTEX_INITIALIZER;
-static pthread_mutex_t mutex_disconnect = PTHREAD_MUTEX_INITIALIZER;
 
 TServer *New_TServer(unsigned short int port, size_t max_c)
 {
@@ -105,14 +102,12 @@ static void *TServer_Listenning(void *p_args)
                 int client_socket = accept(server->server_sock, NULL, NULL);
                 if (client_socket != SOCKET_ERROR) {
                     TClient *client = New_TClient();
-                    pthread_t thread_client;
-                    params_t params = {server, client};
                     client->sock = client_socket;
-
-                    pthread_create(&thread_client, NULL, TServer_ClientThread, (void*)&params);
-                    TServer_AddClient(server, client, thread_client);
+                    client->Server_On_Message = TServer_Client_OnMessage;
+                    TServer_AddClient(server, client);
                     if (server->On_Connect)
                         server->On_Connect(server, client);
+                    client->Start_Recv(client, server);
                 }
             }
         }
@@ -121,38 +116,18 @@ static void *TServer_Listenning(void *p_args)
     return (NULL);
 }
 
-static void *TServer_ClientThread(void *p_args)
+static void TServer_Client_OnMessage(TClient *client, TServer *server, TMessage message)
 {
-    params_t *params = (params_t*)p_args;
-    TServer *server = params->server;
-    TClient *client = params->client;
-    unsigned int is_connected = 1;
-    TMessage message;
-
-    while (is_connected) {
-        int res_read = client->Recv(client, &message);
-
-        if (res_read == -1) // On error
-            continue;
-        if (res_read) {
-            if (server->On_Message) {
-                pthread_mutex_lock(&mutex_message);
-                server->On_Message(server, client, message);
-                pthread_mutex_unlock(&mutex_message);
-            }
-        } else {
-            if (server->On_Disconnect) {
-                pthread_mutex_lock(&mutex_disconnect);
-                server->On_Disconnect(server, client);
-                pthread_mutex_unlock(&mutex_disconnect);
-            }
-            // Disconnect user here
-            is_connected = 0;
-            TServer_RemoveClient(server, client);
-        }
+    if (message.len == -1)
+        return;
+    if (message.len) {
+        if (server->On_Message)
+            server->On_Message(server, client, message);
+    } else {
+        if (server->On_Disconnect)
+            server->On_Disconnect(server, client);
+        TServer_RemoveClient(server, client);
     }
-
-    return (NULL);
 }
 
 static void TServer_RemoveClient(TServer *this, TClient *client)
@@ -188,13 +163,12 @@ size_t TServer_CountClients(TServer *this)
     return (clients);
 }
 
-static void TServer_AddClient(TServer *this, TClient *client, pthread_t thread)
+static void TServer_AddClient(TServer *this, TClient *client)
 {
     if (!this->clients_head) {
         TClient_Node *client_node = malloc(sizeof(TClient_Node));
 
         client_node->client = client;
-        client_node->thread = thread;
         client_node->next = NULL;
         this->clients_head = client_node;
     } else {
@@ -204,7 +178,6 @@ static void TServer_AddClient(TServer *this, TClient *client, pthread_t thread)
             current = current->next;
         current->next = malloc(sizeof(TClient_Node));
         current->next->client = client;
-        current->next->thread = thread;
         current->next->next = NULL;
     }
 }
@@ -216,7 +189,7 @@ static void TServer_Free_Clients(TServer *this)
 
     while (current != NULL) {
         current->client->Disconnect(current->client);
-        pthread_join(current->thread, NULL);
+        //pthread_join(current->thread, NULL);
         current->client->Free(current->client);
 
         tmp = current;
@@ -228,8 +201,8 @@ static void TServer_Free_Clients(TServer *this)
 void TServer_New_Free(TServer *this)
 {
     if (this) {
-        TServer_Free_Clients(this);
         this->Stop_Listenning(this);
+        TServer_Free_Clients(this);
         closesocket(this->server_sock);
     }
     free(this);

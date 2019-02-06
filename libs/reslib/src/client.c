@@ -5,9 +5,16 @@
 **      Wrapper around the socket API.
 */
 
+#include <string.h>
+
+#include "packer.h"
 #include "client.h"
 
 static void TClient_Init(TClient *this);
+static int TClient_Recv(TClient *this, TMessage *message);
+static void *TClient_Receving(void *p_args);
+
+static pthread_mutex_t mutex_message_event = PTHREAD_MUTEX_INITIALIZER;
 
 TClient *New_TClient(void)
 {
@@ -23,10 +30,14 @@ static void TClient_Init(TClient *this)
 {
     this->Connect = TClient_Connect;
     this->Send = TClient_Send;
-    this->Recv = TClient_Recv;
+    this->Start_Recv = TClient_Start_Recv;
+    this->Stop_Recv = TClient_Stop_Recv;
+    //this->Recv = TClient_Recv;
     this->Disconnect = TClient_Disconnect;
 
     this->sock = -1;
+    this->is_receving = 0;
+    this->server = NULL;
 }
 
 int TClient_Connect(TClient *this, const char *addr, unsigned short int port)
@@ -61,34 +72,91 @@ int TClient_Send(TClient *this, TMessage message)
     if (this->sock == -1)
         return (0);
 
+    char *buffer = malloc(sizeof(char) * (message.len + 2)); // size of message + message
+    char *start_buffer = buffer;
+    memset(buffer, '\0', message.len + 2);
     int total = 0;
-    int bytesleft = (int)(message.len);
+    int bytesleft = (message.len + 2);
     int n;
 
-    while(total < (int)(message.len)) {
-        n = send(this->sock, (message.message) + total, bytesleft, 0);
+    buffer = pack_int(buffer, message.len);
+    strcat(buffer, message.message);
+
+    while(total < message.len) {
+        n = send(this->sock, start_buffer + total, bytesleft, 0);
         if (n == -1) { break; }
         total += n;
         bytesleft -= n;
     }
 
+    free(start_buffer);
     return (n == -1 ? -1 : 0);
 }
 
-int TClient_Recv(TClient *this, TMessage *message)
+static int TClient_Recv(TClient *this, TMessage *message)
 {
     if (this->sock == -1)
         return (0);
 
-    int nb_read = recv(this->sock, message->message, (int)(message->len), 0);
+    char buffer_len[2];
+    int recv_res = recv(this->sock, buffer_len, 2, 0);
+    if (recv_res <= 0) return (recv_res);
 
-    return (nb_read);
+    unpack_int(buffer_len, &(message->len));
+
+    char *buffer = malloc(sizeof(char) * message->len);
+    recv(this->sock, buffer, message->len, 0);
+
+    message->message = buffer;
+
+    return (message->len);
+}
+
+void TClient_Start_Recv(TClient *this, TServer *server)
+{
+    if (server)
+        this->server = server;
+    this->is_receving = 1;
+    pthread_create(&(this->client_thread), NULL, TClient_Receving, (void*)this);
+}
+
+void TClient_Stop_Recv(TClient *this)
+{
+    this->is_receving = 0;
+    pthread_join(this->client_thread, NULL);
+    this->server = NULL;
+}
+
+static void *TClient_Receving(void *p_args)
+{
+    TClient *client = (TClient*)p_args;
+    TMessage message;
+    unsigned int is_connected = 1;
+
+    while (is_connected) {
+        int res_read = TClient_Recv(client, &message);
+
+        pthread_mutex_lock(&mutex_message_event);
+        if (client->On_Message)
+            client->On_Message(client, message);
+        if (client->Server_On_Message && client->server)
+            client->Server_On_Message(client, client->server, message);
+        if (!res_read) {
+            // Disconnect user here
+            is_connected = 0;
+            client->Disconnect(client);
+        }
+        pthread_mutex_unlock(&mutex_message_event);
+    }
+
+    return (NULL);
 }
 
 void TClient_Disconnect(TClient *this)
 {
     if (this->sock == -1) {
         closesocket(this->sock);
+        this->Stop_Recv(this);
         this->sock = -1;
     }
 }

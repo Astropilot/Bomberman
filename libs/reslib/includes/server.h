@@ -17,7 +17,6 @@
 
 typedef struct TClient_Node {
     TClient *client;
-    pthread_t thread;
     struct TClient_Node *next;
 } TClient_Node ;
 
