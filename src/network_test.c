@@ -38,14 +38,22 @@ void Client_On_Message(TClient *client, TMessage message)
         printf("\n[Client][On_Message] Recv error !\n");
 }
 
+void Client_On_Disconnect(TClient *client)
+{
+    if (client)
+        printf("\n[Client][On_Disconnect] Client leave !\n");
+    else
+        printf("\n[Client][On_Disconnect] Error on disconnect\n");
+}
+
 void client_code(void)
 {
     char buffer[128];
     char serverip[255];
     int serverport;
-    unsigned int keep_alive = 1;
     TClient *client = New_TClient();
     client->On_Message = Client_On_Message;
+    client->On_Disconnect = Client_On_Disconnect;
 
     printf("\n[Client] Entrez l'ip du serveur: ");
     scanf("%s", serverip);
@@ -57,25 +65,24 @@ void client_code(void)
 
     if (resconnexion == 0) {
         client->Start_Recv(client, NULL);
-        while(keep_alive) {
+        while(client->sock != -1) {
             //printf("[Client] Entrez une commande: ");
             fgets(buffer, 128, stdin);
             if ((strlen(buffer) > 0) && (buffer[strlen (buffer) - 1] == '\n'))
                 buffer[strlen (buffer) - 1] = '\0';
 
-            if (strcmp(buffer, "exit") == 0) {
-                keep_alive = 0;
-                client->Stop_Recv(client);
-            }
             TMessage message = {strlen(buffer), buffer};
             client->Send(client, message);
             printf("\n[Client] Sended message [%d]\"%s\" to server\n", (int)strlen(buffer), buffer);
+            if (strcmp(buffer, "exit") == 0) {
+                client->Disconnect(client);
+            }
+            printf("[Client] Actual socket: %d\n", client->sock);
         }
     } else {
         printf("\nConnexion error\n");
     }
 
-    client->Disconnect(client);
     client->Free(client);
 }
 

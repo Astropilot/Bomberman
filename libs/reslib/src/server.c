@@ -10,6 +10,7 @@
 static void TServer_Init(TServer *this, unsigned short int port, size_t max_c);
 static void *TServer_Listenning(void *p_args);
 static void TServer_Client_OnMessage(TClient *client, TServer *server, TMessage message);
+static void TServer_Client_OnDisconnect(TClient *client, TServer *server);
 static void TServer_RemoveClient(TServer *this, TClient *client);
 static void TServer_AddClient(TServer *this, TClient *client);
 static void TServer_Free_Clients(TServer *this);
@@ -96,14 +97,12 @@ static void *TServer_Listenning(void *p_args)
             if (res <= 0)
                 continue;
             if (FD_ISSET(server->server_sock, &rdfs)) {
-                //SOCKADDR_IN csin = { 0 };
-                //size_t sinsize = sizeof(csin);
-
                 int client_socket = accept(server->server_sock, NULL, NULL);
                 if (client_socket != SOCKET_ERROR) {
                     TClient *client = New_TClient();
                     client->sock = client_socket;
                     client->Server_On_Message = TServer_Client_OnMessage;
+                    client->Server_On_Disconnect = TServer_Client_OnDisconnect;
                     TServer_AddClient(server, client);
                     if (server->On_Connect)
                         server->On_Connect(server, client);
@@ -118,16 +117,15 @@ static void *TServer_Listenning(void *p_args)
 
 static void TServer_Client_OnMessage(TClient *client, TServer *server, TMessage message)
 {
-    if (message.len == -1)
-        return;
-    if (message.len) {
-        if (server->On_Message)
-            server->On_Message(server, client, message);
-    } else {
-        if (server->On_Disconnect)
-            server->On_Disconnect(server, client);
-        TServer_RemoveClient(server, client);
-    }
+    if (server->On_Message)
+        server->On_Message(server, client, message);
+}
+
+static void TServer_Client_OnDisconnect(TClient *client, TServer *server)
+{
+    if (server->On_Disconnect)
+        server->On_Disconnect(server, client);
+    TServer_RemoveClient(server, client);
 }
 
 static void TServer_RemoveClient(TServer *this, TClient *client)
@@ -188,8 +186,6 @@ static void TServer_Free_Clients(TServer *this)
     TClient_Node *tmp = NULL;
 
     while (current != NULL) {
-        current->client->Disconnect(current->client);
-        //pthread_join(current->thread, NULL);
         current->client->Free(current->client);
 
         tmp = current;

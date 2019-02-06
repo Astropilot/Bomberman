@@ -38,6 +38,10 @@ typedef struct TClient {
 
     void(*Server_On_Message)(struct TClient*, TServer*, TMessage);
 
+    void(*On_Disconnect)(struct TClient*);
+
+    void(*Server_On_Disconnect)(struct TClient*, TServer*);
+
     SOCKET sock;
     unsigned int is_receving;
     pthread_t client_thread;

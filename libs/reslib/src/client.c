@@ -32,8 +32,12 @@ static void TClient_Init(TClient *this)
     this->Send = TClient_Send;
     this->Start_Recv = TClient_Start_Recv;
     this->Stop_Recv = TClient_Stop_Recv;
-    //this->Recv = TClient_Recv;
     this->Disconnect = TClient_Disconnect;
+
+    this->On_Message = NULL;
+    this->Server_On_Message = NULL;
+    this->On_Disconnect = NULL;
+    this->Server_On_Disconnect = NULL;
 
     this->sock = -1;
     this->is_receving = 0;
@@ -99,13 +103,14 @@ static int TClient_Recv(TClient *this, TMessage *message)
         return (0);
 
     char buffer_len[2];
-    int recv_res = recv(this->sock, buffer_len, 2, 0);
+    int recv_res = recv(this->sock, buffer_len, 2, MSG_DONTWAIT);
+    message->len = recv_res;
     if (recv_res <= 0) return (recv_res);
 
     unpack_int(buffer_len, &(message->len));
 
     char *buffer = malloc(sizeof(char) * message->len);
-    recv(this->sock, buffer, message->len, 0);
+    message->len = recv(this->sock, buffer, message->len, MSG_DONTWAIT);
 
     message->message = buffer;
 
@@ -114,47 +119,58 @@ static int TClient_Recv(TClient *this, TMessage *message)
 
 void TClient_Start_Recv(TClient *this, TServer *server)
 {
-    if (server)
-        this->server = server;
-    this->is_receving = 1;
-    pthread_create(&(this->client_thread), NULL, TClient_Receving, (void*)this);
+    if (this->is_receving == 0) {
+        if (server)
+            this->server = server;
+        this->is_receving = 1;
+        pthread_create(&(this->client_thread), NULL, TClient_Receving, (void*)this);
+    }
 }
 
 void TClient_Stop_Recv(TClient *this)
 {
-    this->is_receving = 0;
-    pthread_join(this->client_thread, NULL);
-    this->server = NULL;
+    if (this->is_receving == 1) {
+        this->is_receving = 0;
+        pthread_join(this->client_thread, NULL);
+        this->server = NULL;
+    }
 }
 
 static void *TClient_Receving(void *p_args)
 {
     TClient *client = (TClient*)p_args;
-    TMessage message;
-    unsigned int is_connected = 1;
 
-    while (is_connected) {
+    while (client->is_receving && client->sock != -1) {
+        TMessage message;
         int res_read = TClient_Recv(client, &message);
 
         pthread_mutex_lock(&mutex_message_event);
-        if (client->On_Message)
-            client->On_Message(client, message);
-        if (client->Server_On_Message && client->server)
-            client->Server_On_Message(client, client->server, message);
+        if (res_read > 0) {
+            if (client->On_Message)
+                client->On_Message(client, message);
+            else if (client->Server_On_Message && client->server)
+                client->Server_On_Message(client, client->server, message);
+        }
         if (!res_read) {
-            // Disconnect user here
-            is_connected = 0;
-            client->Disconnect(client);
+            if (client->On_Disconnect)
+                client->On_Disconnect(client);
+            else if (client->Server_On_Disconnect && client->server)
+                client->Server_On_Disconnect(client, client->server);
+            closesocket(client->sock);
+            client->is_receving = 0;
+            client->sock = -1;
+            client->server = NULL;
         }
         pthread_mutex_unlock(&mutex_message_event);
     }
 
+    client->is_receving = 0;
     return (NULL);
 }
 
 void TClient_Disconnect(TClient *this)
 {
-    if (this->sock == -1) {
+    if (this->sock != -1) {
         closesocket(this->sock);
         this->Stop_Recv(this);
         this->sock = -1;
