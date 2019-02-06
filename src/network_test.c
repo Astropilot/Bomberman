@@ -59,7 +59,10 @@ void client_code(void)
         client->Start_Recv(client, NULL);
         while(keep_alive) {
             //printf("[Client] Entrez une commande: ");
-            scanf("%s", buffer);
+            fgets(buffer, 128, stdin);
+            if ((strlen(buffer) > 0) && (buffer[strlen (buffer) - 1] == '\n'))
+                buffer[strlen (buffer) - 1] = '\0';
+
             if (strcmp(buffer, "exit") == 0) {
                 keep_alive = 0;
                 client->Stop_Recv(client);
@@ -136,7 +139,10 @@ void server_code(void)
     server->Start_Listenning(server);
     while(keep_alive) {
         //printf("[Server] Entrez une commande: ");
-        scanf("%s", buffer);
+        fgets(buffer, 128, stdin);
+        if ((strlen(buffer) > 0) && (buffer[strlen (buffer) - 1] == '\n'))
+            buffer[strlen (buffer) - 1] = '\0';
+
         if (strcmp(buffer, "exit") == 0) {
             keep_alive = 0;
             server->Stop_Listenning(server);
