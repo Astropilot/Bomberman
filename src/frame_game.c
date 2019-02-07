@@ -15,7 +15,7 @@ static void On_Tick(TFrame *frame, TWindow *window);
 static void On_Unload(TFrame *frame, TWindow *window);
 static void Finish(TFrame *frame, TWindow *window);
 
-static unsigned int sprite_speed = 12;
+static unsigned int sprite_speed = 7;
 
 TFrame* New_GameFrame(void)
 {
@@ -57,31 +57,14 @@ static void On_Load(TFrame* frame, TWindow *window, va_list args)
 
     asp->pos.x = 200;
     asp->pos.y = 223;
-    sprite_speed = 12;
+    sprite_speed = 7;
 
     SDL_RenderClear(window->renderer_window);
 }
 
 static void On_Event(TFrame* frame, TWindow *window, SDL_Event event)
 {
-    if (event.type == SDL_KEYDOWN) {
-        TAnimatedSprite *asp = (TAnimatedSprite *)frame->Get_Drawable(frame, "PLAYER");
-
-        switch (event.key.keysym.sym) {
-            case SDLK_LEFT:
-                asp->pos.x -= sprite_speed;
-                break;
-            case SDLK_RIGHT:
-                asp->pos.x += sprite_speed;
-                break;
-            case SDLK_UP:
-                asp->pos.y -= sprite_speed;
-                break;
-            case SDLK_DOWN:
-                asp->pos.y += sprite_speed;
-                break;
-        }
-    } else if (event.type == SDL_KEYUP) {
+    if (event.type == SDL_KEYUP) {
         TAnimatedSprite *asp = (TAnimatedSprite *)frame->Get_Drawable(frame, "PLAYER");
 
         if (event.key.keysym.sym == SDLK_KP_PLUS)
@@ -102,6 +85,22 @@ static void On_Event(TFrame* frame, TWindow *window, SDL_Event event)
 
 static void On_Tick(TFrame* frame, TWindow *window)
 {
+    const Uint8 *keyboard = SDL_GetKeyboardState(NULL);
+
+    if (keyboard[SDL_SCANCODE_LEFT]) {
+        TAnimatedSprite *asp = (TAnimatedSprite *)frame->Get_Drawable(frame, "PLAYER");
+        asp->pos.x -= sprite_speed;
+    } else if (keyboard[SDL_SCANCODE_RIGHT]) {
+        TAnimatedSprite *asp = (TAnimatedSprite *)frame->Get_Drawable(frame, "PLAYER");
+        asp->pos.x += sprite_speed;
+    } else if (keyboard[SDL_SCANCODE_UP]) {
+        TAnimatedSprite *asp = (TAnimatedSprite *)frame->Get_Drawable(frame, "PLAYER");
+        asp->pos.y -= sprite_speed;
+    } else if (keyboard[SDL_SCANCODE_DOWN]) {
+        TAnimatedSprite *asp = (TAnimatedSprite *)frame->Get_Drawable(frame, "PLAYER");
+        asp->pos.y += sprite_speed;
+    }
+
     SDL_RenderClear(window->renderer_window);
     frame->Draw_Drawables(frame, window);
     SDL_RenderPresent(window->renderer_window);
