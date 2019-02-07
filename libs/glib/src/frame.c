@@ -39,7 +39,7 @@ static void TFrame_Free_Drawables(TFrame *this)
     Drawable_Node *tmp = NULL;
 
     while (current != NULL) {
-        drawableCallFree(current);
+        current->drawable->Free(current->drawable);
 
         tmp = current;
         current = current->next;
@@ -48,7 +48,7 @@ static void TFrame_Free_Drawables(TFrame *this)
     }
 }
 
-void TFrame_Add_Drawable(TFrame *this, void *drawable, drawables_e type, const char *id, unsigned int priority)
+void TFrame_Add_Drawable(TFrame *this, TDrawable *drawable, const char *id, unsigned int priority)
 {
     Drawable_Node *drawable_node;
 
@@ -58,7 +58,6 @@ void TFrame_Add_Drawable(TFrame *this, void *drawable, drawables_e type, const c
         return;
     drawable_node->id = strdup(id);
     drawable_node->drawable = drawable;
-    drawable_node->type = type;
     drawable_node->priority = priority;
     if (this->drawables_head == NULL) {
         drawable_node->next = NULL;
@@ -84,14 +83,14 @@ void TFrame_Add_Drawable(TFrame *this, void *drawable, drawables_e type, const c
     }
 }
 
-void *TFrame_Remove_Drawable(TFrame *this, const char *id)
+TDrawable *TFrame_Remove_Drawable(TFrame *this, const char *id)
 {
     if (!this || !id)
         return (NULL);
 
     Drawable_Node *current = this->drawables_head;
     Drawable_Node *previous = NULL;
-    void *drawable = NULL;
+    TDrawable *drawable = NULL;
 
     while (current != NULL) {
         if (strcmp(current->id, id) == 0) {
@@ -110,7 +109,7 @@ void *TFrame_Remove_Drawable(TFrame *this, const char *id)
     return drawable;
 }
 
-void *TFrame_Get_Drawable(TFrame *this, const char *id)
+TDrawable *TFrame_Get_Drawable(TFrame *this, const char *id)
 {
     if (!this || !id)
         return (NULL);
@@ -131,7 +130,7 @@ void TFrame_Draw_Drawables(TFrame *this, TWindow *win)
     Drawable_Node *current = this->drawables_head;
 
     while (current != NULL) {
-        drawableCallDraw(current, win);
+        current->drawable->Draw(current->drawable, win);
         current = current->next;
     }
 }

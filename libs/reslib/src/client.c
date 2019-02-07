@@ -150,6 +150,7 @@ static void *TClient_Receving(void *p_args)
                 client->On_Message(client, message);
             else if (client->Server_On_Message && client->server)
                 client->Server_On_Message(client, client->server, message);
+            free(message.message);
         }
         if (!res_read) {
             if (client->On_Disconnect)

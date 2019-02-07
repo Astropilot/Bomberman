@@ -28,7 +28,7 @@
 #include <SDL2/SDL_ttf.h>
 
 #include "sprite.h"
-#include "drawables.h"
+#include "drawable.h"
 
 typedef struct TWindow TWindow;
 
@@ -40,11 +40,11 @@ typedef struct TWindow TWindow;
  */
 typedef struct TFrame {
 
-    void(*Add_Drawable)(struct TFrame*, void*, drawables_e, const char*, unsigned int);     /*!< Method for adding a drawable with an ID and a priority. */
+    void(*Add_Drawable)(struct TFrame*, TDrawable*, const char*, unsigned int);             /*!< Method for adding a drawable with an ID and a priority. */
 
-    void*(*Remove_Drawable)(struct TFrame*, const char *id);                                /*!< Method for deleting a drawable by its ID. */
+    TDrawable*(*Remove_Drawable)(struct TFrame*, const char *id);                           /*!< Method for deleting a drawable by its ID. */
 
-    void*(*Get_Drawable)(struct TFrame*, const char *id);                                   /*!< Method for getting a drawable by its ID. */
+    TDrawable*(*Get_Drawable)(struct TFrame*, const char *id);                              /*!< Method for getting a drawable by its ID. */
 
     void(*Draw_Drawables)(struct TFrame*, TWindow*);                                        /*!< Method for drawing all the drawables added. */
 
@@ -89,23 +89,22 @@ typedef struct TFrame_Node {
 TFrame* New_TFrame(const char *frame_id);
 
 /**
- * @fn void TFrame_Add_Drawable(TFrame *this, void *drawable, drawables_e type, const char *id, unsigned int priority)
+ * @fn void TFrame_Add_Drawable(TFrame *this, TDrawable *drawable, const char *id, unsigned int priority)
  * @brief Method for adding a drawable to the frame.
  *
  * @param this A pointer to the frame object.
  * @param drawable A generic drawable.
- * @param type The type of drawable. See drawables_e enum in drawables.h header.
  * @param id An unique ID for the drawable.
  * @param priority The drawing priority. The lower the priority (close to 1), the more it will be drawn last.
  *
  * You do not have to call this method directly. You must use the
  * Add_Drawable method of the TFrame structure like this:
- * my_frame->Add_Drawable(my_frame, (void*)my_drawable, SPRITE, "MY_DRAWABLE", 1);
+ * my_frame->Add_Drawable(my_frame, (TDrawable*)my_drawable, "MY_DRAWABLE", 1);
  */
-void TFrame_Add_Drawable(TFrame *this, void *drawable, drawables_e type, const char *id, unsigned int priority);
+void TFrame_Add_Drawable(TFrame *this, TDrawable *drawable, const char *id, unsigned int priority);
 
 /**
- * @fn void *TFrame_Remove_Drawable(TFrame *this, const char *id)
+ * @fn TDrawable *TFrame_Remove_Drawable(TFrame *this, const char *id)
  * @brief Method for deleting a drawable. The drawable is not free !
  *
  * @param this A pointer to the frame object.
@@ -116,10 +115,10 @@ void TFrame_Add_Drawable(TFrame *this, void *drawable, drawables_e type, const c
  * Add_Drawable method of the TFrame structure like this:
  * my_frame->Remove_Drawable(my_frame, "MY_DRAWABLE");
  */
-void *TFrame_Remove_Drawable(TFrame *this, const char *id);
+TDrawable *TFrame_Remove_Drawable(TFrame *this, const char *id);
 
 /**
- * @fn void *TFrame_Get_Drawable(TFrame *this, const char *id)
+ * @fn TDrawable *TFrame_Get_Drawable(TFrame *this, const char *id)
  * @brief Method for getting a drawable.
  *
  * @param this A pointer to the frame object.
@@ -130,7 +129,7 @@ void *TFrame_Remove_Drawable(TFrame *this, const char *id);
  * Get_Drawable method of the TFrame structure like this:
  * my_frame->Get_Drawable(my_frame, "MY_DRAWABLE");
  */
-void *TFrame_Get_Drawable(TFrame *this, const char *id);
+TDrawable *TFrame_Get_Drawable(TFrame *this, const char *id);
 
 /**
  * @fn void TFrame_Draw_Drawables(TFrame *this, TWindow *win)

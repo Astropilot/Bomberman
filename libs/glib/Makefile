@@ -6,7 +6,6 @@ NAME	= libglib.a
 RM		= rm -f
 
 SRC		= \
-		src/drawables.c \
 		src/window.c \
 		src/frame.c \
 		src/sprite.c \

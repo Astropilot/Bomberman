@@ -38,8 +38,8 @@ static void Init(TFrame* frame, TWindow *window)
     SDL_Rect size_anim_sprite = {0, 0, 256, 256};
     TAnimatedSprite *asp = New_TAnimatedSprite(window, "images/sprite_animated.png", size_anim_sprite, pos_anim_sprite , 100, -1);
 
-    frame->Add_Drawable(frame, (void*)sp2, SPRITE, "BG", 999);
-    frame->Add_Drawable(frame, (void*)asp, ANIMATED_SPRITE, "PLAYER", 1);
+    frame->Add_Drawable(frame, (TDrawable*)sp2, "BG", 999);
+    frame->Add_Drawable(frame, (TDrawable*)asp, "PLAYER", 1);
 }
 
 static void On_Load(TFrame* frame, TWindow *window, va_list args)
@@ -53,7 +53,7 @@ static void On_Load(TFrame* frame, TWindow *window, va_list args)
     txt->pos.x = (WIN_WIDTH / 2) - (txt->pos.w / 2);
     txt->pos.y = 40;
 
-    frame->Add_Drawable(frame, (void*)txt, TEXT, "LABEL_USERNAME", 1);
+    frame->Add_Drawable(frame, (TDrawable*)txt, "LABEL_USERNAME", 1);
 
     asp->pos.x = 200;
     asp->pos.y = 223;
@@ -95,7 +95,7 @@ static void On_Event(TFrame* frame, TWindow *window, SDL_Event event)
             SDL_Rect pos_bomb = {asp->pos.x + (asp->pos.w / 2), asp->pos.y + (asp->pos.h / 2), 32, 32};
             TAnimatedSprite *sp = New_TAnimatedSprite(window, "images/bomberman_bomb_animated.png", size_bomb, pos_bomb, 128, 1);
 
-            frame->Add_Drawable(frame, (void*)sp, ANIMATED_SPRITE, "BOMB", 2);
+            frame->Add_Drawable(frame, (TDrawable*)sp, "BOMB", 2);
         }
     }
 }

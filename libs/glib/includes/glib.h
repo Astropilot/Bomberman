@@ -26,6 +26,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
+#include "drawable.h"
 #include "window.h"
 #include "frame.h"
 #include "sprite.h"
@@ -34,7 +35,6 @@
 #include "text.h"
 #include "button.h"
 #include "inputbox.h"
-#include "drawables.h"
 #include "utils.h"
 
 #endif

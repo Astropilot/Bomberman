@@ -52,11 +52,11 @@ static void Init(TFrame* frame, TWindow *window)
     TButton *btn_play = New_TButton("images/button_create_normal.png", "images/button_create_hover.png", pos_button_play, window);
     btn_play->On_Click = On_Click_Play_Button;
 
-    frame->Add_Drawable(frame, (void*)sp_bg, ANIMATED_SPRITE, "BG", 999);
-    frame->Add_Drawable(frame, (void*)sp_title, SPRITE, "TITLE", 998);
-    frame->Add_Drawable(frame, (void*)input_username, INPUT, "INPUT_USER", 1);
-    frame->Add_Drawable(frame, (void*)input_serverport, INPUT, "INPUT_PORT", 1);
-    frame->Add_Drawable(frame, (void*)btn_play, BUTTON, "BTN_PLAY", 1);
+    frame->Add_Drawable(frame, (TDrawable*)sp_bg, "BG", 999);
+    frame->Add_Drawable(frame, (TDrawable*)sp_title, "TITLE", 998);
+    frame->Add_Drawable(frame, (TDrawable*)input_username, "INPUT_USER", 1);
+    frame->Add_Drawable(frame, (TDrawable*)input_serverport, "INPUT_PORT", 1);
+    frame->Add_Drawable(frame, (TDrawable*)btn_play, "BTN_PLAY", 1);
 }
 
 static void On_Load(TFrame* frame, TWindow *window, va_list args)

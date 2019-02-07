@@ -50,11 +50,11 @@ typedef struct TButton {
 
     void(*Draw)(struct TButton*, TWindow*); /*!< Draw method. */
 
+    void(*Free)(struct TButton*); /*!< Free (ressources) method. */
+
     void(*On_Click)(struct TButton*, TWindow*); /*!< Callback called when a click event occurs. */
 
     void(*Event_Handler)(struct TButton*, TWindow *, SDL_Event); /*!< Method call for processing SDL event */
-
-    void(*Free)(struct TButton*); /*!< Free (ressources) method. */
 
     TSprite *btn_sprite; /*!< A sprite for the button in normal state. */
     TSprite *btn_hover_sprite; /*!< A sprite for the button in hover state. */

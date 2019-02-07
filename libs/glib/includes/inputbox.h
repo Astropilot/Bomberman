@@ -48,9 +48,9 @@ typedef struct TInput {
 
     void(*Draw)(struct TInput*, TWindow*);                          /*!< Draw method. */
 
-    void(*Event_Handler)(struct TInput*, SDL_Event);                /*!< Method call for processing SDL event */
-
     void(*Free)(struct TInput*);                                    /*!< Free (ressources) method. */
+
+    void(*Event_Handler)(struct TInput*, SDL_Event);                /*!< Method call for processing SDL event */
 
     char *text;                                                     /*!< The text entered in the input box. */
     char *placeholder;                                              /*!< The placeholder text in the input box. */
