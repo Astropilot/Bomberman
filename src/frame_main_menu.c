@@ -33,7 +33,7 @@ TFrame* New_MainMenuFrame(void)
 
 static void Init(TFrame* frame, TWindow *window)
 {
-    SDL_Rect size_sprite_bg = {0, 0, 1280, 720};
+    SDL_Rect size_sprite_bg = {0, 0, 960, 540};
     SDL_Rect pos_sprite_bg = {0, 0, 1280, 720};
     //TAnimatedSprite *sp_bg = New_TAnimatedSprite(window, "images/animated_background.png", size_sprite_bg, pos_sprite_bg , 52, -1);
     TAnimatedSprites *sp_bg = New_TAnimatedSprites(window, "images/mainmenu/fire%02d.png", 47, size_sprite_bg, pos_sprite_bg , 20, -1);
