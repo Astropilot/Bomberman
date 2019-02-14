@@ -10,10 +10,11 @@
 
 #include "main.h"
 #include "glib.h"
-#include "frame_game.h"
-#include "frame_main_menu.h"
-#include "frame_host_menu.h"
-#include "frame_join_menu.h"
+#include "ui/frame_game.h"
+#include "ui/frame_main_menu.h"
+#include "ui/frame_host_menu.h"
+#include "ui/frame_join_menu.h"
+#include "ui/frame_lobby.h"
 
 int main(void)
 {
@@ -22,12 +23,14 @@ int main(void)
     TFrame *frame_main_menu = New_MainMenuFrame();
     TFrame *frame_host_menu = New_HostMenuFrame();
     TFrame *frame_join_menu = New_JoinMenuFrame();
+    //TFrame *frame_lobby = New_LobbyFrame();
 
     if (window) {
         window->Add_Frame(window, frame_game);
         window->Add_Frame(window, frame_main_menu);
         window->Add_Frame(window, frame_host_menu);
         window->Add_Frame(window, frame_join_menu);
+        //window->Add_Frame(window, frame_lobby);
         window->Create_Window(window, "Bomberman", WIN_WIDTH, WIN_HEIGHT, "FRAME_MAIN_MENU", 30);
 
         window->Free(window);

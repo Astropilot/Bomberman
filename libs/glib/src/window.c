@@ -54,7 +54,7 @@ static void TWindow_Finish_Frames(TWindow *this)
 
     while (current != NULL) {
         if (current->frame->Finish)
-            current->frame->Finish(current->frame, this);
+            current->frame->Finish(current->frame);
         current = current->next;
     }
 }
@@ -71,13 +71,13 @@ static void TWindow_Loop(TWindow *this)
                 this->finished = 1;
             else {
                 if (this->shown_frame && this->shown_frame->On_Event)
-                    this->shown_frame->On_Event(this->shown_frame, this, event);
+                    this->shown_frame->On_Event(this->shown_frame, event);
             }
         }
         if (this->shown_frame && this->shown_frame->On_Tick) {
             current_time = SDL_GetTicks();
             if (current_time > last_time + this->fps) {
-                this->shown_frame->On_Tick(this->shown_frame, this);
+                this->shown_frame->On_Tick(this->shown_frame);
                 last_time = current_time;
             }
         }
@@ -131,6 +131,7 @@ void TWindow_Add_Frame(TWindow *this, TFrame *frame)
 {
     if (!frame)
         return;
+    frame->window = this;
     if (!this->frames_head) {
         TFrame_Node *frame_node = malloc(sizeof(TFrame_Node));
 
@@ -157,16 +158,16 @@ void TWindow_Show_Frame(TWindow *this, const char *frame_id, int argc, ...)
     while (current != NULL) {
         if (strcmp(current->frame->frame_id, frame_id) == 0) {
             if (this->shown_frame && this->shown_frame->On_Unload) {
-                this->shown_frame->On_Unload(this->shown_frame, this);
+                this->shown_frame->On_Unload(this->shown_frame);
             }
             if (!current->frame->initialized && current->frame->Init) {
-                current->frame->Init(current->frame, this);
+                current->frame->Init(current->frame);
                 current->frame->initialized = 1;
             }
             va_list argp;
             va_start(argp, argc);
             if (current->frame->On_Load)
-                current->frame->On_Load(current->frame, this, argp);
+                current->frame->On_Load(current->frame, argc, argp);
             va_end(argp);
             this->shown_frame = current->frame;
             return;

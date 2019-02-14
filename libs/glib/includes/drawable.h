@@ -23,7 +23,7 @@
 #include <unistd.h>
 #include <SDL2/SDL.h>
 
-typedef struct TWindow TWindow;
+typedef struct TFrame TFrame;
 
 /**
  * @struct TDrawable
@@ -33,7 +33,7 @@ typedef struct TWindow TWindow;
  */
 typedef struct TDrawable {
 
-    void(*Draw)(struct TDrawable*, TWindow*);                          /*!< Draw method. */
+    void(*Draw)(struct TDrawable*, TFrame*);                           /*!< Draw method. */
 
     void(*Free)(struct TDrawable*);                                    /*!< Free (ressources) method. */
 

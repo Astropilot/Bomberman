@@ -25,7 +25,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-typedef struct TWindow TWindow;
+typedef struct TFrame TFrame;
 
 /**
  * @struct TAnimatedSprites
@@ -35,9 +35,9 @@ typedef struct TWindow TWindow;
  */
 typedef struct TAnimatedSprites {
 
-    void(*Draw)(struct TAnimatedSprites*, TWindow*);     /*!< Draw method. */
+    void(*Draw)(struct TAnimatedSprites*, TFrame*);     /*!< Draw method. */
 
-    void(*Free)(struct TAnimatedSprites*);               /*!< Free (ressources) method. */
+    void(*Free)(struct TAnimatedSprites*);              /*!< Free (ressources) method. */
 
     SDL_Rect size;                                      /*!< The size of a single image. */
     SDL_Rect pos;                                       /*!< The size and position of the animated sprites on the screen. */
@@ -52,10 +52,10 @@ typedef struct TAnimatedSprites {
 } TAnimatedSprites ;
 
 /**
- * @fn TAnimatedSprites* New_TAnimatedSprites(TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed)
+ * @fn TAnimatedSprites* New_TAnimatedSprites(TFrame *frame, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
  * @brief The constructor for create a TAnimatedSprites object.
  *
- * @param win A pointer to the window object.
+ * @param frame A pointer to the frame object.
  * @param file_template The template path of the image files containing all the sprite frames.
  * @param files The number of files.
  * @param size The size of a single frame, the x and y are ignored.
@@ -64,20 +64,20 @@ typedef struct TAnimatedSprites {
  * @param animations The number of animations, can be -1 for infinite loop.
  * @return A memory allocated object of the animated sprite.
  */
-TAnimatedSprites* New_TAnimatedSprites(TWindow *win, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations);
+TAnimatedSprites* New_TAnimatedSprites(TFrame *frame, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations);
 
 /**
- * @fn void TAnimatedSprites_Draw(TAnimatedSprites *this, TWindow *win)
+ * @fn void TAnimatedSprites_Draw(TAnimatedSprites *this, TFrame *frame)
  * @brief Method for drawing the animated sprite in the interface.
  *
  * @param this A pointer to the animated sprite object to draw.
- * @param win A pointer to the window object.
+ * @param frame A pointer to the frame object.
  *
  * You do not have to call this method directly. You must use the
  * Draw method of the TAnimatedSprites structure like this:
- * my_sprite->Draw(my_sprite, window);
+ * my_sprite->Draw(my_sprite, frame);
  */
-void TAnimatedSprites_Draw(TAnimatedSprites *this, TWindow *win);
+void TAnimatedSprites_Draw(TAnimatedSprites *this, TFrame *frame);
 
 /**
  * @fn void TAnimatedSprites_New_Free(TAnimatedSprites *this)

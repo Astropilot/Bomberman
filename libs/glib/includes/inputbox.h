@@ -28,8 +28,9 @@
 #include <SDL2/SDL_ttf.h>
 
 #include "sprite.h"
-#include "window.h"
 #include "utils.h"
+
+typedef struct TFrame TFrame;
 
 /**
  * @def MAX_STR_LEN
@@ -46,7 +47,7 @@
  */
 typedef struct TInput {
 
-    void(*Draw)(struct TInput*, TWindow*);                          /*!< Draw method. */
+    void(*Draw)(struct TInput*, TFrame*);                           /*!< Draw method. */
 
     void(*Free)(struct TInput*);                                    /*!< Free (ressources) method. */
 
@@ -66,34 +67,34 @@ typedef struct TInput {
 } TInput ;
 
 /**
- * @fn TInput* New_TInput(const char *sprite_file, SDL_Rect pos, TWindow *window, SDL_Color color)
+ * @fn TInput* TInput* New_TInput(TFrame *frame, const char *sprite_file, SDL_Rect pos, SDL_Color color, size_t len, const char *placeholder)
  * @brief The constructor for create a TInput object.
  *
+ * @param frame A pointer to the frame object.
  * @param sprite_file The path of an image file for the input.
  * @param pos The position and size of the input box.
- * @param window A pointer to the window object.
  * @param color The color of the text.
  * @param len The maximum length of the input text.
  * @param placeholder A placeholder text when no text has been entered.
  * @return A memory allocated object of the input box.
  */
-TInput* New_TInput(const char *sprite_file, SDL_Rect pos, TWindow *window, SDL_Color color, size_t len, const char *placeholder);
+TInput* New_TInput(TFrame *frame, const char *sprite_file, SDL_Rect pos, SDL_Color color, size_t len, const char *placeholder);
 
 /**
- * @fn void TInput_Draw(TInput *this, TWindow *window)
+ * @fn void TInput_Draw(TInput *this, TFrame *frame)
  * @brief Method for drawing the input box in the interface.
  *
  * @param this A pointer to the input object to draw.
- * @param window A pointer to the window object.
+ * @param frame A pointer to the frame object.
  *
  * You do not have to call this method directly. You must use the
  * Draw method of the TInput structure like this:
- * my_input->Draw(my_input, window);
+ * my_input->Draw(my_input, frame);
  */
-void TInput_Draw(TInput *this, TWindow *window);
+void TInput_Draw(TInput *this, TFrame *frame);
 
 /**
- * @fn void TInput_Event_Handler(TInput *this, TWindow *win, SDL_Event event)
+ * @fn void TInput_Event_Handler(TInput *this, SDL_Event event)
  * @brief Method to process an SDL event for manage text input and click focus.
  *
  * @param this A pointer to the input box object.
@@ -101,7 +102,7 @@ void TInput_Draw(TInput *this, TWindow *window);
  *
  * You do not have to call this method directly. You must use the
  * Event_Handler method of the TInput structure like this:
- * my_input->Event_Handler(my_input, window, event);
+ * my_input->Event_Handler(my_input, event);
  */
 void TInput_Event_Handler(TInput *this, SDL_Event event);
 

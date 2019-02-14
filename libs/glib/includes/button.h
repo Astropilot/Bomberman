@@ -28,6 +28,8 @@
 
 #include "sprite.h"
 
+typedef struct TFrame TFrame;
+
 /**
  * @enum EButton_State
  * @brief Constants of the states of a button.
@@ -48,13 +50,13 @@ typedef enum EButton_State {
  */
 typedef struct TButton {
 
-    void(*Draw)(struct TButton*, TWindow*); /*!< Draw method. */
+    void(*Draw)(struct TButton*, TFrame*); /*!< Draw method. */
 
     void(*Free)(struct TButton*); /*!< Free (ressources) method. */
 
-    void(*On_Click)(struct TButton*, TWindow*); /*!< Callback called when a click event occurs. */
+    void(*On_Click)(struct TButton*, TFrame*); /*!< Callback called when a click event occurs. */
 
-    void(*Event_Handler)(struct TButton*, TWindow *, SDL_Event); /*!< Method call for processing SDL event */
+    void(*Event_Handler)(struct TButton*, TFrame *, SDL_Event); /*!< Method call for processing SDL event */
 
     TSprite *btn_sprite; /*!< A sprite for the button in normal state. */
     TSprite *btn_hover_sprite; /*!< A sprite for the button in hover state. */
@@ -64,43 +66,43 @@ typedef struct TButton {
 } TButton ;
 
 /**
- * @fn TButton* New_TButton(const char *btn_s, const char *btn_hs, SDL_Rect pos, TWindow *win)
+ * @fn TButton* New_TButton(TFrame *frame, const char *btn_s, const char *btn_hs, SDL_Rect pos)
  * @brief The constructor for create a TButton object.
  *
+ * @param frame A pointer to the frame object.
  * @param btn_s The path of an image file for the button in normal state.
  * @param btn_hs The path of an image file for the button in hover state.
  * @param pos The position and size of the button.
- * @param win A pointer to the window object.
  * @return A memory allocated object of the button.
  */
-TButton* New_TButton(const char *btn_s, const char *btn_hs, SDL_Rect pos, TWindow *win);
+TButton* New_TButton(TFrame *frame, const char *btn_s, const char *btn_hs, SDL_Rect pos);
 
 /**
- * @fn void TButton_Draw(TButton *this, TWindow *window)
+ * @fn void TButton_Draw(TButton *this, TFrame *frame)
  * @brief Method for drawing the button in the interface.
  *
  * @param this A pointer to the button object to draw.
- * @param window A pointer to the window object.
+ * @param frame A pointer to the frame object.
  *
  * You do not have to call this method directly. You must use the
  * Draw method of the TButton structure like this:
- * my_button->Draw(my_button, window);
+ * my_button->Draw(my_button, frame);
  */
-void TButton_Draw(TButton *this, TWindow *window);
+void TButton_Draw(TButton *this, TFrame *frame);
 
 /**
- * @fn void TButton_Event_Handler(TButton *this, TWindow *win, SDL_Event event)
+ * @fn void TButton_Event_Handler(TButton *this, TFrame *frame, SDL_Event event)
  * @brief Method to process an SDL event and change the status of the button or manage clicks.
  *
  * @param this A pointer to the button object.
- * @param win A pointer to the window object.
+ * @param frame A pointer to the frame object.
  * @param event A SDL event.
  *
  * You do not have to call this method directly. You must use the
  * Event_Handler method of the TButton structure like this:
- * my_button->Event_Handler(my_button, window, event);
+ * my_button->Event_Handler(my_button, frame, event);
  */
-void TButton_Event_Handler(TButton *this, TWindow *win, SDL_Event event);
+void TButton_Event_Handler(TButton *this, TFrame *frame, SDL_Event event);
 
 /**
  * @fn void TButton_New_Free(TButton *this)

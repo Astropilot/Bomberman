@@ -46,22 +46,23 @@ typedef struct TFrame {
 
     TDrawable*(*Get_Drawable)(struct TFrame*, const char *id);                              /*!< Method for getting a drawable by its ID. */
 
-    void(*Draw_Drawables)(struct TFrame*, TWindow*);                                        /*!< Method for drawing all the drawables added. */
+    void(*Draw_Drawables)(struct TFrame*);                                                  /*!< Method for drawing all the drawables added. */
 
-    void(*Init)(struct TFrame*, TWindow*);                                                  /*!< Method to be defined on the TFrame creation. Called one time on first show. */
+    void(*Init)(struct TFrame*);                                                            /*!< Method to be defined on the TFrame creation. Called one time on first show. */
 
-    void(*On_Load)(struct TFrame*, TWindow*, va_list args);                                 /*!< Method to be defined on the TFrame creation. Called each time the frame is shown. */
+    void(*On_Load)(struct TFrame*, int argc, va_list args);                                 /*!< Method to be defined on the TFrame creation. Called each time the frame is shown. */
 
-    void(*On_Event)(struct TFrame*, TWindow*, SDL_Event);                                   /*!< Method to be defined on the TFrame creation. Called on each SDL event. */
+    void(*On_Event)(struct TFrame*, SDL_Event);                                             /*!< Method to be defined on the TFrame creation. Called on each SDL event. */
 
-    void(*On_Tick)(struct TFrame*, TWindow*);                                               /*!< Method to be defined on the TFrame creation. Called on each tick in game loop */
+    void(*On_Tick)(struct TFrame*);                                                         /*!< Method to be defined on the TFrame creation. Called on each tick in game loop */
 
-    void(*On_Unload)(struct TFrame*, TWindow*);                                             /*!< Method to be defined on the TFrame creation. Called each time the frame become invisible. */
+    void(*On_Unload)(struct TFrame*);                                                       /*!< Method to be defined on the TFrame creation. Called each time the frame become invisible. */
 
-    void(*Finish)(struct TFrame*, TWindow*);                                                /*!< Method to be defined on the TFrame creation. Called one time at the end of the program. */
+    void(*Finish)(struct TFrame*);                                                          /*!< Method to be defined on the TFrame creation. Called one time at the end of the program. */
 
     void(*Free)(struct TFrame*);                                                            /*!< Method for free all TFrame ressources, include drawables. */
 
+    TWindow *window;                                        /*!< The main window. */
     char *frame_id;                                         /*!< The ID of the frame. */
     unsigned int initialized;                               /*!< Boolean to know if the frame has been initialized or not. */
     Drawable_Node *drawables_head;                          /*!< A linked list of drawables. */
@@ -132,7 +133,7 @@ TDrawable *TFrame_Remove_Drawable(TFrame *this, const char *id);
 TDrawable *TFrame_Get_Drawable(TFrame *this, const char *id);
 
 /**
- * @fn void TFrame_Draw_Drawables(TFrame *this, TWindow *win)
+ * @fn void TFrame_Draw_Drawables(TFrame *this)
  * @brief Method for drawing all drawables in the frame.
  *
  * @param this A pointer to the frame object.
@@ -142,7 +143,7 @@ TDrawable *TFrame_Get_Drawable(TFrame *this, const char *id);
  * Draw_Drawables method of the TFrame structure like this:
  * my_frame->Draw_Drawables(my_frame, window);
  */
-void TFrame_Draw_Drawables(TFrame *this, TWindow *win);
+void TFrame_Draw_Drawables(TFrame *this);
 
 /**
  * @fn void TFrame_New_Free(TFrame *this)

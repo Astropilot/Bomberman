@@ -5,35 +5,36 @@
 **      Source file of the text component of GLib.
 */
 
-#include "window.h"
 #include "text.h"
+#include "frame.h"
+#include "window.h"
 
-static void TText_Init(TText *this, const char *text, TWindow *win, TTF_Font *font, SDL_Color color, SDL_Rect pos);
+static void TText_Init(TText *this, TFrame *frame, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect pos);
 
-TText* New_TText(const char *text, TWindow *win, TTF_Font *font, SDL_Color color, SDL_Rect pos)
+TText* New_TText(TFrame *frame, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect pos)
 {
     TText *this = malloc(sizeof(TText));
 
     if(!this) return NULL;
-    TText_Init(this, text, win, font, color, pos);
+    TText_Init(this, frame, text, font, color, pos);
     this->Free = TText_New_Free;
     return this;
 }
 
-static void TText_Init(TText *this, const char *text, TWindow *win, TTF_Font *font, SDL_Color color, SDL_Rect pos)
+static void TText_Init(TText *this, TFrame *frame, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect pos)
 {
     this->Draw = TText_Draw;
     this->text = strdup(text);
     this->pos = pos;
-    this->texture = createText(this->text, font, color, &this->pos, win);
+    this->texture = createText(frame, this->text, font, color, &this->pos);
 }
 
-void TText_Draw(TText *this, TWindow *win)
+void TText_Draw(TText *this, TFrame *frame)
 {
-    if (!this || !win)
+    if (!this || !frame)
         return;
 
-    SDL_RenderCopy(win->renderer_window, this->texture, NULL, &this->pos);
+    SDL_RenderCopy(frame->window->renderer_window, this->texture, NULL, &this->pos);
 }
 
 void TText_New_Free(TText *this)

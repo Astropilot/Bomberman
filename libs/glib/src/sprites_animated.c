@@ -7,22 +7,23 @@
 
 #include <stdio.h>
 
-#include "window.h"
 #include "sprites_animated.h"
+#include "frame.h"
+#include "window.h"
 
-static void TAnimatedSprites_Init(TAnimatedSprites *this, TWindow *win, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations);
+static void TAnimatedSprites_Init(TAnimatedSprites *this, TFrame *frame, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations);
 
-TAnimatedSprites* New_TAnimatedSprites(TWindow *win, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
+TAnimatedSprites* New_TAnimatedSprites(TFrame *frame, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
 {
     TAnimatedSprites *this = malloc(sizeof(TAnimatedSprites));
 
     if(!this) return NULL;
-    TAnimatedSprites_Init(this, win, file_template, files, size, pos, speed, animations);
+    TAnimatedSprites_Init(this, frame, file_template, files, size, pos, speed, animations);
     this->Free = TAnimatedSprites_New_Free;
     return this;
 }
 
-static void TAnimatedSprites_Init(TAnimatedSprites *this, TWindow *win, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
+static void TAnimatedSprites_Init(TAnimatedSprites *this, TFrame *frame, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
 {
     this->Draw = TAnimatedSprites_Draw;
     this->file_template = strdup(file_template);
@@ -43,21 +44,21 @@ static void TAnimatedSprites_Init(TAnimatedSprites *this, TWindow *win, const ch
 
         sprintf(file_path, this->file_template, i);
         surface = IMG_Load(file_path);
-        this->textures[i] = SDL_CreateTextureFromSurface(win->renderer_window, surface);
+        this->textures[i] = SDL_CreateTextureFromSurface(frame->window->renderer_window, surface);
 
         SDL_FreeSurface(surface);
     }
 }
 
-void TAnimatedSprites_Draw(TAnimatedSprites *this, TWindow *win)
+void TAnimatedSprites_Draw(TAnimatedSprites *this, TFrame *frame)
 {
-    if (!this || !win)
+    if (!this || !frame)
         return;
 
     unsigned int current_time = 0;
 
     if (this->animations != 0)
-        SDL_RenderCopy(win->renderer_window, this->textures[this->actual_image], &this->size, &this->pos);
+        SDL_RenderCopy(frame->window->renderer_window, this->textures[this->actual_image], &this->size, &this->pos);
     current_time = SDL_GetTicks();
     if (current_time > this->last_time + this->speed && this->animations != 0) {
         this->actual_image = (this->actual_image + 1) % this->nb_images;

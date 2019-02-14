@@ -6,20 +6,22 @@
 */
 
 #include "inputbox.h"
+#include "frame.h"
+#include "window.h"
 
-static void TInput_Init(TInput *this, const char *file, SDL_Rect pos, TWindow *win, SDL_Color color, size_t len, const char *placeholder);
+static void TInput_Init(TInput *this, TFrame *frame, const char *file, SDL_Rect pos, SDL_Color color, size_t len, const char *placeholder);
 
-TInput* New_TInput(const char *sprite_file, SDL_Rect pos, TWindow *window, SDL_Color color, size_t len, const char *placeholder)
+TInput* New_TInput(TFrame *frame, const char *sprite_file, SDL_Rect pos, SDL_Color color, size_t len, const char *placeholder)
 {
     TInput *this = malloc(sizeof(TInput));
 
     if(!this) return NULL;
-    TInput_Init(this, sprite_file, pos, window, color, len, placeholder);
+    TInput_Init(this, frame, sprite_file, pos, color, len, placeholder);
     this->Free = TInput_New_Free;
     return this;
 }
 
-static void TInput_Init(TInput *this, const char *file, SDL_Rect pos, TWindow *win, SDL_Color color, size_t len, const char *placeholder)
+static void TInput_Init(TInput *this, TFrame *frame, const char *file, SDL_Rect pos, SDL_Color color, size_t len, const char *placeholder)
 {
     SDL_Surface *s_tmp;
 
@@ -31,7 +33,7 @@ static void TInput_Init(TInput *this, const char *file, SDL_Rect pos, TWindow *w
         this->placeholder = strdup(placeholder);
     else
         this->placeholder = NULL;
-    this->input_sprite = New_TSprite(win, file, pos);
+    this->input_sprite = New_TSprite(frame, file, pos);
     this->font = TTF_OpenFont("fonts/fixedsys.ttf", 24);
     this->color = color;
     this->pos_input = pos;
@@ -45,22 +47,22 @@ static void TInput_Init(TInput *this, const char *file, SDL_Rect pos, TWindow *w
     free(s_tmp);
 }
 
-void TInput_Draw(TInput *this, TWindow *window)
+void TInput_Draw(TInput *this, TFrame *frame)
 {
-    if (!this || !window)
+    if (!this || !frame)
         return;
 
     SDL_Texture *text_texture = NULL;
     unsigned int current_time = 0;
     SDL_Color color = {189, 189, 189, 255};
 
-    this->input_sprite->Draw(this->input_sprite, window);
+    this->input_sprite->Draw(this->input_sprite, frame);
     if (strlen(this->text) > 0)
-        text_texture = createText(this->text, this->font, this->color, &this->pos_text, window);
+        text_texture = createText(frame, this->text, this->font, this->color, &this->pos_text);
     else if (this->placeholder)
-        text_texture = createText(this->placeholder, this->font, color, &this->pos_text, window);
+        text_texture = createText(frame, this->placeholder, this->font, color, &this->pos_text);
     if (text_texture) {
-        SDL_RenderCopy(window->renderer_window, text_texture, NULL, &this->pos_text);
+        SDL_RenderCopy(frame->window->renderer_window, text_texture, NULL, &this->pos_text);
         SDL_DestroyTexture(text_texture);
     }
     if (!text_texture || (strlen(this->text) <= 0)) {
@@ -73,8 +75,8 @@ void TInput_Draw(TInput *this, TWindow *window)
         SDL_Rect pos_cursor = {
             (this->pos_text.x + this->pos_text.w) + 2, this->pos_text.y, 0, 0};
 
-        cursor_texture = createText("_", this->font, this->color, &pos_cursor, window);
-        SDL_RenderCopy(window->renderer_window, cursor_texture, NULL, &pos_cursor);
+        cursor_texture = createText(frame, "_", this->font, this->color, &pos_cursor);
+        SDL_RenderCopy(frame->window->renderer_window, cursor_texture, NULL, &pos_cursor);
         SDL_DestroyTexture(cursor_texture);
         this->last_time = current_time;
     }

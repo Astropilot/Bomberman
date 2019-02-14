@@ -10,11 +10,11 @@ TARGET	= bomberman
 RM		= rm -f
 
 SRC		= \
-		src/frame_game.c \
-		src/frame_main_menu.c \
-		src/frame_host_menu.c \
-		src/frame_join_menu.c \
+		$(wildcard src/ui/*.c) \
 		src/main.c
+
+#$(wildcard src/network/packets/*.c) \
+#$(wildcard src/network/game/*.c) \
 
 #SRC			= \
 		src/network_test.c

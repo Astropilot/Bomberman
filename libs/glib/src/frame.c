@@ -28,6 +28,7 @@ static void TFrame_Init(TFrame *this, const char *frame_id)
     this->Remove_Drawable = TFrame_Remove_Drawable;
     this->Get_Drawable = TFrame_Get_Drawable;
     this->Draw_Drawables = TFrame_Draw_Drawables;
+    this->window = NULL;
     this->frame_id = strdup(frame_id);
     this->initialized = 0;
     this->drawables_head = NULL;
@@ -125,12 +126,12 @@ TDrawable *TFrame_Get_Drawable(TFrame *this, const char *id)
     return (NULL);
 }
 
-void TFrame_Draw_Drawables(TFrame *this, TWindow *win)
+void TFrame_Draw_Drawables(TFrame *this)
 {
     Drawable_Node *current = this->drawables_head;
 
     while (current != NULL) {
-        current->drawable->Draw(current->drawable, win);
+        current->drawable->Draw(current->drawable, this);
         current = current->next;
     }
 }

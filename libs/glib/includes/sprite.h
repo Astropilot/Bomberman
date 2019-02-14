@@ -25,7 +25,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-typedef struct TWindow TWindow;
+typedef struct TFrame TFrame;
 
 /**
  * @struct TSprite
@@ -35,7 +35,7 @@ typedef struct TWindow TWindow;
  */
 typedef struct TSprite {
 
-    void(*Draw)(struct TSprite*, TWindow*);         /*!< Draw method. */
+    void(*Draw)(struct TSprite*, TFrame*);          /*!< Draw method. */
 
     void(*Free)(struct TSprite*);                   /*!< Free (ressources) method. */
 
@@ -46,28 +46,28 @@ typedef struct TSprite {
 } TSprite ;
 
 /**
- * @fn TSprite* New_TSprite(TWindow *win, const char *file, SDL_Rect size)
+ * @fn TSprite* New_TSprite(TFrame *frame, const char *file, SDL_Rect size)
  * @brief The constructor for create a TSprite object.
  *
- * @param win A pointer to the window object.
+ * @param frame A pointer to the frame object.
  * @param file A image file path for the sprite.
  * @param pos The position of the sprite on the screen.
  * @return A memory allocated object of the sprite.
  */
-TSprite* New_TSprite(TWindow *win, const char *file, SDL_Rect pos);
+TSprite* New_TSprite(TFrame *frame, const char *file, SDL_Rect pos);
 
 /**
- * @fn void TSprite_Draw(TSprite *this, TWindow *win)
+ * @fn void TSprite_Draw(TSprite *this, TFrame *frame)
  * @brief Method for drawing the sprite in the interface.
  *
  * @param this A pointer to the sprite object to draw.
- * @param win A pointer to the window object.
+ * @param frame A pointer to the frame object.
  *
  * You do not have to call this method directly. You must use the
  * Draw method of the TSprite structure like this:
- * my_sprite->Draw(my_sprite, window);
+ * my_sprite->Draw(my_sprite, frame);
  */
-void TSprite_Draw(TSprite *this, TWindow *win);
+void TSprite_Draw(TSprite *this, TFrame *frame);
 
 /**
  * @fn void TSprite_New_Free(TSprite *this)

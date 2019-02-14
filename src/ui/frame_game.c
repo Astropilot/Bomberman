@@ -5,15 +5,15 @@
 **      Source file of the game frame.
 */
 
-#include "frame_game.h"
+#include "ui/frame_game.h"
 #include "main.h"
 
-static void Init(TFrame *frame, TWindow *window);
-static void On_Load(TFrame *frame, TWindow *window, va_list args);
-static void On_Event(TFrame *frame, TWindow *window, SDL_Event event);
-static void On_Tick(TFrame *frame, TWindow *window);
-static void On_Unload(TFrame *frame, TWindow *window);
-static void Finish(TFrame *frame, TWindow *window);
+static void Init(TFrame *frame);
+static void On_Load(TFrame *frame, int argc, va_list args);
+static void On_Event(TFrame *frame, SDL_Event event);
+static void On_Tick(TFrame *frame);
+static void On_Unload(TFrame *frame);
+static void Finish(TFrame *frame);
 
 static unsigned int sprite_speed = 7;
 
@@ -29,27 +29,28 @@ TFrame* New_GameFrame(void)
     return (frm);
 }
 
-static void Init(TFrame* frame, TWindow *window)
+static void Init(TFrame* frame)
 {
     SDL_Rect pos_sprite2 = {0, 0, WIN_WIDTH, WIN_HEIGHT};
-    TSprite *sp2 = New_TSprite(window, "images/bomberman_game.png", pos_sprite2);
+    TSprite *sp2 = New_TSprite(frame, "images/bomberman_game.png", pos_sprite2);
 
     SDL_Rect pos_anim_sprite = {200, 223, 64, 64};
     SDL_Rect size_anim_sprite = {0, 0, 256, 256};
-    TAnimatedSprite *asp = New_TAnimatedSprite(window, "images/sprite_animated.png", size_anim_sprite, pos_anim_sprite , 100, -1);
+    TAnimatedSprite *asp = New_TAnimatedSprite(frame, "images/sprite_animated.png", size_anim_sprite, pos_anim_sprite , 100, -1);
 
     frame->Add_Drawable(frame, (TDrawable*)sp2, "BG", 999);
     frame->Add_Drawable(frame, (TDrawable*)asp, "PLAYER", 1);
 }
 
-static void On_Load(TFrame* frame, TWindow *window, va_list args)
+static void On_Load(TFrame* frame, int argc, va_list args)
 {
+    if (argc < 1) printf("Warn");
     char *username = va_arg(args, char*);
     TAnimatedSprite *asp = (TAnimatedSprite*)frame->Get_Drawable(frame, "PLAYER");
     SDL_Rect pos_username = {0, 0, 0, 0};
     SDL_Color color = {255, 255, 255, 255};
 
-    TText *txt = New_TText(username, window, TTF_OpenFont("fonts/fixedsys.ttf", 24), color, pos_username);
+    TText *txt = New_TText(frame, username, TTF_OpenFont("fonts/fixedsys.ttf", 24), color, pos_username);
     txt->pos.x = (WIN_WIDTH / 2) - (txt->pos.w / 2);
     txt->pos.y = 40;
 
@@ -59,10 +60,10 @@ static void On_Load(TFrame* frame, TWindow *window, va_list args)
     asp->pos.y = 223;
     sprite_speed = 7;
 
-    SDL_RenderClear(window->renderer_window);
+    SDL_RenderClear(frame->window->renderer_window);
 }
 
-static void On_Event(TFrame* frame, TWindow *window, SDL_Event event)
+static void On_Event(TFrame* frame, SDL_Event event)
 {
     if (event.type == SDL_KEYUP) {
         TAnimatedSprite *asp = (TAnimatedSprite *)frame->Get_Drawable(frame, "PLAYER");
@@ -72,18 +73,18 @@ static void On_Event(TFrame* frame, TWindow *window, SDL_Event event)
         if (event.key.keysym.sym == SDLK_KP_MINUS)
             sprite_speed -= 5;
         if (event.key.keysym.sym == SDLK_ESCAPE)
-            window->Show_Frame(window, "FRAME_MAIN_MENU", 0);
+            frame->window->Show_Frame(frame->window, "FRAME_MAIN_MENU", 0);
         if (event.key.keysym.sym == SDLK_SPACE) {
             SDL_Rect size_bomb = {0, 0, 256, 256};
             SDL_Rect pos_bomb = {asp->pos.x + (asp->pos.w / 2), asp->pos.y + (asp->pos.h / 2), 32, 32};
-            TAnimatedSprite *sp = New_TAnimatedSprite(window, "images/bomberman_bomb_animated.png", size_bomb, pos_bomb, 128, 1);
+            TAnimatedSprite *sp = New_TAnimatedSprite(frame, "images/bomberman_bomb_animated.png", size_bomb, pos_bomb, 128, 1);
 
             frame->Add_Drawable(frame, (TDrawable*)sp, "BOMB", 2);
         }
     }
 }
 
-static void On_Tick(TFrame* frame, TWindow *window)
+static void On_Tick(TFrame* frame)
 {
     const Uint8 *keyboard = SDL_GetKeyboardState(NULL);
 
@@ -101,15 +102,15 @@ static void On_Tick(TFrame* frame, TWindow *window)
         asp->pos.y += sprite_speed;
     }
 
-    SDL_RenderClear(window->renderer_window);
-    frame->Draw_Drawables(frame, window);
-    SDL_RenderPresent(window->renderer_window);
+    SDL_RenderClear(frame->window->renderer_window);
+    frame->Draw_Drawables(frame);
+    SDL_RenderPresent(frame->window->renderer_window);
 }
 
-static void On_Unload(TFrame* frame, TWindow *window)
+static void On_Unload(TFrame* frame)
 {
     if (IS_DEBUG)
-        printf("Frame [%s]: On_Unload method called | Window finished: %d\n", frame->frame_id, window->finished);
+        printf("Frame [%s]: On_Unload method called\n", frame->frame_id);
 
     TSprite *bomb_sprite = (TSprite*)frame->Remove_Drawable(frame, "BOMB");
     TText *txt_username = (TText*)frame->Remove_Drawable(frame, "LABEL_USERNAME");
@@ -121,8 +122,8 @@ static void On_Unload(TFrame* frame, TWindow *window)
     txt_username->Free(txt_username);
 }
 
-static void Finish(TFrame* frame, TWindow *window)
+static void Finish(TFrame* frame)
 {
     if (IS_DEBUG)
-        printf("Frame [%s]: Finish method called | Window finished: %d\n", frame->frame_id, window->finished);
+        printf("Frame [%s]: Finish method called\n", frame->frame_id);
 }

@@ -28,7 +28,7 @@
 
 #include "utils.h"
 
-typedef struct TWindow TWindow;
+typedef struct TFrame TFrame;
 
 /**
  * @struct TText
@@ -38,7 +38,7 @@ typedef struct TWindow TWindow;
  */
 typedef struct TText {
 
-    void(*Draw)(struct TText*, TWindow*);       /*!< Draw method. */
+    void(*Draw)(struct TText*, TFrame*);        /*!< Draw method. */
 
     void(*Free)(struct TText*);                 /*!< Free (ressources) method. */
 
@@ -49,30 +49,30 @@ typedef struct TText {
 } TText ;
 
 /**
- * @fn TText* New_TText(const char *text, TWindow *win, TTF_Font *font, SDL_Color color, SDL_Rect pos)
+ * @fn TText* New_TText(TFrame *frame, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect pos)
  * @brief The constructor for create a TText object.
  *
+ * @param frame A pointer to the window object.
  * @param text The text to draw.
- * @param win A pointer to the window object.
  * @param font The font of the text.
  * @param color The color of the text.
  * @param pos The position of the text.
  * @return A memory allocated object of the text.
  */
-TText* New_TText(const char *text, TWindow *win, TTF_Font *font, SDL_Color color, SDL_Rect pos);
+TText* New_TText(TFrame *frame, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect pos);
 
 /**
- * @fn void TText_Draw(TText *this, TWindow *win)
+ * @fn void TText_Draw(TText *this, TFrame *frame)
  * @brief Method for drawing the text in the interface.
  *
  * @param this A pointer to the text object to draw.
- * @param window A pointer to the window object.
+ * @param frame A pointer to the frame object.
  *
  * You do not have to call this method directly. You must use the
  * Draw method of the TText structure like this:
- * my_text->Draw(my_text, window);
+ * my_text->Draw(my_text, frame);
  */
-void TText_Draw(TText *this, TWindow *win);
+void TText_Draw(TText *this, TFrame *frame);
 
 /**
  * @fn void TText_New_Free(TText *this)

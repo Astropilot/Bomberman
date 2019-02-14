@@ -5,22 +5,23 @@
 **      Source file of the animated sprite component of GLib.
 */
 
-#include "window.h"
 #include "sprite_animated.h"
+#include "frame.h"
+#include "window.h"
 
-static void TAnimatedSprite_Init(TAnimatedSprite *this, TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations);
+static void TAnimatedSprite_Init(TAnimatedSprite *this, TFrame *frame, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations);
 
-TAnimatedSprite* New_TAnimatedSprite(TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
+TAnimatedSprite* New_TAnimatedSprite(TFrame *frame, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
 {
     TAnimatedSprite *this = malloc(sizeof(TAnimatedSprite));
 
     if(!this) return NULL;
-    TAnimatedSprite_Init(this, win, file, size, pos, speed, animations);
+    TAnimatedSprite_Init(this, frame, file, size, pos, speed, animations);
     this->Free = TAnimatedSprite_New_Free;
     return this;
 }
 
-static void TAnimatedSprite_Init(TAnimatedSprite *this, TWindow *win, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
+static void TAnimatedSprite_Init(TAnimatedSprite *this, TFrame *frame, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
 {
     SDL_Surface *surface = IMG_Load(file);
     int w, h;
@@ -31,7 +32,7 @@ static void TAnimatedSprite_Init(TAnimatedSprite *this, TWindow *win, const char
     this->pos = pos;
     this->speed = speed;
     this->actual_frame = 0;
-    this->texture = SDL_CreateTextureFromSurface(win->renderer_window, surface);
+    this->texture = SDL_CreateTextureFromSurface(frame->window->renderer_window, surface);
     SDL_QueryTexture(this->texture, NULL, NULL, &w, &h);
     this->len_frames = w / size.w;
     this->last_time = 0;
@@ -39,9 +40,9 @@ static void TAnimatedSprite_Init(TAnimatedSprite *this, TWindow *win, const char
     SDL_FreeSurface(surface);
 }
 
-void TAnimatedSprite_Draw(TAnimatedSprite *this, TWindow *win)
+void TAnimatedSprite_Draw(TAnimatedSprite *this, TFrame *frame)
 {
-    if (!this || !win)
+    if (!this || !frame)
         return;
 
     SDL_Rect tmp_frame = {this->size.w * this->actual_frame, this->size.y, this->size.w, this->size.h};
@@ -55,7 +56,7 @@ void TAnimatedSprite_Draw(TAnimatedSprite *this, TWindow *win)
             (this->animations)--;
     }
     if (this->animations != 0)
-        SDL_RenderCopy(win->renderer_window, this->texture, &tmp_frame, &this->pos);
+        SDL_RenderCopy(frame->window->renderer_window, this->texture, &tmp_frame, &this->pos);
 }
 
 void TAnimatedSprite_New_Free(TAnimatedSprite *this)
