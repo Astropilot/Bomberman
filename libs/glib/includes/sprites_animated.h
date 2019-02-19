@@ -33,7 +33,7 @@ typedef struct TFrame TFrame;
  *
  * TAnimatedSprite is an object that allows you to create and display a animated sprite.
  */
-typedef struct TAnimatedSprites {
+typedef struct {
 
     void(*Draw)(struct TAnimatedSprites*, TFrame*);     /*!< Draw method. */
 

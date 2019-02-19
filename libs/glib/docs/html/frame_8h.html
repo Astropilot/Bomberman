@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.15"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>GLib Framwork: includes/frame.h File Reference</title>
+<title>GLib Framework: includes/frame.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,7 +26,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">GLib Framwork
+   <div id="projectname">GLib Framework
    &#160;<span id="projectnumber">1.0</span>
    </div>
   </td>
@@ -81,7 +81,7 @@ $(document).ready(function(){initNavTree('frame_8h.html','');});
 <code>#include &lt;SDL2/SDL_image.h&gt;</code><br />
 <code>#include &lt;SDL2/SDL_ttf.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="sprite_8h_source.html">sprite.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="drawables_8h_source.html">drawables.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="drawable_8h_source.html">drawable.h</a>&quot;</code><br />
 </div>
 <p><a href="frame_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -99,30 +99,24 @@ Typedefs</h2></td></tr>
 <tr class="memitem:aa59060f6eceb53949052e8072d070f7a"><td class="memItemLeft" align="right" valign="top"><a id="aa59060f6eceb53949052e8072d070f7a"></a>
 typedef struct <a class="el" href="struct_t_window.html">TWindow</a>&#160;</td><td class="memItemRight" valign="bottom"><b>TWindow</b></td></tr>
 <tr class="separator:aa59060f6eceb53949052e8072d070f7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77aa395ec12fb8cc985fe21e89a8673b"><td class="memItemLeft" align="right" valign="top"><a id="a77aa395ec12fb8cc985fe21e89a8673b"></a>
-typedef struct <a class="el" href="struct_t_frame.html">TFrame</a>&#160;</td><td class="memItemRight" valign="bottom"><b>TFrame</b></td></tr>
-<tr class="separator:a77aa395ec12fb8cc985fe21e89a8673b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f670aebbd149dec9b82d2e480e9b789"><td class="memItemLeft" align="right" valign="top"><a id="a6f670aebbd149dec9b82d2e480e9b789"></a>
-typedef struct <a class="el" href="struct_t_frame___node.html">TFrame_Node</a>&#160;</td><td class="memItemRight" valign="bottom"><b>TFrame_Node</b></td></tr>
-<tr class="separator:a6f670aebbd149dec9b82d2e480e9b789"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a15e77dc9363744d571259396b253e307"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_frame.html">TFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#a15e77dc9363744d571259396b253e307">New_TFrame</a> (const char *frame_id)</td></tr>
 <tr class="memdesc:a15e77dc9363744d571259396b253e307"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor for create a <a class="el" href="struct_t_frame.html" title="Object oriented structure representing a frame.">TFrame</a> object.  <a href="#a15e77dc9363744d571259396b253e307">More...</a><br /></td></tr>
 <tr class="separator:a15e77dc9363744d571259396b253e307"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d25eda012bb0e04e14b0d1c55dc977c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#a1d25eda012bb0e04e14b0d1c55dc977c">TFrame_Add_Drawable</a> (<a class="el" href="struct_t_frame.html">TFrame</a> *this, void *drawable, <a class="el" href="drawables_8h.html#ab61a3e3f92eb442cdda8cedb21f0fce0">drawables_e</a> type, const char *id, unsigned int priority)</td></tr>
-<tr class="memdesc:a1d25eda012bb0e04e14b0d1c55dc977c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for adding a drawable to the frame.  <a href="#a1d25eda012bb0e04e14b0d1c55dc977c">More...</a><br /></td></tr>
-<tr class="separator:a1d25eda012bb0e04e14b0d1c55dc977c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a860e6dd07b4cc6430c2029756d36e568"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#a860e6dd07b4cc6430c2029756d36e568">TFrame_Remove_Drawable</a> (<a class="el" href="struct_t_frame.html">TFrame</a> *this, const char *id)</td></tr>
-<tr class="memdesc:a860e6dd07b4cc6430c2029756d36e568"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for deleting a drawable. The drawable is not free !  <a href="#a860e6dd07b4cc6430c2029756d36e568">More...</a><br /></td></tr>
-<tr class="separator:a860e6dd07b4cc6430c2029756d36e568"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47f319f68f2ed85ad8d1b42e1762b675"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#a47f319f68f2ed85ad8d1b42e1762b675">TFrame_Get_Drawable</a> (<a class="el" href="struct_t_frame.html">TFrame</a> *this, const char *id)</td></tr>
-<tr class="memdesc:a47f319f68f2ed85ad8d1b42e1762b675"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for getting a drawable.  <a href="#a47f319f68f2ed85ad8d1b42e1762b675">More...</a><br /></td></tr>
-<tr class="separator:a47f319f68f2ed85ad8d1b42e1762b675"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa5ae8b5475a494c9207f03fdd042b58"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#aaa5ae8b5475a494c9207f03fdd042b58">TFrame_Draw_Drawables</a> (<a class="el" href="struct_t_frame.html">TFrame</a> *this, <a class="el" href="struct_t_window.html">TWindow</a> *win)</td></tr>
-<tr class="memdesc:aaa5ae8b5475a494c9207f03fdd042b58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for drawing all drawables in the frame.  <a href="#aaa5ae8b5475a494c9207f03fdd042b58">More...</a><br /></td></tr>
-<tr class="separator:aaa5ae8b5475a494c9207f03fdd042b58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32e97382605f13fbd3d0a9ef9a82c2ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#a32e97382605f13fbd3d0a9ef9a82c2ad">TFrame_Add_Drawable</a> (<a class="el" href="struct_t_frame.html">TFrame</a> *this, <a class="el" href="struct_t_drawable.html">TDrawable</a> *drawable, const char *id, unsigned int priority)</td></tr>
+<tr class="memdesc:a32e97382605f13fbd3d0a9ef9a82c2ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for adding a drawable to the frame.  <a href="#a32e97382605f13fbd3d0a9ef9a82c2ad">More...</a><br /></td></tr>
+<tr class="separator:a32e97382605f13fbd3d0a9ef9a82c2ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b40797f7c12240f059e11286cbb7139"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_drawable.html">TDrawable</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#a2b40797f7c12240f059e11286cbb7139">TFrame_Remove_Drawable</a> (<a class="el" href="struct_t_frame.html">TFrame</a> *this, const char *id)</td></tr>
+<tr class="memdesc:a2b40797f7c12240f059e11286cbb7139"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for deleting a drawable. The drawable is not free !  <a href="#a2b40797f7c12240f059e11286cbb7139">More...</a><br /></td></tr>
+<tr class="separator:a2b40797f7c12240f059e11286cbb7139"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8ac76aebd9bd31df4acc8b47303255a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_drawable.html">TDrawable</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#af8ac76aebd9bd31df4acc8b47303255a">TFrame_Get_Drawable</a> (<a class="el" href="struct_t_frame.html">TFrame</a> *this, const char *id)</td></tr>
+<tr class="memdesc:af8ac76aebd9bd31df4acc8b47303255a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for getting a drawable.  <a href="#af8ac76aebd9bd31df4acc8b47303255a">More...</a><br /></td></tr>
+<tr class="separator:af8ac76aebd9bd31df4acc8b47303255a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2accd665aa9bed9e04fee4f8c545dd72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#a2accd665aa9bed9e04fee4f8c545dd72">TFrame_Draw_Drawables</a> (<a class="el" href="struct_t_frame.html">TFrame</a> *this)</td></tr>
+<tr class="memdesc:a2accd665aa9bed9e04fee4f8c545dd72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for drawing all drawables in the frame.  <a href="#a2accd665aa9bed9e04fee4f8c545dd72">More...</a><br /></td></tr>
+<tr class="separator:a2accd665aa9bed9e04fee4f8c545dd72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17be1c7f7881227012d55b13c4b9070f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#a17be1c7f7881227012d55b13c4b9070f">TFrame_New_Free</a> (<a class="el" href="struct_t_frame.html">TFrame</a> *this)</td></tr>
 <tr class="memdesc:a17be1c7f7881227012d55b13c4b9070f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to free all ressources take by the frame, drawables included.  <a href="#a17be1c7f7881227012d55b13c4b9070f">More...</a><br /></td></tr>
 <tr class="separator:a17be1c7f7881227012d55b13c4b9070f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,8 +155,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a1d25eda012bb0e04e14b0d1c55dc977c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d25eda012bb0e04e14b0d1c55dc977c">&#9670;&nbsp;</a></span>TFrame_Add_Drawable()</h2>
+<a id="a32e97382605f13fbd3d0a9ef9a82c2ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32e97382605f13fbd3d0a9ef9a82c2ad">&#9670;&nbsp;</a></span>TFrame_Add_Drawable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -176,14 +170,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">void *&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_t_drawable.html">TDrawable</a> *&#160;</td>
           <td class="paramname"><em>drawable</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="drawables_8h.html#ab61a3e3f92eb442cdda8cedb21f0fce0">drawables_e</a>&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -210,18 +198,17 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">this</td><td>A pointer to the frame object. </td></tr>
     <tr><td class="paramname">drawable</td><td>A generic drawable. </td></tr>
-    <tr><td class="paramname">type</td><td>The type of drawable. See drawables_e enum in <a class="el" href="drawables_8h.html" title="Header file of the drawables tools of GLib.">drawables.h</a> header. </td></tr>
     <tr><td class="paramname">id</td><td>An unique ID for the drawable. </td></tr>
     <tr><td class="paramname">priority</td><td>The drawing priority. The lower the priority (close to 1), the more it will be drawn last.</td></tr>
   </table>
   </dd>
 </dl>
-<p>You do not have to call this method directly. You must use the Add_Drawable method of the <a class="el" href="struct_t_frame.html" title="Object oriented structure representing a frame.">TFrame</a> structure like this: my_frame-&gt;Add_Drawable(my_frame, (void*)my_drawable, SPRITE, "MY_DRAWABLE", 1); </p>
+<p>You do not have to call this method directly. You must use the Add_Drawable method of the <a class="el" href="struct_t_frame.html" title="Object oriented structure representing a frame.">TFrame</a> structure like this: my_frame-&gt;Add_Drawable(my_frame, (TDrawable*)my_drawable, "MY_DRAWABLE", 1); </p>
 
 </div>
 </div>
-<a id="aaa5ae8b5475a494c9207f03fdd042b58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa5ae8b5475a494c9207f03fdd042b58">&#9670;&nbsp;</a></span>TFrame_Draw_Drawables()</h2>
+<a id="a2accd665aa9bed9e04fee4f8c545dd72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2accd665aa9bed9e04fee4f8c545dd72">&#9670;&nbsp;</a></span>TFrame_Draw_Drawables()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -230,18 +217,8 @@ Functions</h2></td></tr>
           <td class="memname">void TFrame_Draw_Drawables </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_t_frame.html">TFrame</a> *&#160;</td>
-          <td class="paramname"><em>this</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>this</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="struct_t_window.html">TWindow</a> *&#160;</td>
-          <td class="paramname"><em>win</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -249,23 +226,22 @@ Functions</h2></td></tr>
 <p>Method for drawing all drawables in the frame. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">this</td><td>A pointer to the frame object. </td></tr>
-    <tr><td class="paramname">win</td><td>A pointer to the window object.</td></tr>
+    <tr><td class="paramname">this</td><td>A pointer to the frame object.</td></tr>
   </table>
   </dd>
 </dl>
-<p>You do not have to call this method directly. You must use the Draw_Drawables method of the <a class="el" href="struct_t_frame.html" title="Object oriented structure representing a frame.">TFrame</a> structure like this: my_frame-&gt;Draw_Drawables(my_frame, window); </p>
+<p>You do not have to call this method directly. You must use the Draw_Drawables method of the <a class="el" href="struct_t_frame.html" title="Object oriented structure representing a frame.">TFrame</a> structure like this: my_frame-&gt;Draw_Drawables(my_frame); </p>
 
 </div>
 </div>
-<a id="a47f319f68f2ed85ad8d1b42e1762b675"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47f319f68f2ed85ad8d1b42e1762b675">&#9670;&nbsp;</a></span>TFrame_Get_Drawable()</h2>
+<a id="af8ac76aebd9bd31df4acc8b47303255a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8ac76aebd9bd31df4acc8b47303255a">&#9670;&nbsp;</a></span>TFrame_Get_Drawable()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void * TFrame_Get_Drawable </td>
+          <td class="memname"><a class="el" href="struct_t_drawable.html">TDrawable</a> * TFrame_Get_Drawable </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_t_frame.html">TFrame</a> *&#160;</td>
           <td class="paramname"><em>this</em>, </td>
@@ -324,14 +300,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a860e6dd07b4cc6430c2029756d36e568"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a860e6dd07b4cc6430c2029756d36e568">&#9670;&nbsp;</a></span>TFrame_Remove_Drawable()</h2>
+<a id="a2b40797f7c12240f059e11286cbb7139"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b40797f7c12240f059e11286cbb7139">&#9670;&nbsp;</a></span>TFrame_Remove_Drawable()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void * TFrame_Remove_Drawable </td>
+          <td class="memname"><a class="el" href="struct_t_drawable.html">TDrawable</a> * TFrame_Remove_Drawable </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_t_frame.html">TFrame</a> *&#160;</td>
           <td class="paramname"><em>this</em>, </td>

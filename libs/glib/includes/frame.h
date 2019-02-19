@@ -38,7 +38,7 @@ typedef struct TWindow TWindow;
  *
  * TFrame is an object that allows you to create and define a new frame.
  */
-typedef struct TFrame {
+typedef struct {
 
     void(*Add_Drawable)(struct TFrame*, TDrawable*, const char*, unsigned int);             /*!< Method for adding a drawable with an ID and a priority. */
 
@@ -75,7 +75,7 @@ typedef struct TFrame {
  *
  * TFrame_Node is an linked list node for stock TFrame objects.
  */
-typedef struct TFrame_Node {
+typedef struct {
     TFrame *frame;
     struct TFrame_Node *next;
 } TFrame_Node ;
@@ -137,11 +137,10 @@ TDrawable *TFrame_Get_Drawable(TFrame *this, const char *id);
  * @brief Method for drawing all drawables in the frame.
  *
  * @param this A pointer to the frame object.
- * @param win A pointer to the window object.
  *
  * You do not have to call this method directly. You must use the
  * Draw_Drawables method of the TFrame structure like this:
- * my_frame->Draw_Drawables(my_frame, window);
+ * my_frame->Draw_Drawables(my_frame);
  */
 void TFrame_Draw_Drawables(TFrame *this);
 

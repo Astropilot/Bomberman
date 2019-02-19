@@ -33,7 +33,7 @@ typedef struct TFrame TFrame;
  *
  * TSprite is an object that allows you to create and display a sprite.
  */
-typedef struct TSprite {
+typedef struct {
 
     void(*Draw)(struct TSprite*, TFrame*);          /*!< Draw method. */
 
@@ -46,7 +46,7 @@ typedef struct TSprite {
 } TSprite ;
 
 /**
- * @fn TSprite* New_TSprite(TFrame *frame, const char *file, SDL_Rect size)
+ * @fn TSprite* New_TSprite(TFrame *frame, const char *file, SDL_Rect pos)
  * @brief The constructor for create a TSprite object.
  *
  * @param frame A pointer to the frame object.

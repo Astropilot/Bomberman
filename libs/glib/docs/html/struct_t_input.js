@@ -1,7 +1,7 @@
 var struct_t_input =
 [
     [ "color", "struct_t_input.html#a631bf4babe4c1825a2cdc0c19c2bd04f", null ],
-    [ "Draw", "struct_t_input.html#ab1a5014ad49e772c2746c48a1351d3b4", null ],
+    [ "Draw", "struct_t_input.html#aea5a07ddeffd5ccb40108ddf10a43ca3", null ],
     [ "Event_Handler", "struct_t_input.html#a9b7d3d892c96793db8ddec1af6003828", null ],
     [ "font", "struct_t_input.html#abf5bfa705e66ffc1ddaa6ce46c960873", null ],
     [ "Free", "struct_t_input.html#acd2a3cc6c02fac621f76ea68689d6a7a", null ],

@@ -6,7 +6,7 @@
 */
 
 /**
- * @file drawables.h
+ * @file drawable.h
  * @brief Header file of the drawable abstract class of GLib.
  * @author Yohann.M, Gauthier.D, Aziz.H, William.W
  * @version 1.0
@@ -31,7 +31,7 @@ typedef struct TFrame TFrame;
  *
  * Drawable_Node is an abstract mother class for all the graphical components.
  */
-typedef struct TDrawable {
+typedef struct {
 
     void(*Draw)(struct TDrawable*, TFrame*);                           /*!< Draw method. */
 
@@ -45,7 +45,7 @@ typedef struct TDrawable {
  *
  * Drawable_Node is an linked list for stock differents types of drawables.
  */
-typedef struct Drawable_Node {
+typedef struct {
     char *id;                       /*!< An unique ID for each drawable. */
     unsigned int priority;          /*!< The drawing priority, the lower the priority (close to 1), the more it will be drawn last. */
     TDrawable *drawable;            /*!< The drawable object. */

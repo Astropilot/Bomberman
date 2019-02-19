@@ -35,7 +35,7 @@
  *
  * TWindow is an object that allows you to create and display a window.
  */
-typedef struct TWindow {
+typedef struct {
 
     int(*Create_Window)(struct TWindow*, const char*, int, int, const char*, unsigned int);     /*!< Method for creating the SDL window. */
     void(*Add_Frame)(struct TWindow*, TFrame*);                                                 /*!< Method for adding a TFrame to the window. */
@@ -60,7 +60,7 @@ typedef struct TWindow {
 TWindow* New_TWindow(void);
 
 /**
- * @fn int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *frame_id)
+ * @fn int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *frame_id, unsigned int fps)
  * @brief Method for creating and showing the SDL window.
  *
  * @param this A pointer to the window object.
@@ -72,7 +72,7 @@ TWindow* New_TWindow(void);
  *
  * You do not have to call this method directly. You must use the
  * Create_Window method of the TWindow structure like this:
- * my_window->Create_Window(my_window, "My window", 50, 50, "MY_FRAME");
+ * my_window->Create_Window(my_window, "My window", 50, 50, "MY_FRAME", 30);
  */
 int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *frame_id, unsigned int fps);
 
@@ -94,7 +94,7 @@ void TWindow_Add_Frame(TWindow *this, TFrame *frame);
  * @brief Method for showing a frame to the window.
  *
  * @param this A pointer to the window object.
- * @param frame The frame ID to show.
+ * @param frame_id The frame ID to show.
  * @param argc The number of optionnals parameters for the frame to show. To be followed by the parameters if argc > 0.
  *
  * You do not have to call this method directly. You must use the

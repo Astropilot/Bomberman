@@ -33,19 +33,12 @@
 typedef struct TFrame TFrame;
 
 /**
- * @def MAX_STR_LEN
- *
- * The maximum length of the string for the input
- */
-//#define MAX_STR_LEN 15
-
-/**
  * @struct TInput
  * @brief Object oriented structure representing a input box.
  *
  * TInput is an object that allows you to create and display a input box.
  */
-typedef struct TInput {
+typedef struct {
 
     void(*Draw)(struct TInput*, TFrame*);                           /*!< Draw method. */
 

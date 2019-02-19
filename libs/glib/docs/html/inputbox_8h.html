@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.15"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>GLib Framwork: includes/inputbox.h File Reference</title>
+<title>GLib Framework: includes/inputbox.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,7 +26,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">GLib Framwork
+   <div id="projectname">GLib Framework
    &#160;<span id="projectnumber">1.0</span>
    </div>
   </td>
@@ -81,7 +81,6 @@ $(document).ready(function(){initNavTree('inputbox_8h.html','');});
 <code>#include &lt;SDL2/SDL_image.h&gt;</code><br />
 <code>#include &lt;SDL2/SDL_ttf.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="sprite_8h_source.html">sprite.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="window_8h_source.html">window.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="utils_8h_source.html">utils.h</a>&quot;</code><br />
 </div>
 <p><a href="inputbox_8h_source.html">Go to the source code of this file.</a></p>
@@ -94,20 +93,20 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:aa66f75ee53aa8a7a560682498d58d618"><td class="memItemLeft" align="right" valign="top"><a id="aa66f75ee53aa8a7a560682498d58d618"></a>
-typedef struct <a class="el" href="struct_t_input.html">TInput</a>&#160;</td><td class="memItemRight" valign="bottom"><b>TInput</b></td></tr>
-<tr class="separator:aa66f75ee53aa8a7a560682498d58d618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af16290279a15cd7a1d6cf9992ba33966"><td class="memItemLeft" align="right" valign="top"><a id="af16290279a15cd7a1d6cf9992ba33966"></a>
+typedef struct <a class="el" href="struct_t_frame.html">TFrame</a>&#160;</td><td class="memItemRight" valign="bottom"><b>TFrame</b></td></tr>
+<tr class="separator:af16290279a15cd7a1d6cf9992ba33966"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7ca467c4f31a43ac258db78cae1eed65"><td class="memItemLeft" align="right" valign="top"><a id="a7ca467c4f31a43ac258db78cae1eed65"></a>
-<a class="el" href="struct_t_input.html">TInput</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>New_TInput</b> (const char *sprite_file, SDL_Rect pos, <a class="el" href="struct_t_window.html">TWindow</a> *window, SDL_Color color, size_t len, const char *placeholder)</td></tr>
-<tr class="separator:a7ca467c4f31a43ac258db78cae1eed65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43a32a1080306b3d3f0366ff5ff1abc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inputbox_8h.html#a43a32a1080306b3d3f0366ff5ff1abc2">TInput_Draw</a> (<a class="el" href="struct_t_input.html">TInput</a> *this, <a class="el" href="struct_t_window.html">TWindow</a> *window)</td></tr>
-<tr class="memdesc:a43a32a1080306b3d3f0366ff5ff1abc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for drawing the input box in the interface.  <a href="#a43a32a1080306b3d3f0366ff5ff1abc2">More...</a><br /></td></tr>
-<tr class="separator:a43a32a1080306b3d3f0366ff5ff1abc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcd5d2f7c6f555791e9411cae5eae4bf"><td class="memItemLeft" align="right" valign="top"><a id="afcd5d2f7c6f555791e9411cae5eae4bf"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>TInput_Event_Handler</b> (<a class="el" href="struct_t_input.html">TInput</a> *this, SDL_Event event)</td></tr>
+<tr class="memitem:a6e2607847563c204161172ad983887ad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_input.html">TInput</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inputbox_8h.html#a6e2607847563c204161172ad983887ad">New_TInput</a> (<a class="el" href="struct_t_frame.html">TFrame</a> *frame, const char *sprite_file, SDL_Rect pos, SDL_Color color, size_t len, const char *placeholder)</td></tr>
+<tr class="memdesc:a6e2607847563c204161172ad983887ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor for create a <a class="el" href="struct_t_input.html" title="Object oriented structure representing a input box.">TInput</a> object.  <a href="#a6e2607847563c204161172ad983887ad">More...</a><br /></td></tr>
+<tr class="separator:a6e2607847563c204161172ad983887ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ffea317cd639b5afdadfbcbab7c569e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inputbox_8h.html#a6ffea317cd639b5afdadfbcbab7c569e">TInput_Draw</a> (<a class="el" href="struct_t_input.html">TInput</a> *this, <a class="el" href="struct_t_frame.html">TFrame</a> *frame)</td></tr>
+<tr class="memdesc:a6ffea317cd639b5afdadfbcbab7c569e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for drawing the input box in the interface.  <a href="#a6ffea317cd639b5afdadfbcbab7c569e">More...</a><br /></td></tr>
+<tr class="separator:a6ffea317cd639b5afdadfbcbab7c569e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcd5d2f7c6f555791e9411cae5eae4bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inputbox_8h.html#afcd5d2f7c6f555791e9411cae5eae4bf">TInput_Event_Handler</a> (<a class="el" href="struct_t_input.html">TInput</a> *this, SDL_Event event)</td></tr>
+<tr class="memdesc:afcd5d2f7c6f555791e9411cae5eae4bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to process an SDL event for manage text input and click focus.  <a href="#afcd5d2f7c6f555791e9411cae5eae4bf">More...</a><br /></td></tr>
 <tr class="separator:afcd5d2f7c6f555791e9411cae5eae4bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae129553481e1e29f8c83eb528e4d8661"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inputbox_8h.html#ae129553481e1e29f8c83eb528e4d8661">TInput_New_Free</a> (<a class="el" href="struct_t_input.html">TInput</a> *this)</td></tr>
 <tr class="memdesc:ae129553481e1e29f8c83eb528e4d8661"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to free all ressources take by the input box.  <a href="#ae129553481e1e29f8c83eb528e4d8661">More...</a><br /></td></tr>
@@ -120,8 +119,74 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>TInput_Event_Handler<
 <dl class="section date"><dt>Date</dt><dd>28 janvier 2019</dd></dl>
 <p>The input box component allows you to create a graphical input box that can be manipulated by GLib. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a43a32a1080306b3d3f0366ff5ff1abc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43a32a1080306b3d3f0366ff5ff1abc2">&#9670;&nbsp;</a></span>TInput_Draw()</h2>
+<a id="a6e2607847563c204161172ad983887ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e2607847563c204161172ad983887ad">&#9670;&nbsp;</a></span>New_TInput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_t_input.html">TInput</a> *<a class="el" href="struct_t_input.html">TInput</a> * New_TInput </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_frame.html">TFrame</a> *&#160;</td>
+          <td class="paramname"><em>frame</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>sprite_file</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Rect&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Color&#160;</td>
+          <td class="paramname"><em>color</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>placeholder</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The constructor for create a <a class="el" href="struct_t_input.html" title="Object oriented structure representing a input box.">TInput</a> object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">frame</td><td>A pointer to the frame object. </td></tr>
+    <tr><td class="paramname">sprite_file</td><td>The path of an image file for the input. </td></tr>
+    <tr><td class="paramname">pos</td><td>The position and size of the input box. </td></tr>
+    <tr><td class="paramname">color</td><td>The color of the text. </td></tr>
+    <tr><td class="paramname">len</td><td>The maximum length of the input text. </td></tr>
+    <tr><td class="paramname">placeholder</td><td>A placeholder text when no text has been entered. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A memory allocated object of the input box. </dd></dl>
+
+</div>
+</div>
+<a id="a6ffea317cd639b5afdadfbcbab7c569e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ffea317cd639b5afdadfbcbab7c569e">&#9670;&nbsp;</a></span>TInput_Draw()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -135,8 +200,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>TInput_Event_Handler<
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="struct_t_window.html">TWindow</a> *&#160;</td>
-          <td class="paramname"><em>window</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_t_frame.html">TFrame</a> *&#160;</td>
+          <td class="paramname"><em>frame</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -150,11 +215,49 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>TInput_Event_Handler<
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">this</td><td>A pointer to the input object to draw. </td></tr>
-    <tr><td class="paramname">window</td><td>A pointer to the window object.</td></tr>
+    <tr><td class="paramname">frame</td><td>A pointer to the frame object.</td></tr>
   </table>
   </dd>
 </dl>
-<p>You do not have to call this method directly. You must use the Draw method of the <a class="el" href="struct_t_input.html" title="Object oriented structure representing a input box.">TInput</a> structure like this: my_input-&gt;Draw(my_input, window); </p>
+<p>You do not have to call this method directly. You must use the Draw method of the <a class="el" href="struct_t_input.html" title="Object oriented structure representing a input box.">TInput</a> structure like this: my_input-&gt;Draw(my_input, frame); </p>
+
+</div>
+</div>
+<a id="afcd5d2f7c6f555791e9411cae5eae4bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcd5d2f7c6f555791e9411cae5eae4bf">&#9670;&nbsp;</a></span>TInput_Event_Handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TInput_Event_Handler </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_input.html">TInput</a> *&#160;</td>
+          <td class="paramname"><em>this</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SDL_Event&#160;</td>
+          <td class="paramname"><em>event</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Method to process an SDL event for manage text input and click focus. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">this</td><td>A pointer to the input box object. </td></tr>
+    <tr><td class="paramname">event</td><td>A SDL event.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>You do not have to call this method directly. You must use the Event_Handler method of the <a class="el" href="struct_t_input.html" title="Object oriented structure representing a input box.">TInput</a> structure like this: my_input-&gt;Event_Handler(my_input, event); </p>
 
 </div>
 </div>

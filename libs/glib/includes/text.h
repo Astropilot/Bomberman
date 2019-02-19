@@ -36,7 +36,7 @@ typedef struct TFrame TFrame;
  *
  * TText is an object that allows you to create and display a text.
  */
-typedef struct TText {
+typedef struct {
 
     void(*Draw)(struct TText*, TFrame*);        /*!< Draw method. */
 

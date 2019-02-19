@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.15"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>GLib Framwork: includes/window.h File Reference</title>
+<title>GLib Framework: includes/window.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -26,7 +26,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">GLib Framwork
+   <div id="projectname">GLib Framework
    &#160;<span id="projectnumber">1.0</span>
    </div>
   </td>
@@ -65,7 +65,6 @@ $(document).ready(function(){initNavTree('window_8h.html','');});
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">window.h File Reference</div>  </div>
@@ -90,19 +89,13 @@ Data Structures</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Object oriented structure representing a window.  <a href="struct_t_window.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a4d1cfdf2bb8db0b48399f174f46cbe17"><td class="memItemLeft" align="right" valign="top"><a id="a4d1cfdf2bb8db0b48399f174f46cbe17"></a>
-typedef struct <a class="el" href="struct_t_window.html">TWindow</a>&#160;</td><td class="memItemRight" valign="bottom"><b>TWindow</b></td></tr>
-<tr class="separator:a4d1cfdf2bb8db0b48399f174f46cbe17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a90c996ad07aa2f58dfe08bd8e66069ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_window.html">TWindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="window_8h.html#a90c996ad07aa2f58dfe08bd8e66069ed">New_TWindow</a> (void)</td></tr>
 <tr class="memdesc:a90c996ad07aa2f58dfe08bd8e66069ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor for create a <a class="el" href="struct_t_window.html" title="Object oriented structure representing a window.">TWindow</a> object.  <a href="#a90c996ad07aa2f58dfe08bd8e66069ed">More...</a><br /></td></tr>
 <tr class="separator:a90c996ad07aa2f58dfe08bd8e66069ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ea053a5c1c6c104213d703b78b92251"><td class="memItemLeft" align="right" valign="top"><a id="a7ea053a5c1c6c104213d703b78b92251"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>TWindow_Create_Window</b> (<a class="el" href="struct_t_window.html">TWindow</a> *this, const char *title, int width, int height, const char *frame_id, unsigned int fps)</td></tr>
+<tr class="memitem:a7ea053a5c1c6c104213d703b78b92251"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="window_8h.html#a7ea053a5c1c6c104213d703b78b92251">TWindow_Create_Window</a> (<a class="el" href="struct_t_window.html">TWindow</a> *this, const char *title, int width, int height, const char *frame_id, unsigned int fps)</td></tr>
+<tr class="memdesc:a7ea053a5c1c6c104213d703b78b92251"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for creating and showing the SDL window.  <a href="#a7ea053a5c1c6c104213d703b78b92251">More...</a><br /></td></tr>
 <tr class="separator:a7ea053a5c1c6c104213d703b78b92251"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3916cc8f2ed2585fa900de9d2ae3d7c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="window_8h.html#ab3916cc8f2ed2585fa900de9d2ae3d7c">TWindow_Add_Frame</a> (<a class="el" href="struct_t_window.html">TWindow</a> *this, <a class="el" href="struct_t_frame.html">TFrame</a> *frame)</td></tr>
 <tr class="memdesc:ab3916cc8f2ed2585fa900de9d2ae3d7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for adding a frame to the window.  <a href="#ab3916cc8f2ed2585fa900de9d2ae3d7c">More...</a><br /></td></tr>
@@ -180,6 +173,72 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>TWindow_Create_Window<
 
 </div>
 </div>
+<a id="a7ea053a5c1c6c104213d703b78b92251"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ea053a5c1c6c104213d703b78b92251">&#9670;&nbsp;</a></span>TWindow_Create_Window()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int TWindow_Create_Window </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_window.html">TWindow</a> *&#160;</td>
+          <td class="paramname"><em>this</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>title</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>frame_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>fps</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Method for creating and showing the SDL window. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">this</td><td>A pointer to the window object. </td></tr>
+    <tr><td class="paramname">title</td><td>The title of the SDL window. </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the SDL window. </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the SDL window. </td></tr>
+    <tr><td class="paramname">frame_id</td><td>The ID of the frame to be show first. </td></tr>
+    <tr><td class="paramname">fps</td><td>The delay in milliseconds between each game loop.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>You do not have to call this method directly. You must use the Create_Window method of the <a class="el" href="struct_t_window.html" title="Object oriented structure representing a window.">TWindow</a> structure like this: my_window-&gt;Create_Window(my_window, "My window", 50, 50, "MY_FRAME", 30); </p>
+
+</div>
+</div>
 <a id="af7743faffb5114af8cd02f5bfcc35294"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af7743faffb5114af8cd02f5bfcc35294">&#9670;&nbsp;</a></span>TWindow_New_Free()</h2>
 
@@ -249,7 +308,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>TWindow_Create_Window<
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">this</td><td>A pointer to the window object. </td></tr>
-    <tr><td class="paramname">frame</td><td>The frame ID to show. </td></tr>
+    <tr><td class="paramname">frame_id</td><td>The frame ID to show. </td></tr>
     <tr><td class="paramname">argc</td><td>The number of optionnals parameters for the frame to show. To be followed by the parameters if argc &gt; 0.</td></tr>
   </table>
   </dd>

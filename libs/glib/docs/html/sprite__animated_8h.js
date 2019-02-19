@@ -1,9 +1,8 @@
 var sprite__animated_8h =
 [
     [ "TAnimatedSprite", "struct_t_animated_sprite.html", "struct_t_animated_sprite" ],
-    [ "TAnimatedSprite", "sprite__animated_8h.html#ad26b93eb7e311e7c4b58730c4cd087f2", null ],
-    [ "TWindow", "sprite__animated_8h.html#aa59060f6eceb53949052e8072d070f7a", null ],
-    [ "New_TAnimatedSprite", "sprite__animated_8h.html#a20be1eab53f16b37da5f548a60b65b7a", null ],
-    [ "TAnimatedSprite_Draw", "sprite__animated_8h.html#a1fe4a26cbbad0e7d9ed68ce0b4c6acf2", null ],
+    [ "TFrame", "sprite__animated_8h.html#af16290279a15cd7a1d6cf9992ba33966", null ],
+    [ "New_TAnimatedSprite", "sprite__animated_8h.html#a0f3e8f7c689c251e395a1a6fd1eb1c98", null ],
+    [ "TAnimatedSprite_Draw", "sprite__animated_8h.html#ab8603d7801f6eba5107f9f85e6a0a125", null ],
     [ "TAnimatedSprite_New_Free", "sprite__animated_8h.html#a1bb0f4f18958bd95a3595302df4a5526", null ]
 ];
