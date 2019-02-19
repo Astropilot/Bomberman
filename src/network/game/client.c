@@ -10,13 +10,6 @@
 #include "network/game/client.h"
 #include "network/packets/packet.h"
 #include "network/packets/packet_disconnect.h"
-#include "network/packets/packet_ack_connect.h"
-#include "network/packets/packet_ack_lobbystate.h"
-
-static void On_Message(TClient *client, TMessage message);
-static void On_Disconnect(TClient *client);
-
-static TGameClient *game_client;
 
 TGameClient* New_TGameClient()
 {
@@ -24,81 +17,130 @@ TGameClient* New_TGameClient()
 
     if(!this) return NULL;
 
-    this->client = New_TClient();
-    this->client->On_Message = On_Message;
-    this->client->On_Disconnect = On_Disconnect;
-    game_client = this;
-    this->username = NULL;
-    this->Join_Game = TGameClient_Join_Game;
+    this->client = NULL;
+    this->gameserver = NULL;
+    this->game_frame = NULL;
+    this->is_owner = 0;
+    this->player = -1;
+    this->Register_Frame = TGameClient_Register_Frame;
+    this->Ready = TGameClient_Ready;
+    this->Move = TGameClient_Move;
+    this->Place_Bomb = TGameClient_Place_Bomb;
+    this->Handle_Messages = TGameClient_Handle_Messages;
     this->Leave_Game = TGameClient_Leave_Game;
     this->Free = TGameClient_New_Free;
     return this;
 }
 
-int TGameClient_Join_Game(TGameClient *this, const char *username, const char *ip, int port)
+TFrame *TGameClient_Register_Frame(TGameClient *this, TFrame *frame)
 {
-    this->username = strdup(username);
-    int res = this->client->Connect(this->client, ip, port);
-    if (res == 0) {
-        this->client->Start_Recv(this->client, NULL);
+    this->game_frame = frame;
+    return (frame);
+}
+
+void TGameClient_Ready(TGameClient *this)
+{
+    TReqReadyPacket *p_rr = New_TReqReadyPacket(NULL);
+
+    p_rr->player = this->player;
+    this->client->Send(this->client, packet_to_message((TPacket*)p_rr));
+    p_rr->Free(p_rr);
+}
+
+void TGameClient_Move(TGameClient *this, direction_t direction)
+{
+    TReqMovePlayerPacket *p_rm = New_TReqMovePlayerPacket(NULL);
+
+    p_rm->dir = (unsigned int)direction;
+    p_rm->player = this->player;
+    this->client->Send(this->client, packet_to_message((TPacket*)p_rm));
+    p_rm->Free(p_rm);
+}
+
+void TGameClient_Place_Bomb(TGameClient *this)
+{
+    TReqPlaceBombPacket *p_rb = New_TReqPlaceBombPacket(NULL);
+
+    p_rb->player = this->player;
+    this->client->Send(this->client, packet_to_message((TPacket*)p_rb));
+    p_rb->Free(p_rb);
+}
+
+void TGameClient_Handle_Messages(TGameClient *this)
+{
+    if (!this->client)
+        return;
+
+    TMessage message;
+    int packet_id;
+    int res_read = this->client->Recv(this->client, &message);
+    if (res_read == EWOULDBLOCK || res_read == EAGAIN || message.len <= 0) return;
+
+    packet_id = extract_packet_id(message.message);
+    switch (packet_id) {
+        case ACK_DISCONNECT:;
+            free(message.message);
+            this->Leave_Game(this);
+            break;
+        case ACK_GAME_STATE:;
+            TAckGameStatePacket *p_as = New_TAckGameStatePacket(message.message);
+            p_as->Unserialize(p_as);
+
+            unsigned int i;
+            for (i = 0; i < p_as->nb_players; i++) {
+                char *player_id = malloc(sizeof(char) * 10);
+                player_t player = p_as->players[i];
+                sprintf(player_id, "PLAYER_%d", (int)i);
+                TAnimatedSprite *asp = (TAnimatedSprite*)this->game_frame->Get_Drawable(this->game_frame, player_id);
+                asp->pos.x = player.x;
+                asp->pos.y = player.y;
+                free(player_id);
+            }
+
+            p_as->Free(p_as);
+            break;
+        case ACK_PLACE_BOMB:;
+            TAckPlaceBombPacket *p_ab = New_TAckPlaceBombPacket(message.message);
+            p_ab->Unserialize(p_ab);
+
+            SDL_Rect size_bomb = {0, 0, 256, 256};
+            SDL_Rect pos_bomb = {p_ab->x, p_ab->y, 32, 32};
+            TAnimatedSprite *sp = New_TAnimatedSprite(
+                this->game_frame, "images/bomberman_bomb_animated.png",
+                size_bomb, pos_bomb, 128, 1
+            );
+            this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp, "BOMB", 2);
+
+            p_ab->Free(p_ab);
+            break;
+        default:
+            free(message.message);
     }
 }
 
 void TGameClient_Leave_Game(TGameClient *this)
 {
+    TReqDisconnectPacket *p_d = New_TReqDisconnectPacket(NULL);
+    p_d->reason = (this->is_owner ? MASTER_LEAVE : USER_QUIT);
+    p_d->player = (unsigned int)this->player;
+    this->client->Send(this->client, packet_to_message((TPacket*)p_d));
     this->client->Disconnect(this->client);
-}
-
-void On_Message(TClient *client, TMessage message)
-{
-    if (!server || !client) {
-        printf("\nOn_Message Error\n");
-        return;
+    this->client->Free(this->client);
+    this->client = NULL;
+    this->is_owner = 0;
+    this->player = -1;
+    if (this->gameserver) {
+        this->gameserver->Stop(this->gameserver);
+        this->gameserver->Free(this->gameserver);
+        this->gameserver = NULL;
     }
-    if (message.len) {
-        int packet_id = extract_packet_id(message.message);
-        printf("Packed ID: %d\n", packet_id);
-        if (packet_id == REQ_DISCONNECT) {
-            TReqDisconnectPacket p_d = TReqDisconnectPacket(message.message);
-            p_d->Unserialize(p_d);
-
-            if (p_d->player != 0) {
-                TAckLobbyStatePacket p = New_TAckLobbyStatePacket(NULL);
-
-                p->nb_players = (int)server->CountClients(server) - 1;
-                int packet_size = p->Serialize(p);
-                TMessage message = {packet_size, p->raw_packet};
-                this->server->Send_Broadcast(this->server, message);
-                client->Disconnect(client);
-            } else {
-                TAckDisconnectPacket p = New_TAckDisconnectPacket(NULL);
-
-                p->reason = MASTER_LEAVE;
-                int packet_size = p->Serialize(p);
-                TMessage message = {packet_size, p->raw_packet};
-                this->server->Send_Broadcast(this->server, message);
-            }
-        }
-        free(message.message);
-    } else
-        printf("\n[Server][On_Message] Client Disconnect\n");
-    if (message.len == -1)
-        printf("\n[Server][On_Message] Recv error !\n");
-}
-
-void On_Disconnect(TClient *client)
-{
-    if (client)
-        printf("\n[Client][On_Disconnect] Server leave !\n");
-    else
-        printf("\n[Client][On_Disconnect] Error on disconnect\n");
+    this->game_frame->window->Show_Frame(this->game_frame->window, "FRAME_MAIN_MENU", 0);
 }
 
 void TGameClient_New_Free(TGameClient *this)
 {
     if (this) {
         this->Leave_Game(this);
-        this->client->Free(this->client);
     }
     free(this);
 }

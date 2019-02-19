@@ -95,9 +95,14 @@ static void On_Click_Play_Button(TButton *button, TFrame *frame)
     if (IS_DEBUG)
         printf("Button [%p]: Play Button pressed!\n", button);
     TInput *input_username = (TInput*)frame->Get_Drawable(frame, "INPUT_USER");
+    TInput *input_ip = (TInput*)frame->Get_Drawable(frame, "INPUT_IP");
+    TInput *input_port = (TInput*)frame->Get_Drawable(frame, "INPUT_PORT");
 
-    if (strlen(input_username->text) > 0)
-        frame->window->Show_Frame(frame->window, "FRAME_GAME", 1, input_username->text);
+    if (strlen(input_username->text) > 0) {
+        int port = atoi(input_port->text);
+        lobby_args_t params = {input_username->text, input_ip->text, port};
+        frame->window->Show_Frame(frame->window, "FRAME_LOBBY", 1, params);
+    }
 }
 
 static void On_Tick(TFrame* frame)

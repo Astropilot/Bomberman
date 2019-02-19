@@ -13,7 +13,8 @@
 #include <stdarg.h>
 
 #include "glib.h"
+#include "network/game/lobby.h"
 
-TFrame* New_LobbyFrame(void);
+TFrame* New_LobbyFrame(TLobbyClient *m_lobbyclient);
 
 #endif

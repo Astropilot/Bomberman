@@ -13,8 +13,7 @@
 typedef struct TMessage {
 
     int len;
-    char *message;
-    //int checksum;
+    unsigned char *message;
 
 } TMessage ;
 

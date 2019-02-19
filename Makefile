@@ -10,14 +10,11 @@ TARGET	= bomberman
 RM		= rm -f
 
 SRC		= \
+		$(wildcard src/core/*.c) \
 		$(wildcard src/ui/*.c) \
+		$(wildcard src/network/packets/*.c) \
+		$(wildcard src/network/game/*.c) \
 		src/main.c
-
-#$(wildcard src/network/packets/*.c) \
-#$(wildcard src/network/game/*.c) \
-
-#SRC			= \
-		src/network_test.c
 
 OBJ		= $(SRC:.c=.o)
 

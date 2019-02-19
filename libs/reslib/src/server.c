@@ -12,7 +12,7 @@ static void *TServer_Listenning(void *p_args);
 static void TServer_Client_OnMessage(TClient *client, TServer *server, TMessage message);
 static void TServer_Client_OnDisconnect(TClient *client, TServer *server);
 static void TServer_RemoveClient(TServer *this, TClient *client);
-static void TServer_AddClient(TServer *this, TClient *client);
+static void TServer_AddClient(TServer *this, SOCKET sock);
 static void TServer_Free_Clients(TServer *this);
 
 TServer *New_TServer(unsigned short int port, size_t max_c)
@@ -74,7 +74,10 @@ void TServer_Send_Broadcast(TServer *this, TMessage message)
     TClient_Node *current = this->clients_head;
 
     while (current != NULL) {
-        current->client->Send(current->client, message);
+        TClient *client = New_TClient();
+        client->sock = current->sock;
+        client->Send(client, message);
+        client->Free(client);
         current = current->next;
     }
 }
@@ -103,10 +106,10 @@ static void *TServer_Listenning(void *p_args)
                     client->sock = client_socket;
                     client->Server_On_Message = TServer_Client_OnMessage;
                     client->Server_On_Disconnect = TServer_Client_OnDisconnect;
-                    TServer_AddClient(server, client);
+                    TServer_AddClient(server, client_socket);
+                    client->Start_Recv(client, server);
                     if (server->On_Connect)
                         server->On_Connect(server, client);
-                    client->Start_Recv(client, server);
                 }
             }
         }
@@ -134,12 +137,12 @@ static void TServer_RemoveClient(TServer *this, TClient *client)
     TClient_Node *previous = NULL;
 
     while (current != NULL) {
-        if (current->client->sock == client->sock) {
+        if (current->sock == client->sock) {
             if (!previous)
                 this->clients_head = current->next;
             else
                 previous->next = current->next;
-            current->client->Free(current->client);
+            closesocket(current->sock);
             free(current);
             return;
         }
@@ -161,12 +164,12 @@ size_t TServer_CountClients(TServer *this)
     return (clients);
 }
 
-static void TServer_AddClient(TServer *this, TClient *client)
+static void TServer_AddClient(TServer *this, SOCKET sock)
 {
     if (!this->clients_head) {
         TClient_Node *client_node = malloc(sizeof(TClient_Node));
 
-        client_node->client = client;
+        client_node->sock = sock;
         client_node->next = NULL;
         this->clients_head = client_node;
     } else {
@@ -175,7 +178,7 @@ static void TServer_AddClient(TServer *this, TClient *client)
         while (current->next != NULL)
             current = current->next;
         current->next = malloc(sizeof(TClient_Node));
-        current->next->client = client;
+        current->next->sock = sock;
         current->next->next = NULL;
     }
 }
@@ -186,7 +189,7 @@ static void TServer_Free_Clients(TServer *this)
     TClient_Node *tmp = NULL;
 
     while (current != NULL) {
-        current->client->Free(current->client);
+        closesocket(current->sock);
 
         tmp = current;
         current = current->next;

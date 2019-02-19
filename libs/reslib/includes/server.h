@@ -16,7 +16,7 @@
 #include "message.h"
 
 typedef struct TClient_Node {
-    TClient *client;
+    SOCKET sock;
     struct TClient_Node *next;
 } TClient_Node ;
 
@@ -47,11 +47,6 @@ typedef struct TServer {
     TClient_Node *clients_head;
 
 } TServer ;
-
-typedef struct params_s {
-    TServer *server;
-    TClient *client;
-} params_t ;
 
 TServer* New_TServer(unsigned short int port, size_t max_c);
 void TServer_Start_Listenning(TServer *this);

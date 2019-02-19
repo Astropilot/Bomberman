@@ -6,9 +6,10 @@
 */
 
 #include "network/packets/packet_ack_lobbystate.h"
+#include "network/packets/packet.h"
 #include "reslib.h"
 
-TAckLobbyStatePacket *New_TAckLobbyStatePacket(char *raw)
+TAckLobbyStatePacket *New_TAckLobbyStatePacket(unsigned char *raw)
 {
     TAckLobbyStatePacket *this = malloc(sizeof(TAckLobbyStatePacket));
 
@@ -24,11 +25,11 @@ TAckLobbyStatePacket *New_TAckLobbyStatePacket(char *raw)
 
 int TAckLobbyStatePacket_Serialize(TAckLobbyStatePacket *this)
 {
-    char *packet_buffer;
+    unsigned char *packet_buffer;
 
     this->raw_packet = malloc(sizeof(TAckLobbyStatePacket));
     if (!this->raw_packet)
-        return;
+        return 0;
     packet_buffer = this->raw_packet;
     packet_buffer = pack_int(packet_buffer, this->packet_id);
     packet_buffer = pack_uint(packet_buffer, this->nb_players);
@@ -37,7 +38,7 @@ int TAckLobbyStatePacket_Serialize(TAckLobbyStatePacket *this)
 
 void TAckLobbyStatePacket_Unserialize(TAckLobbyStatePacket *this)
 {
-    char *packet_buffer;
+    unsigned char *packet_buffer;
 
     if (!this->raw_packet)
         return;

@@ -33,9 +33,12 @@ TFrame* New_MainMenuFrame(void)
 
 static void Init(TFrame* frame)
 {
-    SDL_Rect size_sprite_bg = {0, 0, 960, 540};
-    SDL_Rect pos_sprite_bg = {0, 0, 1280, 720};
-    TAnimatedSprites *sp_bg = New_TAnimatedSprites(frame, "images/mainmenu/fire%02d.png", 47, size_sprite_bg, pos_sprite_bg , 20, -1);
+    //SDL_Rect size_sprite_bg = {0, 0, 960, 540};
+    //SDL_Rect pos_sprite_bg = {0, 0, 1280, 720};
+    //TAnimatedSprites *sp_bg = New_TAnimatedSprites(frame, "images/mainmenu/fire%02d.png", 47, size_sprite_bg, pos_sprite_bg , 20, -1);
+    SDL_Rect pos_sprite_bg = {0, 0, 430, 242};
+    SDL_Rect size_sprite_bg = {0, 0, 1280, 720};
+    TAnimatedSprite *sp_bg = New_TAnimatedSprite(frame, "images/animated_background.png", pos_sprite_bg, size_sprite_bg, 52, -1);
 
     SDL_Rect pos_title = {(WIN_WIDTH / 2) - (644 / 2), 100, 644, 104};
     TSprite *sp_title = New_TSprite(frame, "images/bomberman_logo_title.png", pos_title);

@@ -10,8 +10,6 @@
 
 #include <stdlib.h>
 
-#include "network/packets/packet.h"
-
 typedef enum leave_reason_e {
     USER_QUIT,
     MASTER_LEAVE
@@ -25,14 +23,14 @@ typedef struct TReqDisconnectPacket {
 
     void(*Free)(struct TReqDisconnectPacket*);
 
-    char *raw_packet;
-    packet_t packet_id;
-    leave_reason_t reason;
+    unsigned char *raw_packet;
+    int packet_id;
+    int reason;
     unsigned int player;
 
 } TReqDisconnectPacket ;
 
-TReqDisconnectPacket *New_TReqDisconnectPacket(char *raw);
+TReqDisconnectPacket *New_TReqDisconnectPacket(unsigned char *raw);
 int TReqDisconnectPacket_Serialize(TReqDisconnectPacket *this);
 void TReqDisconnectPacket_Unserialize(TReqDisconnectPacket *this);
 void TReqDisconnectPacket_New_Free(TReqDisconnectPacket *this);
@@ -45,13 +43,13 @@ typedef struct TAckDisconnectPacket {
 
     void(*Free)(struct TAckDisconnectPacket*);
 
-    char *raw_packet;
-    packet_t packet_id;
-    leave_reason_t reason;
+    unsigned char *raw_packet;
+    int packet_id;
+    int reason;
 
 } TAckDisconnectPacket ;
 
-TAckDisconnectPacket *New_TAckDisconnectPacket(char *raw);
+TAckDisconnectPacket *New_TAckDisconnectPacket(unsigned char *raw);
 int TAckDisconnectPacket_Serialize(TAckDisconnectPacket *this);
 void TAckDisconnectPacket_Unserialize(TAckDisconnectPacket *this);
 void TAckDisconnectPacket_New_Free(TAckDisconnectPacket *this);

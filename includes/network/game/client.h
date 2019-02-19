@@ -12,22 +12,40 @@
 #include <unistd.h>
 
 #include "reslib.h"
+#include "glib.h"
+#include "network/game/server.h"
+#include "core/player.h"
 
 typedef struct TGameClient {
 
-    void(*Join_Game)(struct TGameClient*, const char*, const char*, int);
+    TFrame*(*Register_Frame)(struct TGameClient*, TFrame*);
+
+    void(*Ready)(struct TGameClient*);
+
+    void(*Move)(struct TGameClient*, direction_t);
+
+    void(*Place_Bomb)(struct TGameClient*);
+
+    void(*Handle_Messages)(struct TGameClient*);
 
     void(*Leave_Game)(struct TGameClient*);
 
     void(*Free)(struct TGameClient*);
 
-    TClient client;
-    char *username;
+    TClient *client;
+    TGameServer *gameserver;
+    TFrame *game_frame;
+    unsigned int is_owner;
+    int player;
 
 } TGameClient ;
 
 TGameClient* New_TGameClient();
-int TGameClient_Join_Game(TGameClient *this, const char *username, const char *ip, int port);
+TFrame *TGameClient_Register_Frame(TGameClient *this, TFrame *frame);
+void TGameClient_Ready(TGameClient *this);
+void TGameClient_Move(TGameClient *this, direction_t direction);
+void TGameClient_Place_Bomb(TGameClient *this);
+void TGameClient_Handle_Messages(TGameClient *this);
 void TGameClient_Leave_Game(TGameClient *this);
 void TGameClient_New_Free(TGameClient *this);
 

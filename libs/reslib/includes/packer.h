@@ -11,16 +11,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *pack_int(char *buffer, int i);
-char *unpack_int(char *buffer, int *i);
+unsigned char *pack_int(unsigned char *buffer, int i);
+unsigned char *unpack_int(unsigned char *buffer, int *i);
 
-char *pack_uint(char *buffer, unsigned int ui);
-char *unpack_uint(char *buffer, unsigned int *ui);
+unsigned char *pack_uint(unsigned char *buffer, unsigned int ui);
+unsigned char *unpack_uint(unsigned char *buffer, unsigned int *ui);
 
-char *pack_char(char *buffer, char chr);
-char *unpack_char(char *buffer, char *chr);
+unsigned char *pack_char(unsigned char *buffer, char chr);
+unsigned char *unpack_char(unsigned char *buffer, char *chr);
 
-char *pack_string(char *buffer, const char *str);
-char *unpack_string(char *buffer, char *str);
+unsigned char *pack_string(unsigned char *buffer, const char *str);
+unsigned char *unpack_string(unsigned char *buffer, char *str);
 
 #endif

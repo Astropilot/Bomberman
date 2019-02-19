@@ -6,9 +6,10 @@
 */
 
 #include "network/packets/packet_req_move.h"
+#include "network/packets/packet.h"
 #include "reslib.h"
 
-TReqMovePlayerPacket *New_TReqMovePlayerPacket(char *raw)
+TReqMovePlayerPacket *New_TReqMovePlayerPacket(unsigned char *raw)
 {
     TReqMovePlayerPacket *this = malloc(sizeof(TReqMovePlayerPacket));
 
@@ -24,11 +25,11 @@ TReqMovePlayerPacket *New_TReqMovePlayerPacket(char *raw)
 
 int TReqMovePlayerPacket_Serialize(TReqMovePlayerPacket *this)
 {
-    char *packet_buffer;
+    unsigned char *packet_buffer;
 
     this->raw_packet = malloc(sizeof(TReqMovePlayerPacket));
     if (!this->raw_packet)
-        return;
+        return 0;
     packet_buffer = this->raw_packet;
     packet_buffer = pack_int(packet_buffer, this->packet_id);
     packet_buffer = pack_uint(packet_buffer, this->dir);
@@ -38,7 +39,7 @@ int TReqMovePlayerPacket_Serialize(TReqMovePlayerPacket *this)
 
 void TReqMovePlayerPacket_Unserialize(TReqMovePlayerPacket *this)
 {
-    char *packet_buffer;
+    unsigned char *packet_buffer;
 
     if (!this->raw_packet)
         return;

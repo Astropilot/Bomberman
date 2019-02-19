@@ -10,6 +10,7 @@
 
 #include <stdlib.h>
 #include <pthread.h>
+#include <errno.h>
 
 #include "sockets.h"
 #include "message.h"
@@ -22,7 +23,7 @@ typedef struct TClient {
 
     int(*Send)(struct TClient*, TMessage);
 
-    //int(*Recv)(struct TClient*, TMessage*);
+    int(*Recv)(struct TClient*, TMessage*);
 
     void(*Start_Recv)(struct TClient*, TServer*);
 
@@ -52,6 +53,7 @@ typedef struct TClient {
 TClient *New_TClient(void);
 int TClient_Connect(TClient *this, const char *addr, unsigned short int port);
 int TClient_Send(TClient *this, TMessage message);
+int TClient_Recv(TClient *this, TMessage *message);
 void TClient_Start_Recv(TClient *this, TServer *server);
 void TClient_Stop_Recv(TClient *this);
 void TClient_Disconnect(TClient *this);

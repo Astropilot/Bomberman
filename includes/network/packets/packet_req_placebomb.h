@@ -10,8 +10,6 @@
 
 #include <stdlib.h>
 
-#include "network/packets/packet.h"
-
 typedef struct TReqPlaceBombPacket {
 
     int(*Serialize)(struct TReqPlaceBombPacket*);
@@ -20,15 +18,13 @@ typedef struct TReqPlaceBombPacket {
 
     void(*Free)(struct TReqPlaceBombPacket*);
 
-    char *raw_packet;
-    packet_t packet_id;
-    unsigned int x;
-    unsigned int y;
+    unsigned char *raw_packet;
+    int packet_id;
     unsigned int player;
 
 } TReqPlaceBombPacket ;
 
-TReqPlaceBombPacket *New_TReqPlaceBombPacket(char *raw);
+TReqPlaceBombPacket *New_TReqPlaceBombPacket(unsigned char *raw);
 int TReqPlaceBombPacket_Serialize(TReqPlaceBombPacket *this);
 void TReqPlaceBombPacket_Unserialize(TReqPlaceBombPacket *this);
 void TReqPlaceBombPacket_New_Free(TReqPlaceBombPacket *this);

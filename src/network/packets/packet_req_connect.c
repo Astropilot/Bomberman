@@ -8,9 +8,10 @@
 #include <string.h>
 
 #include "network/packets/packet_req_connect.h"
+#include "network/packets/packet.h"
 #include "reslib.h"
 
-TReqConnectPacket *New_TReqConnectPacket(char *raw)
+TReqConnectPacket *New_TReqConnectPacket(unsigned char *raw)
 {
     TReqConnectPacket *this = malloc(sizeof(TReqConnectPacket));
 
@@ -27,11 +28,11 @@ TReqConnectPacket *New_TReqConnectPacket(char *raw)
 
 int TReqConnectPacket_Serialize(TReqConnectPacket *this)
 {
-    char *packet_buffer;
+    unsigned char *packet_buffer;
 
     this->raw_packet = malloc(sizeof(TReqConnectPacket) + strlen(this->player_name));
     if (!this->raw_packet)
-        return;
+        return 0;
     packet_buffer = this->raw_packet;
     packet_buffer = pack_int(packet_buffer, this->packet_id);
     packet_buffer = pack_string(packet_buffer, this->player_name);
@@ -40,14 +41,14 @@ int TReqConnectPacket_Serialize(TReqConnectPacket *this)
 
 void TReqConnectPacket_Unserialize(TReqConnectPacket *this)
 {
-    char *packet_buffer;
+    unsigned char *packet_buffer;
 
     this->player_name = malloc(sizeof(char) * 15);
     if (!this->raw_packet || !this->player_name)
         return;
     packet_buffer = this->raw_packet;
     packet_buffer = unpack_int(packet_buffer, &(this->packet_id));
-    unpack_string(packet_buffer, &(this->player_name));
+    unpack_string(packet_buffer, this->player_name);
 }
 
 void TReqConnectPacket_New_Free(TReqConnectPacket *this)

@@ -6,9 +6,10 @@
 */
 
 #include "network/packets/packet_req_startgame.h"
+#include "network/packets/packet.h"
 #include "reslib.h"
 
-TReqStartGamePacket *New_TReqStartGamePacket(char *raw)
+TReqStartGamePacket *New_TReqStartGamePacket(unsigned char *raw)
 {
     TReqStartGamePacket *this = malloc(sizeof(TReqStartGamePacket));
 
@@ -24,11 +25,11 @@ TReqStartGamePacket *New_TReqStartGamePacket(char *raw)
 
 int TReqStartGamePacket_Serialize(TReqStartGamePacket *this)
 {
-    char *packet_buffer;
+    unsigned char *packet_buffer;
 
     this->raw_packet = malloc(sizeof(TReqStartGamePacket));
     if (!this->raw_packet)
-        return;
+        return 0;
     packet_buffer = this->raw_packet;
     packet_buffer = pack_int(packet_buffer, this->packet_id);
     packet_buffer = pack_uint(packet_buffer, this->player);
@@ -37,7 +38,7 @@ int TReqStartGamePacket_Serialize(TReqStartGamePacket *this)
 
 void TReqStartGamePacket_Unserialize(TReqStartGamePacket *this)
 {
-    char *packet_buffer;
+    unsigned char *packet_buffer;
 
     if (!this->raw_packet)
         return;

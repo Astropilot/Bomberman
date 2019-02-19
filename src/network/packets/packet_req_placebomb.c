@@ -6,9 +6,10 @@
 */
 
 #include "network/packets/packet_req_placebomb.h"
+#include "network/packets/packet.h"
 #include "reslib.h"
 
-TReqPlaceBombPacket *New_TReqPlaceBombPacket(char *raw)
+TReqPlaceBombPacket *New_TReqPlaceBombPacket(unsigned char *raw)
 {
     TReqPlaceBombPacket *this = malloc(sizeof(TReqPlaceBombPacket));
 
@@ -24,29 +25,25 @@ TReqPlaceBombPacket *New_TReqPlaceBombPacket(char *raw)
 
 int TReqPlaceBombPacket_Serialize(TReqPlaceBombPacket *this)
 {
-    char *packet_buffer;
+    unsigned char *packet_buffer;
 
     this->raw_packet = malloc(sizeof(TReqPlaceBombPacket));
     if (!this->raw_packet)
-        return;
+        return 0;
     packet_buffer = this->raw_packet;
     packet_buffer = pack_int(packet_buffer, this->packet_id);
-    packet_buffer = pack_uint(packet_buffer, this->x);
-    packet_buffer = pack_uint(packet_buffer, this->y);
     packet_buffer = pack_uint(packet_buffer, this->player);
     return (packet_buffer - this->raw_packet);
 }
 
 void TReqPlaceBombPacket_Unserialize(TReqPlaceBombPacket *this)
 {
-    char *packet_buffer;
+    unsigned char *packet_buffer;
 
     if (!this->raw_packet)
         return;
     packet_buffer = this->raw_packet;
     packet_buffer = unpack_int(packet_buffer, &(this->packet_id));
-    packet_buffer = unpack_uint(packet_buffer, &(this->x));
-    packet_buffer = unpack_uint(packet_buffer, &(this->y));
     unpack_uint(packet_buffer, &(this->player));
 }
 

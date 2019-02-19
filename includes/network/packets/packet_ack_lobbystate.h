@@ -10,8 +10,6 @@
 
 #include <stdlib.h>
 
-#include "network/packets/packet.h"
-
 typedef struct TAckLobbyStatePacket {
 
     int(*Serialize)(struct TAckLobbyStatePacket*);
@@ -20,13 +18,13 @@ typedef struct TAckLobbyStatePacket {
 
     void(*Free)(struct TAckLobbyStatePacket*);
 
-    char *raw_packet;
-    packet_t packet_id;
+    unsigned char *raw_packet;
+    int packet_id;
     unsigned int nb_players;
 
 } TAckLobbyStatePacket ;
 
-TAckLobbyStatePacket *New_TAckLobbyStatePacket(char *raw);
+TAckLobbyStatePacket *New_TAckLobbyStatePacket(unsigned char *raw);
 int TAckLobbyStatePacket_Serialize(TAckLobbyStatePacket *this);
 void TAckLobbyStatePacket_Unserialize(TAckLobbyStatePacket *this);
 void TAckLobbyStatePacket_New_Free(TAckLobbyStatePacket *this);

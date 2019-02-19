@@ -6,9 +6,10 @@
 */
 
 #include "network/packets/packet_disconnect.h"
+#include "network/packets/packet.h"
 #include "reslib.h"
 
-TReqDisconnectPacket *New_TReqDisconnectPacket(char *raw)
+TReqDisconnectPacket *New_TReqDisconnectPacket(unsigned char *raw)
 {
     TReqDisconnectPacket *this = malloc(sizeof(TReqDisconnectPacket));
 
@@ -24,11 +25,11 @@ TReqDisconnectPacket *New_TReqDisconnectPacket(char *raw)
 
 int TReqDisconnectPacket_Serialize(TReqDisconnectPacket *this)
 {
-    char *packet_buffer;
+    unsigned char *packet_buffer;
 
     this->raw_packet = malloc(sizeof(TReqDisconnectPacket));
     if (!this->raw_packet)
-        return;
+        return 0;
     packet_buffer = this->raw_packet;
     packet_buffer = pack_int(packet_buffer, this->packet_id);
     packet_buffer = pack_int(packet_buffer, this->reason);
@@ -38,7 +39,7 @@ int TReqDisconnectPacket_Serialize(TReqDisconnectPacket *this)
 
 void TReqDisconnectPacket_Unserialize(TReqDisconnectPacket *this)
 {
-    char *packet_buffer;
+    unsigned char *packet_buffer;
 
     if (!this->raw_packet)
         return;
@@ -56,7 +57,7 @@ void TReqDisconnectPacket_New_Free(TReqDisconnectPacket *this)
     free(this);
 }
 
-TAckDisconnectPacket *New_TAckDisconnectPacket(char *raw)
+TAckDisconnectPacket *New_TAckDisconnectPacket(unsigned char *raw)
 {
     TAckDisconnectPacket *this = malloc(sizeof(TAckDisconnectPacket));
 
@@ -70,21 +71,22 @@ TAckDisconnectPacket *New_TAckDisconnectPacket(char *raw)
     return this;
 }
 
-void TAckDisconnectPacket_Serialize(TAckDisconnectPacket *this)
+int TAckDisconnectPacket_Serialize(TAckDisconnectPacket *this)
 {
-    char *packet_buffer;
+    unsigned char *packet_buffer;
 
     this->raw_packet = malloc(sizeof(TAckDisconnectPacket));
     if (!this->raw_packet)
-        return;
+        return 0;
     packet_buffer = this->raw_packet;
     packet_buffer = pack_int(packet_buffer, this->packet_id);
     packet_buffer = pack_int(packet_buffer, this->reason);
+    return (packet_buffer - this->raw_packet);
 }
 
 void TAckDisconnectPacket_Unserialize(TAckDisconnectPacket *this)
 {
-    char *packet_buffer;
+    unsigned char *packet_buffer;
 
     if (!this->raw_packet)
         return;

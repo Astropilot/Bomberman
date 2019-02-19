@@ -88,23 +88,12 @@ static void On_Click_Play_Button(TButton *button, TFrame *frame)
     if (IS_DEBUG)
         printf("Button [%p]: Play Button pressed!\n", button);
     TInput *input_username = (TInput*)frame->Get_Drawable(frame, "INPUT_USER");
+    TInput *input_port = (TInput*)frame->Get_Drawable(frame, "INPUT_PORT");
 
     if (strlen(input_username->text) > 0) {
-        /*int serverport = atoi(ptr_serverport);
-        int conn_res;
-        TGameServer *gserver = New_TGameServer(serverport, 4);
-        TGameClient *gclient = New_TGameClient();
-
-        gserver->Start(gserver);
-        conn_res = gclient->Join_Game(gclient, ptr_username, "127.0.0.1", serverport);
-        if (conn_res == 0) {
-            window->Show_Frame(window, "FRAME_LOBBY", 2, gclient, gserver);
-        } else {
-            gserver->Stop(gserver);
-            gserver->Free(gserver);
-            gclient->Free(gclient);
-        }*/
-        frame->window->Show_Frame(frame->window, "FRAME_GAME", 1, input_username->text);
+        int port = atoi(input_port->text);
+        lobby_args_t params = {input_username->text, NULL, port};
+        frame->window->Show_Frame(frame->window, "FRAME_LOBBY", 1, params);
     }
 }
 

@@ -10,8 +10,6 @@
 
 #include <stdlib.h>
 
-#include "network/packets/packet.h"
-
 typedef enum connect_status_e {
     OK,
     GAME_FULL,
@@ -27,14 +25,14 @@ typedef struct TAckConnectPacket {
 
     void(*Free)(struct TAckConnectPacket*);
 
-    char *raw_packet;
-    packet_t packet_id;
-    unsigned int status;
+    unsigned char *raw_packet;
+    int packet_id;
+    int status;
     unsigned int player;
 
 } TAckConnectPacket ;
 
-TAckConnectPacket *New_TAckConnectPacket(char *raw);
+TAckConnectPacket *New_TAckConnectPacket(unsigned char *raw);
 int TAckConnectPacket_Serialize(TAckConnectPacket *this);
 void TAckConnectPacket_Unserialize(TAckConnectPacket *this);
 void TAckConnectPacket_New_Free(TAckConnectPacket *this);

@@ -13,4 +13,10 @@
 
 #define IS_DEBUG 0
 
+typedef struct lobby_args_e {
+    char *username;
+    char *server_ip;
+    int port;
+} lobby_args_t ;
+
 #endif

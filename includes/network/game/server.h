@@ -11,11 +11,14 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#include "main.h"
 #include "reslib.h"
+#include "network/packets/packet.h"
+#include "core/player.h"
 
 typedef struct TGameServer {
 
-    void(*Start)(struct TGameServer*);
+    void(*Start)(struct TGameServer*, int, int);
 
     void(*Stop)(struct TGameServer*);
 
@@ -23,11 +26,14 @@ typedef struct TGameServer {
 
     TServer *server;
     int max_clients;
+    int nb_players;
+    int ready_players;
+    player_t *players;
 
 } TGameServer ;
 
-TGameServer* New_TGameServer(int port, int max_clients);
-void TGameServer_Start(TGameServer *this);
+TGameServer* New_TGameServer();
+void TGameServer_Start(TGameServer *this, int port, int max_clients);
 void TGameServer_Stop(TGameServer *this);
 void TGameServer_New_Free(TGameServer *this);
 

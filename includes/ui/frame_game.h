@@ -13,7 +13,8 @@
 #include <stdarg.h>
 
 #include "glib.h"
+#include "network/game/client.h"
 
-TFrame* New_GameFrame(void);
+TFrame* New_GameFrame(TGameClient *m_gameclient);
 
 #endif
