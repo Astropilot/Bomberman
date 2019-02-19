@@ -28,12 +28,11 @@
 typedef struct TFrame TFrame;
 
 /**
- * @struct TSprite
  * @brief Object oriented structure representing a sprite.
  *
  * TSprite is an object that allows you to create and display a sprite.
  */
-typedef struct {
+typedef struct TSprite {
 
     void(*Draw)(struct TSprite*, TFrame*);          /*!< Draw method. */
 

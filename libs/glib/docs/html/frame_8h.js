@@ -2,6 +2,8 @@ var frame_8h =
 [
     [ "TFrame", "struct_t_frame.html", "struct_t_frame" ],
     [ "TFrame_Node", "struct_t_frame___node.html", "struct_t_frame___node" ],
+    [ "TFrame", "frame_8h.html#a77aa395ec12fb8cc985fe21e89a8673b", null ],
+    [ "TFrame_Node", "frame_8h.html#a6f670aebbd149dec9b82d2e480e9b789", null ],
     [ "TWindow", "frame_8h.html#aa59060f6eceb53949052e8072d070f7a", null ],
     [ "New_TFrame", "frame_8h.html#a15e77dc9363744d571259396b253e307", null ],
     [ "TFrame_Add_Drawable", "frame_8h.html#a32e97382605f13fbd3d0a9ef9a82c2ad", null ],

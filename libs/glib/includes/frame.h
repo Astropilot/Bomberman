@@ -33,12 +33,11 @@
 typedef struct TWindow TWindow;
 
 /**
- * @struct TFrame
  * @brief Object oriented structure representing a frame.
  *
  * TFrame is an object that allows you to create and define a new frame.
  */
-typedef struct {
+typedef struct TFrame {
 
     void(*Add_Drawable)(struct TFrame*, TDrawable*, const char*, unsigned int);             /*!< Method for adding a drawable with an ID and a priority. */
 
@@ -65,17 +64,16 @@ typedef struct {
     TWindow *window;                                        /*!< The main window. */
     char *frame_id;                                         /*!< The ID of the frame. */
     unsigned int initialized;                               /*!< Boolean to know if the frame has been initialized or not. */
-    Drawable_Node *drawables_head;                          /*!< A linked list of drawables. */
+    TDrawable_Node *drawables_head;                          /*!< A linked list of drawables. */
 
 } TFrame ;
 
 /**
- * @struct TFrame_Node
  * @brief A linked list node for frames.
  *
  * TFrame_Node is an linked list node for stock TFrame objects.
  */
-typedef struct {
+typedef struct TFrame_Node{
     TFrame *frame;
     struct TFrame_Node *next;
 } TFrame_Node ;

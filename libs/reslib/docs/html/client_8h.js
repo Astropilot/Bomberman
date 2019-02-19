@@ -1,6 +1,7 @@
 var client_8h =
 [
     [ "TClient", "struct_t_client.html", "struct_t_client" ],
+    [ "TClient", "client_8h.html#aaee7aaa8c9b9475873ea51b1b9818b1f", null ],
     [ "TServer", "client_8h.html#acf81c15bb2b0722babedc8192d13de81", null ],
     [ "New_TClient", "client_8h.html#a43be284ed463f213e67b79abcddb01ea", null ],
     [ "TClient_Connect", "client_8h.html#ab0c7fa8eb7e146203a2ad6e513ffc62b", null ],

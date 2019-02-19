@@ -22,12 +22,11 @@
 #include <stdlib.h>
 
 /**
- * @struct TMessage
  * @brief Object oriented structure representing a high-level message.
  *
  * TMessage is an object that allows you to create a high-level message.
  */
-typedef struct {
+typedef struct TMessage {
 
     int len;                        /*!< The length of the message. */
     unsigned char *message;         /*!< The raw packet bytes of the message. */

@@ -31,24 +31,22 @@
 typedef struct TFrame TFrame;
 
 /**
- * @enum EButton_State
  * @brief Constants of the states of a button.
  *
- * EButton_State is a series of predefined constants for the different
+ * TButton_State is a series of predefined constants for the different
  * states of a button.
  */
-typedef enum {
+typedef enum TButton_State {
     BUTTON_NORMAL,  /*!< The normal state of the button. */
     BUTTON_HOVER    /*!< The hover state of the button. */
-} EButton_State ;
+} TButton_State ;
 
 /**
- * @struct TButton
  * @brief Object oriented structure representing a button.
  *
  * TButton is an object that allows you to create and display a button.
  */
-typedef struct {
+typedef struct TButton {
 
     void(*Draw)(struct TButton*, TFrame*); /*!< Draw method. */
 
@@ -60,7 +58,7 @@ typedef struct {
 
     TSprite *btn_sprite; /*!< A sprite for the button in normal state. */
     TSprite *btn_hover_sprite; /*!< A sprite for the button in hover state. */
-    EButton_State state; /*!< The actual state of the button. */
+    TButton_State state; /*!< The actual state of the button. */
     SDL_Rect pos; /*!< The position and size of the button. */
 
 } TButton ;

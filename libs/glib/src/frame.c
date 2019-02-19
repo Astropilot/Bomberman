@@ -36,8 +36,8 @@ static void TFrame_Init(TFrame *this, const char *frame_id)
 
 static void TFrame_Free_Drawables(TFrame *this)
 {
-    Drawable_Node *current = this->drawables_head;
-    Drawable_Node *tmp = NULL;
+    TDrawable_Node *current = this->drawables_head;
+    TDrawable_Node *tmp = NULL;
 
     while (current != NULL) {
         current->drawable->Free(current->drawable);
@@ -51,10 +51,10 @@ static void TFrame_Free_Drawables(TFrame *this)
 
 void TFrame_Add_Drawable(TFrame *this, TDrawable *drawable, const char *id, unsigned int priority)
 {
-    Drawable_Node *drawable_node;
+    TDrawable_Node *drawable_node;
 
     if (drawable && this && id)
-        drawable_node = malloc(sizeof(Drawable_Node));
+        drawable_node = malloc(sizeof(TDrawable_Node));
     else
         return;
     drawable_node->id = strdup(id);
@@ -64,8 +64,8 @@ void TFrame_Add_Drawable(TFrame *this, TDrawable *drawable, const char *id, unsi
         drawable_node->next = NULL;
         this->drawables_head = drawable_node;
     } else {
-        Drawable_Node *current = this->drawables_head;
-        Drawable_Node *previous = NULL;
+        TDrawable_Node *current = this->drawables_head;
+        TDrawable_Node *previous = NULL;
         unsigned int found = 0;
 
         while (current != NULL && !found) {
@@ -89,8 +89,8 @@ TDrawable *TFrame_Remove_Drawable(TFrame *this, const char *id)
     if (!this || !id)
         return (NULL);
 
-    Drawable_Node *current = this->drawables_head;
-    Drawable_Node *previous = NULL;
+    TDrawable_Node *current = this->drawables_head;
+    TDrawable_Node *previous = NULL;
     TDrawable *drawable = NULL;
 
     while (current != NULL) {
@@ -115,7 +115,7 @@ TDrawable *TFrame_Get_Drawable(TFrame *this, const char *id)
     if (!this || !id)
         return (NULL);
 
-    Drawable_Node *current = this->drawables_head;
+    TDrawable_Node *current = this->drawables_head;
 
     while (current != NULL) {
         if (strcmp(current->id, id) == 0)
@@ -128,7 +128,7 @@ TDrawable *TFrame_Get_Drawable(TFrame *this, const char *id)
 
 void TFrame_Draw_Drawables(TFrame *this)
 {
-    Drawable_Node *current = this->drawables_head;
+    TDrawable_Node *current = this->drawables_head;
 
     while (current != NULL) {
         current->drawable->Draw(current->drawable, this);

@@ -2,6 +2,8 @@ var server_8h =
 [
     [ "TClient_Node", "struct_t_client___node.html", "struct_t_client___node" ],
     [ "TServer", "struct_t_server.html", "struct_t_server" ],
+    [ "TClient_Node", "server_8h.html#a23a56275e7658ad7c5772e3feff690b4", null ],
+    [ "TServer", "server_8h.html#a307f020c0d08d1247f086ce3cc82c44f", null ],
     [ "New_TServer", "server_8h.html#ad3d459fa72ce93fca06c41b1b9eb961e", null ],
     [ "TServer_CountClients", "server_8h.html#a605c6f0fd22aa158bd0ef1432790bf72", null ],
     [ "TServer_New_Free", "server_8h.html#a9410979ade9993f563d819030c8adcef", null ],

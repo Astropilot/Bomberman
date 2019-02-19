@@ -25,23 +25,21 @@
 #include "message.h"
 
 /**
- * @struct TClient_Node
  * @brief A linked list node for clients socket.
  *
  * TClient_Node is an linked list node for stock the clients socket.
  */
-typedef struct {
+typedef struct TClient_Node {
     SOCKET sock;
     struct TClient_Node *next;
 } TClient_Node ;
 
 /**
- * @struct TServer
  * @brief Object oriented structure representing a server.
  *
  * TServer is an object that allows you to create a high-level socket server.
  */
-typedef struct {
+typedef struct TServer {
 
     void(*Start_Listenning)(struct TServer*);               /*!< Start listening for new clients in an asynchronous way. */
 

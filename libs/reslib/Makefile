@@ -5,7 +5,6 @@ NAME	= libreslib.a
 RM		= rm -f
 
 SRC		= \
-		src/reslib.c \
 		src/packer.c \
 		src/message.c \
 		src/client.c \

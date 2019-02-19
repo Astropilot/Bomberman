@@ -28,12 +28,11 @@
 typedef struct TFrame TFrame;
 
 /**
- * @struct TAnimatedSprite
  * @brief Object oriented structure representing a animated sprite.
  *
  * TAnimatedSprite is an object that allows you to create and display a animated sprite.
  */
-typedef struct {
+typedef struct TAnimatedSprite {
 
     void(*Draw)(struct TAnimatedSprite*, TFrame*);      /*!< Draw method. */
 

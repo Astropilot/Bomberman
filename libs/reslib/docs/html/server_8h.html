@@ -65,6 +65,7 @@ $(document).ready(function(){initNavTree('server_8h.html','');});
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">server.h File Reference</div>  </div>
@@ -87,6 +88,15 @@ Data Structures</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_server.html">TServer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Object oriented structure representing a server.  <a href="struct_t_server.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a23a56275e7658ad7c5772e3feff690b4"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_t_client___node.html">TClient_Node</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8h.html#a23a56275e7658ad7c5772e3feff690b4">TClient_Node</a></td></tr>
+<tr class="memdesc:a23a56275e7658ad7c5772e3feff690b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">A linked list node for clients socket.  <a href="#a23a56275e7658ad7c5772e3feff690b4">More...</a><br /></td></tr>
+<tr class="separator:a23a56275e7658ad7c5772e3feff690b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a307f020c0d08d1247f086ce3cc82c44f"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_t_server.html">TServer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8h.html#a307f020c0d08d1247f086ce3cc82c44f">TServer</a></td></tr>
+<tr class="memdesc:a307f020c0d08d1247f086ce3cc82c44f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Object oriented structure representing a server.  <a href="#a307f020c0d08d1247f086ce3cc82c44f">More...</a><br /></td></tr>
+<tr class="separator:a307f020c0d08d1247f086ce3cc82c44f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -115,7 +125,42 @@ Functions</h2></td></tr>
 <dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>28 janvier 2019</dd></dl>
 <p>This class allows you to create a socket server with high-level methods for manipulating clients. </p>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="a23a56275e7658ad7c5772e3feff690b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23a56275e7658ad7c5772e3feff690b4">&#9670;&nbsp;</a></span>TClient_Node</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct_t_client___node.html">TClient_Node</a>  <a class="el" href="struct_t_client___node.html">TClient_Node</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A linked list node for clients socket. </p>
+<p><a class="el" href="struct_t_client___node.html" title="A linked list node for clients socket.">TClient_Node</a> is an linked list node for stock the clients socket. </p>
+
+</div>
+</div>
+<a id="a307f020c0d08d1247f086ce3cc82c44f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a307f020c0d08d1247f086ce3cc82c44f">&#9670;&nbsp;</a></span>TServer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="struct_t_server.html">TServer</a>  <a class="el" href="struct_t_server.html">TServer</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Object oriented structure representing a server. </p>
+<p><a class="el" href="struct_t_server.html" title="Object oriented structure representing a server.">TServer</a> is an object that allows you to create a high-level socket server. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
 <a id="ad3d459fa72ce93fca06c41b1b9eb961e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad3d459fa72ce93fca06c41b1b9eb961e">&#9670;&nbsp;</a></span>New_TServer()</h2>
 

@@ -26,12 +26,11 @@
 typedef struct TServer TServer;
 
 /**
- * @struct TClient
  * @brief Object oriented structure representing a client.
  *
  * TClient is an object that allows you to create a high-level socket client.
  */
-typedef struct {
+typedef struct TClient {
 
     int(*Connect)(struct TClient*, const char*, unsigned short int); /*!< Method to connect to a server. */
 

@@ -30,12 +30,11 @@
 #include "frame.h"
 
 /**
- * @struct TWindow
  * @brief Object oriented structure representing a window.
  *
  * TWindow is an object that allows you to create and display a window.
  */
-typedef struct {
+typedef struct TWindow {
 
     int(*Create_Window)(struct TWindow*, const char*, int, int, const char*, unsigned int);     /*!< Method for creating the SDL window. */
     void(*Add_Frame)(struct TWindow*, TFrame*);                                                 /*!< Method for adding a TFrame to the window. */

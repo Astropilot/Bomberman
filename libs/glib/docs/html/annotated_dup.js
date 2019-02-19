@@ -1,10 +1,10 @@
 var annotated_dup =
 [
-    [ "Drawable_Node", "struct_drawable___node.html", "struct_drawable___node" ],
     [ "TAnimatedSprite", "struct_t_animated_sprite.html", "struct_t_animated_sprite" ],
     [ "TAnimatedSprites", "struct_t_animated_sprites.html", "struct_t_animated_sprites" ],
     [ "TButton", "struct_t_button.html", "struct_t_button" ],
     [ "TDrawable", "struct_t_drawable.html", "struct_t_drawable" ],
+    [ "TDrawable_Node", "struct_t_drawable___node.html", "struct_t_drawable___node" ],
     [ "TFrame", "struct_t_frame.html", "struct_t_frame" ],
     [ "TFrame_Node", "struct_t_frame___node.html", "struct_t_frame___node" ],
     [ "TInput", "struct_t_input.html", "struct_t_input" ],

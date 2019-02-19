@@ -33,12 +33,11 @@
 typedef struct TFrame TFrame;
 
 /**
- * @struct TInput
  * @brief Object oriented structure representing a input box.
  *
  * TInput is an object that allows you to create and display a input box.
  */
-typedef struct {
+typedef struct TInput {
 
     void(*Draw)(struct TInput*, TFrame*);                           /*!< Draw method. */
 

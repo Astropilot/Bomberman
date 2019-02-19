@@ -31,12 +31,11 @@
 typedef struct TFrame TFrame;
 
 /**
- * @struct TText
  * @brief Object oriented structure representing a text.
  *
  * TText is an object that allows you to create and display a text.
  */
-typedef struct {
+typedef struct TText {
 
     void(*Draw)(struct TText*, TFrame*);        /*!< Draw method. */
 
