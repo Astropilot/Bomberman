@@ -44,7 +44,7 @@ static void TInput_Init(TInput *this, TFrame *frame, const char *file, SDL_Rect 
     this->is_focus = 0;
     this->last_time = 0;
     this->max_len = len;
-    free(s_tmp);
+    SDL_FreeSurface(s_tmp);
 }
 
 void TInput_Draw(TInput *this, TFrame *frame)

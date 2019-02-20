@@ -64,9 +64,11 @@ static void On_Load(TFrame* frame, int argc, va_list args)
 
     SDL_Rect pos_label = {0, 0, 0, 0};
     SDL_Color color = {255, 255, 255, 255};
-    TText *txt_label = New_TText(frame, "Connexion en cours...", TTF_OpenFont("fonts/fixedsys.ttf", 24), color, pos_label);
+    TTF_Font *font = TTF_OpenFont("fonts/fixedsys.ttf", 24);
+    TText *txt_label = New_TText(frame, "Connexion en cours...", font, color, pos_label);
     txt_label->pos.x = (WIN_WIDTH / 2) - (txt_label->pos.w / 2);
     txt_label->pos.y = (WIN_HEIGHT / 2) - (txt_label->pos.h / 2);
+    TTF_CloseFont(font);
 
     frame->Add_Drawable(frame, (TDrawable*)txt_label, "LABEL_STATUS", 1);
 
@@ -103,7 +105,8 @@ static void On_Tick(TFrame* frame)
     SDL_RenderClear(frame->window->renderer_window);
     lobbyclient->Handle_Messages(lobbyclient);
     if (lobbyclient->nb_players >= 2 && lobbyclient->is_owner) {
-        frame->Add_Drawable(frame, (TDrawable*)btn_start, "BTN_START", 1);
+        if (!frame->Get_Drawable(frame, "BTN_START"))
+            frame->Add_Drawable(frame, (TDrawable*)btn_start, "BTN_START", 1);
     } else {
         frame->Remove_Drawable(frame, "BTN_START");
     }
@@ -124,5 +127,5 @@ static void Finish(TFrame* frame)
 {
     if (IS_DEBUG)
         printf("Frame [%s]: Finish method called\n", frame->frame_id);
-    //lobbyclient->Free(lobbyclient);
+    lobbyclient->Free(lobbyclient);
 }

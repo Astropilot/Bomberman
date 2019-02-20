@@ -110,22 +110,27 @@ void TLobbyClient_Handle_Messages(TLobbyClient *this)
 
             SDL_Rect pos_label = {0, 0, 0, 0};
             SDL_Color color = {255, 255, 255, 255};
-            txt_label = New_TText(this->lobby_frame, status, TTF_OpenFont("fonts/fixedsys.ttf", 24), color, pos_label);
+            TTF_Font *font = TTF_OpenFont("fonts/fixedsys.ttf", 24);
+            txt_label = New_TText(this->lobby_frame, status, font, color, pos_label);
             txt_label->pos.x = (WIN_WIDTH / 2) - (txt_label->pos.w / 2);
             txt_label->pos.y = (WIN_HEIGHT / 2) - (txt_label->pos.h / 2);
+            TTF_CloseFont(font);
             this->lobby_frame->Add_Drawable(this->lobby_frame, (TDrawable*)txt_label, "LABEL_STATUS", 1);
 
             free(status);
             p_as->Free(p_as);
             break;
         case ACK_START_GAME:;
+            TClient *client_tmp = this->client;
+
             free(message.message);
             free(this->username);
             this->username = NULL;
+            this->client = NULL;
             this->lobby_frame->window->Show_Frame(
                 this->lobby_frame->window,
                 "FRAME_GAME",
-                4, this->client, this->gameserver, this->player, this->nb_players
+                4, client_tmp, this->gameserver, this->player, this->nb_players
             );
             break;
         default:
@@ -145,6 +150,7 @@ void TLobbyClient_Leave_Lobby(TLobbyClient *this)
     this->client->Disconnect(this->client);
     this->client->Free(this->client);
     this->client = NULL;
+    p_d->Free(p_d);
     free(this->username);
     this->username = NULL;
     this->is_owner = 0;

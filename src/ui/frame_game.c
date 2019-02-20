@@ -35,7 +35,7 @@ static void Init(TFrame* frame)
 {
     SDL_Rect pos_sprite2 = {0, 0, WIN_WIDTH, WIN_HEIGHT};
     TSprite *sp2 = New_TSprite(frame, "images/bomberman_game.png", pos_sprite2);
-    
+
     frame->Add_Drawable(frame, (TDrawable*)sp2, "BG", 999);
 }
 
@@ -118,4 +118,5 @@ static void Finish(TFrame* frame)
 {
     if (IS_DEBUG)
         printf("Frame [%s]: Finish method called\n", frame->frame_id);
+    gameclient->Free(gameclient);
 }

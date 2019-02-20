@@ -120,12 +120,16 @@ void TGameClient_Handle_Messages(TGameClient *this)
 
 void TGameClient_Leave_Game(TGameClient *this)
 {
+    if (!(this->client))
+        return;
+
     TReqDisconnectPacket *p_d = New_TReqDisconnectPacket(NULL);
     p_d->reason = (this->is_owner ? MASTER_LEAVE : USER_QUIT);
     p_d->player = (unsigned int)this->player;
     this->client->Send(this->client, packet_to_message((TPacket*)p_d));
     this->client->Disconnect(this->client);
     this->client->Free(this->client);
+    p_d->Free(p_d);
     this->client = NULL;
     this->is_owner = 0;
     this->player = -1;
@@ -139,8 +143,5 @@ void TGameClient_Leave_Game(TGameClient *this)
 
 void TGameClient_New_Free(TGameClient *this)
 {
-    if (this) {
-        this->Leave_Game(this);
-    }
     free(this);
 }

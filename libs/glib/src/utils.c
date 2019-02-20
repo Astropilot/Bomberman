@@ -21,7 +21,7 @@ SDL_Texture *createText(TFrame *frame, const char *text, TTF_Font *font, SDL_Col
     text_texture = SDL_CreateTextureFromSurface(frame->window->renderer_window, s_text);
     pos->w = s_text->w;
     pos->h = s_text->h;
-    free(s_text);
+    SDL_FreeSurface(s_text);
 
     return (text_texture);
 }
