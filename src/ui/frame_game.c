@@ -100,6 +100,8 @@ static void On_Tick(TFrame* frame)
     gameclient->Handle_Messages(gameclient);
     frame->Draw_Drawables(frame);
     SDL_RenderPresent(frame->window->renderer_window);
+    if (frame->window->finished)
+        gameclient->Leave_Game(gameclient);
 }
 
 static void On_Unload(TFrame* frame)

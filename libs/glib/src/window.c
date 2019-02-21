@@ -76,7 +76,7 @@ static void TWindow_Loop(TWindow *this)
         }
         if (this->shown_frame && this->shown_frame->On_Tick) {
             current_time = SDL_GetTicks();
-            if (current_time > last_time + this->fps) {
+            if (current_time > last_time + this->fps || this->finished) {
                 this->shown_frame->On_Tick(this->shown_frame);
                 last_time = current_time;
             }

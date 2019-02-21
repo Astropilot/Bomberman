@@ -6,7 +6,6 @@
 */
 
 #include "ui/frame_host_menu.h"
-//#include "network/game/server.h"
 #include "main.h"
 
 static void Init(TFrame* frame);
@@ -81,6 +80,10 @@ static void On_Event(TFrame* frame, SDL_Event event)
     btn_play->Event_Handler(btn_play, frame, event);
     input_username->Event_Handler(input_username, event);
     input_serverport->Event_Handler(input_serverport, event);
+    if (event.type == SDL_KEYUP) {
+        if (event.key.keysym.sym == SDLK_ESCAPE)
+            frame->window->Show_Frame(frame->window, "FRAME_MAIN_MENU", 0);
+    }
 }
 
 static void On_Click_Play_Button(TButton *button, TFrame *frame)

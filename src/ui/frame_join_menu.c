@@ -88,6 +88,10 @@ static void On_Event(TFrame* frame, SDL_Event event)
     input_username->Event_Handler(input_username, event);
     input_serverip->Event_Handler(input_serverip, event);
     input_serverport->Event_Handler(input_serverport, event);
+    if (event.type == SDL_KEYUP) {
+        if (event.key.keysym.sym == SDLK_ESCAPE)
+            frame->window->Show_Frame(frame->window, "FRAME_MAIN_MENU", 0);
+    }
 }
 
 static void On_Click_Play_Button(TButton *button, TFrame *frame)

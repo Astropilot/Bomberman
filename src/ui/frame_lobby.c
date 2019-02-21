@@ -112,6 +112,8 @@ static void On_Tick(TFrame* frame)
     }
     frame->Draw_Drawables(frame);
     SDL_RenderPresent(frame->window->renderer_window);
+    if (frame->window->finished)
+        lobbyclient->Leave_Lobby(lobbyclient);
 }
 
 static void On_Unload(TFrame* frame)
