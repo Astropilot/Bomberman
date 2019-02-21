@@ -32,10 +32,15 @@ TGameServer* New_TGameServer()
 
 void TGameServer_Start(TGameServer *this, int port, int max_clients)
 {
+    int i;
+
     this->server = New_TServer(port, 15);
     this->server->On_Message = On_Message;
     this->max_clients = max_clients;
     this->players = malloc(sizeof(player_t) * max_clients);
+    for (i = 0; i < max_clients; i++) {
+        this->players[i].connected = 0;
+    }
     this->nb_players = 0;
     this->ready_players = 0;
     this->server->Start_Listenning(this->server);
@@ -72,10 +77,10 @@ void On_Message(TServer *server, TClient *client, TMessage message)
             if (p_d->player != 0) {
                 TAckLobbyStatePacket *p = New_TAckLobbyStatePacket(NULL);
 
-                p->nb_players = (int)server->CountClients(server) - 1;
+                game_server->nb_players--;
+                p->nb_players = (int)game_server->nb_players;
                 server->Send_Broadcast(server, packet_to_message((TPacket*)p));
                 p->Free(p);
-                game_server->nb_players--;
             }
             p_d->Free(p_d);
             break;
@@ -89,13 +94,13 @@ void On_Message(TServer *server, TClient *client, TMessage message)
                 TAckLobbyStatePacket *p = New_TAckLobbyStatePacket(NULL);
 
                 p_a->status = OK;
-                p_a->player = nb_clients - 1;
+                p_a->player = next_id(game_server->players);
                 init_player(&(game_server->players[p_a->player]), p_a->player, p_rc->player_name);
                 client->Send(client, packet_to_message((TPacket*)p_a));
                 p_a->Free(p_a);
 
-                p->nb_players = nb_clients;
                 game_server->nb_players++;
+                p->nb_players = game_server->nb_players;
                 server->Send_Broadcast(server, packet_to_message((TPacket*)p));
                 p->Free(p);
             } else {

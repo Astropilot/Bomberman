@@ -5,11 +5,25 @@
 **      Source file of the player class.
 */
 
+#include "main.h"
 #include "core/player.h"
+
+unsigned int next_id(player_t *players)
+{
+    unsigned int i;
+
+    for (i = 0; i < MAX_PLAYERS; i++) {
+        if (!players[i].connected)
+            return (i);
+    }
+    return (MAX_PLAYERS + 1);
+}
 
 void init_player(player_t *player, int id, const char *username)
 {
+    player->connected = 1;
     player->username = strdup(username);
+    player->p_id = (unsigned int)id;
     switch (id) {
         case 0:
             player->x = 50;
@@ -56,5 +70,7 @@ void move_player(player_t *player, direction_t direction)
 
 void reset_player(player_t *player)
 {
+    player->connected = 0;
     free(player->username);
+    player->username = NULL;
 }
