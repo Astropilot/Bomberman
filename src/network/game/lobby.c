@@ -88,9 +88,10 @@ void TLobbyClient_Handle_Messages(TLobbyClient *this)
             TAckConnectPacket *p_ac = New_TAckConnectPacket(message.message);
             p_ac->Unserialize(p_ac);
 
-            if (p_ac->status != OK)
+            if (p_ac->status != OK) {
+                this->player = p_ac->player;
                 this->Leave_Lobby(this);
-            else
+            } else
                 this->player = (int)p_ac->player;
             p_ac->Free(p_ac);
             break;
@@ -106,7 +107,7 @@ void TLobbyClient_Handle_Messages(TLobbyClient *this)
             p_as->Unserialize(p_as);
             this->nb_players = p_as->nb_players;
             char *status = malloc(sizeof(char) * 255);
-            sprintf(status, "Nombre de joueurs presents: %d/4", this->nb_players);
+            sprintf(status, "Nombre de joueurs presents: %d/%d", this->nb_players, MAX_PLAYERS);
 
             SDL_Rect pos_label = {0, 0, 0, 0};
             SDL_Color color = {255, 255, 255, 255};

@@ -156,10 +156,12 @@ static void *TClient_Receving(void *p_args)
         pthread_mutex_unlock(&mutex_message_event);
     }
 
+    pthread_mutex_lock(&mutex_message_event);
     if (client->On_Disconnect)
         client->On_Disconnect(client);
     if (client->Server_On_Disconnect && client->server)
         client->Server_On_Disconnect(client, client->server);
+    pthread_mutex_unlock(&mutex_message_event);
     closesocket(client->sock);
     client->server = NULL;
     client->Free(client);

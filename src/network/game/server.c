@@ -5,6 +5,7 @@
 **      Header file of the game server component.
 */
 
+#include <stdio.h>
 #include "network/game/server.h"
 
 static void On_Message(TServer *server, TClient *client, TMessage message);
@@ -63,6 +64,10 @@ void On_Message(TServer *server, TClient *client, TMessage message)
             TReqDisconnectPacket *p_d = New_TReqDisconnectPacket(message.message);
             p_d->Unserialize(p_d);
 
+            if (p_d->player >= server->CountClients(server)) {
+                p_d->Free(p_d);
+                break;
+            }
             reset_player(&(game_server->players[p_d->player]));
             if (p_d->player != 0) {
                 TAckLobbyStatePacket *p = New_TAckLobbyStatePacket(NULL);
@@ -96,7 +101,7 @@ void On_Message(TServer *server, TClient *client, TMessage message)
             } else {
                 TAckConnectPacket *p_a = New_TAckConnectPacket(NULL);
                 p_a->status = GAME_FULL;
-                p_a->player = 0;
+                p_a->player = MAX_PLAYERS + 1;
                 client->Send(client, packet_to_message((TPacket*)p_a));
                 p_a->Free(p_a);
             }

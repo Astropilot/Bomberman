@@ -2,14 +2,22 @@
 ** ETNA PROJECT, 28/01/2019 by martin_h, hamide_a, despla_g, weber_w
 ** Bomberman
 ** File description:
-**      Header file for the main program with some game constants.
+**      Header file for the main program with some constants.
 */
 
 #ifndef MAIN_H_
 #define MAIN_H_
 
+/***************************  UI CONSTS ***************************/
+
 #define WIN_WIDTH 1280
 #define WIN_HEIGHT 720
+
+/***************************  GAME CONSTS *************************/
+
+// MAX_PLAYERS and MIN_PLAYERS need to be lower or equal to 4.
+#define MAX_PLAYERS 4
+#define MIN_PLAYERS 2
 
 #define IS_DEBUG 0
 

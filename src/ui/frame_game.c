@@ -41,7 +41,8 @@ static void Init(TFrame* frame)
 
 static void On_Load(TFrame* frame, int argc, va_list args)
 {
-    if (argc < 3) return;
+    if (IS_DEBUG)
+        printf("Frame [%s]: On_Load method called | Argc: %d\n", frame->frame_id, argc);
     TClient *client = va_arg(args, TClient*);
     TGameServer *server = va_arg(args, TGameServer*);
     int player = va_arg(args, int);
