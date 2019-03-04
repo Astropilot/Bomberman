@@ -110,6 +110,17 @@ static void On_Unload(TFrame* frame)
         printf("Frame [%s]: On_Unload method called\n", frame->frame_id);
 
     TSprite *bomb_sprite = (TSprite*)frame->Remove_Drawable(frame, "BOMB");
+    TAnimatedSprite *asp = (TAnimatedSprite*)frame->Remove_Drawable(frame, "PLAYER_0");
+    char *player_id = malloc(sizeof(char) * 10);
+    int i = 1;
+
+    while (asp) {
+        asp->Free(asp);
+        sprintf(player_id, "PLAYER_%d", i);
+        asp = (TAnimatedSprite*)frame->Remove_Drawable(frame, player_id);
+        i++;
+    }
+    free(player_id);
 
     while (bomb_sprite) {
         bomb_sprite->Free(bomb_sprite);

@@ -156,6 +156,7 @@ void TLobbyClient_Leave_Lobby(TLobbyClient *this)
     this->username = NULL;
     this->is_owner = 0;
     this->player = -1;
+    this->nb_players = 0;
     if (this->gameserver) {
         this->gameserver->Stop(this->gameserver);
         this->gameserver->Free(this->gameserver);
