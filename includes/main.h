@@ -19,6 +19,15 @@
 #define MAX_PLAYERS 4
 #define MIN_PLAYERS 2
 
+#define MAP_START_PIX_X 368
+#define MAP_START_PIX_Y 159
+
+#define MAP_WIDTH 17
+#define MAP_HEIGHT 15
+#define MAP_BLOCK_SIZE 32
+
+#define CHANCE_BREAKABLE_WALL 75
+
 #define IS_DEBUG 0
 
 typedef struct lobby_args_e {

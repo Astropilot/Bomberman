@@ -26,29 +26,29 @@ void init_player(player_t *player, int id, const char *username)
     player->p_id = (unsigned int)id;
     switch (id) {
         case 0:
-            player->x = 50;
-            player->y = 50;
+            player->pos.x = MAP_START_PIX_X;
+            player->pos.y = MAP_START_PIX_Y;
             player->direction = (unsigned int)EST;
             break;
         case 1:
-            player->x = 700;
-            player->y = 50;
+            player->pos.x = MAP_START_PIX_X + (MAP_WIDTH * MAP_BLOCK_SIZE) - MAP_BLOCK_SIZE;
+            player->pos.y = MAP_START_PIX_Y;
             player->direction = (unsigned int)OUEST;
             break;
         case 2:
-            player->x = 50;
-            player->y = 400;
+            player->pos.x = MAP_START_PIX_X;
+            player->pos.y = MAP_START_PIX_Y + (MAP_HEIGHT * MAP_BLOCK_SIZE) - MAP_BLOCK_SIZE;
             player->direction = (unsigned int)EST;
             break;
         case 3:
-            player->x = 700;
-            player->y = 400;
+            player->pos.x = MAP_START_PIX_X + (MAP_WIDTH * MAP_BLOCK_SIZE) - MAP_BLOCK_SIZE;
+            player->pos.y = MAP_START_PIX_Y + (MAP_HEIGHT * MAP_BLOCK_SIZE) - MAP_BLOCK_SIZE;
             player->direction = (unsigned int)OUEST;
             break;
     }
 }
 
-void move_player(player_t *player, direction_t direction)
+/*void move_player(player_t *player, direction_t direction)
 {
     unsigned int speed_player = 7;
     switch (direction) {
@@ -66,7 +66,7 @@ void move_player(player_t *player, direction_t direction)
             break;
     }
     player->direction = (unsigned int)direction;
-}
+}*/
 
 void reset_player(player_t *player)
 {

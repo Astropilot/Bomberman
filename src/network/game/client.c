@@ -10,6 +10,8 @@
 #include "network/game/client.h"
 #include "network/packets/packet.h"
 #include "network/packets/packet_disconnect.h"
+#include "core/utils.h"
+#include "main.h"
 
 TGameClient* New_TGameClient()
 {
@@ -92,9 +94,34 @@ void TGameClient_Handle_Messages(TGameClient *this)
                 player_t player = p_as->players[i];
                 sprintf(player_id, "PLAYER_%d", (int)i);
                 TAnimatedSprite *asp = (TAnimatedSprite*)this->game_frame->Get_Drawable(this->game_frame, player_id);
-                asp->pos.x = player.x;
-                asp->pos.y = player.y;
+                asp->pos.x = player.pos.x;
+                asp->pos.y = player.pos.y;
                 free(player_id);
+            }
+            if (p_as->first_init) {
+                unsigned int j;
+
+                for (i = 0; i < MAP_HEIGHT; i++) {
+                    for (j = 0; j < MAP_WIDTH; j++) {
+                        switch (p_as->block_map[i][j]) {
+                            case WALL:;
+                                SDL_Rect posw = {0, 0, 32, 32};
+                                map_to_pix(j, i, (unsigned int *)&(posw.x), (unsigned int *)&(posw.y));
+                                TSprite *spw = New_TSprite(this->game_frame, "images/wall.png", posw);
+
+                                this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)spw, "WALL", 3);
+                                break;
+                            case BREAKABLE_WALL:;
+                            SDL_Rect posbw = {0, 0, 32, 32};
+                            map_to_pix(j, i, (unsigned int *)&(posbw.x), (unsigned int *)&(posbw.y));
+                            TSprite *spbw = New_TSprite(this->game_frame, "images/breakable_wall.png", posbw);
+
+                            this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)spbw, "BWALL", 3);
+                            default:
+                                break;
+                        }
+                    }
+                }
             }
 
             p_as->Free(p_as);

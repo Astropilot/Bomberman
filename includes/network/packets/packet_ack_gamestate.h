@@ -11,6 +11,7 @@
 #include <stdlib.h>
 
 #include "core/player.h"
+#include "core/map.h"
 
 typedef struct TAckGameStatePacket {
 
@@ -23,7 +24,10 @@ typedef struct TAckGameStatePacket {
     unsigned char *raw_packet;
     int packet_id;
     unsigned int nb_players;
+    unsigned int first_init;
     player_t *players;
+    object_type_t **block_map;
+
 
 } TAckGameStatePacket ;
 

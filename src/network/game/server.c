@@ -23,7 +23,7 @@ TGameServer* New_TGameServer()
     this->max_clients = 0;
     this->nb_players = 0;
     this->ready_players = 0;
-    this->players = NULL;
+    this->map = NULL;
     this->Start = TGameServer_Start;
     this->Stop = TGameServer_Stop;
     this->Free = TGameServer_New_Free;
@@ -32,15 +32,16 @@ TGameServer* New_TGameServer()
 
 void TGameServer_Start(TGameServer *this, int port, int max_clients)
 {
-    int i;
+    //int i;
 
     this->server = New_TServer(port, 15);
     this->server->On_Message = On_Message;
     this->max_clients = max_clients;
-    this->players = malloc(sizeof(player_t) * max_clients);
+    /*this->players = malloc(sizeof(player_t) * max_clients);
     for (i = 0; i < max_clients; i++) {
         this->players[i].connected = 0;
-    }
+    }*/
+    this->map = New_TMap((size_t)max_clients);
     this->nb_players = 0;
     this->ready_players = 0;
     this->server->Start_Listenning(this->server);
@@ -56,8 +57,9 @@ void TGameServer_Stop(TGameServer *this)
     this->server->Send_Broadcast(this->server, packet_to_message((TPacket*)p));
     this->server->Free(this->server);
     this->server = NULL;
-    free(this->players);
-    this->players = NULL;
+    //free(this->players);
+    this->map->Free(this->map);
+    this->map = NULL;
     p->Free(p);
 }
 
@@ -73,7 +75,7 @@ void On_Message(TServer *server, TClient *client, TMessage message)
                 p_d->Free(p_d);
                 break;
             }
-            reset_player(&(game_server->players[p_d->player]));
+            reset_player(&(game_server->map->players[p_d->player]));
             if (p_d->player != 0) {
                 TAckLobbyStatePacket *p = New_TAckLobbyStatePacket(NULL);
 
@@ -94,8 +96,8 @@ void On_Message(TServer *server, TClient *client, TMessage message)
                 TAckLobbyStatePacket *p = New_TAckLobbyStatePacket(NULL);
 
                 p_a->status = OK;
-                p_a->player = next_id(game_server->players);
-                init_player(&(game_server->players[p_a->player]), p_a->player, p_rc->player_name);
+                p_a->player = next_id(game_server->map->players);
+                init_player(&(game_server->map->players[p_a->player]), p_a->player, p_rc->player_name);
                 client->Send(client, packet_to_message((TPacket*)p_a));
                 p_a->Free(p_a);
 
@@ -120,6 +122,7 @@ void On_Message(TServer *server, TClient *client, TMessage message)
             if (p_rs->player == 0) {
                 TAckStartGamePacket *p = New_TAckStartGamePacket(NULL);
 
+                game_server->map->Generate(game_server->map);
                 server->Send_Broadcast(server, packet_to_message((TPacket*)p));
                 p->Free(p);
             }
@@ -136,7 +139,9 @@ void On_Message(TServer *server, TClient *client, TMessage message)
                 TAckGameStatePacket *p = New_TAckGameStatePacket(NULL);
 
                 p->nb_players = (unsigned int)game_server->nb_players;
-                p->players = game_server->players;
+                p->players = game_server->map->players;
+                p->block_map = game_server->map->block_map;
+                p->first_init = 1;
                 server->Send_Broadcast(server, packet_to_message((TPacket*)p));
                 p->Free(p);
             }
@@ -147,12 +152,14 @@ void On_Message(TServer *server, TClient *client, TMessage message)
             TReqMovePlayerPacket *p_rm = New_TReqMovePlayerPacket(message.message);
             p_rm->Unserialize(p_rm);
 
-            move_player(&(game_server->players[p_rm->player]), p_rm->dir);
+            game_server->map->Move_Player(game_server->map, p_rm->player, p_rm->dir);
 
             TAckGameStatePacket *p = New_TAckGameStatePacket(NULL);
 
             p->nb_players = (unsigned int)game_server->nb_players;
-            p->players = game_server->players;
+            p->players = game_server->map->players;
+            p->first_init = 0;
+            p->block_map = NULL;
             server->Send_Broadcast(server, packet_to_message((TPacket*)p));
             p->Free(p);
 
@@ -162,12 +169,12 @@ void On_Message(TServer *server, TClient *client, TMessage message)
             TReqPlaceBombPacket *p_rb = New_TReqPlaceBombPacket(message.message);
             p_rb->Unserialize(p_rb);
 
-            player_t player = game_server->players[p_rb->player];
+            player_t player = game_server->map->players[p_rb->player];
 
             TAckPlaceBombPacket *p_ab = New_TAckPlaceBombPacket(NULL);
 
-            p_ab->x = player.x + 32;
-            p_ab->y = player.y + 32;
+            p_ab->x = player.pos.x + 32;
+            p_ab->y = player.pos.y + 32;
             server->Send_Broadcast(server, packet_to_message((TPacket*)p_ab));
             p_ab->Free(p_ab);
 
@@ -181,7 +188,8 @@ void On_Message(TServer *server, TClient *client, TMessage message)
 void TGameServer_New_Free(TGameServer *this)
 {
     if (this) {
-        free(this->players);
+        if (this->map)
+            this->map->Free(this->map);
     }
     free(this);
 }

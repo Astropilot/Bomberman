@@ -12,6 +12,8 @@
 #include <unistd.h>
 #include <string.h>
 
+#include "core/utils.h"
+
 typedef enum direction_e {
     NORD,
     OUEST,
@@ -24,15 +26,14 @@ typedef struct player_s {
     unsigned int connected;
     char *username;
     unsigned int p_id;
-    unsigned int x;
-    unsigned int y;
+    pos_t pos;
     unsigned int direction;
 
 } player_t ;
 
 unsigned int next_id(player_t *players);
 void init_player(player_t *player, int id, const char *username);
-void move_player(player_t *player, direction_t direction);
+//void move_player(player_t *player, direction_t direction);
 void reset_player(player_t *player);
 
 #endif

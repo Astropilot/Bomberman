@@ -58,7 +58,7 @@ static void On_Load(TFrame* frame, int argc, va_list args)
     for (i = 0; i < nb_players; i++) {
         char *player_id = malloc(sizeof(char) * 10);
         sprintf(player_id, "PLAYER_%d", (int)i);
-        SDL_Rect pos = {0, 0, 64, 64};
+        SDL_Rect pos = {0, 0, 32, 32};
         SDL_Rect size = {0, 0, 256, 256};
         TAnimatedSprite *asp = New_TAnimatedSprite(frame, "images/sprite_animated.png", size, pos, 100, -1);
         frame->Add_Drawable(frame, (TDrawable*)asp, player_id, 1);
