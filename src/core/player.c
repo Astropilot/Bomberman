@@ -7,6 +7,7 @@
 
 #include "main.h"
 #include "core/player.h"
+#include "core/utils.h"
 
 unsigned int next_id(player_t *players)
 {
@@ -26,47 +27,23 @@ void init_player(player_t *player, int id, const char *username)
     player->p_id = (unsigned int)id;
     switch (id) {
         case 0:
-            player->pos.x = MAP_START_PIX_X;
-            player->pos.y = MAP_START_PIX_Y;
+            map_to_pix(0, 0, &(player->pos.x), &(player->pos.y));
             player->direction = (unsigned int)EST;
             break;
         case 1:
-            player->pos.x = MAP_START_PIX_X + (MAP_WIDTH * MAP_BLOCK_SIZE) - MAP_BLOCK_SIZE;
-            player->pos.y = MAP_START_PIX_Y;
+            map_to_pix(MAP_WIDTH - 1, 0, &(player->pos.x), &(player->pos.y));
             player->direction = (unsigned int)OUEST;
             break;
         case 2:
-            player->pos.x = MAP_START_PIX_X;
-            player->pos.y = MAP_START_PIX_Y + (MAP_HEIGHT * MAP_BLOCK_SIZE) - MAP_BLOCK_SIZE;
+            map_to_pix(0, MAP_HEIGHT - 1, &(player->pos.x), &(player->pos.y));
             player->direction = (unsigned int)EST;
             break;
         case 3:
-            player->pos.x = MAP_START_PIX_X + (MAP_WIDTH * MAP_BLOCK_SIZE) - MAP_BLOCK_SIZE;
-            player->pos.y = MAP_START_PIX_Y + (MAP_HEIGHT * MAP_BLOCK_SIZE) - MAP_BLOCK_SIZE;
+            map_to_pix(MAP_WIDTH - 1, MAP_HEIGHT - 1, &(player->pos.x), &(player->pos.y));
             player->direction = (unsigned int)OUEST;
             break;
     }
 }
-
-/*void move_player(player_t *player, direction_t direction)
-{
-    unsigned int speed_player = 7;
-    switch (direction) {
-        case OUEST:
-            player->x = player->x - speed_player;
-            break;
-        case EST:
-            player->x = player->x + speed_player;
-            break;
-        case NORD:
-            player->y = player->y - speed_player;
-            break;
-        case SUD:
-            player->y = player->y + speed_player;
-            break;
-    }
-    player->direction = (unsigned int)direction;
-}*/
 
 void reset_player(player_t *player)
 {
