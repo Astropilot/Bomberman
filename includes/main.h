@@ -26,7 +26,7 @@
 #define MAP_HEIGHT 15
 #define MAP_BLOCK_SIZE 32
 
-#define CHANCE_BREAKABLE_WALL 75
+#define CHANCE_BREAKABLE_WALL 5
 
 #define IS_DEBUG 0
 

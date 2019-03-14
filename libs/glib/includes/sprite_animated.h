@@ -38,6 +38,8 @@ typedef struct TAnimatedSprite {
 
     void(*Free)(struct TAnimatedSprite*);               /*!< Free (ressources) method. */
 
+    unsigned int is_visible;                            /*!< Boolean to know if the drawable can be drawed automatically. */
+
     SDL_Texture *texture;                               /*!< The texture with all frames of the sprite. */
     SDL_Rect size;                                      /*!< The size of a single frame. */
     SDL_Rect pos;                                       /*!< The size and position of the animated sprite on the screen. */

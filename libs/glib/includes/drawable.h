@@ -36,6 +36,8 @@ typedef struct TDrawable {
 
     void(*Free)(struct TDrawable*);                                    /*!< Free (ressources) method. */
 
+    unsigned int is_visible;                                           /*!< Boolean to know if the drawable can be drawed automatically. */
+
 } TDrawable ;
 
 /**

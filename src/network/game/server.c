@@ -173,8 +173,8 @@ void On_Message(TServer *server, TClient *client, TMessage message)
 
             TAckPlaceBombPacket *p_ab = New_TAckPlaceBombPacket(NULL);
 
-            p_ab->x = player.pos.x + 32;
-            p_ab->y = player.pos.y + 32;
+            p_ab->x = player.pos.x;
+            p_ab->y = player.pos.y;
             server->Send_Broadcast(server, packet_to_message((TPacket*)p_ab));
             p_ab->Free(p_ab);
 

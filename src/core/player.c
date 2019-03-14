@@ -25,21 +25,23 @@ void init_player(player_t *player, int id, const char *username)
     player->connected = 1;
     player->username = strdup(username);
     player->p_id = (unsigned int)id;
+    player->speed = 400;
+    player->last_move_time = 0;
     switch (id) {
         case 0:
-            map_to_pix(0, 0, &(player->pos.x), &(player->pos.y));
+            map_to_pix(0, 0, (int *)&(player->pos.x), (int *)&(player->pos.y));
             player->direction = (unsigned int)EST;
             break;
         case 1:
-            map_to_pix(MAP_WIDTH - 1, 0, &(player->pos.x), &(player->pos.y));
+            map_to_pix(MAP_WIDTH - 1, 0, (int *)&(player->pos.x), (int *)&(player->pos.y));
             player->direction = (unsigned int)OUEST;
             break;
         case 2:
-            map_to_pix(0, MAP_HEIGHT - 1, &(player->pos.x), &(player->pos.y));
+            map_to_pix(0, MAP_HEIGHT - 1, (int *)&(player->pos.x), (int *)&(player->pos.y));
             player->direction = (unsigned int)EST;
             break;
         case 3:
-            map_to_pix(MAP_WIDTH - 1, MAP_HEIGHT - 1, &(player->pos.x), &(player->pos.y));
+            map_to_pix(MAP_WIDTH - 1, MAP_HEIGHT - 1, (int *)&(player->pos.x), (int *)&(player->pos.y));
             player->direction = (unsigned int)OUEST;
             break;
     }

@@ -38,6 +38,7 @@ typedef struct TSprite {
 
     void(*Free)(struct TSprite*);                   /*!< Free (ressources) method. */
 
+    unsigned int is_visible;                        /*!< Boolean to know if the drawable can be drawed automatically. */
     SDL_Texture *texture;                           /*!< The SDL texture of the sprite. */
     SDL_Rect pos;                                   /*!< The position of the sprite. */
     char *file;                                     /*!< The image file path of the sprite. */

@@ -48,6 +48,7 @@ static void TAnimatedSprites_Init(TAnimatedSprites *this, TFrame *frame, const c
 
         SDL_FreeSurface(surface);
     }
+    this->is_visible = 1;
 }
 
 void TAnimatedSprites_Draw(TAnimatedSprites *this, TFrame *frame)

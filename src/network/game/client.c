@@ -89,15 +89,26 @@ void TGameClient_Handle_Messages(TGameClient *this)
             p_as->Unserialize(p_as);
 
             unsigned int i;
+            char *player_id = malloc(sizeof(char) * 15);
             for (i = 0; i < p_as->nb_players; i++) {
-                char *player_id = malloc(sizeof(char) * 10);
                 player_t player = p_as->players[i];
-                sprintf(player_id, "PLAYER_%d", (int)i);
-                TAnimatedSprite *asp = (TAnimatedSprite*)this->game_frame->Get_Drawable(this->game_frame, player_id);
-                asp->pos.x = player.pos.x;
+
+                sprintf(player_id, "PLAYER_%d_%d", (int)i, (int)SUD);
+                ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
+                sprintf(player_id, "PLAYER_%d_%d", (int)i, (int)NORD);
+                ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
+                sprintf(player_id, "PLAYER_%d_%d", (int)i, (int)OUEST);
+                ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
+                sprintf(player_id, "PLAYER_%d_%d", (int)i, (int)EST);
+                ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
+
+                sprintf(player_id, "PLAYER_%d_%d", (int)i, (int)player.direction);
+                TAnimatedSprites *asp = (TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id);
+                asp->pos.x = player.pos.x + 8;
                 asp->pos.y = player.pos.y;
-                free(player_id);
+                asp->is_visible = 1;
             }
+            free(player_id);
             if (p_as->first_init) {
                 unsigned int j;
 
@@ -106,14 +117,14 @@ void TGameClient_Handle_Messages(TGameClient *this)
                         switch (p_as->block_map[i][j]) {
                             case WALL:;
                                 SDL_Rect posw = {0, 0, 32, 32};
-                                map_to_pix(j, i, (unsigned int *)&(posw.x), (unsigned int *)&(posw.y));
+                                map_to_pix(j, i, &(posw.x), &(posw.y));
                                 TSprite *spw = New_TSprite(this->game_frame, "images/wall.png", posw);
 
                                 this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)spw, "WALL", 3);
                                 break;
                             case BREAKABLE_WALL:;
                             SDL_Rect posbw = {0, 0, 32, 32};
-                            map_to_pix(j, i, (unsigned int *)&(posbw.x), (unsigned int *)&(posbw.y));
+                            map_to_pix(j, i, &(posbw.x), &(posbw.y));
                             TSprite *spbw = New_TSprite(this->game_frame, "images/breakable_wall.png", posbw);
 
                             this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)spbw, "BWALL", 3);

@@ -5,6 +5,8 @@
 **      Source file of the game map class.
 */
 
+#include <SDL2/SDL.h>
+
 #include "core/map.h"
 #include "core/utils.h"
 
@@ -67,51 +69,25 @@ void TMap_Generate(TMap *this)
 void TMap_Move_Player(TMap *this, unsigned int player_id, direction_t direction)
 {
     player_t *player = &(this->players[player_id]);
-    unsigned int speed = 7;
     pos_t new_coords = player->pos;
+    int block_x, block_y;
+    unsigned int current_time = SDL_GetTicks();
 
+    if (current_time <= player->last_move_time + player->speed)
+        return;
+    player->last_move_time = current_time;
     player->direction = (unsigned int)direction;
     if (direction == OUEST || direction == EST)
-        new_coords.x = new_coords.x + (direction == EST ? speed : -speed);
+        new_coords.x = new_coords.x + (direction == EST ? MAP_BLOCK_SIZE : -MAP_BLOCK_SIZE);
     else
-        new_coords.y = new_coords.y + (direction == SUD ? speed : -speed);
+        new_coords.y = new_coords.y + (direction == SUD ? MAP_BLOCK_SIZE : -MAP_BLOCK_SIZE);
+    pix_to_map((int)new_coords.x, (int)new_coords.y, &block_x, &block_y);
 
     // Gestion des collisions.
+    if (block_x < 0 || block_x >= MAP_WIDTH) return;
+    if (block_y < 0 || block_y >= MAP_HEIGHT) return;
+    if (this->block_map[block_y][block_x] != NOTHING) return;
 
-    if (direction == OUEST || direction == EST) { // Axe horizontal
-        int mask_x = (new_coords.x - MAP_START_PIX_X) % MAP_BLOCK_SIZE;
-        int mask_y = (new_coords.y - MAP_START_PIX_Y) % MAP_BLOCK_SIZE;
-        int block_x, block_y;
-
-        // Si le mask est négatif on sort de la map
-        if (mask_x < 0 || mask_y != 0) return;
-        if (direction == EST)
-            block_x = ((new_coords.x - mask_x + MAP_BLOCK_SIZE) - MAP_START_PIX_X) / MAP_BLOCK_SIZE;
-        else
-            block_x = ((new_coords.x - mask_x) - MAP_START_PIX_X) / MAP_BLOCK_SIZE;
-
-        if (block_x >= MAP_WIDTH) return;
-        block_y = (new_coords.y - MAP_START_PIX_Y) / MAP_BLOCK_SIZE;
-
-        if (this->block_map[block_y][block_x] != NOTHING) return;
-    }
-    else { // Axe vertical
-        int mask_x = (new_coords.x - MAP_START_PIX_X) % MAP_BLOCK_SIZE;
-        int mask_y = (new_coords.y - MAP_START_PIX_Y) % MAP_BLOCK_SIZE;
-        int block_x, block_y;
-
-        // Si le mask est négatif on sort de la map
-        if (mask_y < 0 || mask_x != 0) return;
-        if (direction == SUD)
-            block_y = ((new_coords.y - mask_y + MAP_BLOCK_SIZE) - MAP_START_PIX_Y) / MAP_BLOCK_SIZE;
-        else
-            block_y = ((new_coords.y - mask_y) - MAP_START_PIX_Y) / MAP_BLOCK_SIZE;
-
-        if (block_y >= MAP_HEIGHT) return;
-        block_x = (new_coords.x - MAP_START_PIX_X) / MAP_BLOCK_SIZE;
-
-        if (this->block_map[block_y][block_x] != NOTHING) return;
-    }
     player->pos.x = new_coords.x;
     player->pos.y = new_coords.y;
 }

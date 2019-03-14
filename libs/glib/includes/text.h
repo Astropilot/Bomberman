@@ -41,6 +41,7 @@ typedef struct TText {
 
     void(*Free)(struct TText*);                 /*!< Free (ressources) method. */
 
+    unsigned int is_visible;                    /*!< Boolean to know if the drawable can be drawed automatically. */
     char *text;                                 /*!< The text to be drawed. */
     SDL_Texture *texture;                       /*!< The SDL texture of the text. */
     SDL_Rect pos;                               /*!< The position of the text. */

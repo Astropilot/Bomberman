@@ -27,6 +27,7 @@ static void TText_Init(TText *this, TFrame *frame, const char *text, TTF_Font *f
     this->text = strdup(text);
     this->pos = pos;
     this->texture = createText(frame, this->text, font, color, &this->pos);
+    this->is_visible = 1;
 }
 
 void TText_Draw(TText *this, TFrame *frame)

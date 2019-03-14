@@ -55,15 +55,32 @@ static void On_Load(TFrame* frame, int argc, va_list args)
     gameclient->gameserver = server;
     gameclient->player = player;
 
+    SDL_Rect size = {0, 0, 64, 128};
+    SDL_Rect pos = {0, 0, 16, 32};
+    char *player_id = malloc(sizeof(char) * 15);
     for (i = 0; i < nb_players; i++) {
-        char *player_id = malloc(sizeof(char) * 10);
-        sprintf(player_id, "PLAYER_%d", (int)i);
-        SDL_Rect pos = {0, 0, 32, 32};
-        SDL_Rect size = {0, 0, 256, 256};
-        TAnimatedSprite *asp = New_TAnimatedSprite(frame, "images/sprite_animated.png", size, pos, 100, -1);
-        frame->Add_Drawable(frame, (TDrawable*)asp, player_id, 1);
-        free(player_id);
+        TAnimatedSprites *sp_down = New_TAnimatedSprites(frame, "images/character/man_down_%02d.png", 8, size, pos, 100, -1);
+        TAnimatedSprites *sp_up = New_TAnimatedSprites(frame, "images/character/man_up_%02d.png", 8, size, pos, 100, -1);
+        TAnimatedSprites *sp_right = New_TAnimatedSprites(frame, "images/character/man_right_%02d.png", 8, size, pos, 100, -1);
+        TAnimatedSprites *sp_left = New_TAnimatedSprites(frame, "images/character/man_left_%02d.png", 8, size, pos, 100, -1);
+
+        sprintf(player_id, "PLAYER_%d_%d", (int)i, (int)SUD);
+        sp_down->is_visible = 0;
+        frame->Add_Drawable(frame, (TDrawable*)sp_down, player_id, 1);
+
+        sprintf(player_id, "PLAYER_%d_%d", (int)i, (int)NORD);
+        sp_up->is_visible = 0;
+        frame->Add_Drawable(frame, (TDrawable*)sp_up, player_id, 1);
+
+        sprintf(player_id, "PLAYER_%d_%d", (int)i, (int)EST);
+        sp_right->is_visible = 0;
+        frame->Add_Drawable(frame, (TDrawable*)sp_right, player_id, 1);
+
+        sprintf(player_id, "PLAYER_%d_%d", (int)i, (int)OUEST);
+        sp_left->is_visible = 0;
+        frame->Add_Drawable(frame, (TDrawable*)sp_left, player_id, 1);
     }
+    free(player_id);
 
     gameclient->Ready(gameclient);
 

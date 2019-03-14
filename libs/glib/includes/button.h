@@ -52,6 +52,8 @@ typedef struct TButton {
 
     void(*Free)(struct TButton*); /*!< Free (ressources) method. */
 
+    unsigned int is_visible;     /*!< Boolean to know if the drawable can be drawed automatically. */
+
     void(*On_Click)(struct TButton*, TFrame*); /*!< Callback called when a click event occurs. */
 
     void(*Event_Handler)(struct TButton*, TFrame *, SDL_Event); /*!< Method call for processing SDL event */

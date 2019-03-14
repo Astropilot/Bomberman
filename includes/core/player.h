@@ -28,6 +28,8 @@ typedef struct player_s {
     unsigned int p_id;
     pos_t pos;
     unsigned int direction;
+    unsigned int speed;
+    unsigned int last_move_time;
 
 } player_t ;
 

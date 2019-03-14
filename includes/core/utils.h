@@ -18,7 +18,7 @@ typedef struct pos_size_s {
 } pos_t ;
 
 int rand_int(int max);
-void map_to_pix(unsigned int x0, unsigned int y0, unsigned int *x1, unsigned int *y1);
-void pix_to_map(unsigned int x0, unsigned int y0, unsigned int *x1, unsigned int *y1);
+void map_to_pix(int x0, int y0, int *x1, int *y1);
+void pix_to_map(int x0, int y0, int *x1, int *y1);
 
 #endif
