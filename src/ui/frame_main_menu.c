@@ -33,26 +33,23 @@ TFrame* New_MainMenuFrame(void)
 
 static void Init(TFrame* frame)
 {
-    //SDL_Rect size_sprite_bg = {0, 0, 960, 540};
-    //SDL_Rect pos_sprite_bg = {0, 0, 1280, 720};
-    //TAnimatedSprites *sp_bg = New_TAnimatedSprites(frame, "images/mainmenu/fire%02d.png", 47, size_sprite_bg, pos_sprite_bg , 20, -1);
     SDL_Rect pos_sprite_bg = {0, 0, 430, 242};
     SDL_Rect size_sprite_bg = {0, 0, 1280, 720};
-    TAnimatedSprite *sp_bg = New_TAnimatedSprite(frame, "images/animated_background.png", pos_sprite_bg, size_sprite_bg, 52, -1);
+    TAnimatedSprite *sp_bg = New_TAnimatedSprite(frame, RES_PATH "animated_background.png", pos_sprite_bg, size_sprite_bg, 52, -1);
 
     SDL_Rect pos_title = {(WIN_WIDTH / 2) - (644 / 2), 100, 644, 104};
-    TSprite *sp_title = New_TSprite(frame, "images/bomberman_logo_title.png", pos_title);
+    TSprite *sp_title = New_TSprite(frame, RES_PATH "bomberman_logo_title.png", pos_title);
 
     SDL_Rect pos_button_host = {(WIN_WIDTH / 2) - (410 / 2), 250, 410, 64};
-    TButton *btn_host = New_TButton(frame, "images/button_host_normal.png", "images/button_host_hover.png", pos_button_host);
+    TButton *btn_host = New_TButton(frame, RES_PATH "button_host_normal.png", RES_PATH "button_host_hover.png", pos_button_host);
     btn_host->On_Click = On_Click_Host_Button;
 
     SDL_Rect pos_button_join = {(WIN_WIDTH / 2) - (410 / 2), (pos_button_host.y + pos_button_host.h)+15, 410, 64};
-    TButton *btn_join = New_TButton(frame, "images/button_connect_normal.png", "images/button_connect_hover.png", pos_button_join);
+    TButton *btn_join = New_TButton(frame, RES_PATH "button_connect_normal.png", RES_PATH "button_connect_hover.png", pos_button_join);
     btn_join->On_Click = On_Click_Join_Button;
 
     SDL_Rect pos_button_quit = {(WIN_WIDTH / 2) - (410 / 2), (pos_button_join.y + pos_button_join.h)+15, 410, 64};
-    TButton *btn_quit = New_TButton(frame, "images/button_quit_normal.png", "images/button_quit_hover.png", pos_button_quit);
+    TButton *btn_quit = New_TButton(frame, RES_PATH "button_quit_normal.png", RES_PATH "button_quit_hover.png", pos_button_quit);
     btn_quit->On_Click = On_Click_Quit_Button;
 
     frame->Add_Drawable(frame, (TDrawable*)sp_bg, "BG", 999);

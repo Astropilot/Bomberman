@@ -30,6 +30,10 @@
 
 #define IS_DEBUG 0
 
+#define RES_PATH "images/"
+#define FONT_PATH "fonts/"
+#define CHAR_PATH RES_PATH "character/"
+
 typedef struct lobby_args_e {
     char *username;
     char *server_ip;

@@ -39,4 +39,13 @@ typedef struct TFrame TFrame;
  */
 SDL_Texture *createText(TFrame *frame, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect *pos);
 
+/**
+ * @fn unsigned long hash(const char *str)
+ * @brief Util function for hash a string into a unsigned long number.
+ *
+ * @param str The string to hash.
+ * @return The unsigned long that represent the string.
+ */
+unsigned long hash(const char *str);
+
 #endif

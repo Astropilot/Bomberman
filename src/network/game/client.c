@@ -117,16 +117,16 @@ void TGameClient_Handle_Messages(TGameClient *this)
                         switch (p_as->block_map[i][j]) {
                             case WALL:;
                                 SDL_Rect posw = {0, 0, 32, 32};
-                                map_to_pix(j, i, &(posw.x), &(posw.y));
-                                TSprite *spw = New_TSprite(this->game_frame, "images/wall.png", posw);
+                                TSprite *spw = New_TSprite(this->game_frame, RES_PATH "wall.png", posw);
 
+                                map_to_pix(j, i, &(spw->pos.x), &(spw->pos.y));
                                 this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)spw, "WALL", 3);
                                 break;
                             case BREAKABLE_WALL:;
                             SDL_Rect posbw = {0, 0, 32, 32};
-                            map_to_pix(j, i, &(posbw.x), &(posbw.y));
-                            TSprite *spbw = New_TSprite(this->game_frame, "images/breakable_wall.png", posbw);
+                            TSprite *spbw = New_TSprite(this->game_frame, RES_PATH "breakable_wall.png", posbw);
 
+                            map_to_pix(j, i, &(spbw->pos.x), &(spbw->pos.y));
                             this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)spbw, "BWALL", 3);
                             default:
                                 break;
@@ -144,7 +144,7 @@ void TGameClient_Handle_Messages(TGameClient *this)
             SDL_Rect size_bomb = {0, 0, 256, 256};
             SDL_Rect pos_bomb = {p_ab->x, p_ab->y, 32, 32};
             TAnimatedSprite *sp = New_TAnimatedSprite(
-                this->game_frame, "images/bomberman_bomb_animated.png",
+                this->game_frame, RES_PATH "bomberman_bomb_animated.png",
                 size_bomb, pos_bomb, 128, 1
             );
             this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp, "BOMB", 2);

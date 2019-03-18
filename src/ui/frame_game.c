@@ -34,7 +34,7 @@ TFrame* New_GameFrame(TGameClient *m_gameclient)
 static void Init(TFrame* frame)
 {
     SDL_Rect pos_sprite2 = {0, 0, WIN_WIDTH, WIN_HEIGHT};
-    TSprite *sp2 = New_TSprite(frame, "images/bomberman_game.png", pos_sprite2);
+    TSprite *sp2 = New_TSprite(frame, RES_PATH "bomberman_game.png", pos_sprite2);
 
     frame->Add_Drawable(frame, (TDrawable*)sp2, "BG", 999);
 }
@@ -59,24 +59,24 @@ static void On_Load(TFrame* frame, int argc, va_list args)
     SDL_Rect pos = {0, 0, 16, 32};
     char *player_id = malloc(sizeof(char) * 15);
     for (i = 0; i < nb_players; i++) {
-        TAnimatedSprites *sp_down = New_TAnimatedSprites(frame, "images/character/man_down_%02d.png", 8, size, pos, 100, -1);
-        TAnimatedSprites *sp_up = New_TAnimatedSprites(frame, "images/character/man_up_%02d.png", 8, size, pos, 100, -1);
-        TAnimatedSprites *sp_right = New_TAnimatedSprites(frame, "images/character/man_right_%02d.png", 8, size, pos, 100, -1);
-        TAnimatedSprites *sp_left = New_TAnimatedSprites(frame, "images/character/man_left_%02d.png", 8, size, pos, 100, -1);
+        TAnimatedSprites *sp_down = New_TAnimatedSprites(frame, CHAR_PATH "man_down_%02d.png", 8, size, pos, 100, -1);
+        TAnimatedSprites *sp_up = New_TAnimatedSprites(frame, CHAR_PATH "man_up_%02d.png", 8, size, pos, 100, -1);
+        TAnimatedSprites *sp_right = New_TAnimatedSprites(frame, CHAR_PATH "man_right_%02d.png", 8, size, pos, 100, -1);
+        TAnimatedSprites *sp_left = New_TAnimatedSprites(frame, CHAR_PATH "man_left_%02d.png", 8, size, pos, 100, -1);
 
-        sprintf(player_id, "PLAYER_%d_%d", (int)i, (int)SUD);
+        sprintf(player_id, "PLAYER_%d_%u", i, SUD);
         sp_down->is_visible = 0;
         frame->Add_Drawable(frame, (TDrawable*)sp_down, player_id, 1);
 
-        sprintf(player_id, "PLAYER_%d_%d", (int)i, (int)NORD);
+        sprintf(player_id, "PLAYER_%d_%u", i, NORD);
         sp_up->is_visible = 0;
         frame->Add_Drawable(frame, (TDrawable*)sp_up, player_id, 1);
 
-        sprintf(player_id, "PLAYER_%d_%d", (int)i, (int)EST);
+        sprintf(player_id, "PLAYER_%d_%u", i, EST);
         sp_right->is_visible = 0;
         frame->Add_Drawable(frame, (TDrawable*)sp_right, player_id, 1);
 
-        sprintf(player_id, "PLAYER_%d_%d", (int)i, (int)OUEST);
+        sprintf(player_id, "PLAYER_%d_%u", i, OUEST);
         sp_left->is_visible = 0;
         frame->Add_Drawable(frame, (TDrawable*)sp_left, player_id, 1);
     }
@@ -126,23 +126,26 @@ static void On_Unload(TFrame* frame)
     if (IS_DEBUG)
         printf("Frame [%s]: On_Unload method called\n", frame->frame_id);
 
-    TSprite *bomb_sprite = (TSprite*)frame->Remove_Drawable(frame, "BOMB");
-    TAnimatedSprite *asp = (TAnimatedSprite*)frame->Remove_Drawable(frame, "PLAYER_0");
-    char *player_id = malloc(sizeof(char) * 10);
-    int i = 1;
+    char *player_id = malloc(sizeof(char) * 15);
+    unsigned int i = 0;
+    unsigned int res;
 
-    while (asp) {
-        asp->Free(asp);
-        sprintf(player_id, "PLAYER_%d", i);
-        asp = (TAnimatedSprite*)frame->Remove_Drawable(frame, player_id);
+    do {
+        sprintf(player_id, "PLAYER_%u_%u", i, SUD);
+        frame->Free_Drawable(frame, player_id);
+        sprintf(player_id, "PLAYER_%d_%u", i, NORD);
+        frame->Free_Drawable(frame, player_id);
+        sprintf(player_id, "PLAYER_%d_%u", i, EST);
+        frame->Free_Drawable(frame, player_id);
+        sprintf(player_id, "PLAYER_%d_%u", i, OUEST);
+        res = frame->Free_Drawable(frame, player_id);
         i++;
-    }
+    } while (res);
     free(player_id);
 
-    while (bomb_sprite) {
-        bomb_sprite->Free(bomb_sprite);
-        bomb_sprite = (TSprite*)frame->Remove_Drawable(frame, "BOMB");
-    }
+    frame->Free_Drawables(frame, "BOMB");
+    frame->Free_Drawables(frame, "WALL");
+    frame->Free_Drawables(frame, "BWALL");
 }
 
 static void Finish(TFrame* frame)

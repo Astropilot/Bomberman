@@ -25,3 +25,12 @@ SDL_Texture *createText(TFrame *frame, const char *text, TTF_Font *font, SDL_Col
 
     return (text_texture);
 }
+
+unsigned long hash(const char *str)
+{
+    unsigned long hash = 0;
+
+    while (*str != '\0')
+        hash = (31 * hash) + (unsigned char)*str++;
+    return (hash);
+}

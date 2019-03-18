@@ -32,15 +32,9 @@ TGameServer* New_TGameServer()
 
 void TGameServer_Start(TGameServer *this, int port, int max_clients)
 {
-    //int i;
-
     this->server = New_TServer(port, 15);
     this->server->On_Message = On_Message;
     this->max_clients = max_clients;
-    /*this->players = malloc(sizeof(player_t) * max_clients);
-    for (i = 0; i < max_clients; i++) {
-        this->players[i].connected = 0;
-    }*/
     this->map = New_TMap((size_t)max_clients);
     this->nb_players = 0;
     this->ready_players = 0;
@@ -57,7 +51,6 @@ void TGameServer_Stop(TGameServer *this)
     this->server->Send_Broadcast(this->server, packet_to_message((TPacket*)p));
     this->server->Free(this->server);
     this->server = NULL;
-    //free(this->players);
     this->map->Free(this->map);
     this->map = NULL;
     p->Free(p);

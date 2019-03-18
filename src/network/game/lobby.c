@@ -100,9 +100,8 @@ void TLobbyClient_Handle_Messages(TLobbyClient *this)
             this->Leave_Lobby(this);
             break;
         case ACK_LOBBY_STATE:;
-            TText *txt_label = (TText*)this->lobby_frame->Remove_Drawable(this->lobby_frame, "LABEL_STATUS");
+            TText *txt_label = NULL;
             TAckLobbyStatePacket *p_as = New_TAckLobbyStatePacket(message.message);
-            txt_label->Free(txt_label);
 
             p_as->Unserialize(p_as);
             this->nb_players = p_as->nb_players;
@@ -111,11 +110,12 @@ void TLobbyClient_Handle_Messages(TLobbyClient *this)
 
             SDL_Rect pos_label = {0, 0, 0, 0};
             SDL_Color color = {255, 255, 255, 255};
-            TTF_Font *font = TTF_OpenFont("fonts/fixedsys.ttf", 24);
+            TTF_Font *font = TTF_OpenFont(FONT_PATH "fixedsys.ttf", 24);
             txt_label = New_TText(this->lobby_frame, status, font, color, pos_label);
             txt_label->pos.x = (WIN_WIDTH / 2) - (txt_label->pos.w / 2);
             txt_label->pos.y = (WIN_HEIGHT / 2) - (txt_label->pos.h / 2);
             TTF_CloseFont(font);
+            this->lobby_frame->Free_Drawable(this->lobby_frame, "LABEL_STATUS");
             this->lobby_frame->Add_Drawable(this->lobby_frame, (TDrawable*)txt_label, "LABEL_STATUS", 1);
 
             free(status);
