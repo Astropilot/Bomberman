@@ -84,58 +84,81 @@ void TGameClient_Handle_Messages(TGameClient *this)
             free(message.message);
             this->Leave_Game(this);
             break;
-        case ACK_GAME_STATE:;
-            TAckGameStatePacket *p_as = New_TAckGameStatePacket(message.message);
+        case ACK_GAME_INIT:;
+            TAckGameInitPacket *p_as = New_TAckGameInitPacket(message.message);
             p_as->Unserialize(p_as);
 
             unsigned int i;
+            unsigned int j;
             char *player_id = malloc(sizeof(char) * 15);
             for (i = 0; i < p_as->nb_players; i++) {
                 player_t player = p_as->players[i];
 
-                sprintf(player_id, "PLAYER_%d_%d", (int)i, (int)SUD);
+                sprintf(player_id, "PLAYER_%u_%u", i, SUD);
                 ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
-                sprintf(player_id, "PLAYER_%d_%d", (int)i, (int)NORD);
+                sprintf(player_id, "PLAYER_%u_%u", i, NORD);
                 ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
-                sprintf(player_id, "PLAYER_%d_%d", (int)i, (int)OUEST);
+                sprintf(player_id, "PLAYER_%u_%u", i, OUEST);
                 ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
-                sprintf(player_id, "PLAYER_%d_%d", (int)i, (int)EST);
+                sprintf(player_id, "PLAYER_%u_%u", i, EST);
                 ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
 
-                sprintf(player_id, "PLAYER_%d_%d", (int)i, (int)player.direction);
+                sprintf(player_id, "PLAYER_%u_%u", i, player.direction);
                 TAnimatedSprites *asp = (TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id);
                 asp->pos.x = player.pos.x + 8;
                 asp->pos.y = player.pos.y;
                 asp->is_visible = 1;
             }
             free(player_id);
-            if (p_as->first_init) {
-                unsigned int j;
 
-                for (i = 0; i < MAP_HEIGHT; i++) {
-                    for (j = 0; j < MAP_WIDTH; j++) {
-                        switch (p_as->block_map[i][j]) {
-                            case WALL:;
-                                SDL_Rect posw = {0, 0, 32, 32};
-                                TSprite *spw = New_TSprite(this->game_frame, RES_PATH "wall.png", posw);
+            for (i = 0; i < MAP_HEIGHT; i++) {
+                for (j = 0; j < MAP_WIDTH; j++) {
+                    switch (p_as->block_map[i][j]) {
+                        case WALL:;
+                            SDL_Rect posw = {0, 0, 32, 32};
+                            TSprite *spw = New_TSprite(this->game_frame, RES_PATH "wall.png", posw);
 
-                                map_to_pix(j, i, &(spw->pos.x), &(spw->pos.y));
-                                this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)spw, "WALL", 3);
-                                break;
-                            case BREAKABLE_WALL:;
-                            SDL_Rect posbw = {0, 0, 32, 32};
-                            TSprite *spbw = New_TSprite(this->game_frame, RES_PATH "breakable_wall.png", posbw);
+                            map_to_pix(j, i, &(spw->pos.x), &(spw->pos.y));
+                            this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)spw, "WALL", 3);
+                            break;
+                        case BREAKABLE_WALL:;
+                        SDL_Rect posbw = {0, 0, 32, 32};
+                        TSprite *spbw = New_TSprite(this->game_frame, RES_PATH "breakable_wall.png", posbw);
 
-                            map_to_pix(j, i, &(spbw->pos.x), &(spbw->pos.y));
-                            this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)spbw, "BWALL", 3);
-                            default:
-                                break;
-                        }
+                        map_to_pix(j, i, &(spbw->pos.x), &(spbw->pos.y));
+                        this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)spbw, "BWALL", 3);
+                        default:
+                            break;
                     }
                 }
             }
 
             p_as->Free(p_as);
+            break;
+        case ACK_MOVE:;
+            TAckMovePacket *p_mv = New_TAckMovePacket(message.message);
+            p_mv->Unserialize(p_mv);
+
+            player_id = malloc(sizeof(char) * 15);
+            player_t player = p_mv->player;
+
+            sprintf(player_id, "PLAYER_%u_%u", p_mv->player_id, SUD);
+            ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
+            sprintf(player_id, "PLAYER_%u_%u", p_mv->player_id, NORD);
+            ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
+            sprintf(player_id, "PLAYER_%u_%u", p_mv->player_id, OUEST);
+            ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
+            sprintf(player_id, "PLAYER_%u_%u", p_mv->player_id, EST);
+            ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
+
+            sprintf(player_id, "PLAYER_%u_%u", p_mv->player_id, player.direction);
+            TAnimatedSprites *asp = (TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id);
+            asp->pos.x = player.pos.x + 8;
+            asp->pos.y = player.pos.y;
+            asp->is_visible = 1;
+
+            free(player_id);
+            p_mv->Free(p_mv);
             break;
         case ACK_PLACE_BOMB:;
             TAckPlaceBombPacket *p_ab = New_TAckPlaceBombPacket(message.message);

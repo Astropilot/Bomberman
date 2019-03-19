@@ -6,45 +6,39 @@
 */
 
 #include "main.h"
-#include "network/packets/packet_ack_gamestate.h"
+#include "network/packets/packet_ack_gameinit.h"
 #include "network/packets/packet.h"
 #include "reslib.h"
 
-TAckGameStatePacket *New_TAckGameStatePacket(unsigned char *raw)
+TAckGameInitPacket *New_TAckGameInitPacket(unsigned char *raw)
 {
-    TAckGameStatePacket *this = malloc(sizeof(TAckGameStatePacket));
+    TAckGameInitPacket *this = malloc(sizeof(TAckGameInitPacket));
 
     if(!this) return NULL;
 
     this->raw_packet = raw;
-    this->packet_id = ACK_GAME_STATE;
-    this->Serialize = TAckGameStatePacket_Serialize;
-    this->Unserialize = TAckGameStatePacket_Unserialize;
-    this->Free = TAckGameStatePacket_New_Free;
+    this->packet_id = ACK_GAME_INIT;
+    this->Serialize = TAckGameInitPacket_Serialize;
+    this->Unserialize = TAckGameInitPacket_Unserialize;
+    this->Free = TAckGameInitPacket_New_Free;
     return this;
 }
 
-int TAckGameStatePacket_Serialize(TAckGameStatePacket *this)
+int TAckGameInitPacket_Serialize(TAckGameInitPacket *this)
 {
     unsigned char *packet_buffer;
     unsigned int i;
     unsigned int j;
 
-    if (!this->first_init)
-        this->raw_packet = malloc(
-            sizeof(TAckGameStatePacket) + (sizeof(player_t) * this->nb_players)
-        );
-    else
-        this->raw_packet = malloc(
-            sizeof(TAckGameStatePacket) + (sizeof(player_t) * this->nb_players) +
-            (sizeof(object_type_t) * (MAP_WIDTH * MAP_HEIGHT))
-        );
+    this->raw_packet = malloc(
+        sizeof(TAckGameInitPacket) + (sizeof(player_t) * this->nb_players) +
+        (sizeof(object_type_t) * (MAP_WIDTH * MAP_HEIGHT))
+    );
     if (!this->raw_packet)
         return 0;
     packet_buffer = this->raw_packet;
     packet_buffer = pack_int(packet_buffer, this->packet_id);
     packet_buffer = pack_uint(packet_buffer, this->nb_players);
-    packet_buffer = pack_uint(packet_buffer, this->first_init);
     for (i = 0; i < MAX_PLAYERS; i++) {
         if (this->players[i].connected) {
             packet_buffer = pack_uint(packet_buffer, this->players[i].connected);
@@ -55,21 +49,18 @@ int TAckGameStatePacket_Serialize(TAckGameStatePacket *this)
             packet_buffer = pack_uint(packet_buffer, this->players[i].direction);
         }
     }
-    if (this->first_init) {
-        for (i = 0; i < MAP_HEIGHT; i++) {
-            for (j = 0; j < MAP_WIDTH; j++) {
-                packet_buffer = pack_uint(packet_buffer, this->block_map[i][j]);
-            }
+    for (i = 0; i < MAP_HEIGHT; i++) {
+        for (j = 0; j < MAP_WIDTH; j++) {
+            packet_buffer = pack_uint(packet_buffer, this->block_map[i][j]);
         }
-        this->first_init = 0;
-        this->block_map = NULL;
     }
+    this->block_map = NULL;
     this->nb_players = 0;
     this->players = NULL;
     return (packet_buffer - this->raw_packet);
 }
 
-void TAckGameStatePacket_Unserialize(TAckGameStatePacket *this)
+void TAckGameInitPacket_Unserialize(TAckGameInitPacket *this)
 {
     unsigned char *packet_buffer;
     unsigned int i;
@@ -80,7 +71,6 @@ void TAckGameStatePacket_Unserialize(TAckGameStatePacket *this)
     packet_buffer = this->raw_packet;
     packet_buffer = unpack_int(packet_buffer, &(this->packet_id));
     packet_buffer = unpack_uint(packet_buffer, &(this->nb_players));
-    packet_buffer = unpack_uint(packet_buffer, &(this->first_init));
     this->players = malloc(sizeof(player_t) * this->nb_players);
     for (i = 0; i < this->nb_players; i++) {
         packet_buffer = unpack_uint(packet_buffer, &(this->players[i].connected));
@@ -91,25 +81,23 @@ void TAckGameStatePacket_Unserialize(TAckGameStatePacket *this)
         packet_buffer = unpack_uint(packet_buffer, &(this->players[i].pos.y));
         packet_buffer = unpack_uint(packet_buffer, &(this->players[i].direction));
     }
-    if (this->first_init) {
-        this->block_map = malloc(MAP_HEIGHT * sizeof(object_type_t*));
-        for (i = 0; i < MAP_HEIGHT; i++) {
-            this->block_map[i] = malloc(MAP_WIDTH * sizeof(object_type_t));
-        }
-        for (i = 0; i < MAP_HEIGHT; i++) {
-            for (j = 0; j < MAP_WIDTH; j++) {
-                packet_buffer = unpack_uint(packet_buffer, &(this->block_map[i][j]));
-            }
+    this->block_map = malloc(MAP_HEIGHT * sizeof(object_type_t*));
+    for (i = 0; i < MAP_HEIGHT; i++) {
+        this->block_map[i] = malloc(MAP_WIDTH * sizeof(object_type_t));
+    }
+    for (i = 0; i < MAP_HEIGHT; i++) {
+        for (j = 0; j < MAP_WIDTH; j++) {
+            packet_buffer = unpack_uint(packet_buffer, &(this->block_map[i][j]));
         }
     }
 }
 
-void TAckGameStatePacket_New_Free(TAckGameStatePacket *this)
+void TAckGameInitPacket_New_Free(TAckGameInitPacket *this)
 {
     if (this) {
         unsigned int i;
 
-        if (this->first_init) {
+        if (this->block_map) {
             for (i = 0; i < MAP_HEIGHT; i++) {
                 free(this->block_map[i]);
             }

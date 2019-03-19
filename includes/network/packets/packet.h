@@ -14,7 +14,8 @@
 #include "network/packets/packet_ack_connect.h"
 #include "network/packets/packet_ack_lobbystate.h"
 #include "network/packets/packet_ack_startgame.h"
-#include "network/packets/packet_ack_gamestate.h"
+#include "network/packets/packet_ack_gameinit.h"
+#include "network/packets/packet_ack_move.h"
 #include "network/packets/packet_ack_placebomb.h"
 #include "network/packets/packet_disconnect.h"
 #include "network/packets/packet_req_connect.h"
@@ -35,8 +36,9 @@ typedef enum packet_e {
     ACK_DISCONNECT  = 0x08,
     ACK_LOBBY_STATE = 0x09,
     ACK_START_GAME  = 0x0A,
-    ACK_GAME_STATE  = 0x0B,
-    ACK_PLACE_BOMB  = 0x0C
+    ACK_GAME_INIT   = 0x0B,
+    ACK_MOVE        = 0x0C,
+    ACK_PLACE_BOMB  = 0x0D
 } packet_t;
 
 #include <stdlib.h>

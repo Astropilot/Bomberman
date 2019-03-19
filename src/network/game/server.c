@@ -129,12 +129,11 @@ void On_Message(TServer *server, TClient *client, TMessage message)
             game_server->ready_players++;
 
             if (game_server->ready_players == game_server->nb_players) {
-                TAckGameStatePacket *p = New_TAckGameStatePacket(NULL);
+                TAckGameInitPacket *p = New_TAckGameInitPacket(NULL);
 
                 p->nb_players = (unsigned int)game_server->nb_players;
                 p->players = game_server->map->players;
                 p->block_map = game_server->map->block_map;
-                p->first_init = 1;
                 server->Send_Broadcast(server, packet_to_message((TPacket*)p));
                 p->Free(p);
             }
@@ -147,12 +146,10 @@ void On_Message(TServer *server, TClient *client, TMessage message)
 
             game_server->map->Move_Player(game_server->map, p_rm->player, p_rm->dir);
 
-            TAckGameStatePacket *p = New_TAckGameStatePacket(NULL);
+            TAckMovePacket *p = New_TAckMovePacket(NULL);
 
-            p->nb_players = (unsigned int)game_server->nb_players;
-            p->players = game_server->map->players;
-            p->first_init = 0;
-            p->block_map = NULL;
+            p->player_id = p_rm->player;
+            p->player = game_server->map->players[p_rm->player];
             server->Send_Broadcast(server, packet_to_message((TPacket*)p));
             p->Free(p);
 
