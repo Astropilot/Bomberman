@@ -41,6 +41,7 @@ static void TMap_Init(TMap *this, size_t max_clients)
     for (i = 0; i < max_clients; i++) {
         this->players[i].connected = 0;
     }
+    this->bombs_head = NULL;
 }
 
 void TMap_Generate(TMap *this)

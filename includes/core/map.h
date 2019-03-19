@@ -14,6 +14,8 @@
 
 #include "main.h"
 #include "core/player.h"
+#include "core/utils.h"
+#include "core/bomb.h"
 
 typedef enum object_type_e {
     NOTHING,
@@ -22,6 +24,13 @@ typedef enum object_type_e {
     BOMB,
     BONUS_LIFE
 } object_type_t ;
+
+typedef struct object_s {
+
+    object_type_t type;
+    pos_t pos;
+
+} object_t ;
 
 typedef struct TMap {
 
@@ -33,7 +42,7 @@ typedef struct TMap {
 
     object_type_t **block_map;
     player_t *players;
-//  bomb_t *bombs;
+    bomb_node_t *bombs_head;
 
 } TMap ;
 
