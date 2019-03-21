@@ -64,11 +64,10 @@ static void On_Load(TFrame* frame, int argc, va_list args)
 
     SDL_Rect pos_label = {0, 0, 0, 0};
     SDL_Color color = {255, 255, 255, 255};
-    TTF_Font *font = TTF_OpenFont(FONT_PATH "fixedsys.ttf", 24);
+    TTF_Font *font = loadFont(FONT_PATH "fixedsys.ttf", 24);
     TText *txt_label = New_TText(frame, "Connexion en cours...", font, color, pos_label);
     txt_label->pos.x = (WIN_WIDTH / 2) - (txt_label->pos.w / 2);
     txt_label->pos.y = (WIN_HEIGHT / 2) - (txt_label->pos.h / 2);
-    TTF_CloseFont(font);
 
     frame->Add_Drawable(frame, (TDrawable*)txt_label, "LABEL_STATUS", 1);
 
