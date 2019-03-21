@@ -126,26 +126,37 @@ static void On_Unload(TFrame* frame)
     if (IS_DEBUG)
         printf("Frame [%s]: On_Unload method called\n", frame->frame_id);
 
-    char *player_id = malloc(sizeof(char) * 15);
+    char *id = malloc(sizeof(char) * 255);
     unsigned int i = 0;
+    unsigned int j;
     unsigned int res;
 
     do {
-        sprintf(player_id, "PLAYER_%u_%u", i, SUD);
-        frame->Free_Drawable(frame, player_id);
-        sprintf(player_id, "PLAYER_%d_%u", i, NORD);
-        frame->Free_Drawable(frame, player_id);
-        sprintf(player_id, "PLAYER_%d_%u", i, EST);
-        frame->Free_Drawable(frame, player_id);
-        sprintf(player_id, "PLAYER_%d_%u", i, OUEST);
-        res = frame->Free_Drawable(frame, player_id);
+        sprintf(id, "PLAYER_%u_%u", i, SUD);
+        frame->Free_Drawable(frame, id);
+        sprintf(id, "PLAYER_%d_%u", i, NORD);
+        frame->Free_Drawable(frame, id);
+        sprintf(id, "PLAYER_%d_%u", i, EST);
+        frame->Free_Drawable(frame, id);
+        sprintf(id, "PLAYER_%d_%u", i, OUEST);
+        res = frame->Free_Drawable(frame, id);
         i++;
     } while (res);
-    free(player_id);
 
-    frame->Free_Drawables(frame, "BOMB");
-    frame->Free_Drawables(frame, "WALL");
-    frame->Free_Drawables(frame, "BWALL");
+    for(i = 0; i <= gameclient->bomb_offset; i++) {
+        sprintf(id, "BOMB_%u", i);
+        frame->Free_Drawable(frame, id);
+    }
+
+    for (i = 0; i < MAP_HEIGHT; i++) {
+        for (j = 0; j < MAP_WIDTH; j++) {
+            sprintf(id, "WALL_%u_%u", i, j);
+            frame->Free_Drawable(frame, id);
+            sprintf(id, "BWALL_%u_%u", i, j);
+            frame->Free_Drawable(frame, id);
+        }
+    }
+    free(id);
 }
 
 static void Finish(TFrame* frame)

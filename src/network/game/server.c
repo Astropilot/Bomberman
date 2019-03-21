@@ -6,8 +6,12 @@
 */
 
 #include <stdio.h>
+#include <pthread.h>
+#include <SDL2/SDL.h>
+
 #include "network/game/server.h"
 
+static void *TGameServer_Gameloop(void *p_args);
 static void On_Message(TServer *server, TClient *client, TMessage message);
 
 static TGameServer *game_server;
@@ -24,6 +28,7 @@ TGameServer* New_TGameServer()
     this->nb_players = 0;
     this->ready_players = 0;
     this->map = NULL;
+    this->is_listenning = 0;
     this->Start = TGameServer_Start;
     this->Stop = TGameServer_Stop;
     this->Free = TGameServer_New_Free;
@@ -39,6 +44,8 @@ void TGameServer_Start(TGameServer *this, int port, int max_clients)
     this->nb_players = 0;
     this->ready_players = 0;
     this->server->Start_Listenning(this->server);
+    this->is_listenning = 1;
+    pthread_create(&(this->server_thread), NULL, TGameServer_Gameloop, NULL);
 }
 
 void TGameServer_Stop(TGameServer *this)
@@ -47,6 +54,8 @@ void TGameServer_Stop(TGameServer *this)
         return;
     TAckDisconnectPacket *p = New_TAckDisconnectPacket(NULL);
 
+    this->is_listenning = 0;
+    pthread_join(this->server_thread, NULL);
     p->reason = MASTER_LEAVE;
     this->server->Send_Broadcast(this->server, packet_to_message((TPacket*)p));
     this->server->Free(this->server);
@@ -54,6 +63,39 @@ void TGameServer_Stop(TGameServer *this)
     this->map->Free(this->map);
     this->map = NULL;
     p->Free(p);
+}
+
+static void *TGameServer_Gameloop(void *p_args)
+{
+    unsigned int current_time = 0;
+
+    while (game_server->is_listenning) {
+        bomb_node_t *current_bomb = game_server->map->bombs_head;
+        bomb_t *tmp_bomb = NULL;
+
+        current_time = SDL_GetTicks();
+        while (current_bomb != NULL) {
+            if (current_time >= current_bomb->bomb->time_explode) {
+                TAckBombExplodePacket *p_b = New_TAckBombExplodePacket(NULL);
+                player_t *player = &(game_server->map->players[current_bomb->bomb->owner_id]);
+
+                //TODO: Implémenter la logique de l'explosion des bombes.
+
+                player->specs.bombs_left++;
+                p_b->bomb = *(current_bomb->bomb);
+                game_server->server->Send_Broadcast(game_server->server, packet_to_message((TPacket*)p_b));
+                p_b->Free(p_b);
+
+                tmp_bomb = current_bomb->bomb;
+                current_bomb = current_bomb->next;
+                remove_bomb(&(game_server->map->bombs_head), tmp_bomb);
+                free(tmp_bomb);
+            } else
+                current_bomb = current_bomb->next;
+        }
+    }
+    (void) p_args;
+    return (NULL);
 }
 
 void On_Message(TServer *server, TClient *client, TMessage message)
@@ -157,15 +199,20 @@ void On_Message(TServer *server, TClient *client, TMessage message)
             break;
         case REQ_PLACE_BOMB:;
             TReqPlaceBombPacket *p_rb = New_TReqPlaceBombPacket(message.message);
+            TAckPlaceBombPacket *p_ab = New_TAckPlaceBombPacket(NULL);
             p_rb->Unserialize(p_rb);
 
             player_t player = game_server->map->players[p_rb->player];
-
-            TAckPlaceBombPacket *p_ab = New_TAckPlaceBombPacket(NULL);
+            p_ab->status = game_server->map->Place_Bomb(game_server->map, p_rb->player, &p_ab->reason);
 
             p_ab->x = player.pos.x;
             p_ab->y = player.pos.y;
-            server->Send_Broadcast(server, packet_to_message((TPacket*)p_ab));
+
+            if (p_ab->status == BOMB_POSED) {
+                p_ab->bomb_id = game_server->map->bomb_offset - 1;
+                server->Send_Broadcast(server, packet_to_message((TPacket*)p_ab));
+            } else
+                client->Send(client, packet_to_message((TPacket*)p_ab));
             p_ab->Free(p_ab);
 
             p_rb->Free(p_rb);

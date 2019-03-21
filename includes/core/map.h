@@ -21,8 +21,12 @@ typedef enum object_type_e {
     NOTHING,
     WALL,
     BREAKABLE_WALL,
-    BOMB,
-    BONUS_LIFE
+    BONUS_RANGE,
+    MALUS_RANGE,
+    BONUS_CAPACITY,
+    MALUS_CAPACITY,
+    BONUS_SPEED,
+    MALUS_SPEED
 } object_type_t ;
 
 typedef struct object_s {
@@ -38,17 +42,22 @@ typedef struct TMap {
 
     void(*Move_Player)(struct TMap*, unsigned int, direction_t);
 
+    bomb_status_t(*Place_Bomb)(struct TMap*, unsigned int, bomb_reason_t*);
+
     void(*Free)(struct TMap*);
 
     object_type_t **block_map;
+    size_t max_players;
     player_t *players;
     bomb_node_t *bombs_head;
+    unsigned int bomb_offset;
 
 } TMap ;
 
 TMap *New_TMap(size_t max_clients);
 void TMap_Generate(TMap *this);
 void TMap_Move_Player(TMap *this, unsigned int player_id, direction_t direction);
+bomb_status_t TMap_Place_Bomb(TMap *this, unsigned int player_id, bomb_reason_t *reason);
 void TMap_New_Free(TMap *this);
 
 #endif

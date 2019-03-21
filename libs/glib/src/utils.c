@@ -40,6 +40,7 @@ unsigned long hash(const char *str)
 {
     unsigned long hash = 0;
 
+    if (!str) return (hash);
     while (*str != '\0')
         hash = (31 * hash) + (unsigned char)*str++;
     return (hash);

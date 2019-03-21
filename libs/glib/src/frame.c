@@ -27,7 +27,9 @@ static void TFrame_Init(TFrame *this, const char *frame_id)
 {
     this->Add_Drawable = TFrame_Add_Drawable;
     this->Remove_Drawable = TFrame_Remove_Drawable;
+    this->Remove_Drawable_Obj = TFrame_Remove_Drawable_Obj;
     this->Free_Drawable = TFrame_Free_Drawable;
+    this->Free_Drawable_Obj = TFrame_Free_Drawable_Obj;
     this->Free_Drawables = TFrame_Free_Drawables;
     this->Get_Drawable = TFrame_Get_Drawable;
     this->Draw_Drawables = TFrame_Draw_Drawables;
@@ -104,12 +106,35 @@ TDrawable *TFrame_Remove_Drawable(TFrame *this, const char *id)
             else
                 previous->next = current->next;
             free(current);
-            return drawable;
+            return (drawable);
         }
         previous = current;
         current = current->next;
     }
-    return drawable;
+    return (drawable);
+}
+
+unsigned int TFrame_Remove_Drawable_Obj(TFrame *this, TDrawable *drawable)
+{
+    if (!this || !drawable)
+        return (0);
+
+    TDrawable_Node *current = this->drawables_head;
+    TDrawable_Node *previous = NULL;
+
+    while (current != NULL) {
+        if (current->drawable == drawable) {
+            if (!previous)
+                this->drawables_head = current->next;
+            else
+                previous->next = current->next;
+            free(current);
+            return (1);
+        }
+        previous = current;
+        current = current->next;
+    }
+    return (0);
 }
 
 unsigned int TFrame_Free_Drawable(TFrame *this, const char *id)
@@ -117,6 +142,17 @@ unsigned int TFrame_Free_Drawable(TFrame *this, const char *id)
     TDrawable *drawable = this->Remove_Drawable(this, id);
 
     if (drawable) {
+        drawable->Free(drawable);
+        return (1);
+    }
+    return (0);
+}
+
+unsigned int TFrame_Free_Drawable_Obj(TFrame *this, TDrawable *drawable)
+{
+    unsigned int result = this->Remove_Drawable_Obj(this, drawable);
+
+    if (result) {
         drawable->Free(drawable);
         return (1);
     }

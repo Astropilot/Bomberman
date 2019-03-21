@@ -58,6 +58,8 @@ void TAnimatedSprite_Draw(TAnimatedSprite *this, TFrame *frame)
     }
     if (this->animations != 0)
         SDL_RenderCopy(frame->window->renderer_window, this->texture, &tmp_frame, &this->pos);
+    else
+        frame->Free_Drawable_Obj(frame, (TDrawable*)this);
 }
 
 void TAnimatedSprite_New_Free(TAnimatedSprite *this)

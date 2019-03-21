@@ -12,6 +12,7 @@
 #include <unistd.h>
 #include <string.h>
 
+#include "core/bomb.h"
 #include "core/utils.h"
 
 typedef enum direction_e {
@@ -21,6 +22,17 @@ typedef enum direction_e {
     SUD
 } direction_t ;
 
+typedef struct player_specs_s {
+
+    unsigned int life;
+    unsigned int move_speed;
+    unsigned int bombs_capacity;
+    unsigned int bombs_left;
+    unsigned int bombs_range;
+    bomb_node_t *bombs_head;
+
+} player_specs_t ;
+
 typedef struct player_s {
 
     unsigned int connected;
@@ -28,7 +40,7 @@ typedef struct player_s {
     unsigned int p_id;
     pos_t pos;
     unsigned int direction;
-    unsigned int speed;
+    player_specs_t specs;
     unsigned int last_move_time;
 
 } player_t ;

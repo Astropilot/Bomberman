@@ -17,6 +17,7 @@
 #include "network/packets/packet_ack_gameinit.h"
 #include "network/packets/packet_ack_move.h"
 #include "network/packets/packet_ack_placebomb.h"
+#include "network/packets/packet_ack_bombexplode.h"
 #include "network/packets/packet_disconnect.h"
 #include "network/packets/packet_req_connect.h"
 #include "network/packets/packet_req_move.h"

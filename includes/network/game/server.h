@@ -25,6 +25,8 @@ typedef struct TGameServer {
     void(*Free)(struct TGameServer*);
 
     TServer *server;
+    pthread_t server_thread;
+    unsigned int is_listenning;
     int max_clients;
     int nb_players;
     int ready_players;
