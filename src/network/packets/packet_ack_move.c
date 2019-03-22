@@ -8,7 +8,7 @@
 #include "main.h"
 #include "network/packets/packet_ack_move.h"
 #include "network/packets/packet.h"
-#include "reslib.h"
+#include "network/network.h"
 
 TAckMovePacket *New_TAckMovePacket(unsigned char *raw)
 {

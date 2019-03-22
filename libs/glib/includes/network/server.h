@@ -17,8 +17,8 @@
  *
  */
 
-#ifndef RESLIB_SERVER_H_
-#define RESLIB_SERVER_H_
+#ifndef GLIB_SERVER_H_
+#define GLIB_SERVER_H_
 
 #include "sockets.h"
 #include "client.h"
@@ -62,7 +62,8 @@ typedef struct TServer {
     SOCKET server_sock;                                     /*!< The socket used by the server.*/
     unsigned int is_listenning;                             /*!< An boolean to know if the server is listening for new clients. */
     size_t max_c;                                           /*!< The maximum number of clients allowed to connect to the server. */
-    pthread_t server_thread;                                /*!< The thread used for listening. */
+    //pthread_t server_thread;                                /*!< The thread used for listening. */
+    SDL_Thread *server_thread;
     TClient_Node *clients_head;                             /*!< The list of connected clients. */
 
 } TServer ;

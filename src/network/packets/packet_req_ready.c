@@ -7,7 +7,7 @@
 
 #include "network/packets/packet_req_ready.h"
 #include "network/packets/packet.h"
-#include "reslib.h"
+#include "network/network.h"
 
 TReqReadyPacket *New_TReqReadyPacket(unsigned char *raw)
 {

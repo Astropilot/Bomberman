@@ -16,8 +16,8 @@
  *
  */
 
-#ifndef RESLIB_MESSAGE_H_
-#define RESLIB_MESSAGE_H_
+#ifndef GLIB_MESSAGE_H_
+#define GLIB_MESSAGE_H_
 
 #include <stdlib.h>
 

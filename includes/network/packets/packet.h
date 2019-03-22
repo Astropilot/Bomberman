@@ -10,7 +10,7 @@
 
 #include <stdlib.h>
 
-#include "reslib.h"
+#include "network/network.h"
 #include "network/packets/packet_ack_connect.h"
 #include "network/packets/packet_ack_lobbystate.h"
 #include "network/packets/packet_ack_startgame.h"

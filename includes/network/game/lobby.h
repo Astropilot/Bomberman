@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "reslib.h"
+#include "network/network.h"
 #include "glib.h"
 #include "network/game/server.h"
 

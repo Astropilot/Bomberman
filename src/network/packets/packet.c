@@ -6,7 +6,7 @@
 */
 
 #include "network/packets/packet.h"
-#include "reslib.h"
+#include "network/network.h"
 
 int extract_packet_id(unsigned char *raw_packet)
 {

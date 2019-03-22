@@ -12,7 +12,7 @@
 #include <unistd.h>
 
 #include "main.h"
-#include "reslib.h"
+#include "network/network.h"
 #include "network/packets/packet.h"
 #include "core/map.h"
 

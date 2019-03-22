@@ -7,7 +7,7 @@
 
 #include "network/packets/packet_ack_lobbystate.h"
 #include "network/packets/packet.h"
-#include "reslib.h"
+#include "network/network.h"
 
 TAckLobbyStatePacket *New_TAckLobbyStatePacket(unsigned char *raw)
 {

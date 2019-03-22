@@ -1,6 +1,7 @@
 CC		= gcc
 SDL		= -lSDL2 -lSDL2_ttf -lSDL2_image
-CFLAGS	= -Wall -Wextra -Werror -g -Iincludes/ $(SDL)
+THREAD	= -lpthread
+CFLAGS	= -Wall -Wextra -Werror -g -Iincludes/ $(SDL) $(THREAD)
 
 NAME	= libglib.a
 RM		= rm -f
@@ -15,6 +16,9 @@ SRC		= \
 		src/button.c \
 		src/inputbox.c \
 		src/utils.c \
+		src/network/packer.c \
+		src/network/client.c \
+		src/network/server.c
 
 OBJ		= $(SRC:.c=.o)
 

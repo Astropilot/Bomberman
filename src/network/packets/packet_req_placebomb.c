@@ -7,7 +7,7 @@
 
 #include "network/packets/packet_req_placebomb.h"
 #include "network/packets/packet.h"
-#include "reslib.h"
+#include "network/network.h"
 
 TReqPlaceBombPacket *New_TReqPlaceBombPacket(unsigned char *raw)
 {

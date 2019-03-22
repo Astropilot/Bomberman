@@ -7,7 +7,7 @@
 
 #include "network/packets/packet_disconnect.h"
 #include "network/packets/packet.h"
-#include "reslib.h"
+#include "network/network.h"
 
 TReqDisconnectPacket *New_TReqDisconnectPacket(unsigned char *raw)
 {

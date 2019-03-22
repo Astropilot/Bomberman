@@ -16,8 +16,8 @@
  *
  */
 
-#ifndef RESLIB_SOCKETS_H_
-#define RESLIB_SOCKETS_H_
+#ifndef GLIB_SOCKETS_H_
+#define GLIB_SOCKETS_H_
 
 #include <stdlib.h>
 #include <sys/types.h>

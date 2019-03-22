@@ -9,7 +9,7 @@
 
 #include "network/packets/packet_req_connect.h"
 #include "network/packets/packet.h"
-#include "reslib.h"
+#include "network/network.h"
 
 TReqConnectPacket *New_TReqConnectPacket(unsigned char *raw)
 {

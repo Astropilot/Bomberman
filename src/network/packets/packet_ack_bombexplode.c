@@ -7,7 +7,7 @@
 
 #include "network/packets/packet_ack_bombexplode.h"
 #include "network/packets/packet.h"
-#include "reslib.h"
+#include "network/network.h"
 
 TAckBombExplodePacket *New_TAckBombExplodePacket(unsigned char *raw)
 {

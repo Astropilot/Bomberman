@@ -5,10 +5,10 @@
 **      Wrapper around the socket API.
 */
 
-#include "server.h"
+#include "network/server.h"
 
 static void TServer_Init(TServer *this, unsigned short int port, size_t max_c);
-static void *TServer_Listenning(void *p_args);
+static int TServer_Listenning(void *p_args);
 static void TServer_Client_OnMessage(TClient *client, TServer *server, TMessage message);
 static void TServer_Client_OnDisconnect(TClient *client, TServer *server);
 static void TServer_RemoveClient(TServer *this, TClient *client);
@@ -55,18 +55,21 @@ static void TServer_Init(TServer *this, unsigned short int port, size_t max_c)
 
     if(listen(this->server_sock, this->max_c) == SOCKET_ERROR)
         return;
+    this->server_thread = NULL;
 }
 
 void TServer_Start_Listenning(TServer *this)
 {
     this->is_listenning = 1;
-    pthread_create(&(this->server_thread), NULL, TServer_Listenning, (void*)this);
+    //pthread_create(&(this->server_thread), NULL, TServer_Listenning, (void*)this);
+    this->server_thread = SDL_CreateThread(TServer_Listenning, "TServer_Listenning", (void*)this);
 }
 
 void TServer_Stop_Listenning(TServer *this)
 {
     this->is_listenning = 0;
-    pthread_join(this->server_thread, NULL);
+    //pthread_join(this->server_thread, NULL);
+    SDL_WaitThread(this->server_thread, NULL);
 }
 
 void TServer_Send_Broadcast(TServer *this, TMessage message)
@@ -82,7 +85,7 @@ void TServer_Send_Broadcast(TServer *this, TMessage message)
     }
 }
 
-static void *TServer_Listenning(void *p_args)
+static int TServer_Listenning(void *p_args)
 {
     TServer *server = (TServer*)p_args;
     fd_set rdfs;
@@ -115,7 +118,7 @@ static void *TServer_Listenning(void *p_args)
         }
     }
 
-    return (NULL);
+    return (0);
 }
 
 static void TServer_Client_OnMessage(TClient *client, TServer *server, TMessage message)

@@ -7,7 +7,7 @@
 
 #include "network/packets/packet_ack_placebomb.h"
 #include "network/packets/packet.h"
-#include "reslib.h"
+#include "network/network.h"
 
 TAckPlaceBombPacket *New_TAckPlaceBombPacket(unsigned char *raw)
 {

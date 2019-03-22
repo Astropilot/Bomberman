@@ -7,7 +7,7 @@
 
 #include "network/packets/packet_req_startgame.h"
 #include "network/packets/packet.h"
-#include "reslib.h"
+#include "network/network.h"
 
 TReqStartGamePacket *New_TReqStartGamePacket(unsigned char *raw)
 {

@@ -16,8 +16,8 @@
  *
  */
 
-#ifndef RESLIB_PACKER_H_
-#define RESLIB_PACKER_H_
+#ifndef GLIB_PACKER_H_
+#define GLIB_PACKER_H_
 
 #include <stdlib.h>
 #include <string.h>

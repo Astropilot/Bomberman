@@ -7,11 +7,11 @@
 
 #include <string.h>
 
-#include "packer.h"
-#include "client.h"
+#include "network/packer.h"
+#include "network/client.h"
 
 static void TClient_Init(TClient *this);
-static void *TClient_Receving(void *p_args);
+static int TClient_Receving(void *p_args);
 
 static pthread_mutex_t mutex_message_event = PTHREAD_MUTEX_INITIALIZER;
 
@@ -42,6 +42,7 @@ static void TClient_Init(TClient *this)
     this->sock = -1;
     this->is_receving = 0;
     this->server = NULL;
+    this->client_thread = NULL;
 }
 
 int TClient_Connect(TClient *this, const char *addr, unsigned short int port)
@@ -123,7 +124,8 @@ void TClient_Start_Recv(TClient *this, TServer *server)
         if (server)
             this->server = server;
         this->is_receving = 1;
-        pthread_create(&(this->client_thread), NULL, TClient_Receving, (void*)this);
+        //pthread_create(&(this->client_thread), NULL, TClient_Receving, (void*)this);
+        this->client_thread = SDL_CreateThread(TClient_Receving, "TClient_Receving", (void*)this);
     }
 }
 
@@ -131,11 +133,12 @@ void TClient_Stop_Recv(TClient *this)
 {
     if (this->is_receving == 1) {
         this->is_receving = 0;
-        pthread_join(this->client_thread, NULL);
+        //pthread_join(this->client_thread, NULL);
+        SDL_WaitThread(this->client_thread, NULL);
     }
 }
 
-static void *TClient_Receving(void *p_args)
+static int TClient_Receving(void *p_args)
 {
     TClient *client = (TClient*)p_args;
 
@@ -165,7 +168,7 @@ static void *TClient_Receving(void *p_args)
     closesocket(client->sock);
     client->server = NULL;
     client->Free(client);
-    return (NULL);
+    return (0);
 }
 
 void TClient_Disconnect(TClient *this)

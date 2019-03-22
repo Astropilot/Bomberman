@@ -17,8 +17,10 @@
  *
  */
 
-#ifndef RESLIB_CLIENT_H_
-#define RESLIB_CLIENT_H_
+#ifndef GLIB_CLIENT_H_
+#define GLIB_CLIENT_H_
+
+#include <SDL2/SDL_thread.h>
 
 #include "sockets.h"
 #include "message.h"
@@ -58,7 +60,8 @@ typedef struct TClient {
 
     SOCKET sock;                            /*!< The client socket */
     unsigned int is_receving;               /*!< An boolean to know if an asynchrone receving has been started. */
-    pthread_t client_thread;                /*!< The thread for asynchronous receving. */
+    //pthread_t client_thread;
+    SDL_Thread *client_thread;              /*!< The thread for asynchronous receving. */
     TServer* server;                        /*!< Internal reference to a TServer if this client came from an server. */
 
 } TClient ;

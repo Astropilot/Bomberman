@@ -7,7 +7,7 @@
 
 #include "network/packets/packet_ack_connect.h"
 #include "network/packets/packet.h"
-#include "reslib.h"
+#include "network/network.h"
 
 TAckConnectPacket *New_TAckConnectPacket(unsigned char *raw)
 {
