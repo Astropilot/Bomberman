@@ -13,6 +13,7 @@
 #include "network/packets/packet_ack_bombexplode.h"
 
 static void TMap_Init(TMap *this, size_t max_clients);
+static unsigned int TMap_Take_Extra(TMap *this, player_t *player, int x, int y);
 
 TMap *New_TMap(size_t max_clients)
 {
@@ -73,7 +74,21 @@ void TMap_Generate(TMap *this)
     }
 }
 
-void TMap_Move_Player(TMap *this, unsigned int player_id, direction_t direction)
+static unsigned int TMap_Take_Extra(TMap *this, player_t *player, int x, int y)
+{
+    if (this->block_map[y][x] == NOTHING) return (0);
+
+    switch (this->block_map[y][x]) {
+        case BONUS_RANGE:;
+            player->specs.bombs_range++;
+            this->block_map[y][x] = NOTHING;
+            return (1);
+        default:
+            return (0);
+    }
+}
+
+unsigned int TMap_Move_Player(TMap *this, unsigned int player_id, direction_t direction)
 {
     player_t *player = &(this->players[player_id]);
     pos_t new_coords = player->pos;
@@ -84,7 +99,7 @@ void TMap_Move_Player(TMap *this, unsigned int player_id, direction_t direction)
     unsigned int current_time = SDL_GetTicks();
 
     if (current_time <= player->last_move_time + player->specs.move_speed)
-        return;
+        return (0);
     player->last_move_time = current_time;
     player->direction = (unsigned int)direction;
     if (direction == OUEST || direction == EST)
@@ -94,29 +109,31 @@ void TMap_Move_Player(TMap *this, unsigned int player_id, direction_t direction)
     pix_to_map((int)new_coords.x, (int)new_coords.y, &block_x, &block_y);
 
     // Gestion des collisions avec les blocs infranchissables.
-    if (block_x < 0 || block_x >= MAP_WIDTH) return;
-    if (block_y < 0 || block_y >= MAP_HEIGHT) return;
+    if (block_x < 0 || block_x >= MAP_WIDTH) return (0);
+    if (block_y < 0 || block_y >= MAP_HEIGHT) return (0);
     if (this->block_map[block_y][block_x] == WALL || this->block_map[block_y][block_x] == BREAKABLE_WALL)
-        return;
+        return (0);
 
     // Gestion des collisions avec les autres joueurs.
     for(i = 0; i < this->max_players; i++) {
         if (this->players[i].connected == 1 && this->players[i].p_id != player_id) {
             pix_to_map((int)this->players[i].pos.x, (int)this->players[i].pos.y, &tmp_x, &tmp_y);
-            if (block_y == tmp_y && block_x == tmp_x) return;
+            if (block_y == tmp_y && block_x == tmp_x) return (0);
         }
     }
 
     // Gestion des collisions avec les bombes.
     while (current_bomb != NULL) {
         if ((int)current_bomb->bomb->bomb_pos.x == block_x && (int)current_bomb->bomb->bomb_pos.y == block_y) {
-            return;
+            return (0);
         }
         current_bomb = current_bomb->next;
     }
 
     player->pos.x = new_coords.x;
     player->pos.y = new_coords.y;
+
+    return TMap_Take_Extra(this, player, block_x, block_y);
 }
 
 bomb_status_t TMap_Place_Bomb(TMap *this, unsigned int player_id, bomb_reason_t *reason)

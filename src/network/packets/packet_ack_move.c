@@ -43,6 +43,7 @@ int TAckMovePacket_Serialize(TAckMovePacket *this)
     packet_buffer = pack_uint(packet_buffer, this->player.pos.x);
     packet_buffer = pack_uint(packet_buffer, this->player.pos.y);
     packet_buffer = pack_uint(packet_buffer, this->player.direction);
+    packet_buffer = pack_uint(packet_buffer, this->take_extra);
     this->player.username = NULL;
     return (packet_buffer - this->raw_packet);
 }
@@ -64,6 +65,7 @@ void TAckMovePacket_Unserialize(TAckMovePacket *this)
     packet_buffer = unpack_uint(packet_buffer, &(this->player.pos.x));
     packet_buffer = unpack_uint(packet_buffer, &(this->player.pos.y));
     packet_buffer = unpack_uint(packet_buffer, &(this->player.direction));
+    unpack_uint(packet_buffer, &(this->take_extra));
 }
 
 void TAckMovePacket_New_Free(TAckMovePacket *this)

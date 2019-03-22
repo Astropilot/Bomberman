@@ -24,6 +24,7 @@ typedef struct TAckMovePacket {
     int packet_id;
     unsigned int player_id;
     player_t player;
+    unsigned int take_extra;
 
 
 } TAckMovePacket ;

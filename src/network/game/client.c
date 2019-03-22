@@ -144,25 +144,32 @@ void TGameClient_Handle_Messages(TGameClient *this)
             TAckMovePacket *p_mv = New_TAckMovePacket(message.message);
             p_mv->Unserialize(p_mv);
 
-            char *player_id = malloc(sizeof(char) * 15);
+            id = malloc(sizeof(char) * 255);
             player_t player = p_mv->player;
 
-            sprintf(player_id, "PLAYER_%u_%u", p_mv->player_id, SUD);
-            ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
-            sprintf(player_id, "PLAYER_%u_%u", p_mv->player_id, NORD);
-            ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
-            sprintf(player_id, "PLAYER_%u_%u", p_mv->player_id, OUEST);
-            ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
-            sprintf(player_id, "PLAYER_%u_%u", p_mv->player_id, EST);
-            ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
+            sprintf(id, "PLAYER_%u_%u", p_mv->player_id, SUD);
+            ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id))->is_visible = 0;
+            sprintf(id, "PLAYER_%u_%u", p_mv->player_id, NORD);
+            ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id))->is_visible = 0;
+            sprintf(id, "PLAYER_%u_%u", p_mv->player_id, OUEST);
+            ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id))->is_visible = 0;
+            sprintf(id, "PLAYER_%u_%u", p_mv->player_id, EST);
+            ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id))->is_visible = 0;
 
-            sprintf(player_id, "PLAYER_%u_%u", p_mv->player_id, player.direction);
-            TAnimatedSprites *asp = (TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id);
+            sprintf(id, "PLAYER_%u_%u", p_mv->player_id, player.direction);
+            TAnimatedSprites *asp = (TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id);
             asp->pos.x = player.pos.x;
             asp->pos.y = player.pos.y;
             asp->is_visible = 1;
 
-            free(player_id);
+            if (p_mv->take_extra) {
+                int x_tmp, y_tmp;
+                pix_to_map((int)player.pos.x, (int)player.pos.y, &x_tmp, &y_tmp);
+                sprintf(id, "EXTRA_%d_%d", y_tmp, x_tmp);
+                this->game_frame->Free_Drawable(this->game_frame, id);
+            }
+
+            free(id);
             p_mv->Free(p_mv);
             break;
         case ACK_PLACE_BOMB:;

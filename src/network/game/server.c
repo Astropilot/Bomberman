@@ -180,14 +180,16 @@ void On_Message(TServer *server, TClient *client, TMessage message)
             break;
         case REQ_MOVE:;
             TReqMovePlayerPacket *p_rm = New_TReqMovePlayerPacket(message.message);
+            unsigned int take_extra;
             p_rm->Unserialize(p_rm);
 
-            game_server->map->Move_Player(game_server->map, p_rm->player, p_rm->dir);
+            take_extra = game_server->map->Move_Player(game_server->map, p_rm->player, p_rm->dir);
 
             TAckMovePacket *p = New_TAckMovePacket(NULL);
 
             p->player_id = p_rm->player;
             p->player = game_server->map->players[p_rm->player];
+            p->take_extra = take_extra;
             server->Send_Broadcast(server, packet_to_message((TPacket*)p));
             p->Free(p);
 
