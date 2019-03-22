@@ -55,14 +55,14 @@ static void On_Load(TFrame* frame, int argc, va_list args)
     gameclient->gameserver = server;
     gameclient->player = player;
 
-    SDL_Rect size = {0, 0, 64, 128};
-    SDL_Rect pos = {0, 0, 16, 32};
+    SDL_Rect size = {0, 0, 64, 64};
+    SDL_Rect pos = {0, 0, 32, 32};
     char *player_id = malloc(sizeof(char) * 15);
     for (i = 0; i < nb_players; i++) {
-        TAnimatedSprites *sp_down = New_TAnimatedSprites(frame, CHAR_PATH "man_down_%02d.png", 8, size, pos, 100, -1);
-        TAnimatedSprites *sp_up = New_TAnimatedSprites(frame, CHAR_PATH "man_up_%02d.png", 8, size, pos, 100, -1);
-        TAnimatedSprites *sp_right = New_TAnimatedSprites(frame, CHAR_PATH "man_right_%02d.png", 8, size, pos, 100, -1);
-        TAnimatedSprites *sp_left = New_TAnimatedSprites(frame, CHAR_PATH "man_left_%02d.png", 8, size, pos, 100, -1);
+        TAnimatedSprites *sp_down = New_TAnimatedSprites(frame, CHAR_PATH "face%02d.png", 7, size, pos, 66, -1);
+        TAnimatedSprites *sp_up = New_TAnimatedSprites(frame, CHAR_PATH "back%02d.png", 7, size, pos, 66, -1);
+        TAnimatedSprites *sp_right = New_TAnimatedSprites(frame, CHAR_PATH "side_right%02d.png", 17, size, pos, 66, -1);
+        TAnimatedSprites *sp_left = New_TAnimatedSprites(frame, CHAR_PATH "side_left%02d.png", 21, size, pos, 66, -1);
 
         sprintf(player_id, "PLAYER_%d_%u", i, SUD);
         sp_down->is_visible = 0;
