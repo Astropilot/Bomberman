@@ -36,8 +36,8 @@
 #define RES_PATH "images/"
 #define FONT_PATH "fonts/"
 #define CHAR_PATH RES_PATH "character/"
+#define MAP_PATH RES_PATH "map/"
 #define BOMB_PATH RES_PATH "bomb/"
-#define FLAME_PATH RES_PATH "flame/"
 
 typedef struct lobby_args_e {
     char *username;

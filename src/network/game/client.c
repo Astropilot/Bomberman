@@ -106,7 +106,7 @@ void TGameClient_Handle_Messages(TGameClient *this)
 
                 sprintf(id, "PLAYER_%u_%u", i, player.direction);
                 TAnimatedSprites *asp = (TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id);
-                asp->pos.x = player.pos.x + 8;
+                asp->pos.x = player.pos.x;
                 asp->pos.y = player.pos.y;
                 asp->is_visible = 1;
             }
@@ -118,7 +118,7 @@ void TGameClient_Handle_Messages(TGameClient *this)
                         case WALL:;
                             SDL_Rect posw = {0, 0, 32, 32};
 
-                            TSprite *spw = New_TSprite(this->game_frame, RES_PATH "wall.png", posw);
+                            TSprite *spw = New_TSprite(this->game_frame, MAP_PATH "wall.png", posw);
 
                             map_to_pix(j, i, &(spw->pos.x), &(spw->pos.y));
                             sprintf(id, "WALL_%u_%u", i, j);
@@ -126,7 +126,7 @@ void TGameClient_Handle_Messages(TGameClient *this)
                             break;
                         case BREAKABLE_WALL:;
                         SDL_Rect posbw = {0, 0, 32, 32};
-                        TSprite *spbw = New_TSprite(this->game_frame, RES_PATH "breakable_wall.png", posbw);
+                        TSprite *spbw = New_TSprite(this->game_frame, MAP_PATH "breakable_wall.png", posbw);
 
                         map_to_pix(j, i, &(spbw->pos.x), &(spbw->pos.y));
                         sprintf(id, "BWALL_%u_%u", i, j);
@@ -158,7 +158,7 @@ void TGameClient_Handle_Messages(TGameClient *this)
 
             sprintf(player_id, "PLAYER_%u_%u", p_mv->player_id, player.direction);
             TAnimatedSprites *asp = (TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id);
-            asp->pos.x = player.pos.x + 8;
+            asp->pos.x = player.pos.x;
             asp->pos.y = player.pos.y;
             asp->is_visible = 1;
 
@@ -194,11 +194,11 @@ void TGameClient_Handle_Messages(TGameClient *this)
             sprintf(id, "BOMB_%u", p_b->bomb.id);
             this->game_frame->Free_Drawable(this->game_frame, id);
 
-            SDL_Rect size_bomb = {0, 0, 256, 256};
+            SDL_Rect size_bomb = {0, 0, 94, 94};
             SDL_Rect pos_bomb = {0, 0, 32, 32};
             map_to_pix((int)p_b->bomb.bomb_pos.x, (int)p_b->bomb.bomb_pos.y, &pos_bomb.x, &pos_bomb.y);
-            TAnimatedSprite *sp = New_TAnimatedSprite(
-                this->game_frame, BOMB_PATH "bomberman_bomb_animated.png",
+            TAnimatedSprites *sp = New_TAnimatedSprites(
+                this->game_frame, BOMB_PATH "bomb_explode_%02d.png", 5,
                 size_bomb, pos_bomb, 128, 1
             );
             this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp, "BOMB", 2);
@@ -213,7 +213,7 @@ void TGameClient_Handle_Messages(TGameClient *this)
                 map_to_pix((int)p_b->extra_blocks[i].pos.x, (int)p_b->extra_blocks[i].pos.y, &pos_extra.x, &pos_extra.y);
                 sprintf(id, "EXTRA_%u_%u", p_b->extra_blocks[i].pos.y, p_b->extra_blocks[i].pos.x);
                 TSprite *sp_extra = New_TSprite(
-                    this->game_frame, RES_PATH "bonus_range.png",
+                    this->game_frame, MAP_PATH "bonus_range.png",
                     pos_extra
                 );
                 this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp_extra, id, 3);
