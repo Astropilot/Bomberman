@@ -14,7 +14,7 @@
 #include "main.h"
 #include "reslib.h"
 #include "network/packets/packet.h"
-#include "core/player.h"
+#include "core/map.h"
 
 typedef struct TGameServer {
 
@@ -25,10 +25,12 @@ typedef struct TGameServer {
     void(*Free)(struct TGameServer*);
 
     TServer *server;
+    pthread_t server_thread;
+    unsigned int is_listenning;
     int max_clients;
     int nb_players;
     int ready_players;
-    player_t *players;
+    TMap *map;
 
 } TGameServer ;
 

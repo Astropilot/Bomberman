@@ -36,6 +36,8 @@ typedef struct TDrawable {
 
     void(*Free)(struct TDrawable*);                                    /*!< Free (ressources) method. */
 
+    unsigned int is_visible;                                           /*!< Boolean to know if the drawable can be drawed automatically. */
+
 } TDrawable ;
 
 /**
@@ -43,8 +45,8 @@ typedef struct TDrawable {
  *
  * Drawable_Node is an linked list for stock differents types of drawables.
  */
-typedef struct TDrawable_Node{
-    char *id;                       /*!< An unique ID for each drawable. */
+typedef struct TDrawable_Node {
+    unsigned long id;               /*!< An unique ID for each drawable. */
     unsigned int priority;          /*!< The drawing priority, the lower the priority (close to 1), the more it will be drawn last. */
     TDrawable *drawable;            /*!< The drawable object. */
     struct TDrawable_Node *next;    /*!< A pointer to the next Drawable_Node. */

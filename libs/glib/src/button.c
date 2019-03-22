@@ -29,6 +29,7 @@ static void TButton_Init(TButton *this, TFrame *frame, const char *btn_s, const 
     this->btn_hover_sprite = New_TSprite(frame, btn_hs, pos);
     this->state = BUTTON_NORMAL;
     this->pos = pos;
+    this->is_visible = 1;
 }
 
 

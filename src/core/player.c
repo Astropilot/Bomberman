@@ -7,6 +7,7 @@
 
 #include "main.h"
 #include "core/player.h"
+#include "core/utils.h"
 
 unsigned int next_id(player_t *players)
 {
@@ -24,52 +25,46 @@ void init_player(player_t *player, int id, const char *username)
     player->connected = 1;
     player->username = strdup(username);
     player->p_id = (unsigned int)id;
+
+    player->specs.life = PLAYER_MAX_LIFE;
+    player->specs.move_speed = 400;
+    player->specs.bombs_capacity = 1;
+    player->specs.bombs_left = player->specs.bombs_capacity;
+    player->specs.bombs_range = 1;
+    player->specs.bombs_head = NULL;
+
+    player->last_move_time = 0;
     switch (id) {
         case 0:
-            player->x = 50;
-            player->y = 50;
+            map_to_pix(0, 0, (int *)&(player->pos.x), (int *)&(player->pos.y));
             player->direction = (unsigned int)EST;
             break;
         case 1:
-            player->x = 700;
-            player->y = 50;
+            map_to_pix(MAP_WIDTH - 1, 0, (int *)&(player->pos.x), (int *)&(player->pos.y));
             player->direction = (unsigned int)OUEST;
             break;
         case 2:
-            player->x = 50;
-            player->y = 400;
+            map_to_pix(0, MAP_HEIGHT - 1, (int *)&(player->pos.x), (int *)&(player->pos.y));
             player->direction = (unsigned int)EST;
             break;
         case 3:
-            player->x = 700;
-            player->y = 400;
+            map_to_pix(MAP_WIDTH - 1, MAP_HEIGHT - 1, (int *)&(player->pos.x), (int *)&(player->pos.y));
             player->direction = (unsigned int)OUEST;
             break;
     }
-}
-
-void move_player(player_t *player, direction_t direction)
-{
-    unsigned int speed_player = 7;
-    switch (direction) {
-        case OUEST:
-            player->x = player->x - speed_player;
-            break;
-        case EST:
-            player->x = player->x + speed_player;
-            break;
-        case NORD:
-            player->y = player->y - speed_player;
-            break;
-        case SUD:
-            player->y = player->y + speed_player;
-            break;
-    }
-    player->direction = (unsigned int)direction;
 }
 
 void reset_player(player_t *player)
 {
+    bomb_node_t *current = player->specs.bombs_head;
+    bomb_node_t *tmp = NULL;
+
+    while (current != NULL) {
+        tmp = current;
+        current = current->next;
+        free(tmp);
+    }
+
     player->connected = 0;
     free(player->username);
     player->username = NULL;

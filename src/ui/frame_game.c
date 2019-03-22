@@ -34,7 +34,7 @@ TFrame* New_GameFrame(TGameClient *m_gameclient)
 static void Init(TFrame* frame)
 {
     SDL_Rect pos_sprite2 = {0, 0, WIN_WIDTH, WIN_HEIGHT};
-    TSprite *sp2 = New_TSprite(frame, "images/bomberman_game.png", pos_sprite2);
+    TSprite *sp2 = New_TSprite(frame, RES_PATH "bomberman_game.png", pos_sprite2);
 
     frame->Add_Drawable(frame, (TDrawable*)sp2, "BG", 999);
 }
@@ -55,15 +55,32 @@ static void On_Load(TFrame* frame, int argc, va_list args)
     gameclient->gameserver = server;
     gameclient->player = player;
 
+    SDL_Rect size = {0, 0, 64, 128};
+    SDL_Rect pos = {0, 0, 16, 32};
+    char *player_id = malloc(sizeof(char) * 15);
     for (i = 0; i < nb_players; i++) {
-        char *player_id = malloc(sizeof(char) * 10);
-        sprintf(player_id, "PLAYER_%d", (int)i);
-        SDL_Rect pos = {0, 0, 64, 64};
-        SDL_Rect size = {0, 0, 256, 256};
-        TAnimatedSprite *asp = New_TAnimatedSprite(frame, "images/sprite_animated.png", size, pos, 100, -1);
-        frame->Add_Drawable(frame, (TDrawable*)asp, player_id, 1);
-        free(player_id);
+        TAnimatedSprites *sp_down = New_TAnimatedSprites(frame, CHAR_PATH "man_down_%02d.png", 8, size, pos, 100, -1);
+        TAnimatedSprites *sp_up = New_TAnimatedSprites(frame, CHAR_PATH "man_up_%02d.png", 8, size, pos, 100, -1);
+        TAnimatedSprites *sp_right = New_TAnimatedSprites(frame, CHAR_PATH "man_right_%02d.png", 8, size, pos, 100, -1);
+        TAnimatedSprites *sp_left = New_TAnimatedSprites(frame, CHAR_PATH "man_left_%02d.png", 8, size, pos, 100, -1);
+
+        sprintf(player_id, "PLAYER_%d_%u", i, SUD);
+        sp_down->is_visible = 0;
+        frame->Add_Drawable(frame, (TDrawable*)sp_down, player_id, 1);
+
+        sprintf(player_id, "PLAYER_%d_%u", i, NORD);
+        sp_up->is_visible = 0;
+        frame->Add_Drawable(frame, (TDrawable*)sp_up, player_id, 1);
+
+        sprintf(player_id, "PLAYER_%d_%u", i, EST);
+        sp_right->is_visible = 0;
+        frame->Add_Drawable(frame, (TDrawable*)sp_right, player_id, 1);
+
+        sprintf(player_id, "PLAYER_%d_%u", i, OUEST);
+        sp_left->is_visible = 0;
+        frame->Add_Drawable(frame, (TDrawable*)sp_left, player_id, 1);
     }
+    free(player_id);
 
     gameclient->Ready(gameclient);
 
@@ -109,12 +126,37 @@ static void On_Unload(TFrame* frame)
     if (IS_DEBUG)
         printf("Frame [%s]: On_Unload method called\n", frame->frame_id);
 
-    TSprite *bomb_sprite = (TSprite*)frame->Remove_Drawable(frame, "BOMB");
+    char *id = malloc(sizeof(char) * 255);
+    unsigned int i = 0;
+    unsigned int j;
+    unsigned int res;
 
-    while (bomb_sprite) {
-        bomb_sprite->Free(bomb_sprite);
-        bomb_sprite = (TSprite*)frame->Remove_Drawable(frame, "BOMB");
+    do {
+        sprintf(id, "PLAYER_%u_%u", i, SUD);
+        frame->Free_Drawable(frame, id);
+        sprintf(id, "PLAYER_%d_%u", i, NORD);
+        frame->Free_Drawable(frame, id);
+        sprintf(id, "PLAYER_%d_%u", i, EST);
+        frame->Free_Drawable(frame, id);
+        sprintf(id, "PLAYER_%d_%u", i, OUEST);
+        res = frame->Free_Drawable(frame, id);
+        i++;
+    } while (res);
+
+    for(i = 0; i <= gameclient->bomb_offset; i++) {
+        sprintf(id, "BOMB_%u", i);
+        frame->Free_Drawable(frame, id);
     }
+
+    for (i = 0; i < MAP_HEIGHT; i++) {
+        for (j = 0; j < MAP_WIDTH; j++) {
+            sprintf(id, "WALL_%u_%u", i, j);
+            frame->Free_Drawable(frame, id);
+            sprintf(id, "BWALL_%u_%u", i, j);
+            frame->Free_Drawable(frame, id);
+        }
+    }
+    free(id);
 }
 
 static void Finish(TFrame* frame)

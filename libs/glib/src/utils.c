@@ -25,3 +25,23 @@ SDL_Texture *createText(TFrame *frame, const char *text, TTF_Font *font, SDL_Col
 
     return (text_texture);
 }
+
+TTF_Font *loadFont(const char *font_file, size_t font_size)
+{
+    TTF_Font *font = NULL;
+
+    font = TTF_OpenFont(font_file, font_size);
+    if (!font)
+        printf("[GLib] Unable to load the font %s, reason: %s\n", font_file, TTF_GetError());
+    return (font);
+}
+
+unsigned long hash(const char *str)
+{
+    unsigned long hash = 0;
+
+    if (!str) return (hash);
+    while (*str != '\0')
+        hash = (31 * hash) + (unsigned char)*str++;
+    return (hash);
+}

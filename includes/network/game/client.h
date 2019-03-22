@@ -37,6 +37,7 @@ typedef struct TGameClient {
     TFrame *game_frame;
     unsigned int is_owner;
     int player;
+    unsigned int bomb_offset;
 
 } TGameClient ;
 

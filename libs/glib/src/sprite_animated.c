@@ -37,6 +37,7 @@ static void TAnimatedSprite_Init(TAnimatedSprite *this, TFrame *frame, const cha
     this->len_frames = w / size.w;
     this->last_time = 0;
     this->animations = animations;
+    this->is_visible = 1;
     SDL_FreeSurface(surface);
 }
 
@@ -57,6 +58,8 @@ void TAnimatedSprite_Draw(TAnimatedSprite *this, TFrame *frame)
     }
     if (this->animations != 0)
         SDL_RenderCopy(frame->window->renderer_window, this->texture, &tmp_frame, &this->pos);
+    else
+        frame->Free_Drawable_Obj(frame, (TDrawable*)this);
 }
 
 void TAnimatedSprite_New_Free(TAnimatedSprite *this)

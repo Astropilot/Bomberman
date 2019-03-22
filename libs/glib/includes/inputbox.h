@@ -43,6 +43,8 @@ typedef struct TInput {
 
     void(*Free)(struct TInput*);                                    /*!< Free (ressources) method. */
 
+    unsigned int is_visible;                                        /*!< Boolean to know if the drawable can be drawed automatically. */
+
     void(*Event_Handler)(struct TInput*, SDL_Event);                /*!< Method call for processing SDL event */
 
     char *text;                                                     /*!< The text entered in the input box. */

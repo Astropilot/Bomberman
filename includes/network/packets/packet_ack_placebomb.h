@@ -10,6 +10,8 @@
 
 #include <stdlib.h>
 
+#include "core/bomb.h"
+
 typedef struct TAckPlaceBombPacket {
 
     int(*Serialize)(struct TAckPlaceBombPacket*);
@@ -20,6 +22,9 @@ typedef struct TAckPlaceBombPacket {
 
     unsigned char *raw_packet;
     int packet_id;
+    bomb_status_t status;
+    bomb_reason_t reason;
+    unsigned int bomb_id;
     unsigned int x;
     unsigned int y;
 

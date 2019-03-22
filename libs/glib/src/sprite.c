@@ -29,6 +29,7 @@ static void TSprite_Init(TSprite *this, TFrame *frame, const char *file, SDL_Rec
     this->file = strdup(file);
     this->pos = pos;
     this->texture = SDL_CreateTextureFromSurface(frame->window->renderer_window, surface);
+    this->is_visible = 1;
     SDL_FreeSurface(surface);
 }
 

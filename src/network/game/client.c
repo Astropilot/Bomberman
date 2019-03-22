@@ -6,10 +6,13 @@
 */
 
 #include <string.h>
+#include <stdio.h>
 
 #include "network/game/client.h"
 #include "network/packets/packet.h"
 #include "network/packets/packet_disconnect.h"
+#include "core/utils.h"
+#include "main.h"
 
 TGameClient* New_TGameClient()
 {
@@ -82,36 +85,123 @@ void TGameClient_Handle_Messages(TGameClient *this)
             free(message.message);
             this->Leave_Game(this);
             break;
-        case ACK_GAME_STATE:;
-            TAckGameStatePacket *p_as = New_TAckGameStatePacket(message.message);
+        case ACK_GAME_INIT:;
+            TAckGameInitPacket *p_as = New_TAckGameInitPacket(message.message);
             p_as->Unserialize(p_as);
 
             unsigned int i;
+            unsigned int j;
+            char *id = malloc(sizeof(char) * 255);
             for (i = 0; i < p_as->nb_players; i++) {
-                char *player_id = malloc(sizeof(char) * 10);
                 player_t player = p_as->players[i];
-                sprintf(player_id, "PLAYER_%d", (int)i);
-                TAnimatedSprite *asp = (TAnimatedSprite*)this->game_frame->Get_Drawable(this->game_frame, player_id);
-                asp->pos.x = player.x;
-                asp->pos.y = player.y;
-                free(player_id);
+
+                sprintf(id, "PLAYER_%u_%u", i, SUD);
+                ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id))->is_visible = 0;
+                sprintf(id, "PLAYER_%u_%u", i, NORD);
+                ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id))->is_visible = 0;
+                sprintf(id, "PLAYER_%u_%u", i, OUEST);
+                ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id))->is_visible = 0;
+                sprintf(id, "PLAYER_%u_%u", i, EST);
+                ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id))->is_visible = 0;
+
+                sprintf(id, "PLAYER_%u_%u", i, player.direction);
+                TAnimatedSprites *asp = (TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id);
+                asp->pos.x = player.pos.x + 8;
+                asp->pos.y = player.pos.y;
+                asp->is_visible = 1;
             }
 
+
+            for (i = 0; i < MAP_HEIGHT; i++) {
+                for (j = 0; j < MAP_WIDTH; j++) {
+                    switch (p_as->block_map[i][j]) {
+                        case WALL:;
+                            SDL_Rect posw = {0, 0, 32, 32};
+
+                            TSprite *spw = New_TSprite(this->game_frame, RES_PATH "wall.png", posw);
+
+                            map_to_pix(j, i, &(spw->pos.x), &(spw->pos.y));
+                            sprintf(id, "WALL_%u_%u", i, j);
+                            this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)spw, id, 3);
+                            break;
+                        case BREAKABLE_WALL:;
+                        SDL_Rect posbw = {0, 0, 32, 32};
+                        TSprite *spbw = New_TSprite(this->game_frame, RES_PATH "breakable_wall.png", posbw);
+
+                        map_to_pix(j, i, &(spbw->pos.x), &(spbw->pos.y));
+                        sprintf(id, "BWALL_%u_%u", i, j);
+                        this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)spbw, id, 3);
+                        default:
+                            break;
+                    }
+                }
+            }
+            free(id);
+
             p_as->Free(p_as);
+            break;
+        case ACK_MOVE:;
+            TAckMovePacket *p_mv = New_TAckMovePacket(message.message);
+            p_mv->Unserialize(p_mv);
+
+            char *player_id = malloc(sizeof(char) * 15);
+            player_t player = p_mv->player;
+
+            sprintf(player_id, "PLAYER_%u_%u", p_mv->player_id, SUD);
+            ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
+            sprintf(player_id, "PLAYER_%u_%u", p_mv->player_id, NORD);
+            ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
+            sprintf(player_id, "PLAYER_%u_%u", p_mv->player_id, OUEST);
+            ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
+            sprintf(player_id, "PLAYER_%u_%u", p_mv->player_id, EST);
+            ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id))->is_visible = 0;
+
+            sprintf(player_id, "PLAYER_%u_%u", p_mv->player_id, player.direction);
+            TAnimatedSprites *asp = (TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, player_id);
+            asp->pos.x = player.pos.x + 8;
+            asp->pos.y = player.pos.y;
+            asp->is_visible = 1;
+
+            free(player_id);
+            p_mv->Free(p_mv);
             break;
         case ACK_PLACE_BOMB:;
             TAckPlaceBombPacket *p_ab = New_TAckPlaceBombPacket(message.message);
             p_ab->Unserialize(p_ab);
 
+            if (p_ab->status == BOMB_POSED) {
+                SDL_Rect size_bomb = {0, 0, 48, 48};
+                SDL_Rect pos_bomb = {p_ab->x + 8, p_ab->y + 8, 16, 16};
+                char *bomb_id = malloc(sizeof(char) * 255);
+                TAnimatedSprites *sp = New_TAnimatedSprites(
+                    this->game_frame, BOMB_PATH "static_bomb_%02d.png", 3,
+                    size_bomb, pos_bomb, 100, -1
+                );
+                sprintf(bomb_id, "BOMB_%u", p_ab->bomb_id);
+                this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp, bomb_id, 2);
+                free(bomb_id);
+                this->bomb_offset = p_ab->bomb_id;
+            } else
+                printf("[Client] Bomb error, reason: %u\n", p_ab->reason);
+
+            p_ab->Free(p_ab);
+            break;
+        case ACK_BOMB_EXPLODE:;
+            TAckBombExplodePacket *p_b = New_TAckBombExplodePacket(message.message);
+            p_b->Unserialize(p_b);
+
+            char *bomb_id = malloc(sizeof(char) * 255);
+            sprintf(bomb_id, "BOMB_%u", p_b->bomb.id);
+            this->game_frame->Free_Drawable(this->game_frame, bomb_id);
+
             SDL_Rect size_bomb = {0, 0, 256, 256};
-            SDL_Rect pos_bomb = {p_ab->x, p_ab->y, 32, 32};
+            SDL_Rect pos_bomb = {0, 0, 32, 32};
+            map_to_pix((int)p_b->bomb.bomb_pos.x, (int)p_b->bomb.bomb_pos.y, &pos_bomb.x, &pos_bomb.y);
             TAnimatedSprite *sp = New_TAnimatedSprite(
-                this->game_frame, "images/bomberman_bomb_animated.png",
+                this->game_frame, BOMB_PATH "bomberman_bomb_animated.png",
                 size_bomb, pos_bomb, 128, 1
             );
             this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp, "BOMB", 2);
-
-            p_ab->Free(p_ab);
             break;
         default:
             free(message.message);

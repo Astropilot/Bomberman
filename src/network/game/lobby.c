@@ -100,23 +100,18 @@ void TLobbyClient_Handle_Messages(TLobbyClient *this)
             this->Leave_Lobby(this);
             break;
         case ACK_LOBBY_STATE:;
-            TText *txt_label = (TText*)this->lobby_frame->Remove_Drawable(this->lobby_frame, "LABEL_STATUS");
+            TText *txt_label = NULL;
             TAckLobbyStatePacket *p_as = New_TAckLobbyStatePacket(message.message);
-            txt_label->Free(txt_label);
 
             p_as->Unserialize(p_as);
             this->nb_players = p_as->nb_players;
             char *status = malloc(sizeof(char) * 255);
             sprintf(status, "Nombre de joueurs presents: %d/%d", this->nb_players, MAX_PLAYERS);
 
-            SDL_Rect pos_label = {0, 0, 0, 0};
-            SDL_Color color = {255, 255, 255, 255};
-            TTF_Font *font = TTF_OpenFont("fonts/fixedsys.ttf", 24);
-            txt_label = New_TText(this->lobby_frame, status, font, color, pos_label);
+            txt_label = (TText*)this->lobby_frame->Get_Drawable(this->lobby_frame, "LABEL_STATUS");
+            txt_label->Change_Text(txt_label, this->lobby_frame, status);
             txt_label->pos.x = (WIN_WIDTH / 2) - (txt_label->pos.w / 2);
             txt_label->pos.y = (WIN_HEIGHT / 2) - (txt_label->pos.h / 2);
-            TTF_CloseFont(font);
-            this->lobby_frame->Add_Drawable(this->lobby_frame, (TDrawable*)txt_label, "LABEL_STATUS", 1);
 
             free(status);
             p_as->Free(p_as);
@@ -156,6 +151,7 @@ void TLobbyClient_Leave_Lobby(TLobbyClient *this)
     this->username = NULL;
     this->is_owner = 0;
     this->player = -1;
+    this->nb_players = 0;
     if (this->gameserver) {
         this->gameserver->Stop(this->gameserver);
         this->gameserver->Free(this->gameserver);

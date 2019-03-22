@@ -12,6 +12,9 @@
 #include <unistd.h>
 #include <string.h>
 
+#include "core/bomb.h"
+#include "core/utils.h"
+
 typedef enum direction_e {
     NORD,
     OUEST,
@@ -19,20 +22,31 @@ typedef enum direction_e {
     SUD
 } direction_t ;
 
+typedef struct player_specs_s {
+
+    unsigned int life;
+    unsigned int move_speed;
+    unsigned int bombs_capacity;
+    unsigned int bombs_left;
+    unsigned int bombs_range;
+    bomb_node_t *bombs_head;
+
+} player_specs_t ;
+
 typedef struct player_s {
 
     unsigned int connected;
     char *username;
     unsigned int p_id;
-    unsigned int x;
-    unsigned int y;
+    pos_t pos;
     unsigned int direction;
+    player_specs_t specs;
+    unsigned int last_move_time;
 
 } player_t ;
 
 unsigned int next_id(player_t *players);
 void init_player(player_t *player, int id, const char *username);
-void move_player(player_t *player, direction_t direction);
 void reset_player(player_t *player);
 
 #endif

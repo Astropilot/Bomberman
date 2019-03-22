@@ -24,9 +24,13 @@ TText* New_TText(TFrame *frame, const char *text, TTF_Font *font, SDL_Color colo
 static void TText_Init(TText *this, TFrame *frame, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect pos)
 {
     this->Draw = TText_Draw;
+    this->Change_Text = TText_Change_Text;
     this->text = strdup(text);
     this->pos = pos;
+    this->font = font;
+    this->color = color;
     this->texture = createText(frame, this->text, font, color, &this->pos);
+    this->is_visible = 1;
 }
 
 void TText_Draw(TText *this, TFrame *frame)
@@ -37,11 +41,21 @@ void TText_Draw(TText *this, TFrame *frame)
     SDL_RenderCopy(frame->window->renderer_window, this->texture, NULL, &this->pos);
 }
 
+void TText_Change_Text(TText *this, TFrame *frame, const char *text)
+{
+    free(this->text);
+    SDL_DestroyTexture(this->texture);
+
+    this->text = strdup(text);
+    this->texture = createText(frame, this->text, this->font, this->color, &this->pos);
+}
+
 void TText_New_Free(TText *this)
 {
     if (this) {
         free(this->text);
         SDL_DestroyTexture(this->texture);
+        TTF_CloseFont(this->font);
     }
     free(this);
     printf("Text Free called!\n");

@@ -28,13 +28,13 @@ static void TInput_Init(TInput *this, TFrame *frame, const char *file, SDL_Rect 
     this->Draw = TInput_Draw;
     this->Event_Handler = TInput_Event_Handler;
     this->text = malloc(sizeof(char) * (len + 1));
-    strcpy(this->text, "");
+    this->text[0] = '\0';
     if (placeholder)
         this->placeholder = strdup(placeholder);
     else
         this->placeholder = NULL;
     this->input_sprite = New_TSprite(frame, file, pos);
-    this->font = TTF_OpenFont("fonts/fixedsys.ttf", 24);
+    this->font = loadFont("fonts/fixedsys.ttf", 24); //TODO: Remove font dependency.
     this->color = color;
     this->pos_input = pos;
     s_tmp = TTF_RenderText_Solid(this->font, "TmP", this->color);
@@ -44,6 +44,7 @@ static void TInput_Init(TInput *this, TFrame *frame, const char *file, SDL_Rect 
     this->is_focus = 0;
     this->last_time = 0;
     this->max_len = len;
+    this->is_visible = 1;
     SDL_FreeSurface(s_tmp);
 }
 
@@ -57,7 +58,7 @@ void TInput_Draw(TInput *this, TFrame *frame)
     SDL_Color color = {189, 189, 189, 255};
 
     this->input_sprite->Draw(this->input_sprite, frame);
-    if (strlen(this->text) > 0)
+    if (this->text[0] != '\0')
         text_texture = createText(frame, this->text, this->font, this->color, &this->pos_text);
     else if (this->placeholder)
         text_texture = createText(frame, this->placeholder, this->font, color, &this->pos_text);
@@ -65,7 +66,7 @@ void TInput_Draw(TInput *this, TFrame *frame)
         SDL_RenderCopy(frame->window->renderer_window, text_texture, NULL, &this->pos_text);
         SDL_DestroyTexture(text_texture);
     }
-    if (!text_texture || (strlen(this->text) <= 0)) {
+    if (!text_texture || (this->text[0] == '\0')) {
         this->pos_text.w = 0;
         this->pos_text.h = 0;
     }

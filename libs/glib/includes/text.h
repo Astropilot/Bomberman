@@ -41,9 +41,15 @@ typedef struct TText {
 
     void(*Free)(struct TText*);                 /*!< Free (ressources) method. */
 
+    unsigned int is_visible;                    /*!< Boolean to know if the drawable can be drawed automatically. */
+
+    void(*Change_Text)(struct TText*, TFrame*, const char*); /*!< Method to change the actual text. */
+
     char *text;                                 /*!< The text to be drawed. */
     SDL_Texture *texture;                       /*!< The SDL texture of the text. */
     SDL_Rect pos;                               /*!< The position of the text. */
+    SDL_Color color;                            /*!< The color of the text. */
+    TTF_Font *font;                             /*!< The font of the text. */
 
 } TText ;
 
@@ -72,6 +78,20 @@ TText* New_TText(TFrame *frame, const char *text, TTF_Font *font, SDL_Color colo
  * my_text->Draw(my_text, frame);
  */
 void TText_Draw(TText *this, TFrame *frame);
+
+/**
+ * @fn void Change_Text(TText *this, TFrame *frame, const char *text)
+ * @brief Method for changing the text.
+ *
+ * @param this A pointer to the text object.
+ * @param frame A pointer to the frame object.
+ * @param text The text to change.
+ *
+ * You do not have to call this method directly. You must use the
+ * Change_Text method of the TText structure like this:
+ * my_text->Change_Text(my_text, frame, "My text");
+ */
+void TText_Change_Text(TText *this, TFrame *frame, const char *text);
 
 /**
  * @fn void TText_New_Free(TText *this)

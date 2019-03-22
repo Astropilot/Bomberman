@@ -41,15 +41,23 @@ typedef struct TFrame {
 
     void(*Add_Drawable)(struct TFrame*, TDrawable*, const char*, unsigned int);             /*!< Method for adding a drawable with an ID and a priority. */
 
-    TDrawable*(*Remove_Drawable)(struct TFrame*, const char *id);                           /*!< Method for deleting a drawable by its ID. */
+    TDrawable*(*Remove_Drawable)(struct TFrame*, const char*);                              /*!< Method for deleting a drawable by its ID. */
 
-    TDrawable*(*Get_Drawable)(struct TFrame*, const char *id);                              /*!< Method for getting a drawable by its ID. */
+    unsigned int(*Remove_Drawable_Obj)(struct TFrame*, TDrawable*);
+
+    unsigned int(*Free_Drawable)(struct TFrame*, const char*);                              /*!< Method for deleting and freeing the first drawable found by its ID. */
+
+    unsigned int(*Free_Drawable_Obj)(struct TFrame*, TDrawable*);
+
+    unsigned int(*Free_Drawables)(struct TFrame*, const char*);                             /*!< Method for deleting and freeing all drawables that share the same ID. */
+
+    TDrawable*(*Get_Drawable)(struct TFrame*, const char*);                                 /*!< Method for getting a drawable by its ID. */
 
     void(*Draw_Drawables)(struct TFrame*);                                                  /*!< Method for drawing all the drawables added. */
 
     void(*Init)(struct TFrame*);                                                            /*!< Method to be defined on the TFrame creation. Called one time on first show. */
 
-    void(*On_Load)(struct TFrame*, int argc, va_list args);                                 /*!< Method to be defined on the TFrame creation. Called each time the frame is shown. */
+    void(*On_Load)(struct TFrame*, int, va_list);                                           /*!< Method to be defined on the TFrame creation. Called each time the frame is shown. */
 
     void(*On_Event)(struct TFrame*, SDL_Event);                                             /*!< Method to be defined on the TFrame creation. Called on each SDL event. */
 
@@ -111,10 +119,66 @@ void TFrame_Add_Drawable(TFrame *this, TDrawable *drawable, const char *id, unsi
  * @return The drawable object deleted from the frame.
  *
  * You do not have to call this method directly. You must use the
- * Add_Drawable method of the TFrame structure like this:
+ * Remove_Drawable method of the TFrame structure like this:
  * my_frame->Remove_Drawable(my_frame, "MY_DRAWABLE");
  */
 TDrawable *TFrame_Remove_Drawable(TFrame *this, const char *id);
+
+/**
+ * @fn unsigned int TFrame_Remove_Drawable_Obj(TFrame *this, TDrawable *drawable)
+ * @brief Method for deleting a drawable. The drawable is not free !
+ *
+ * @param this A pointer to the frame object.
+ * @param drawable A pointer to the drawable object to remove.
+ * @return Return 1 if an drawable has been deleted, 0 otherwise.
+ *
+ * You do not have to call this method directly. You must use the
+ * Remove_Drawable_Obj method of the TFrame structure like this:
+ * my_frame->Remove_Drawable_Obj(my_frame, my_drawable);
+ */
+unsigned int TFrame_Remove_Drawable_Obj(TFrame *this, TDrawable *drawable);
+
+/**
+ * @fn unsigned int Free_Drawable(TFrame *this, const char *id)
+ * @brief Method for deleting and free the first drawable found by ID.
+ *
+ * @param this A pointer to the frame object.
+ * @param id The ID of the drawable to delete and free.
+ * @return Return 1 if an drawable has been free, 0 otherwise.
+ *
+ * You do not have to call this method directly. You must use the
+ * Free_Drawable method of the TFrame structure like this:
+ * my_frame->Free_Drawable(my_frame, "MY_DRAWABLE");
+ */
+unsigned int TFrame_Free_Drawable(TFrame *this, const char *id);
+
+/**
+ * @fn unsigned int TFrame_Free_Drawable_Obj(TFrame *this, TDrawable *drawable)
+ * @brief Method for deleting and free a drawable.
+ *
+ * @param this A pointer to the frame object.
+ * @param drawable A pointer to the drawable object to delete and free.
+ * @return Return 1 if the drawable has been free, 0 otherwise.
+ *
+ * You do not have to call this method directly. You must use the
+ * Free_Drawable_Obj method of the TFrame structure like this:
+ * my_frame->Free_Drawable_Obj(my_frame, my_drawable);
+ */
+unsigned int TFrame_Free_Drawable_Obj(TFrame *this, TDrawable *drawable);
+
+/**
+ * @fn unsigned int Free_Drawables(TFrame *this, const char *id)
+ * @brief Method for deleting and free all the drawables that share the same ID.
+ *
+ * @param this A pointer to the frame object.
+ * @param id The ID of the drawables to delete and free.
+ * @return Return the number of drawable deleted.
+ *
+ * You do not have to call this method directly. You must use the
+ * Free_Drawables method of the TFrame structure like this:
+ * my_frame->Free_Drawables(my_frame, "MY_DRAWABLE");
+ */
+unsigned int TFrame_Free_Drawables(TFrame *this, const char *id);
 
 /**
  * @fn TDrawable *TFrame_Get_Drawable(TFrame *this, const char *id)

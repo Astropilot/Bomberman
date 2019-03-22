@@ -39,4 +39,23 @@ typedef struct TFrame TFrame;
  */
 SDL_Texture *createText(TFrame *frame, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect *pos);
 
+/**
+ * @fn TTF_Font *loadFont(const char *font_file, size_t font_size)
+ * @brief Util function for load a font file with a specific size.
+ *
+ * @param font_file The path of the font file.
+ * @param font_size The font size to be used for rendering.
+ * @return A pointer to a TTF_Font or NULL if the load failed.
+ */
+TTF_Font *loadFont(const char *font_file, size_t font_size);
+
+/**
+ * @fn unsigned long hash(const char *str)
+ * @brief Util function for hash a string into a unsigned long number.
+ *
+ * @param str The string to hash.
+ * @return The unsigned long that represent the string.
+ */
+unsigned long hash(const char *str);
+
 #endif

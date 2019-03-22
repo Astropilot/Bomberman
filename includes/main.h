@@ -19,7 +19,24 @@
 #define MAX_PLAYERS 4
 #define MIN_PLAYERS 2
 
+#define MAP_START_PIX_X 368
+#define MAP_START_PIX_Y 159
+
+#define MAP_WIDTH 17
+#define MAP_HEIGHT 15
+#define MAP_BLOCK_SIZE 32
+
+#define CHANCE_BREAKABLE_WALL 5
+
+#define PLAYER_MAX_LIFE 100
+
 #define IS_DEBUG 0
+
+#define RES_PATH "images/"
+#define FONT_PATH "fonts/"
+#define CHAR_PATH RES_PATH "character/"
+#define BOMB_PATH RES_PATH "bomb/"
+#define FLAME_PATH RES_PATH "flame/"
 
 typedef struct lobby_args_e {
     char *username;

@@ -17,6 +17,8 @@ TAckPlaceBombPacket *New_TAckPlaceBombPacket(unsigned char *raw)
 
     this->raw_packet = raw;
     this->packet_id = ACK_PLACE_BOMB;
+    this->status = BOMB_POSED;
+    this->reason = NO_REASON;
     this->Serialize = TAckPlaceBombPacket_Serialize;
     this->Unserialize = TAckPlaceBombPacket_Unserialize;
     this->Free = TAckPlaceBombPacket_New_Free;
@@ -32,6 +34,9 @@ int TAckPlaceBombPacket_Serialize(TAckPlaceBombPacket *this)
         return 0;
     packet_buffer = this->raw_packet;
     packet_buffer = pack_int(packet_buffer, this->packet_id);
+    packet_buffer = pack_uint(packet_buffer, this->status);
+    packet_buffer = pack_uint(packet_buffer, this->reason);
+    packet_buffer = pack_uint(packet_buffer, this->bomb_id);
     packet_buffer = pack_uint(packet_buffer, this->x);
     packet_buffer = pack_uint(packet_buffer, this->y);
     return (packet_buffer - this->raw_packet);
@@ -45,6 +50,9 @@ void TAckPlaceBombPacket_Unserialize(TAckPlaceBombPacket *this)
         return;
     packet_buffer = this->raw_packet;
     packet_buffer = unpack_int(packet_buffer, &(this->packet_id));
+    packet_buffer = unpack_uint(packet_buffer, &(this->status));
+    packet_buffer = unpack_uint(packet_buffer, &(this->reason));
+    packet_buffer = unpack_uint(packet_buffer, &(this->bomb_id));
     packet_buffer = unpack_uint(packet_buffer, &(this->x));
     unpack_uint(packet_buffer, &(this->y));
 }

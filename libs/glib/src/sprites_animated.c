@@ -48,6 +48,7 @@ static void TAnimatedSprites_Init(TAnimatedSprites *this, TFrame *frame, const c
 
         SDL_FreeSurface(surface);
     }
+    this->is_visible = 1;
 }
 
 void TAnimatedSprites_Draw(TAnimatedSprites *this, TFrame *frame)
@@ -66,6 +67,8 @@ void TAnimatedSprites_Draw(TAnimatedSprites *this, TFrame *frame)
         if (this->actual_image == 0 && this->animations > 0)
             (this->animations)--;
     }
+    if (this->animations == 0)
+        frame->Free_Drawable_Obj(frame, (TDrawable*)this);
 }
 
 void TAnimatedSprites_New_Free(TAnimatedSprites *this)
