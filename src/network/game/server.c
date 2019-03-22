@@ -77,12 +77,8 @@ static void *TGameServer_Gameloop(void *p_args)
         while (current_bomb != NULL) {
             if (current_time >= current_bomb->bomb->time_explode) {
                 TAckBombExplodePacket *p_b = New_TAckBombExplodePacket(NULL);
-                player_t *player = &(game_server->map->players[current_bomb->bomb->owner_id]);
 
-                //TODO: Implémenter la logique de l'explosion des bombes.
-
-                player->specs.bombs_left++;
-                p_b->bomb = *(current_bomb->bomb);
+                game_server->map->Explose_Bomb(game_server->map, current_bomb->bomb, p_b);
                 game_server->server->Send_Broadcast(game_server->server, packet_to_message((TPacket*)p_b));
                 p_b->Free(p_b);
 

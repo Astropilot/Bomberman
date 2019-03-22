@@ -17,6 +17,8 @@
 #include "core/utils.h"
 #include "core/bomb.h"
 
+typedef struct TAckBombExplodePacket TAckBombExplodePacket;
+
 typedef enum object_type_e {
     NOTHING,
     WALL,
@@ -44,6 +46,8 @@ typedef struct TMap {
 
     bomb_status_t(*Place_Bomb)(struct TMap*, unsigned int, bomb_reason_t*);
 
+    void(*Explose_Bomb)(struct TMap*, bomb_t*, TAckBombExplodePacket*);
+
     void(*Free)(struct TMap*);
 
     object_type_t **block_map;
@@ -58,6 +62,7 @@ TMap *New_TMap(size_t max_clients);
 void TMap_Generate(TMap *this);
 void TMap_Move_Player(TMap *this, unsigned int player_id, direction_t direction);
 bomb_status_t TMap_Place_Bomb(TMap *this, unsigned int player_id, bomb_reason_t *reason);
+void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TAckBombExplodePacket *packet);
 void TMap_New_Free(TMap *this);
 
 #endif

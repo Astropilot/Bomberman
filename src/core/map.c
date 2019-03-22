@@ -5,10 +5,12 @@
 **      Source file of the game map class.
 */
 
+#include <stdio.h>
 #include <SDL2/SDL.h>
 
 #include "core/map.h"
 #include "core/utils.h"
+#include "network/packets/packet_ack_bombexplode.h"
 
 static void TMap_Init(TMap *this, size_t max_clients);
 
@@ -31,6 +33,7 @@ static void TMap_Init(TMap *this, size_t max_clients)
     this->Generate = TMap_Generate;
     this->Move_Player = TMap_Move_Player;
     this->Place_Bomb = TMap_Place_Bomb;
+    this->Explose_Bomb = TMap_Explose_Bomb;
     this->block_map = malloc(MAP_HEIGHT * sizeof(object_type_t*));
     for (i = 0; i < MAP_HEIGHT; i++) {
         this->block_map[i] = malloc(MAP_WIDTH * sizeof(object_type_t));
@@ -155,9 +158,61 @@ bomb_status_t TMap_Place_Bomb(TMap *this, unsigned int player_id, bomb_reason_t 
     bomb->time_explode = time + 5000;
     bomb->owner_id = player_id;
     add_bomb(&(this->bombs_head), bomb);
-    add_bomb(&(player->specs.bombs_head), bomb);
+    //add_bomb(&(player->specs.bombs_head), bomb);
 
     return (BOMB_POSED);
+}
+
+void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TAckBombExplodePacket *packet)
+{
+    player_t *player = &(this->players[bomb->owner_id]);
+    unsigned int y;
+    unsigned int x;
+    unsigned int bomb_start_x, bomb_start_y;
+    unsigned int bomb_end_x, bomb_end_y;
+
+    player->specs.bombs_left++;
+    packet->bomb = *bomb;
+    //TODO: Implémenter la logique de l'explosion des bombes.
+
+    // Supprimer les murs cassables présent dans le rayon de la bombe +
+    // Remplacer par un extra (bonus/malus) si chance.
+    bomb_start_x = ((int)bomb->bomb_pos.x - (int)bomb->range >= 0) ? bomb->bomb_pos.x - bomb->range : 0;
+    bomb_start_y = ((int)bomb->bomb_pos.y - (int)bomb->range >= 0) ? bomb->bomb_pos.y - bomb->range : 0;
+    bomb_end_x = ((int)bomb->bomb_pos.x + (int)bomb->range < MAP_WIDTH) ? bomb->bomb_pos.x + bomb->range : MAP_WIDTH - 1;
+    bomb_end_y = ((int)bomb->bomb_pos.y + (int)bomb->range < MAP_HEIGHT) ? bomb->bomb_pos.y + bomb->range: MAP_HEIGHT - 1;
+
+    packet->destroyed_count = 0;
+    for (y = bomb_start_y; y <= bomb_end_y; y++)
+        for (x = bomb_start_x; x <= bomb_end_x; x++)
+            if (this->block_map[y][x] == BREAKABLE_WALL)
+                packet->destroyed_count++;
+
+    packet->destroyed_walls = malloc(sizeof(pos_t) * packet->destroyed_count);
+    packet->extra_blocks = malloc(sizeof(object_t) * packet->destroyed_count);
+    packet->destroyed_count = 0;
+    packet->extra_count = 0;
+
+    for (y = bomb_start_y; y <= bomb_end_y; y++) {
+        for (x = bomb_start_x; x <= bomb_end_x; x++) {
+            if (this->block_map[y][x] == BREAKABLE_WALL) {
+                pos_t pos = {x, y};
+                this->block_map[y][x] = NOTHING;
+                if (rand_int(100) <= CHANCE_EXTRA) {
+                    object_t obj = {BONUS_RANGE, {x, y}};
+
+                    this->block_map[y][x] = BONUS_RANGE;
+                    packet->extra_blocks[packet->extra_count] = obj;
+                    packet->extra_count++;
+                }
+
+                packet->destroyed_walls[packet->destroyed_count] = pos;
+                packet->destroyed_count++;
+            }
+        }
+    }
+
+    //TODO: Checker les joueurs dans le rayon et leur retirer de la vie.
 }
 
 void TMap_New_Free(TMap *this)

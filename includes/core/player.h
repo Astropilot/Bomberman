@@ -29,7 +29,6 @@ typedef struct player_specs_s {
     unsigned int bombs_capacity;
     unsigned int bombs_left;
     unsigned int bombs_range;
-    bomb_node_t *bombs_head;
 
 } player_specs_t ;
 

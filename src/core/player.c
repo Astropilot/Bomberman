@@ -31,7 +31,6 @@ void init_player(player_t *player, int id, const char *username)
     player->specs.bombs_capacity = 1;
     player->specs.bombs_left = player->specs.bombs_capacity;
     player->specs.bombs_range = 1;
-    player->specs.bombs_head = NULL;
 
     player->last_move_time = 0;
     switch (id) {
@@ -56,15 +55,6 @@ void init_player(player_t *player, int id, const char *username)
 
 void reset_player(player_t *player)
 {
-    bomb_node_t *current = player->specs.bombs_head;
-    bomb_node_t *tmp = NULL;
-
-    while (current != NULL) {
-        tmp = current;
-        current = current->next;
-        free(tmp);
-    }
-
     player->connected = 0;
     free(player->username);
     player->username = NULL;

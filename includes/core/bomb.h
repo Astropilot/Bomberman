@@ -29,7 +29,6 @@ typedef enum bomb_reason_e {
 
 typedef enum bomb_type_e {
     CLASSIC
-    //SQUARE
 } bomb_type_t ;
 
 typedef struct bomb_s {

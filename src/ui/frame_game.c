@@ -154,6 +154,8 @@ static void On_Unload(TFrame* frame)
             frame->Free_Drawable(frame, id);
             sprintf(id, "BWALL_%u_%u", i, j);
             frame->Free_Drawable(frame, id);
+            sprintf(id, "EXTRA_%u_%u", i, j);
+            frame->Free_Drawable(frame, id);
         }
     }
     free(id);

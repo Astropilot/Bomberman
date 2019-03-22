@@ -10,6 +10,7 @@
 
 #include <stdlib.h>
 
+#include "core/map.h"
 #include "core/bomb.h"
 #include "core/utils.h"
 
@@ -24,7 +25,10 @@ typedef struct TAckBombExplodePacket {
     unsigned char *raw_packet;
     int packet_id;
     bomb_t bomb;
-    //object_t *destroyed_blocks;
+    unsigned int destroyed_count;
+    pos_t *destroyed_walls;
+    unsigned int extra_count;
+    object_t *extra_blocks;
 
 } TAckBombExplodePacket ;
 

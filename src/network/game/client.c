@@ -190,9 +190,9 @@ void TGameClient_Handle_Messages(TGameClient *this)
             TAckBombExplodePacket *p_b = New_TAckBombExplodePacket(message.message);
             p_b->Unserialize(p_b);
 
-            char *bomb_id = malloc(sizeof(char) * 255);
-            sprintf(bomb_id, "BOMB_%u", p_b->bomb.id);
-            this->game_frame->Free_Drawable(this->game_frame, bomb_id);
+            id = malloc(sizeof(char) * 255);
+            sprintf(id, "BOMB_%u", p_b->bomb.id);
+            this->game_frame->Free_Drawable(this->game_frame, id);
 
             SDL_Rect size_bomb = {0, 0, 256, 256};
             SDL_Rect pos_bomb = {0, 0, 32, 32};
@@ -202,6 +202,24 @@ void TGameClient_Handle_Messages(TGameClient *this)
                 size_bomb, pos_bomb, 128, 1
             );
             this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp, "BOMB", 2);
+
+            for (i = 0; i < p_b->destroyed_count; i++) {
+                sprintf(id, "BWALL_%u_%u", p_b->destroyed_walls[i].y, p_b->destroyed_walls[i].x);
+                this->game_frame->Free_Drawable(this->game_frame, id);
+            }
+            for (i = 0; i < p_b->extra_count; i++) {
+                SDL_Rect pos_extra = {0, 0, 32, 32};
+
+                map_to_pix((int)p_b->extra_blocks[i].pos.x, (int)p_b->extra_blocks[i].pos.y, &pos_extra.x, &pos_extra.y);
+                sprintf(id, "EXTRA_%u_%u", p_b->extra_blocks[i].pos.y, p_b->extra_blocks[i].pos.x);
+                TSprite *sp_extra = New_TSprite(
+                    this->game_frame, RES_PATH "bonus_range.png",
+                    pos_extra
+                );
+                this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp_extra, id, 3);
+            }
+            free(id);
+            p_b->Free(p_b);
             break;
         default:
             free(message.message);
