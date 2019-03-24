@@ -76,5 +76,4 @@ void TButton_New_Free(TButton *this)
         this->btn_hover_sprite->Free(this->btn_hover_sprite);
     }
     free(this);
-    printf("Button Free called!\n");
 }

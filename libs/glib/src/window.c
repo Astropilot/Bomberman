@@ -5,6 +5,9 @@
 **      Source file of the window of GLib.
 */
 
+#include <stdio.h>
+#include <string.h>
+
 #include "window.h"
 
 static void TWindow_Init(TWindow *this);

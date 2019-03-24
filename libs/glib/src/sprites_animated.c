@@ -6,6 +6,7 @@
 */
 
 #include <stdio.h>
+#include <string.h>
 
 #include "sprites_animated.h"
 #include "frame.h"
@@ -83,5 +84,4 @@ void TAnimatedSprites_New_Free(TAnimatedSprites *this)
         free(this->file_template);
     }
     free(this);
-    printf("Animated Sprites Free called!\n");
 }

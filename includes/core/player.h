@@ -9,7 +9,6 @@
 #define CORE_PLAYER_H_
 
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
 
 #include "core/bomb.h"

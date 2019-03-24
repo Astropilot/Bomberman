@@ -1,5 +1,5 @@
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror -g -lpthread -Iincludes/ -Ilibs/glib/includes
+CFLAGS	= -Wall -Wextra -Werror -g -Iincludes/ -Ilibs/glib/includes
 SDL		= -lSDL2 -lSDL2_ttf -lSDL2_image
 LIBGLIB	= libglib.a
 

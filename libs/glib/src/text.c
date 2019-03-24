@@ -5,6 +5,8 @@
 **      Source file of the text component of GLib.
 */
 
+#include <string.h>
+
 #include "text.h"
 #include "frame.h"
 #include "window.h"
@@ -58,5 +60,4 @@ void TText_New_Free(TText *this)
         TTF_CloseFont(this->font);
     }
     free(this);
-    printf("Text Free called!\n");
 }

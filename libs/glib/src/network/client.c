@@ -13,7 +13,7 @@
 static void TClient_Init(TClient *this);
 static int TClient_Receving(void *p_args);
 
-static pthread_mutex_t mutex_message_event = PTHREAD_MUTEX_INITIALIZER;
+static SDL_mutex *mutex_message_event = NULL;
 
 TClient *New_TClient(void)
 {
@@ -43,6 +43,8 @@ static void TClient_Init(TClient *this)
     this->is_receving = 0;
     this->server = NULL;
     this->client_thread = NULL;
+    if (!mutex_message_event)
+        mutex_message_event = SDL_CreateMutex();
 }
 
 int TClient_Connect(TClient *this, const char *addr, unsigned short int port)
@@ -68,6 +70,7 @@ int TClient_Connect(TClient *this, const char *addr, unsigned short int port)
     if(connect(sock,(SOCKADDR *) &sin, sizeof(SOCKADDR)) == SOCKET_ERROR)
         return (-1);
 
+    SocketNonBlocking(sock, 0);
     this->sock = sock;
     return (0);
 }
@@ -104,14 +107,18 @@ int TClient_Recv(TClient *this, TMessage *message)
         return (-1);
 
     unsigned char buffer_len[2];
-    int recv_res = recv(this->sock, buffer_len, 2, MSG_DONTWAIT);
+    int recv_res = recv(this->sock, buffer_len, 2, 0);
     message->len = recv_res;
+    #ifdef _WIN32
+    if (recv_res <= 0) return (WSAGetLastError());
+    #else
     if (recv_res <= 0) return (errno);
+    #endif
 
     unpack_int(buffer_len, &(message->len));
 
     unsigned char *buffer = malloc(sizeof(unsigned char) * message->len);
-    message->len = recv(this->sock, buffer, message->len, MSG_DONTWAIT);
+    message->len = recv(this->sock, buffer, message->len, 0);
 
     message->message = buffer;
 
@@ -124,7 +131,6 @@ void TClient_Start_Recv(TClient *this, TServer *server)
         if (server)
             this->server = server;
         this->is_receving = 1;
-        //pthread_create(&(this->client_thread), NULL, TClient_Receving, (void*)this);
         this->client_thread = SDL_CreateThread(TClient_Receving, "TClient_Receving", (void*)this);
     }
 }
@@ -133,7 +139,6 @@ void TClient_Stop_Recv(TClient *this)
 {
     if (this->is_receving == 1) {
         this->is_receving = 0;
-        //pthread_join(this->client_thread, NULL);
         SDL_WaitThread(this->client_thread, NULL);
     }
 }
@@ -145,26 +150,30 @@ static int TClient_Receving(void *p_args)
     while (client && client->is_receving) {
         TMessage message;
         int res_read = TClient_Recv(client, &message);
-
-        pthread_mutex_lock(&mutex_message_event);
-        if (res_read != EWOULDBLOCK && res_read != EAGAIN && message.len > 0) {
+        #ifdef _WIN32
+        if (res_read != WSAEWOULDBLOCK && res_read != EAGAIN && message.len > 0)
+        #else
+        if (res_read != EWOULDBLOCK && res_read != EAGAIN && message.len > 0)
+        #endif
+            {
+            SDL_LockMutex(mutex_message_event);
             if (client->On_Message)
                 client->On_Message(client, message);
             else if (client->Server_On_Message && client->server)
                 client->Server_On_Message(client, client->server, message);
+            SDL_UnlockMutex(mutex_message_event);
         }
         else if (message.len == 0) {
             client->is_receving = 0;
         }
-        pthread_mutex_unlock(&mutex_message_event);
     }
 
-    pthread_mutex_lock(&mutex_message_event);
+    SDL_LockMutex(mutex_message_event);
     if (client->On_Disconnect)
         client->On_Disconnect(client);
     if (client->Server_On_Disconnect && client->server)
         client->Server_On_Disconnect(client, client->server);
-    pthread_mutex_unlock(&mutex_message_event);
+    SDL_UnlockMutex(mutex_message_event);
     closesocket(client->sock);
     client->server = NULL;
     client->Free(client);

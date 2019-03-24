@@ -21,7 +21,6 @@
 #define GLIB_INPUTBOX_H_
 
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>

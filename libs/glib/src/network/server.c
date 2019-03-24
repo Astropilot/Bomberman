@@ -61,14 +61,12 @@ static void TServer_Init(TServer *this, unsigned short int port, size_t max_c)
 void TServer_Start_Listenning(TServer *this)
 {
     this->is_listenning = 1;
-    //pthread_create(&(this->server_thread), NULL, TServer_Listenning, (void*)this);
     this->server_thread = SDL_CreateThread(TServer_Listenning, "TServer_Listenning", (void*)this);
 }
 
 void TServer_Stop_Listenning(TServer *this)
 {
     this->is_listenning = 0;
-    //pthread_join(this->server_thread, NULL);
     SDL_WaitThread(this->server_thread, NULL);
 }
 
@@ -106,6 +104,8 @@ static int TServer_Listenning(void *p_args)
                 int client_socket = accept(server->server_sock, NULL, NULL);
                 if (client_socket != SOCKET_ERROR) {
                     TClient *client = New_TClient();
+
+                    SocketNonBlocking(client_socket, 0);
                     client->sock = client_socket;
                     client->Server_On_Message = TServer_Client_OnMessage;
                     client->Server_On_Disconnect = TServer_Client_OnDisconnect;

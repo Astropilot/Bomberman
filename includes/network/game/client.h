@@ -9,7 +9,6 @@
 #define NETWORK_CLIENT_H_
 
 #include <stdlib.h>
-#include <unistd.h>
 
 #include "network/network.h"
 #include "glib.h"

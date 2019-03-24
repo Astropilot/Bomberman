@@ -5,6 +5,8 @@
 **      Source file of the player class.
 */
 
+#include <string.h>
+
 #include "main.h"
 #include "core/player.h"
 #include "core/utils.h"

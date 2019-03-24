@@ -9,7 +9,7 @@
 #define NETWORK_SERVER_H_
 
 #include <stdlib.h>
-#include <unistd.h>
+#include <SDL2/SDL_thread.h>
 
 #include "main.h"
 #include "network/network.h"
@@ -25,7 +25,7 @@ typedef struct TGameServer {
     void(*Free)(struct TGameServer*);
 
     TServer *server;
-    pthread_t server_thread;
+    SDL_Thread *server_thread;
     unsigned int is_listenning;
     int max_clients;
     int nb_players;

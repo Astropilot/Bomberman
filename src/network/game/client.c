@@ -77,7 +77,11 @@ void TGameClient_Handle_Messages(TGameClient *this)
     TMessage message;
     int packet_id;
     int res_read = this->client->Recv(this->client, &message);
-    if (res_read == EWOULDBLOCK || res_read == EAGAIN || message.len <= 0) return;
+    #ifdef _WIN32
+        if (res_read == WSAEWOULDBLOCK || res_read == EAGAIN || message.len <= 0) return;
+    #else
+        if (res_read == EWOULDBLOCK || res_read == EAGAIN || message.len <= 0) return;
+    #endif
 
     packet_id = extract_packet_id(message.message);
     switch (packet_id) {
@@ -188,8 +192,7 @@ void TGameClient_Handle_Messages(TGameClient *this)
                 this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp, bomb_id, 2);
                 free(bomb_id);
                 this->bomb_offset = p_ab->bomb_id;
-            } else
-                printf("[Client] Bomb error, reason: %u\n", p_ab->reason);
+            }
 
             p_ab->Free(p_ab);
             break;

@@ -6,10 +6,10 @@
 */
 
 #include <stdio.h>
-#include <unistd.h>
 
 #include "main.h"
 #include "glib.h"
+#include "network/network.h"
 #include "ui/frame_game.h"
 #include "ui/frame_main_menu.h"
 #include "ui/frame_host_menu.h"
@@ -28,7 +28,9 @@ int main(void)
     TFrame *frame_join_menu = New_JoinMenuFrame();
     TFrame *frame_lobby = New_LobbyFrame(lobbyclient);
     TFrame *frame_game = New_GameFrame(gameclient);
+    int process_result = EXIT_SUCCESS;
 
+    InitNetworking();
     if (window) {
         window->Add_Frame(window, frame_main_menu);
         window->Add_Frame(window, frame_host_menu);
@@ -40,7 +42,8 @@ int main(void)
         window->Free(window);
         window = NULL;
     } else
-        return (EXIT_FAILURE);
+        process_result = EXIT_FAILURE;
 
-    return (EXIT_SUCCESS);
+    ResetNetworking();
+    return (process_result);
 }

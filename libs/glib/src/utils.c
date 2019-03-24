@@ -5,6 +5,8 @@
 **      Source file of the util functions of GLib.
 */
 
+#include <stdio.h>
+
 #include "utils.h"
 #include "frame.h"
 #include "window.h"
@@ -32,7 +34,7 @@ TTF_Font *loadFont(const char *font_file, size_t font_size)
 
     font = TTF_OpenFont(font_file, font_size);
     if (!font)
-        printf("[GLib] Unable to load the font %s, reason: %s\n", font_file, TTF_GetError());
+        fprintf(stderr, "[GLib] Unable to load the font %s, reason: %s\n", font_file, TTF_GetError());
     return (font);
 }
 

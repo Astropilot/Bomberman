@@ -21,7 +21,6 @@
 #define GLIB_SPRITES_ANIMATED_H_
 
 #include <stdlib.h>
-#include <unistd.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 

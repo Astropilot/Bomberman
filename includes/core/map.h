@@ -9,7 +9,6 @@
 #define CORE_MAP_H_
 
 #include <stdlib.h>
-#include <unistd.h>
 #include <stdio.h>
 
 #include "main.h"

@@ -5,6 +5,8 @@
 **      Source file of the animated sprite component of GLib.
 */
 
+#include <string.h>
+
 #include "sprite_animated.h"
 #include "frame.h"
 #include "window.h"
@@ -69,5 +71,4 @@ void TAnimatedSprite_New_Free(TAnimatedSprite *this)
         SDL_DestroyTexture(this->texture);
     }
     free(this);
-    printf("Animated Sprite Free called!\n");
 }

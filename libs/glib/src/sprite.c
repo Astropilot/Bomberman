@@ -5,6 +5,8 @@
 **      Source file of the sprite component of GLib.
 */
 
+#include <string.h>
+
 #include "sprite.h"
 #include "frame.h"
 #include "window.h"
@@ -48,5 +50,4 @@ void TSprite_New_Free(TSprite *this)
         SDL_DestroyTexture(this->texture);
     }
     free(this);
-    printf("Sprite Free called!\n");
 }

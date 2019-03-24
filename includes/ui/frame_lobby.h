@@ -9,7 +9,6 @@
 #define FRAME_LOBBY_H_
 
 #include <stdio.h>
-#include <unistd.h>
 #include <stdarg.h>
 
 #include "glib.h"

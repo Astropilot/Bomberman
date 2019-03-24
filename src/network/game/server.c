@@ -6,12 +6,11 @@
 */
 
 #include <stdio.h>
-#include <pthread.h>
 #include <SDL2/SDL.h>
 
 #include "network/game/server.h"
 
-static void *TGameServer_Gameloop(void *p_args);
+static int TGameServer_Gameloop(void *p_args);
 static void On_Message(TServer *server, TClient *client, TMessage message);
 
 static TGameServer *game_server;
@@ -29,6 +28,7 @@ TGameServer* New_TGameServer()
     this->ready_players = 0;
     this->map = NULL;
     this->is_listenning = 0;
+    this->server_thread = NULL;
     this->Start = TGameServer_Start;
     this->Stop = TGameServer_Stop;
     this->Free = TGameServer_New_Free;
@@ -45,7 +45,8 @@ void TGameServer_Start(TGameServer *this, int port, int max_clients)
     this->ready_players = 0;
     this->server->Start_Listenning(this->server);
     this->is_listenning = 1;
-    pthread_create(&(this->server_thread), NULL, TGameServer_Gameloop, NULL);
+    //pthread_create(&(this->server_thread), NULL, TGameServer_Gameloop, NULL);
+    this->server_thread = SDL_CreateThread(TGameServer_Gameloop, "TGameServer_Gameloop", NULL);
 }
 
 void TGameServer_Stop(TGameServer *this)
@@ -55,7 +56,8 @@ void TGameServer_Stop(TGameServer *this)
     TAckDisconnectPacket *p = New_TAckDisconnectPacket(NULL);
 
     this->is_listenning = 0;
-    pthread_join(this->server_thread, NULL);
+    //pthread_join(this->server_thread, NULL);
+    SDL_WaitThread(this->server_thread, NULL);
     p->reason = MASTER_LEAVE;
     this->server->Send_Broadcast(this->server, packet_to_message((TPacket*)p));
     this->server->Free(this->server);
@@ -65,7 +67,7 @@ void TGameServer_Stop(TGameServer *this)
     p->Free(p);
 }
 
-static void *TGameServer_Gameloop(void *p_args)
+static int TGameServer_Gameloop(void *p_args)
 {
     unsigned int current_time = 0;
 
@@ -91,7 +93,7 @@ static void *TGameServer_Gameloop(void *p_args)
         }
     }
     (void) p_args;
-    return (NULL);
+    return (0);
 }
 
 void On_Message(TServer *server, TClient *client, TMessage message)

@@ -5,6 +5,8 @@
 **      Source file of the input box component of GLib.
 */
 
+#include <string.h>
+
 #include "inputbox.h"
 #include "frame.h"
 #include "window.h"
@@ -129,5 +131,4 @@ void TInput_New_Free(TInput *this)
         TTF_CloseFont(this->font);
     }
     free(this);
-    printf("Input Free called!\n");
 }
