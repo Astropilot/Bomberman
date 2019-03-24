@@ -8,10 +8,6 @@
 #ifndef PACKET_ACK_MOVE_H_
 #define PACKET_ACK_MOVE_H_
 
-#include <stdlib.h>
-
-#include "core/player.h"
-
 typedef struct TAckMovePacket {
 
     int(*Serialize)(struct TAckMovePacket*);

@@ -19,7 +19,6 @@
 #ifndef GLIB_UTILS_H_
 #define GLIB_UTILS_H_
 
-#include <stdlib.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 

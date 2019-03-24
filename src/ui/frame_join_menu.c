@@ -5,8 +5,12 @@
 **      Source file of the join menu frame.
 */
 
-#include "ui/frame_host_menu.h"
+#include <stdio.h>
+#include <stdarg.h>
+
+#include "glib.h"
 #include "main.h"
+#include "ui/frame_host_menu.h"
 
 static void Init(TFrame* frame);
 static void On_Load(TFrame* frame, int argc, va_list args);

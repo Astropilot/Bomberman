@@ -5,9 +5,10 @@
 **      Source file of the button component of GLib.
 */
 
+#include <SDL2/SDL.h>
+
 #include "button.h"
 #include "frame.h"
-#include "window.h"
 
 static void TButton_Init(TButton *this, TFrame *frame, const char *btn_s, const char *btn_hs, SDL_Rect pos);
 

@@ -1,13 +1,13 @@
 /*
 ** ETNA PROJECT, 05/02/2019 by martin_h, hamide_a, despla_g, weber_w
-** resLib
+** gLib
 ** File description:
 **      Wrapper around the socket API.
 */
 
 /**
  * @file message.h
- * @brief Header file of the message class of ResLib.
+ * @brief Header file of the message class of gLib.
  * @author Yohann.M, Gauthier.D, Aziz.H, William.W
  * @version 1.0
  * @date 28 janvier 2019
@@ -18,8 +18,6 @@
 
 #ifndef GLIB_MESSAGE_H_
 #define GLIB_MESSAGE_H_
-
-#include <stdlib.h>
 
 /**
  * @brief Object oriented structure representing a high-level message.

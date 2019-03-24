@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <SDL2/SDL_image.h>
 
 #include "sprites_animated.h"
 #include "frame.h"

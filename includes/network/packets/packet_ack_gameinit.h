@@ -8,8 +8,6 @@
 #ifndef PACKET_ACK_GAMEINIT_H_
 #define PACKET_ACK_GAMEINIT_H_
 
-#include <stdlib.h>
-
 #include "core/player.h"
 #include "core/map.h"
 

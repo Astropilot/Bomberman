@@ -6,6 +6,8 @@
 */
 
 #include <string.h>
+#include <stdarg.h>
+#include <SDL2/SDL.h>
 
 #include "frame.h"
 #include "utils.h"

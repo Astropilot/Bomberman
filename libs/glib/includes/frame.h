@@ -20,13 +20,8 @@
 #ifndef GLIB_FRAME_H_
 #define GLIB_FRAME_H_
 
-#include <stdlib.h>
 #include <stdarg.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
 
-#include "sprite.h"
 #include "drawable.h"
 
 typedef struct TWindow TWindow;

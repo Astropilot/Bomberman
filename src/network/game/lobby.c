@@ -8,7 +8,15 @@
 #include <string.h>
 
 #include "network/game/lobby.h"
+#include "glib.h"
+#include "network/network.h"
+#include "network/game/server.h"
 #include "network/packets/packet.h"
+#include "network/packets/packet_req_connect.h"
+#include "network/packets/packet_req_startgame.h"
+#include "network/packets/packet_ack_connect.h"
+#include "network/packets/packet_ack_lobbystate.h"
+#include "network/packets/packet_disconnect.h"
 #include "main.h"
 
 TLobbyClient* New_TLobbyClient()

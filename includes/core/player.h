@@ -8,10 +8,6 @@
 #ifndef CORE_PLAYER_H_
 #define CORE_PLAYER_H_
 
-#include <stdlib.h>
-#include <string.h>
-
-#include "core/bomb.h"
 #include "core/utils.h"
 
 typedef enum direction_e {

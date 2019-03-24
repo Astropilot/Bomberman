@@ -5,6 +5,8 @@
 **      Source file of the input box component of GLib.
 */
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <string.h>
 
 #include "inputbox.h"

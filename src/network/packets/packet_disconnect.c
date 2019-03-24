@@ -5,8 +5,8 @@
 **      Source file of the packets disconnect.
 */
 
-#include "network/packets/packet_disconnect.h"
 #include "network/packets/packet.h"
+#include "network/packets/packet_disconnect.h"
 #include "network/network.h"
 
 TReqDisconnectPacket *New_TReqDisconnectPacket(unsigned char *raw)

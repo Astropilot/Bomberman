@@ -1,13 +1,13 @@
 /*
 ** ETNA PROJECT, 05/02/2019 by martin_h, hamide_a, despla_g, weber_w
-** resLib
+** gLib
 ** File description:
 **      Wrapper around the socket API.
 */
 
 /**
  * @file client.h
- * @brief Header file of the client class of ResLib.
+ * @brief Header file of the client class of gLib.
  * @author Yohann.M, Gauthier.D, Aziz.H, William.W
  * @version 1.0
  * @date 28 janvier 2019
@@ -60,7 +60,6 @@ typedef struct TClient {
 
     SOCKET sock;                            /*!< The client socket */
     unsigned int is_receving;               /*!< An boolean to know if an asynchrone receving has been started. */
-    //pthread_t client_thread;
     SDL_Thread *client_thread;              /*!< The thread for asynchronous receving. */
     TServer* server;                        /*!< Internal reference to a TServer if this client came from an server. */
 

@@ -19,9 +19,6 @@
 #ifndef GLIB_PACKER_H_
 #define GLIB_PACKER_H_
 
-#include <stdlib.h>
-#include <string.h>
-
 /**
  * @fn unsigned char *pack_int(unsigned char *buffer, int i)
  * @brief Transform and add an integer to an unsigned char buffer.

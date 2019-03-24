@@ -1,13 +1,13 @@
 /*
 ** ETNA PROJECT, 05/02/2019 by martin_h, hamide_a, despla_g, weber_w
-** resLib
+** gLib
 ** File description:
 **      Wrapper around the socket API.
 */
 
 /**
  * @file server.h
- * @brief Header file of the server class of ResLib.
+ * @brief Header file of the server class of gLib.
  * @author Yohann.M, Gauthier.D, Aziz.H, William.W
  * @version 1.0
  * @date 28 janvier 2019
@@ -62,8 +62,7 @@ typedef struct TServer {
     SOCKET server_sock;                                     /*!< The socket used by the server.*/
     unsigned int is_listenning;                             /*!< An boolean to know if the server is listening for new clients. */
     size_t max_c;                                           /*!< The maximum number of clients allowed to connect to the server. */
-    //pthread_t server_thread;                                /*!< The thread used for listening. */
-    SDL_Thread *server_thread;
+    SDL_Thread *server_thread;                              /*!< The thread used for listening. */
     TClient_Node *clients_head;                             /*!< The list of connected clients. */
 
 } TServer ;

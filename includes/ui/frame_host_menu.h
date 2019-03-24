@@ -8,10 +8,6 @@
 #ifndef FRAME_HOST_MENU_H_
 #define FRAME_HOST_MENU_H_
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-
 #include "glib.h"
 
 TFrame* New_HostMenuFrame(void);

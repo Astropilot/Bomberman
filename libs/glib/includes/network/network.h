@@ -20,11 +20,10 @@
 #ifndef GLIB_NETWORK_H_
 #define GLIB_NETWORK_H_
 
-#include <stdlib.h>
-
 #include "network/packer.h"
 #include "network/message.h"
 #include "network/client.h"
 #include "network/server.h"
+#include "network/sockets.h"
 
 #endif

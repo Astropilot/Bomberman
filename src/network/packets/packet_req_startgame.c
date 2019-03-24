@@ -5,8 +5,8 @@
 **      Source file of the request packet "start game".
 */
 
-#include "network/packets/packet_req_startgame.h"
 #include "network/packets/packet.h"
+#include "network/packets/packet_req_startgame.h"
 #include "network/network.h"
 
 TReqStartGamePacket *New_TReqStartGamePacket(unsigned char *raw)

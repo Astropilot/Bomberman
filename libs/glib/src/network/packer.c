@@ -1,3 +1,12 @@
+/*
+** ETNA PROJECT, 05/02/2019 by martin_h, hamide_a, despla_g, weber_w
+** gLib
+** File description:
+**      Wrapper around the socket API.
+*/
+
+#include <string.h>
+
 #include "network/packer.h"
 
 unsigned char *pack_int(unsigned char *buffer, int i)

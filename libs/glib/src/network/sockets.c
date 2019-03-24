@@ -1,3 +1,10 @@
+/*
+** ETNA PROJECT, 05/02/2019 by martin_h, hamide_a, despla_g, weber_w
+** gLib
+** File description:
+**      Wrapper around the socket API.
+*/
+
 #include "network/sockets.h"
 
 int InitNetworking(void) {

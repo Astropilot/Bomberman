@@ -19,8 +19,6 @@
 #ifndef GLIB_SOCKETS_H_
 #define GLIB_SOCKETS_H_
 
-#include <stdlib.h>
-
 #ifdef _WIN32
 
 #include <winsock2.h>

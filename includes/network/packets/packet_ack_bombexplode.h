@@ -8,8 +8,6 @@
 #ifndef PACKET_ACK_BOMBEXPLODE_H_
 #define PACKET_ACK_BOMBEXPLODE_H_
 
-#include <stdlib.h>
-
 #include "core/map.h"
 #include "core/bomb.h"
 #include "core/utils.h"

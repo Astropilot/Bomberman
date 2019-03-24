@@ -5,8 +5,8 @@
 **      Source file of the ack packet "start game".
 */
 
-#include "network/packets/packet_ack_startgame.h"
 #include "network/packets/packet.h"
+#include "network/packets/packet_ack_startgame.h"
 #include "network/network.h"
 
 TAckStartGamePacket *New_TAckStartGamePacket(unsigned char *raw)

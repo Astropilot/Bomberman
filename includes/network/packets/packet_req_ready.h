@@ -8,8 +8,6 @@
 #ifndef PACKET_REQ_READY_H_
 #define PACKET_REQ_READY_H_
 
-#include <stdlib.h>
-
 typedef struct TReqReadyPacket {
 
     int(*Serialize)(struct TReqReadyPacket*);

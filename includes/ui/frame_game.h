@@ -8,9 +8,6 @@
 #ifndef FRAME_GAME_H_
 #define FRAME_GAME_H_
 
-#include <stdio.h>
-#include <stdarg.h>
-
 #include "glib.h"
 #include "network/game/client.h"
 

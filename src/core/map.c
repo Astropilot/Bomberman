@@ -8,14 +8,16 @@
 #include <stdio.h>
 #include <SDL2/SDL.h>
 
+#include "main.h"
 #include "core/map.h"
+#include "core/player.h"
 #include "core/utils.h"
 #include "network/packets/packet_ack_bombexplode.h"
 
-static void TMap_Init(TMap *this, size_t max_clients);
+static void TMap_Init(TMap *this, unsigned int max_clients);
 static unsigned int TMap_Take_Extra(TMap *this, player_t *player, int x, int y);
 
-TMap *New_TMap(size_t max_clients)
+TMap *New_TMap(unsigned int max_clients)
 {
     TMap *this = malloc(sizeof(TMap));
 
@@ -26,7 +28,7 @@ TMap *New_TMap(size_t max_clients)
     return this;
 }
 
-static void TMap_Init(TMap *this, size_t max_clients)
+static void TMap_Init(TMap *this, unsigned int max_clients)
 {
     unsigned int i;
     unsigned int j;

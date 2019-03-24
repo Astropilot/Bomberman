@@ -9,7 +9,18 @@
 #include <stdio.h>
 
 #include "network/game/client.h"
+#include "glib.h"
+#include "core/player.h"
+#include "network/network.h"
+#include "network/game/server.h"
 #include "network/packets/packet.h"
+#include "network/packets/packet_req_move.h"
+#include "network/packets/packet_req_placebomb.h"
+#include "network/packets/packet_req_ready.h"
+#include "network/packets/packet_ack_gameinit.h"
+#include "network/packets/packet_ack_move.h"
+#include "network/packets/packet_ack_placebomb.h"
+#include "network/packets/packet_ack_bombexplode.h"
 #include "network/packets/packet_disconnect.h"
 #include "core/utils.h"
 #include "main.h"

@@ -5,14 +5,10 @@
 **      Header file of the game bomb class.
 */
 
+#include "core/utils.h"
+
 #ifndef CORE_BOMB_H_
 #define CORE_BOMB_H_
-
-#include <stdlib.h>
-#include <stdio.h>
-
-#include "main.h"
-#include "core/utils.h"
 
 typedef enum bomb_status_e {
     BOMB_POSED,

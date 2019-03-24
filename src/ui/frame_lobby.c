@@ -5,8 +5,13 @@
 **      Source file of the lobby frame.
 */
 
-#include "ui/frame_lobby.h"
+#include <stdio.h>
+#include <stdarg.h>
+
 #include "main.h"
+#include "glib.h"
+#include "ui/frame_lobby.h"
+#include "network/game/lobby.h"
 
 static void Init(TFrame* frame);
 static void On_Load(TFrame* frame, int argc, va_list args);

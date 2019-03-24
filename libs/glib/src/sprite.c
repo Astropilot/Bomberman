@@ -6,6 +6,8 @@
 */
 
 #include <string.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 #include "sprite.h"
 #include "frame.h"

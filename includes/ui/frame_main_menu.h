@@ -8,9 +8,6 @@
 #ifndef FRAME_MAIN_MENU_H_
 #define FRAME_MAIN_MENU_H_
 
-#include <stdio.h>
-#include <stdarg.h>
-
 #include "glib.h"
 
 TFrame* New_MainMenuFrame(void);

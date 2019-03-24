@@ -8,8 +8,6 @@
 #ifndef PACKET_REQ_PLACEBOMB_H_
 #define PACKET_REQ_PLACEBOMB_H_
 
-#include <stdlib.h>
-
 typedef struct TReqPlaceBombPacket {
 
     int(*Serialize)(struct TReqPlaceBombPacket*);

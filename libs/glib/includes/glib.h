@@ -20,13 +20,7 @@
 #ifndef GLIB_H_
 #define GLIB_H_
 
-#include <stdlib.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
-
 #include "network/network.h"
-
 #include "drawable.h"
 #include "window.h"
 #include "frame.h"

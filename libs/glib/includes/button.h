@@ -20,11 +20,9 @@
 #ifndef GLIB_BUTTON_H_
 #define GLIB_BUTTON_H_
 
-#include <stdlib.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
 
+#include "frame.h"
 #include "sprite.h"
 
 typedef struct TFrame TFrame;
@@ -55,7 +53,7 @@ typedef struct TButton {
 
     void(*On_Click)(struct TButton*, TFrame*); /*!< Callback called when a click event occurs. */
 
-    void(*Event_Handler)(struct TButton*, TFrame *, SDL_Event); /*!< Method call for processing SDL event */
+    void(*Event_Handler)(struct TButton*, TFrame*, SDL_Event); /*!< Method call for processing SDL event */
 
     TSprite *btn_sprite; /*!< A sprite for the button in normal state. */
     TSprite *btn_hover_sprite; /*!< A sprite for the button in hover state. */

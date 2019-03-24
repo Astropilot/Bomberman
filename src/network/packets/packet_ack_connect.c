@@ -5,8 +5,8 @@
 **      Source file of the ack packet "connect".
 */
 
-#include "network/packets/packet_ack_connect.h"
 #include "network/packets/packet.h"
+#include "network/packets/packet_ack_connect.h"
 #include "network/network.h"
 
 TAckConnectPacket *New_TAckConnectPacket(unsigned char *raw)

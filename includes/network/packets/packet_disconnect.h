@@ -8,8 +8,6 @@
 #ifndef PACKET_DISCONNECT_H_
 #define PACKET_DISCONNECT_H_
 
-#include <stdlib.h>
-
 typedef enum leave_reason_e {
     USER_QUIT,
     MASTER_LEAVE

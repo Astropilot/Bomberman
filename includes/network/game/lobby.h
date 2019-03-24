@@ -8,10 +8,8 @@
 #ifndef NETWORK_LOBBY_H_
 #define NETWORK_LOBBY_H_
 
-#include <stdlib.h>
-
-#include "network/network.h"
 #include "glib.h"
+#include "network/network.h"
 #include "network/game/server.h"
 
 typedef struct TLobbyClient {

@@ -5,8 +5,11 @@
 **      Source file of the main menu frame.
 */
 
-#include "ui/frame_main_menu.h"
+#include <stdio.h>
+#include <stdarg.h>
+
 #include "main.h"
+#include "ui/frame_main_menu.h"
 
 static void Init(TFrame* frame);
 static void On_Load(TFrame* frame, int argc, va_list args);

@@ -8,8 +8,6 @@
 #ifndef PACKET_ACK_PLACEBOMB_H_
 #define PACKET_ACK_PLACEBOMB_H_
 
-#include <stdlib.h>
-
 #include "core/bomb.h"
 
 typedef struct TAckPlaceBombPacket {

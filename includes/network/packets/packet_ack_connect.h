@@ -8,8 +8,6 @@
 #ifndef PACKET_ACK_CONNECT_H_
 #define PACKET_ACK_CONNECT_H_
 
-#include <stdlib.h>
-
 typedef enum connect_status_e {
     OK,
     GAME_FULL,

@@ -5,8 +5,8 @@
 **      Source file of the ack packet "lobby state".
 */
 
-#include "network/packets/packet_ack_lobbystate.h"
 #include "network/packets/packet.h"
+#include "network/packets/packet_ack_lobbystate.h"
 #include "network/network.h"
 
 TAckLobbyStatePacket *New_TAckLobbyStatePacket(unsigned char *raw)

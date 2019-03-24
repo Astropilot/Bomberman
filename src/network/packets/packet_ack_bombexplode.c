@@ -5,8 +5,11 @@
 **      Source file of the ack packet "bomb explode".
 */
 
-#include "network/packets/packet_ack_bombexplode.h"
+#include "core/map.h"
+#include "core/bomb.h"
+#include "core/utils.h"
 #include "network/packets/packet.h"
+#include "network/packets/packet_ack_bombexplode.h"
 #include "network/network.h"
 
 TAckBombExplodePacket *New_TAckBombExplodePacket(unsigned char *raw)

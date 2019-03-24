@@ -8,8 +8,6 @@
 #ifndef PACKET_ACK_LOBBYSTATE_H_
 #define PACKET_ACK_LOBBYSTATE_H_
 
-#include <stdlib.h>
-
 typedef struct TAckLobbyStatePacket {
 
     int(*Serialize)(struct TAckLobbyStatePacket*);

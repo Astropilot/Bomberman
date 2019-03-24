@@ -20,11 +20,8 @@
 #ifndef GLIB_WINDOW_H_
 #define GLIB_WINDOW_H_
 
-#include <stdlib.h>
 #include <stdarg.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
 
 #include "frame.h"
 

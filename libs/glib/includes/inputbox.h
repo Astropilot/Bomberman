@@ -20,10 +20,7 @@
 #ifndef GLIB_INPUTBOX_H_
 #define GLIB_INPUTBOX_H_
 
-#include <stdlib.h>
-#include <string.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
 #include "sprite.h"

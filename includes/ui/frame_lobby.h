@@ -8,9 +8,6 @@
 #ifndef FRAME_LOBBY_H_
 #define FRAME_LOBBY_H_
 
-#include <stdio.h>
-#include <stdarg.h>
-
 #include "glib.h"
 #include "network/game/lobby.h"
 

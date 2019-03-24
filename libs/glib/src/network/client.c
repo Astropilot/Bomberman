@@ -1,14 +1,15 @@
 /*
 ** ETNA PROJECT, 05/02/2019 by martin_h, hamide_a, despla_g, weber_w
-** resLib
+** gLib
 ** File description:
 **      Wrapper around the socket API.
 */
 
+#include <SDL2/SDL_thread.h>
 #include <string.h>
 
-#include "network/packer.h"
 #include "network/client.h"
+#include "network/packer.h"
 
 static void TClient_Init(TClient *this);
 static int TClient_Receving(void *p_args);

@@ -8,8 +8,6 @@
 #ifndef CORE_UTILS_H_
 #define CORE_UTILS_H_
 
-#include <stdlib.h>
-
 typedef struct pos_size_s {
 
     unsigned int x;

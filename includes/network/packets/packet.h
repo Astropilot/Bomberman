@@ -8,23 +8,7 @@
 #ifndef NETWORK_PACKET_H_
 #define NETWORK_PACKET_H_
 
-#include <stdlib.h>
-
 #include "network/network.h"
-#include "network/packets/packet_ack_connect.h"
-#include "network/packets/packet_ack_lobbystate.h"
-#include "network/packets/packet_ack_startgame.h"
-#include "network/packets/packet_ack_gameinit.h"
-#include "network/packets/packet_ack_move.h"
-#include "network/packets/packet_ack_placebomb.h"
-#include "network/packets/packet_ack_bombexplode.h"
-#include "network/packets/packet_disconnect.h"
-#include "network/packets/packet_req_connect.h"
-#include "network/packets/packet_req_move.h"
-#include "network/packets/packet_req_placebomb.h"
-#include "network/packets/packet_req_startgame.h"
-#include "network/packets/packet_req_ready.h"
-
 
 typedef enum packet_e {
     REQ_CONNECT      = 0x01,
@@ -42,8 +26,6 @@ typedef enum packet_e {
     ACK_PLACE_BOMB   = 0x0D,
     ACK_BOMB_EXPLODE = 0x0E
 } packet_t;
-
-#include <stdlib.h>
 
 typedef struct TPacket {
 

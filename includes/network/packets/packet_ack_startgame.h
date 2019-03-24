@@ -8,8 +8,6 @@
 #ifndef PACKET_ACK_STARTGAME_H_
 #define PACKET_ACK_STARTGAME_H_
 
-#include <stdlib.h>
-
 typedef struct TAckStartGamePacket {
 
     int(*Serialize)(struct TAckStartGamePacket*);

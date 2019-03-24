@@ -1,10 +1,25 @@
+/*
+** ETNA PROJECT, 28/01/2019 by martin_h, hamide_a, despla_g, weber_w
+** Bomberman
+** File description:
+**      Source file of the utils class.
+*/
+
+#include <stdlib.h>
+#include <time.h>
+
 #include "core/utils.h"
 #include "main.h"
 
 int rand_int(int max) {
+    static int initialized = 0;
     int div = RAND_MAX/(max+1);
     int rand_int;
 
+    if (!initialized) {
+        srand(time(NULL));
+        initialized = 1;
+    }
     do {
         rand_int = rand() / div;
     } while (rand_int > max);

@@ -5,8 +5,8 @@
 **      Source file of the request packet "move player".
 */
 
-#include "network/packets/packet_req_move.h"
 #include "network/packets/packet.h"
+#include "network/packets/packet_req_move.h"
 #include "network/network.h"
 
 TReqMovePlayerPacket *New_TReqMovePlayerPacket(unsigned char *raw)

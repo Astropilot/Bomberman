@@ -6,8 +6,10 @@
 */
 
 #include "main.h"
-#include "network/packets/packet_ack_gameinit.h"
+#include "core/player.h"
+#include "core/map.h"
 #include "network/packets/packet.h"
+#include "network/packets/packet_ack_gameinit.h"
 #include "network/network.h"
 
 TAckGameInitPacket *New_TAckGameInitPacket(unsigned char *raw)

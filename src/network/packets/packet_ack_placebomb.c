@@ -5,8 +5,9 @@
 **      Source file of the ack packet "place bomb".
 */
 
-#include "network/packets/packet_ack_placebomb.h"
+#include "core/bomb.h"
 #include "network/packets/packet.h"
+#include "network/packets/packet_ack_placebomb.h"
 #include "network/network.h"
 
 TAckPlaceBombPacket *New_TAckPlaceBombPacket(unsigned char *raw)

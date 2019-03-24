@@ -8,12 +8,10 @@
 #ifndef NETWORK_SERVER_H_
 #define NETWORK_SERVER_H_
 
-#include <stdlib.h>
 #include <SDL2/SDL_thread.h>
 
 #include "main.h"
 #include "network/network.h"
-#include "network/packets/packet.h"
 #include "core/map.h"
 
 typedef struct TGameServer {

@@ -7,7 +7,25 @@
 
 #include <stdio.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_thread.h>
 
+#include "main.h"
+#include "core/map.h"
+#include "network/network.h"
+#include "network/packets/packet.h"
+#include "network/packets/packet_ack_connect.h"
+#include "network/packets/packet_ack_lobbystate.h"
+#include "network/packets/packet_ack_startgame.h"
+#include "network/packets/packet_ack_gameinit.h"
+#include "network/packets/packet_ack_move.h"
+#include "network/packets/packet_ack_placebomb.h"
+#include "network/packets/packet_ack_bombexplode.h"
+#include "network/packets/packet_disconnect.h"
+#include "network/packets/packet_req_connect.h"
+#include "network/packets/packet_req_move.h"
+#include "network/packets/packet_req_placebomb.h"
+#include "network/packets/packet_req_startgame.h"
+#include "network/packets/packet_req_ready.h"
 #include "network/game/server.h"
 
 static int TGameServer_Gameloop(void *p_args);
@@ -45,7 +63,6 @@ void TGameServer_Start(TGameServer *this, int port, int max_clients)
     this->ready_players = 0;
     this->server->Start_Listenning(this->server);
     this->is_listenning = 1;
-    //pthread_create(&(this->server_thread), NULL, TGameServer_Gameloop, NULL);
     this->server_thread = SDL_CreateThread(TGameServer_Gameloop, "TGameServer_Gameloop", NULL);
 }
 
@@ -56,7 +73,6 @@ void TGameServer_Stop(TGameServer *this)
     TAckDisconnectPacket *p = New_TAckDisconnectPacket(NULL);
 
     this->is_listenning = 0;
-    //pthread_join(this->server_thread, NULL);
     SDL_WaitThread(this->server_thread, NULL);
     p->reason = MASTER_LEAVE;
     this->server->Send_Broadcast(this->server, packet_to_message((TPacket*)p));

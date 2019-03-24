@@ -5,9 +5,14 @@
 **      Source file of the game frame.
 */
 
-#include "ui/frame_game.h"
-#include "core/player.h"
+#include <stdio.h>
+#include <stdarg.h>
+
 #include "main.h"
+#include "glib.h"
+#include "core/player.h"
+#include "ui/frame_game.h"
+#include "network/game/client.h"
 
 static void Init(TFrame *frame);
 static void On_Load(TFrame *frame, int argc, va_list args);

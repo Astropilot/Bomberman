@@ -8,8 +8,6 @@
 #ifndef PACKET_REQ_CONNECT_H_
 #define PACKET_REQ_CONNECT_H_
 
-#include <stdlib.h>
-
 typedef struct TReqConnectPacket {
 
     int(*Serialize)(struct TReqConnectPacket*);

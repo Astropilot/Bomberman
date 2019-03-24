@@ -5,8 +5,12 @@
 **      Source file of the bomb class.
 */
 
-#include "main.h"
+#include <stdlib.h>
+#include <stdio.h>
+
 #include "core/bomb.h"
+#include "main.h"
+#include "core/utils.h"
 
 void add_bomb(bomb_node_t **bombs_head, bomb_t *bomb)
 {

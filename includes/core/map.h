@@ -8,10 +8,6 @@
 #ifndef CORE_MAP_H_
 #define CORE_MAP_H_
 
-#include <stdlib.h>
-#include <stdio.h>
-
-#include "main.h"
 #include "core/player.h"
 #include "core/utils.h"
 #include "core/bomb.h"
@@ -50,14 +46,14 @@ typedef struct TMap {
     void(*Free)(struct TMap*);
 
     object_type_t **block_map;
-    size_t max_players;
+    unsigned int max_players;
     player_t *players;
     bomb_node_t *bombs_head;
     unsigned int bomb_offset;
 
 } TMap ;
 
-TMap *New_TMap(size_t max_clients);
+TMap *New_TMap(unsigned int max_clients);
 void TMap_Generate(TMap *this);
 unsigned int TMap_Move_Player(TMap *this, unsigned int player_id, direction_t direction);
 bomb_status_t TMap_Place_Bomb(TMap *this, unsigned int player_id, bomb_reason_t *reason);

@@ -20,9 +20,7 @@
 #ifndef GLIB_SPRITE_ANIMATED_H_
 #define GLIB_SPRITE_ANIMATED_H_
 
-#include <stdlib.h>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 
 typedef struct TFrame TFrame;
 

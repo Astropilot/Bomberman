@@ -8,8 +8,6 @@
 #ifndef PACKET_REQ_STARTGAME_H_
 #define PACKET_REQ_STARTGAME_H_
 
-#include <stdlib.h>
-
 typedef struct TReqStartGamePacket {
 
     int(*Serialize)(struct TReqStartGamePacket*);

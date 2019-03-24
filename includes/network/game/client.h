@@ -8,12 +8,10 @@
 #ifndef NETWORK_CLIENT_H_
 #define NETWORK_CLIENT_H_
 
-#include <stdlib.h>
-
-#include "network/network.h"
 #include "glib.h"
-#include "network/game/server.h"
 #include "core/player.h"
+#include "network/network.h"
+#include "network/game/server.h"
 
 typedef struct TGameClient {
 

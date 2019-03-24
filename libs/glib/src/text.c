@@ -6,10 +6,13 @@
 */
 
 #include <string.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 #include "text.h"
 #include "frame.h"
 #include "window.h"
+#include "utils.h"
 
 static void TText_Init(TText *this, TFrame *frame, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect pos);
 

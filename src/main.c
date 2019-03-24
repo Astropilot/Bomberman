@@ -5,16 +5,14 @@
 **      Source file of the main program that starts the game.
 */
 
-#include <stdio.h>
-
 #include "main.h"
 #include "glib.h"
-#include "network/network.h"
 #include "ui/frame_game.h"
 #include "ui/frame_main_menu.h"
 #include "ui/frame_host_menu.h"
 #include "ui/frame_join_menu.h"
 #include "ui/frame_lobby.h"
+#include "network/network.h"
 #include "network/game/client.h"
 #include "network/game/lobby.h"
 
