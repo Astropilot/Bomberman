@@ -12,5 +12,6 @@
 #include "network/game/client.h"
 
 TFrame* New_GameFrame(TGameClient *m_gameclient);
+void GameFrame_UpdatePlayerInfo(TFrame *frame, player_t player);
 
 #endif

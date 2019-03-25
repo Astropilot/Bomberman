@@ -19,7 +19,7 @@
 #include "network/packets/packet_ack_gameinit.h"
 #include "network/packets/packet_ack_move.h"
 #include "network/packets/packet_ack_placebomb.h"
-#include "network/packets/packet_ack_bombexplode.h"
+#include "network/packets/packet_ack_playerupdate.h"
 #include "network/packets/packet_disconnect.h"
 #include "network/packets/packet_req_connect.h"
 #include "network/packets/packet_req_move.h"
@@ -94,11 +94,7 @@ static int TGameServer_Gameloop(void *p_args)
         current_time = SDL_GetTicks();
         while (current_bomb != NULL) {
             if (current_time >= current_bomb->bomb->time_explode) {
-                TAckBombExplodePacket *p_b = New_TAckBombExplodePacket(NULL);
-
-                game_server->map->Explose_Bomb(game_server->map, current_bomb->bomb, p_b);
-                game_server->server->Send_Broadcast(game_server->server, packet_to_message((TPacket*)p_b));
-                p_b->Free(p_b);
+                game_server->map->Explose_Bomb(game_server->map, current_bomb->bomb, game_server->server);
 
                 tmp_bomb = current_bomb->bomb;
                 current_bomb = current_bomb->next;
@@ -210,6 +206,13 @@ void On_Message(TServer *server, TClient *client, TMessage message)
             p->take_extra = take_extra;
             server->Send_Broadcast(server, packet_to_message((TPacket*)p));
             p->Free(p);
+            if (take_extra) {
+                TAckPlayerUpdatePacket *p_pu = New_TAckPlayerUpdatePacket(NULL);
+
+                p_pu->player = game_server->map->players[p_rm->player];
+                server->Send_Broadcast(server, packet_to_message((TPacket*)p_pu));
+                p_pu->Free(p_pu);
+            }
 
             p_rm->Free(p_rm);
             break;
@@ -225,8 +228,14 @@ void On_Message(TServer *server, TClient *client, TMessage message)
             p_ab->y = player.pos.y;
 
             if (p_ab->status == BOMB_POSED) {
+                TAckPlayerUpdatePacket *p_pu = New_TAckPlayerUpdatePacket(NULL);
+
                 p_ab->bomb_id = game_server->map->bomb_offset - 1;
+                p_pu->player = game_server->map->players[p_rb->player];
+
                 server->Send_Broadcast(server, packet_to_message((TPacket*)p_ab));
+                server->Send_Broadcast(server, packet_to_message((TPacket*)p_pu));
+                p_pu->Free(p_pu);
             } else
                 client->Send(client, packet_to_message((TPacket*)p_ab));
             p_ab->Free(p_ab);

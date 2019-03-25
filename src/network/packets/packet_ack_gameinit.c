@@ -49,6 +49,10 @@ int TAckGameInitPacket_Serialize(TAckGameInitPacket *this)
             packet_buffer = pack_uint(packet_buffer, this->players[i].pos.x);
             packet_buffer = pack_uint(packet_buffer, this->players[i].pos.y);
             packet_buffer = pack_uint(packet_buffer, this->players[i].direction);
+
+            packet_buffer = pack_uint(packet_buffer, this->players[i].specs.life);
+            packet_buffer = pack_uint(packet_buffer, this->players[i].specs.bombs_capacity);
+            packet_buffer = pack_uint(packet_buffer, this->players[i].specs.bombs_left);
         }
     }
     for (i = 0; i < MAP_HEIGHT; i++) {
@@ -82,6 +86,10 @@ void TAckGameInitPacket_Unserialize(TAckGameInitPacket *this)
         packet_buffer = unpack_uint(packet_buffer, &(this->players[i].pos.x));
         packet_buffer = unpack_uint(packet_buffer, &(this->players[i].pos.y));
         packet_buffer = unpack_uint(packet_buffer, &(this->players[i].direction));
+
+        packet_buffer = unpack_uint(packet_buffer, &(this->players[i].specs.life));
+        packet_buffer = unpack_uint(packet_buffer, &(this->players[i].specs.bombs_capacity));
+        packet_buffer = unpack_uint(packet_buffer, &(this->players[i].specs.bombs_left));
     }
     this->block_map = malloc(MAP_HEIGHT * sizeof(object_type_t*));
     for (i = 0; i < MAP_HEIGHT; i++) {

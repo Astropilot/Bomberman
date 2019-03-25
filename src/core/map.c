@@ -12,7 +12,9 @@
 #include "core/map.h"
 #include "core/player.h"
 #include "core/utils.h"
+#include "network/packets/packet.h"
 #include "network/packets/packet_ack_bombexplode.h"
+#include "network/packets/packet_ack_playerupdate.h"
 
 static void TMap_Init(TMap *this, unsigned int max_clients);
 static unsigned int TMap_Take_Extra(TMap *this, player_t *player, int x, int y);
@@ -78,16 +80,41 @@ void TMap_Generate(TMap *this)
 
 static unsigned int TMap_Take_Extra(TMap *this, player_t *player, int x, int y)
 {
+    unsigned int res = 1;
     if (this->block_map[y][x] == NOTHING) return (0);
 
     switch (this->block_map[y][x]) {
         case BONUS_RANGE:;
             player->specs.bombs_range++;
-            this->block_map[y][x] = NOTHING;
-            return (1);
+            break;
+        case MALUS_RANGE:;
+            if (player->specs.bombs_range > 1)
+                player->specs.bombs_range--;
+            break;
+        case BONUS_CAPACITY:;
+            player->specs.bombs_capacity++;
+            player->specs.bombs_left++;
+            break;
+        case MALUS_CAPACITY:;
+            if (player->specs.bombs_capacity > 1) {
+                player->specs.bombs_capacity--;
+                player->specs.bombs_left--;
+            }
+            break;
+        case BONUS_SPEED:;
+            if (player->specs.move_speed > 200)
+                player->specs.move_speed -= 50;
+            break;
+        case MALUS_SPEED:;
+            if (player->specs.move_speed < 400)
+                player->specs.move_speed += 50;
+            break;
         default:
-            return (0);
+            res = 0;
     }
+    if (res)
+        this->block_map[y][x] = NOTHING;
+    return (res);
 }
 
 unsigned int TMap_Move_Player(TMap *this, unsigned int player_id, direction_t direction)
@@ -177,25 +204,26 @@ bomb_status_t TMap_Place_Bomb(TMap *this, unsigned int player_id, bomb_reason_t 
     bomb->time_explode = time + 5000;
     bomb->owner_id = player_id;
     add_bomb(&(this->bombs_head), bomb);
-    //add_bomb(&(player->specs.bombs_head), bomb);
 
     return (BOMB_POSED);
 }
 
-void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TAckBombExplodePacket *packet)
+void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TServer *server)
 {
     player_t *player = &(this->players[bomb->owner_id]);
+    TAckBombExplodePacket *packet = New_TAckBombExplodePacket(NULL);
+    TAckPlayerUpdatePacket *p_ownerupdate = New_TAckPlayerUpdatePacket(NULL);
     unsigned int y;
     unsigned int x;
+    unsigned int i;
     unsigned int bomb_start_x, bomb_start_y;
     unsigned int bomb_end_x, bomb_end_y;
 
     player->specs.bombs_left++;
     packet->bomb = *bomb;
-    //TODO: Implémenter la logique de l'explosion des bombes.
+    p_ownerupdate->player = this->players[bomb->owner_id];
 
-    // Supprimer les murs cassables présent dans le rayon de la bombe +
-    // Remplacer par un extra (bonus/malus) si chance.
+    // Classic bomb logic
     bomb_start_x = ((int)bomb->bomb_pos.x - (int)bomb->range >= 0) ? bomb->bomb_pos.x - bomb->range : 0;
     bomb_start_y = ((int)bomb->bomb_pos.y - (int)bomb->range >= 0) ? bomb->bomb_pos.y - bomb->range : 0;
     bomb_end_x = ((int)bomb->bomb_pos.x + (int)bomb->range < MAP_WIDTH) ? bomb->bomb_pos.x + bomb->range : MAP_WIDTH - 1;
@@ -204,7 +232,8 @@ void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TAckBombExplodePacket *packet)
     packet->destroyed_count = 0;
     for (y = bomb_start_y; y <= bomb_end_y; y++)
         for (x = bomb_start_x; x <= bomb_end_x; x++)
-            if (this->block_map[y][x] == BREAKABLE_WALL)
+            if ( (x == bomb->bomb_pos.x || y == bomb->bomb_pos.y) &&
+                this->block_map[y][x] == BREAKABLE_WALL)
                 packet->destroyed_count++;
 
     packet->destroyed_walls = malloc(sizeof(pos_t) * packet->destroyed_count);
@@ -214,13 +243,14 @@ void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TAckBombExplodePacket *packet)
 
     for (y = bomb_start_y; y <= bomb_end_y; y++) {
         for (x = bomb_start_x; x <= bomb_end_x; x++) {
-            if (this->block_map[y][x] == BREAKABLE_WALL) {
+            if ( (x == bomb->bomb_pos.x || y == bomb->bomb_pos.y) &&
+                this->block_map[y][x] == BREAKABLE_WALL) {
                 pos_t pos = {x, y};
                 this->block_map[y][x] = NOTHING;
                 if (rand_int(100) <= CHANCE_EXTRA) {
-                    object_t obj = {BONUS_RANGE, {x, y}};
+                    object_t obj = {BONUS_CAPACITY, {x, y}};
 
-                    this->block_map[y][x] = BONUS_RANGE;
+                    this->block_map[y][x] = BONUS_CAPACITY;
                     packet->extra_blocks[packet->extra_count] = obj;
                     packet->extra_count++;
                 }
@@ -232,6 +262,29 @@ void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TAckBombExplodePacket *packet)
     }
 
     //TODO: Checker les joueurs dans le rayon et leur retirer de la vie.
+    for (i = 0; i < this->max_players; i++) {
+        if (this->players[i].connected == 1 && this->players[i].specs.life > 0) {
+            int player_y, player_x;
+            pos_t player_pos = this->players[i].pos;
+
+            pix_to_map((int)player_pos.x, (int)player_pos.y, &player_x, &player_y);
+            if ( (player_x >= (int)bomb_start_x && player_x <= (int)bomb_end_x && player_y == (int)bomb->bomb_pos.y)
+                ||
+                (player_y >= (int)bomb_start_y && player_y <= (int)bomb_end_y && player_x == (int)bomb->bomb_pos.x) ) {
+                    TAckPlayerUpdatePacket *p_pu = New_TAckPlayerUpdatePacket(NULL);
+
+                    this->players[i].specs.life -= 30;
+                    p_pu->player = this->players[i];
+                    server->Send_Broadcast(server, packet_to_message((TPacket*)p_pu));
+                    p_pu->Free(p_pu);
+            }
+        }
+    }
+
+    server->Send_Broadcast(server, packet_to_message((TPacket*)packet));
+    server->Send_Broadcast(server, packet_to_message((TPacket*)p_ownerupdate));
+    p_ownerupdate->Free(p_ownerupdate);
+    packet->Free(packet);
 }
 
 void TMap_New_Free(TMap *this)

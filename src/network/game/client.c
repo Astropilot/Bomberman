@@ -11,6 +11,7 @@
 #include "network/game/client.h"
 #include "glib.h"
 #include "core/player.h"
+#include "ui/frame_game.h"
 #include "network/network.h"
 #include "network/game/server.h"
 #include "network/packets/packet.h"
@@ -21,6 +22,7 @@
 #include "network/packets/packet_ack_move.h"
 #include "network/packets/packet_ack_placebomb.h"
 #include "network/packets/packet_ack_bombexplode.h"
+#include "network/packets/packet_ack_playerupdate.h"
 #include "network/packets/packet_disconnect.h"
 #include "core/utils.h"
 #include "main.h"
@@ -110,6 +112,15 @@ void TGameClient_Handle_Messages(TGameClient *this)
             for (i = 0; i < p_as->nb_players; i++) {
                 player_t player = p_as->players[i];
 
+                sprintf(id, "PLAYER_%u_HPBG", i);
+                TSprite *hbg = (TSprite*)this->game_frame->Get_Drawable(this->game_frame, id);
+                hbg->pos.x  = player.pos.x;
+                hbg->pos.y  = player.pos.y - 10;
+                sprintf(id, "PLAYER_%u_HPBAR", i);
+                TSprite *hbar = (TSprite*)this->game_frame->Get_Drawable(this->game_frame, id);
+                hbar->pos.x  = player.pos.x;
+                hbar->pos.y  = player.pos.y - 10;
+
                 sprintf(id, "PLAYER_%u_%u", i, SUD);
                 ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id))->is_visible = 0;
                 sprintf(id, "PLAYER_%u_%u", i, NORD);
@@ -124,6 +135,7 @@ void TGameClient_Handle_Messages(TGameClient *this)
                 asp->pos.x = player.pos.x;
                 asp->pos.y = player.pos.y;
                 asp->is_visible = 1;
+                GameFrame_UpdatePlayerInfo(this->game_frame, player);
             }
 
 
@@ -176,6 +188,15 @@ void TGameClient_Handle_Messages(TGameClient *this)
             asp->pos.x = player.pos.x;
             asp->pos.y = player.pos.y;
             asp->is_visible = 1;
+
+            sprintf(id, "PLAYER_%u_HPBG", p_mv->player_id);
+            TSprite *hbg = (TSprite*)this->game_frame->Get_Drawable(this->game_frame, id);
+            hbg->pos.x = player.pos.x;
+            hbg->pos.y = player.pos.y - 10;
+            sprintf(id, "PLAYER_%u_HPBAR", p_mv->player_id);
+            TSprite *hbar = (TSprite*)this->game_frame->Get_Drawable(this->game_frame, id);
+            hbar->pos.x = player.pos.x;
+            hbar->pos.y = player.pos.y - 10;
 
             if (p_mv->take_extra) {
                 int x_tmp, y_tmp;
@@ -234,13 +255,21 @@ void TGameClient_Handle_Messages(TGameClient *this)
                 map_to_pix((int)p_b->extra_blocks[i].pos.x, (int)p_b->extra_blocks[i].pos.y, &pos_extra.x, &pos_extra.y);
                 sprintf(id, "EXTRA_%u_%u", p_b->extra_blocks[i].pos.y, p_b->extra_blocks[i].pos.x);
                 TSprite *sp_extra = New_TSprite(
-                    this->game_frame, MAP_PATH "bonus_range.png",
+                    this->game_frame, MAP_PATH "bonus_capacity.png",
                     pos_extra
                 );
                 this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp_extra, id, 3);
             }
             free(id);
             p_b->Free(p_b);
+            break;
+        case ACK_PLAYER_UPDATE:;
+            TAckPlayerUpdatePacket *p_pu = New_TAckPlayerUpdatePacket(message.message);
+            p_pu->Unserialize(p_pu);
+
+            GameFrame_UpdatePlayerInfo(this->game_frame, p_pu->player);
+
+            p_pu->Free(p_pu);
             break;
         default:
             free(message.message);

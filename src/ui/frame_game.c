@@ -62,12 +62,15 @@ static void On_Load(TFrame* frame, int argc, va_list args)
 
     SDL_Rect size = {0, 0, 64, 64};
     SDL_Rect pos = {0, 0, 32, 32};
+    SDL_Rect health_pos = {0, 0, 32, 9};
     char *player_id = malloc(sizeof(char) * 15);
     for (i = 0; i < nb_players; i++) {
         TAnimatedSprites *sp_down = New_TAnimatedSprites(frame, CHAR_PATH "face%02d.png", 7, size, pos, 66, -1);
         TAnimatedSprites *sp_up = New_TAnimatedSprites(frame, CHAR_PATH "back%02d.png", 7, size, pos, 66, -1);
         TAnimatedSprites *sp_right = New_TAnimatedSprites(frame, CHAR_PATH "side_right%02d.png", 17, size, pos, 66, -1);
         TAnimatedSprites *sp_left = New_TAnimatedSprites(frame, CHAR_PATH "side_left%02d.png", 21, size, pos, 66, -1);
+        TSprite *sp_health_bar_bg = New_TSprite(frame, CHAR_PATH "health_bg.png", health_pos);
+        TSprite *sp_health_actual = New_TSprite(frame, CHAR_PATH "health_bar.png", health_pos);
 
         sprintf(player_id, "PLAYER_%d_%u", i, SUD);
         sp_down->is_visible = 0;
@@ -84,12 +87,89 @@ static void On_Load(TFrame* frame, int argc, va_list args)
         sprintf(player_id, "PLAYER_%d_%u", i, OUEST);
         sp_left->is_visible = 0;
         frame->Add_Drawable(frame, (TDrawable*)sp_left, player_id, 1);
+
+        sprintf(player_id, "PLAYER_%d_HPBG", i);
+        frame->Add_Drawable(frame, (TDrawable*)sp_health_bar_bg, player_id, 1);
+        sprintf(player_id, "PLAYER_%d_HPBAR", i);
+        frame->Add_Drawable(frame, (TDrawable*)sp_health_actual, player_id, 1);
     }
     free(player_id);
 
     gameclient->Ready(gameclient);
 
     SDL_RenderClear(frame->window->renderer_window);
+}
+
+void GameFrame_UpdatePlayerInfo(TFrame *frame, player_t player)
+{
+    unsigned int block_start_x;
+    unsigned int block_start_y;
+    char *res_id = malloc(sizeof(char) * 255);
+    char *info_line = malloc(sizeof(char) * 1024);
+    TText *txt_name = NULL;
+    TText *txt_info = NULL;
+
+    switch (player.p_id) {
+        case 0:
+            block_start_x = 0;
+            block_start_y = 0;
+            break;
+        case 1:
+            block_start_x = WIN_WIDTH - BLOCK_INFO_WIDTH;
+            block_start_y = 0;
+            break;
+        case 2:
+            block_start_x = 0;
+            block_start_y = WIN_HEIGHT - BLOCK_INFO_HEIGHT;
+            break;
+        case 3:
+            block_start_x = WIN_WIDTH - BLOCK_INFO_WIDTH;
+            block_start_y = WIN_HEIGHT - BLOCK_INFO_HEIGHT;
+            break;
+        default:
+            free(res_id);
+            free(info_line);
+            return;
+    }
+
+    sprintf(res_id, "PLAYER_%u_NAME", player.p_id);
+    txt_name = (TText*)frame->Get_Drawable(frame, res_id);
+    sprintf(res_id, "PLAYER_%u_INFOS", player.p_id);
+    txt_info = (TText*)frame->Get_Drawable(frame, res_id);
+
+    // Création du block d'info si non existant
+    if (!txt_name) {
+        SDL_Rect pos_text = {0, 0, 0, 0};
+        SDL_Color color = {0, 0, 0, 255};
+        TTF_Font *font = loadFont(FONT_PATH "fixedsys.ttf", 14);
+
+        txt_name = New_TText(frame, "[PLAYER_NAME]", font, color, pos_text);
+        sprintf(res_id, "PLAYER_%u_NAME", player.p_id);
+        frame->Add_Drawable(frame, (TDrawable*)txt_name, res_id, 1);
+        font = loadFont(FONT_PATH "fixedsys.ttf", 14);
+        txt_info = New_TText(frame, "[PLAYER_INFOS]", font, color, pos_text);
+        sprintf(res_id, "PLAYER_%u_INFOS", player.p_id);
+        frame->Add_Drawable(frame, (TDrawable*)txt_info, res_id, 1);
+
+    }
+    txt_name->Change_Text(txt_name, frame, player.username);
+    txt_name->pos.x = block_start_x + (BLOCK_INFO_WIDTH / 2) - (txt_name->pos.w / 2);
+    txt_name->pos.y = block_start_y + 20;
+
+    sprintf(info_line, "Life: %02u/%02d | Bombs left: %02u/%02u",
+        player.specs.life, PLAYER_MAX_LIFE,
+        player.specs.bombs_left, player.specs.bombs_capacity
+    );
+    txt_info->Change_Text(txt_info, frame, info_line);
+    txt_info->pos.x = block_start_x + (BLOCK_INFO_WIDTH / 2) - (txt_info->pos.w / 2);
+    txt_info->pos.y = (txt_name->pos.y + txt_name->pos.h) + 20;
+
+    sprintf(res_id, "PLAYER_%u_HPBAR", player.p_id);
+    TSprite *hbar = (TSprite*)frame->Get_Drawable(frame, res_id);
+    hbar->pos.w = (int)(32 * ((float)player.specs.life / 100.0));
+
+    free(res_id);
+    free(info_line);
 }
 
 static void On_Event(TFrame* frame, SDL_Event event)
@@ -137,6 +217,14 @@ static void On_Unload(TFrame* frame)
     unsigned int res;
 
     do {
+        sprintf(id, "PLAYER_%u_NAME", i);
+        frame->Free_Drawable(frame, id);
+        sprintf(id, "PLAYER_%u_INFOS", i);
+        frame->Free_Drawable(frame, id);
+        sprintf(id, "PLAYER_%u_HPBG", i);
+        frame->Free_Drawable(frame, id);
+        sprintf(id, "PLAYER_%u_HPBAR", i);
+        frame->Free_Drawable(frame, id);
         sprintf(id, "PLAYER_%u_%u", i, SUD);
         frame->Free_Drawable(frame, id);
         sprintf(id, "PLAYER_%d_%u", i, NORD);
