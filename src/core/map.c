@@ -127,7 +127,9 @@ unsigned int TMap_Move_Player(TMap *this, unsigned int player_id, direction_t di
     bomb_node_t *current_bomb = this->bombs_head;
     unsigned int current_time = SDL_GetTicks();
 
-    if (current_time <= player->last_move_time + player->specs.move_speed)
+    if (current_time <= player->last_move_time + player->specs.move_speed
+        ||
+        player->specs.life <= 0)
         return (0);
     player->last_move_time = current_time;
     player->direction = (unsigned int)direction;
@@ -173,7 +175,7 @@ bomb_status_t TMap_Place_Bomb(TMap *this, unsigned int player_id, bomb_reason_t 
     bomb_t *bomb;
     bomb_node_t *current_bomb = this->bombs_head;
 
-    if (player->specs.bombs_left <= 0) {
+    if (player->specs.bombs_left <= 0 || player->specs.life <= 0) {
         *reason = NO_MORE_CAPACITY;
         return (BOMB_CANCELED);
     }
@@ -221,7 +223,6 @@ void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TServer *server)
 
     player->specs.bombs_left++;
     packet->bomb = *bomb;
-    p_ownerupdate->player = this->players[bomb->owner_id];
 
     // Classic bomb logic
     bomb_start_x = ((int)bomb->bomb_pos.x - (int)bomb->range >= 0) ? bomb->bomb_pos.x - bomb->range : 0;
@@ -248,9 +249,10 @@ void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TServer *server)
                 pos_t pos = {x, y};
                 this->block_map[y][x] = NOTHING;
                 if (rand_int(100) <= CHANCE_EXTRA) {
-                    object_t obj = {BONUS_CAPACITY, {x, y}};
+                    object_type_t extra = rand_range_int(BONUS_RANGE, MALUS_SPEED);
+                    object_t obj = {extra, {x, y}};
 
-                    this->block_map[y][x] = BONUS_CAPACITY;
+                    this->block_map[y][x] = extra;
                     packet->extra_blocks[packet->extra_count] = obj;
                     packet->extra_count++;
                 }
@@ -273,7 +275,7 @@ void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TServer *server)
                 (player_y >= (int)bomb_start_y && player_y <= (int)bomb_end_y && player_x == (int)bomb->bomb_pos.x) ) {
                     TAckPlayerUpdatePacket *p_pu = New_TAckPlayerUpdatePacket(NULL);
 
-                    this->players[i].specs.life -= 30;
+                    this->players[i].specs.life = ((int)this->players[i].specs.life - 30 < 0) ? 0 : this->players[i].specs.life - 30;
                     p_pu->player = this->players[i];
                     server->Send_Broadcast(server, packet_to_message((TPacket*)p_pu));
                     p_pu->Free(p_pu);
@@ -281,6 +283,7 @@ void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TServer *server)
         }
     }
 
+    p_ownerupdate->player = this->players[bomb->owner_id];
     server->Send_Broadcast(server, packet_to_message((TPacket*)packet));
     server->Send_Broadcast(server, packet_to_message((TPacket*)p_ownerupdate));
     p_ownerupdate->Free(p_ownerupdate);
@@ -311,4 +314,24 @@ void TMap_New_Free(TMap *this)
         this->players = NULL;
     }
     free(this);
+}
+
+char *extra_to_ressource(object_type_t extra_type)
+{
+    switch (extra_type) {
+        case BONUS_RANGE:
+        case MALUS_RANGE:
+            return MAP_PATH "bonus_range.png";
+            break;
+        case BONUS_CAPACITY:
+        case MALUS_CAPACITY:
+            return MAP_PATH "bonus_capacity.png";
+            break;
+        case BONUS_SPEED:
+        case MALUS_SPEED:
+            return MAP_PATH "bonus_speed.png";
+            break;
+        default:
+            return "";
+    }
 }

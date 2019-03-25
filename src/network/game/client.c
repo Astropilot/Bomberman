@@ -255,7 +255,7 @@ void TGameClient_Handle_Messages(TGameClient *this)
                 map_to_pix((int)p_b->extra_blocks[i].pos.x, (int)p_b->extra_blocks[i].pos.y, &pos_extra.x, &pos_extra.y);
                 sprintf(id, "EXTRA_%u_%u", p_b->extra_blocks[i].pos.y, p_b->extra_blocks[i].pos.x);
                 TSprite *sp_extra = New_TSprite(
-                    this->game_frame, MAP_PATH "bonus_capacity.png",
+                    this->game_frame, extra_to_ressource(p_b->extra_blocks[i].type),
                     pos_extra
                 );
                 this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp_extra, id, 3);

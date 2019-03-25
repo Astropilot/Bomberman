@@ -59,4 +59,6 @@ bomb_status_t TMap_Place_Bomb(TMap *this, unsigned int player_id, bomb_reason_t 
 void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TServer *server);
 void TMap_New_Free(TMap *this);
 
+char *extra_to_ressource(object_type_t extra_type);
+
 #endif

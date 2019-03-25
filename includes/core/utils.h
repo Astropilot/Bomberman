@@ -16,6 +16,7 @@ typedef struct pos_size_s {
 } pos_t ;
 
 int rand_int(int max);
+int rand_range_int(int min, int max);
 void map_to_pix(int x0, int y0, int *x1, int *y1);
 void pix_to_map(int x0, int y0, int *x1, int *y1);
 

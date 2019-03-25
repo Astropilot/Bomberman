@@ -108,6 +108,7 @@ void GameFrame_UpdatePlayerInfo(TFrame *frame, player_t player)
     char *info_line = malloc(sizeof(char) * 1024);
     TText *txt_name = NULL;
     TText *txt_info = NULL;
+    TSprite *sp_game_over = NULL;
 
     switch (player.p_id) {
         case 0:
@@ -136,6 +137,8 @@ void GameFrame_UpdatePlayerInfo(TFrame *frame, player_t player)
     txt_name = (TText*)frame->Get_Drawable(frame, res_id);
     sprintf(res_id, "PLAYER_%u_INFOS", player.p_id);
     txt_info = (TText*)frame->Get_Drawable(frame, res_id);
+    sprintf(res_id, "PLAYER_%u_GO", player.p_id);
+    sp_game_over = (TSprite*)frame->Get_Drawable(frame, res_id);
 
     // Création du block d'info si non existant
     if (!txt_name) {
@@ -145,11 +148,11 @@ void GameFrame_UpdatePlayerInfo(TFrame *frame, player_t player)
 
         txt_name = New_TText(frame, "[PLAYER_NAME]", font, color, pos_text);
         sprintf(res_id, "PLAYER_%u_NAME", player.p_id);
-        frame->Add_Drawable(frame, (TDrawable*)txt_name, res_id, 1);
+        frame->Add_Drawable(frame, (TDrawable*)txt_name, res_id, 2);
         font = loadFont(FONT_PATH "fixedsys.ttf", 14);
         txt_info = New_TText(frame, "[PLAYER_INFOS]", font, color, pos_text);
         sprintf(res_id, "PLAYER_%u_INFOS", player.p_id);
-        frame->Add_Drawable(frame, (TDrawable*)txt_info, res_id, 1);
+        frame->Add_Drawable(frame, (TDrawable*)txt_info, res_id, 2);
 
     }
     txt_name->Change_Text(txt_name, frame, player.username);
@@ -167,6 +170,23 @@ void GameFrame_UpdatePlayerInfo(TFrame *frame, player_t player)
     sprintf(res_id, "PLAYER_%u_HPBAR", player.p_id);
     TSprite *hbar = (TSprite*)frame->Get_Drawable(frame, res_id);
     hbar->pos.w = (int)(32 * ((float)player.specs.life / 100.0));
+
+    if (player.specs.life == 0 && sp_game_over == NULL) {
+        SDL_Rect pos = {block_start_x, block_start_y, BLOCK_INFO_WIDTH, BLOCK_INFO_HEIGHT};
+
+        sp_game_over = New_TSprite(frame, CHAR_PATH "game_over.png", pos);
+        sprintf(res_id, "PLAYER_%u_GO", player.p_id);
+        frame->Add_Drawable(frame, (TDrawable*)sp_game_over, res_id, 1);
+
+        sprintf(res_id, "PLAYER_%u_%u", player.p_id, player.direction);
+        TAnimatedSprites *asp = (TAnimatedSprites*)frame->Get_Drawable(frame, res_id);
+        asp->is_visible = 0;
+
+        sprintf(res_id, "PLAYER_%u_HPBAR", player.p_id);
+        ((TSprite*)frame->Get_Drawable(frame, res_id))->is_visible = 0;
+        sprintf(res_id, "PLAYER_%u_HPBG", player.p_id);
+        ((TSprite*)frame->Get_Drawable(frame, res_id))->is_visible = 0;
+    }
 
     free(res_id);
     free(info_line);
@@ -224,6 +244,8 @@ static void On_Unload(TFrame* frame)
         sprintf(id, "PLAYER_%u_HPBG", i);
         frame->Free_Drawable(frame, id);
         sprintf(id, "PLAYER_%u_HPBAR", i);
+        frame->Free_Drawable(frame, id);
+        sprintf(id, "PLAYER_%u_GO", i);
         frame->Free_Drawable(frame, id);
         sprintf(id, "PLAYER_%u_%u", i, SUD);
         frame->Free_Drawable(frame, id);

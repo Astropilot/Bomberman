@@ -197,21 +197,25 @@ void On_Message(TServer *server, TClient *client, TMessage message)
             unsigned int take_extra;
             p_rm->Unserialize(p_rm);
 
+            player_t p_tmp = game_server->map->players[p_rm->player];
             take_extra = game_server->map->Move_Player(game_server->map, p_rm->player, p_rm->dir);
+            player_t p_new = game_server->map->players[p_rm->player];
 
-            TAckMovePacket *p = New_TAckMovePacket(NULL);
+            if (p_tmp.pos.x != p_new.pos.x || p_tmp.pos.y != p_new.pos.y || p_tmp.direction != p_new.direction) {
+                TAckMovePacket *p = New_TAckMovePacket(NULL);
 
-            p->player_id = p_rm->player;
-            p->player = game_server->map->players[p_rm->player];
-            p->take_extra = take_extra;
-            server->Send_Broadcast(server, packet_to_message((TPacket*)p));
-            p->Free(p);
-            if (take_extra) {
-                TAckPlayerUpdatePacket *p_pu = New_TAckPlayerUpdatePacket(NULL);
+                p->player_id = p_rm->player;
+                p->player = game_server->map->players[p_rm->player];
+                p->take_extra = take_extra;
+                server->Send_Broadcast(server, packet_to_message((TPacket*)p));
+                p->Free(p);
+                if (take_extra) {
+                    TAckPlayerUpdatePacket *p_pu = New_TAckPlayerUpdatePacket(NULL);
 
-                p_pu->player = game_server->map->players[p_rm->player];
-                server->Send_Broadcast(server, packet_to_message((TPacket*)p_pu));
-                p_pu->Free(p_pu);
+                    p_pu->player = game_server->map->players[p_rm->player];
+                    server->Send_Broadcast(server, packet_to_message((TPacket*)p_pu));
+                    p_pu->Free(p_pu);
+                }
             }
 
             p_rm->Free(p_rm);

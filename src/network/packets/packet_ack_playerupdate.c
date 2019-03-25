@@ -38,6 +38,7 @@ int TAckPlayerUpdatePacket_Serialize(TAckPlayerUpdatePacket *this)
     packet_buffer = pack_uint(packet_buffer, this->player.connected);
     packet_buffer = pack_string(packet_buffer, this->player.username);
     packet_buffer = pack_uint(packet_buffer, this->player.p_id);
+    packet_buffer = pack_uint(packet_buffer, this->player.direction);
     packet_buffer = pack_uint(packet_buffer, this->player.specs.life);
     packet_buffer = pack_uint(packet_buffer, this->player.specs.bombs_capacity);
     packet_buffer = pack_uint(packet_buffer, this->player.specs.bombs_left);
@@ -58,6 +59,7 @@ void TAckPlayerUpdatePacket_Unserialize(TAckPlayerUpdatePacket *this)
     this->player.username = malloc(sizeof(char) * 15);
     packet_buffer = unpack_string(packet_buffer, this->player.username);
     packet_buffer = unpack_uint(packet_buffer, &(this->player.p_id));
+    packet_buffer = unpack_uint(packet_buffer, &(this->player.direction));
 
     packet_buffer = unpack_uint(packet_buffer, &(this->player.specs.life));
     packet_buffer = unpack_uint(packet_buffer, &(this->player.specs.bombs_capacity));

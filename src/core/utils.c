@@ -11,19 +11,30 @@
 #include "core/utils.h"
 #include "main.h"
 
-int rand_int(int max) {
-    static int initialized = 0;
+static int rand_init = 0;
+
+int rand_int(int max)
+{
     int div = RAND_MAX/(max+1);
     int rand_int;
 
-    if (!initialized) {
+    if (!rand_init) {
         srand(time(NULL));
-        initialized = 1;
+        rand_init = 1;
     }
     do {
         rand_int = rand() / div;
     } while (rand_int > max);
     return (rand_int);
+}
+
+int rand_range_int(int min, int max)
+{
+    if (!rand_init) {
+        srand(time(NULL));
+        rand_init = 1;
+    }
+    return ( rand() % (max + 1 - min) ) + min;
 }
 
 void map_to_pix(int x0, int y0, int *x1, int *y1)
