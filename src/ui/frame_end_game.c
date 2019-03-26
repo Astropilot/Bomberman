@@ -69,7 +69,10 @@ static void On_Load(TFrame* frame, int argc, va_list args)
     txt_label->pos.x = (WIN_WIDTH / 2) - (txt_label->pos.w / 2);
     txt_label->pos.y = (WIN_HEIGHT / 2) - (txt_label->pos.h / 2);
     free(string_label);
-    free(winner);
+    if (winner) {
+        free(winner->username);
+        free(winner);
+    }
     frame->Add_Drawable(frame, (TDrawable*)txt_label, "LABEL_STATUS", 1);
 }
 
