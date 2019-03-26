@@ -86,7 +86,11 @@ void TLobbyClient_Handle_Messages(TLobbyClient *this)
     TMessage message;
     int packet_id;
     int res_read = this->client->Recv(this->client, &message);
-    if (res_read == EWOULDBLOCK || res_read == EAGAIN || message.len <= 0) return;
+    #ifdef _WIN32
+        if (res_read == WSAEWOULDBLOCK || res_read == EAGAIN || message.len <= 0) return;
+    #else
+        if (res_read == EWOULDBLOCK || res_read == EAGAIN || message.len <= 0) return;
+    #endif
 
     packet_id = extract_packet_id(message.message);
     switch (packet_id) {

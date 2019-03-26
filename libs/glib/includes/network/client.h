@@ -54,12 +54,9 @@ typedef struct TClient {
 
     void(*Server_On_Message)(struct TClient*, TServer*, TMessage);   /*!< Same callback as On_Message but for TServer purpose. */
 
-    void(*On_Disconnect)(struct TClient*);                           /*!< Callback when the connection has been stop. */
-
-    void(*Server_On_Disconnect)(struct TClient*, TServer*);          /*!< Same callback as On_Disconnect but for TServer purpose. */
-
     SOCKET sock;                            /*!< The client socket */
     unsigned int is_receving;               /*!< An boolean to know if an asynchrone receving has been started. */
+    unsigned int is_connected;              /*!< An boolean to know if the socket is connected. */
     SDL_Thread *client_thread;              /*!< The thread for asynchronous receving. */
     TServer* server;                        /*!< Internal reference to a TServer if this client came from an server. */
 

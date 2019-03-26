@@ -25,12 +25,12 @@
 #include "message.h"
 
 /**
- * @brief A linked list node for clients socket.
+ * @brief A linked list node for clients.
  *
- * TClient_Node is an linked list node for stock the clients socket.
+ * TClient_Node is an linked list node for stock the clients.
  */
 typedef struct TClient_Node {
-    SOCKET sock;
+    TClient *client;
     struct TClient_Node *next;
 } TClient_Node ;
 
@@ -49,6 +49,8 @@ typedef struct TServer {
 
     size_t(*CountClients)(struct TServer*);                 /*!< Get the number of connected clients. */
 
+    void(*Disconnect_Client)(struct TServer*, TClient*);    /*!< Disconnect a specific client. */
+
     void(*Free)(struct TServer*);                           /*!< Free (ressources) method. */
 
     /* Callbacks */
@@ -56,8 +58,6 @@ typedef struct TServer {
     void(*On_Connect)(struct TServer*, TClient*);           /*!< Callback called when a client arrive.*/
 
     void(*On_Message)(struct TServer*, TClient*, TMessage); /*!< Callback called when a message is receive. */
-
-    void(*On_Disconnect)(struct TServer*, TClient*);        /*!< Callback called when a client leave. */
 
     SOCKET server_sock;                                     /*!< The socket used by the server.*/
     unsigned int is_listenning;                             /*!< An boolean to know if the server is listening for new clients. */
@@ -126,6 +126,8 @@ void TServer_Send_Broadcast(TServer *this, TMessage message);
  * my_server->CountClients(my_server);
  */
 size_t TServer_CountClients(TServer *this);
+
+void TServer_Disconnect_Client(TServer *this, TClient *client);
 
 /**
  * @fn void TServer_New_Free(TServer *this)

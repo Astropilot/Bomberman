@@ -317,17 +317,17 @@ char *extra_to_ressource(object_type_t extra_type)
 {
     switch (extra_type) {
         case BONUS_RANGE:
+            return MAP_PATH "bomb_range_bonus%02d.png";
         case MALUS_RANGE:
-            return MAP_PATH "bonus_range.png";
-            break;
+            return MAP_PATH "bomb_range_malus%02d.png";
         case BONUS_CAPACITY:
+            return MAP_PATH "bomb_amount_bonus%02d.png";
         case MALUS_CAPACITY:
-            return MAP_PATH "bonus_capacity.png";
-            break;
+            return MAP_PATH "bomb_amount_malus%02d.png";
         case BONUS_SPEED:
+            return MAP_PATH "speed_bonus%02d.png";
         case MALUS_SPEED:
-            return MAP_PATH "bonus_speed.png";
-            break;
+            return MAP_PATH "speed_malus%02d.png";
         default:
             return "";
     }

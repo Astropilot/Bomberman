@@ -139,6 +139,7 @@ void On_Message(TServer *server, TClient *client, TMessage message)
             p_d->Unserialize(p_d);
 
             if (p_d->player >= server->CountClients(server)) {
+                server->Disconnect_Client(server, client);
                 p_d->Free(p_d);
                 break;
             }
@@ -150,6 +151,7 @@ void On_Message(TServer *server, TClient *client, TMessage message)
                 p->nb_players = (int)game_server->nb_players;
                 server->Send_Broadcast(server, packet_to_message((TPacket*)p, 1));
             }
+            server->Disconnect_Client(server, client);
             p_d->Free(p_d);
             break;
         case REQ_CONNECT:;
@@ -174,6 +176,7 @@ void On_Message(TServer *server, TClient *client, TMessage message)
                 p_a->status = GAME_FULL;
                 p_a->player = MAX_PLAYERS + 1;
                 client->Send(client, packet_to_message((TPacket*)p_a, 1));
+                server->Disconnect_Client(server, client);
             }
 
             p_rc->Free(p_rc);

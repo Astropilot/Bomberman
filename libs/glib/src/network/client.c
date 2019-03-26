@@ -37,10 +37,9 @@ static void TClient_Init(TClient *this)
 
     this->On_Message = NULL;
     this->Server_On_Message = NULL;
-    this->On_Disconnect = NULL;
-    this->Server_On_Disconnect = NULL;
 
     this->sock = -1;
+    this->is_connected = 0;
     this->is_receving = 0;
     this->server = NULL;
     this->client_thread = NULL;
@@ -73,12 +72,13 @@ int TClient_Connect(TClient *this, const char *addr, unsigned short int port)
 
     SocketNonBlocking(sock, 0);
     this->sock = sock;
+    this->is_connected = 1;
     return (0);
 }
 
 int TClient_Send(TClient *this, TMessage message)
 {
-    if (this->sock == -1) {
+    if (this->sock == -1 || !this->is_connected) {
         free(message.message);
         return (-1);
     }
@@ -107,7 +107,7 @@ int TClient_Send(TClient *this, TMessage message)
 
 int TClient_Recv(TClient *this, TMessage *message)
 {
-    if (this->sock == -1)
+    if (this->sock == -1 || !this->is_connected)
         return (-1);
 
     unsigned char buffer_len[2];
@@ -144,6 +144,7 @@ void TClient_Stop_Recv(TClient *this)
     if (this->is_receving == 1) {
         this->is_receving = 0;
         SDL_WaitThread(this->client_thread, NULL);
+        this->client_thread = NULL;
     }
 }
 
@@ -152,7 +153,9 @@ static int TClient_Receving(void *p_args)
     TClient *client = (TClient*)p_args;
 
     while (client && client->is_receving) {
-        TMessage message;
+        TMessage message = {0, NULL};
+
+        if (!client->is_connected) continue;
         int res_read = TClient_Recv(client, &message);
         #ifdef _WIN32
         if (res_read != WSAEWOULDBLOCK && res_read != EAGAIN && message.len > 0)
@@ -168,27 +171,19 @@ static int TClient_Receving(void *p_args)
             SDL_UnlockMutex(mutex_message_event);
         }
         else if (message.len == 0) {
-            client->is_receving = 0;
+            client->is_connected = 0;
         }
     }
-
-    SDL_LockMutex(mutex_message_event);
-    if (client->On_Disconnect)
-        client->On_Disconnect(client);
-    if (client->Server_On_Disconnect && client->server)
-        client->Server_On_Disconnect(client, client->server);
-    SDL_UnlockMutex(mutex_message_event);
-    closesocket(client->sock);
-    client->server = NULL;
-    client->Free(client);
     return (0);
 }
 
 void TClient_Disconnect(TClient *this)
 {
     if (this->sock != -1) {
+        this->is_connected = 0;
         this->Stop_Recv(this);
         closesocket(this->sock);
+        this->sock = -1;
     }
 }
 
