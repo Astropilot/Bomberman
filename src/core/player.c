@@ -56,6 +56,29 @@ void init_player(player_t *player, int id, const char *username)
     }
 }
 
+unsigned int alive_players(player_t *players)
+{
+    unsigned int i;
+    unsigned int alive_count = 0;
+
+    for (i = 0; i < MAX_PLAYERS; i++) {
+        if (players[i].connected && players[i].specs.life > 0)
+            alive_count++;
+    }
+    return (alive_count);
+}
+
+player_t *get_first_alive_player(player_t *players)
+{
+    unsigned int i;
+
+    for (i = 0; i < MAX_PLAYERS; i++) {
+        if (players[i].connected && players[i].specs.life > 0)
+            return &(players[i]);
+    }
+    return (NULL);
+}
+
 void reset_player(player_t *player)
 {
     player->connected = 0;

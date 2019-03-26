@@ -5,6 +5,8 @@
 **      Source file of the packet class.
 */
 
+#include <string.h>
+
 #include "network/packets/packet.h"
 #include "network/network.h"
 
@@ -15,10 +17,14 @@ int extract_packet_id(unsigned char *raw_packet)
     return (id_packet);
 }
 
-TMessage packet_to_message(TPacket *packet)
+TMessage packet_to_message(TPacket *packet, unsigned int auto_free)
 {
     int packet_size = packet->Serialize(packet);
-    TMessage message = {packet_size, packet->raw_packet};
+    TMessage message = {packet_size, NULL};
 
+    message.message = malloc(sizeof(unsigned char) * packet_size);
+    memcpy(message.message, packet->raw_packet, packet_size);
+    if (auto_free)
+        packet->Free(packet);
     return (message);
 }

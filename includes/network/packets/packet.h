@@ -17,6 +17,7 @@ typedef enum packet_e {
     REQ_PLACE_BOMB    = 0x04,
     REQ_MOVE          = 0x05,
     REQ_READY         = 0x06,
+
     ACK_CONNECT       = 0x07,
     ACK_DISCONNECT    = 0x08,
     ACK_LOBBY_STATE   = 0x09,
@@ -25,7 +26,8 @@ typedef enum packet_e {
     ACK_MOVE          = 0x0C,
     ACK_PLACE_BOMB    = 0x0D,
     ACK_BOMB_EXPLODE  = 0x0E,
-    ACK_PLAYER_UPDATE = 0x0F
+    ACK_PLAYER_UPDATE = 0x0F,
+    ACK_END_GAME      = 0x10
 } packet_t;
 
 typedef struct TPacket {
@@ -41,6 +43,6 @@ typedef struct TPacket {
 } TPacket ;
 
 int extract_packet_id(unsigned char *raw_packet);
-TMessage packet_to_message(TPacket *packet);
+TMessage packet_to_message(TPacket *packet, unsigned int auto_free);
 
 #endif

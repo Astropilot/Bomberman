@@ -66,8 +66,7 @@ void TLobbyClient_Join_Lobby(TLobbyClient *this, const char *username, const cha
         TReqConnectPacket *p_rc = New_TReqConnectPacket(NULL);
 
         p_rc->player_name = strdup(this->username);
-        this->client->Send(this->client, packet_to_message((TPacket*)p_rc));
-        p_rc->Free(p_rc);
+        this->client->Send(this->client, packet_to_message((TPacket*)p_rc, 1));
     }
 }
 
@@ -76,8 +75,7 @@ void TLobbyClient_Start_Game(TLobbyClient *this)
     TReqStartGamePacket *p_rs = New_TReqStartGamePacket(NULL);
 
     p_rs->player = this->player;
-    this->client->Send(this->client, packet_to_message((TPacket*)p_rs));
-    p_rs->Free(p_rs);
+    this->client->Send(this->client, packet_to_message((TPacket*)p_rs, 1));
 }
 
 void TLobbyClient_Handle_Messages(TLobbyClient *this)
@@ -150,11 +148,10 @@ void TLobbyClient_Leave_Lobby(TLobbyClient *this)
     TReqDisconnectPacket *p_d = New_TReqDisconnectPacket(NULL);
     p_d->reason = (this->is_owner ? MASTER_LEAVE : USER_QUIT);
     p_d->player = (unsigned int)this->player;
-    this->client->Send(this->client, packet_to_message((TPacket*)p_d));
+    this->client->Send(this->client, packet_to_message((TPacket*)p_d, 1));
     this->client->Disconnect(this->client);
     this->client->Free(this->client);
     this->client = NULL;
-    p_d->Free(p_d);
     free(this->username);
     this->username = NULL;
     this->is_owner = 0;

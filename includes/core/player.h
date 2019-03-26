@@ -41,6 +41,8 @@ typedef struct player_s {
 
 unsigned int next_id(player_t *players);
 void init_player(player_t *player, int id, const char *username);
+unsigned int alive_players(player_t *players);
+player_t *get_first_alive_player(player_t *players);
 void reset_player(player_t *player);
 
 #endif

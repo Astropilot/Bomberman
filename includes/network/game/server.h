@@ -29,6 +29,7 @@ typedef struct TGameServer {
     int nb_players;
     int ready_players;
     TMap *map;
+    unsigned int game_started;
 
 } TGameServer ;
 

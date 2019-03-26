@@ -277,17 +277,14 @@ void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TServer *server)
 
                     this->players[i].specs.life = ((int)this->players[i].specs.life - 30 < 0) ? 0 : this->players[i].specs.life - 30;
                     p_pu->player = this->players[i];
-                    server->Send_Broadcast(server, packet_to_message((TPacket*)p_pu));
-                    p_pu->Free(p_pu);
+                    server->Send_Broadcast(server, packet_to_message((TPacket*)p_pu, 1));
             }
         }
     }
 
     p_ownerupdate->player = this->players[bomb->owner_id];
-    server->Send_Broadcast(server, packet_to_message((TPacket*)packet));
-    server->Send_Broadcast(server, packet_to_message((TPacket*)p_ownerupdate));
-    p_ownerupdate->Free(p_ownerupdate);
-    packet->Free(packet);
+    server->Send_Broadcast(server, packet_to_message((TPacket*)packet, 1));
+    server->Send_Broadcast(server, packet_to_message((TPacket*)p_ownerupdate, 1));
 }
 
 void TMap_New_Free(TMap *this)

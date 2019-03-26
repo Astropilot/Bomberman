@@ -20,6 +20,7 @@
 #include "network/packets/packet_ack_move.h"
 #include "network/packets/packet_ack_placebomb.h"
 #include "network/packets/packet_ack_playerupdate.h"
+#include "network/packets/packet_ack_endgame.h"
 #include "network/packets/packet_disconnect.h"
 #include "network/packets/packet_req_connect.h"
 #include "network/packets/packet_req_move.h"
@@ -47,6 +48,7 @@ TGameServer* New_TGameServer()
     this->map = NULL;
     this->is_listenning = 0;
     this->server_thread = NULL;
+    this->game_started = 0;
     this->Start = TGameServer_Start;
     this->Stop = TGameServer_Stop;
     this->Free = TGameServer_New_Free;
@@ -61,6 +63,7 @@ void TGameServer_Start(TGameServer *this, int port, int max_clients)
     this->map = New_TMap((size_t)max_clients);
     this->nb_players = 0;
     this->ready_players = 0;
+    this->game_started = 0;
     this->server->Start_Listenning(this->server);
     this->is_listenning = 1;
     this->server_thread = SDL_CreateThread(TGameServer_Gameloop, "TGameServer_Gameloop", NULL);
@@ -73,23 +76,27 @@ void TGameServer_Stop(TGameServer *this)
     TAckDisconnectPacket *p = New_TAckDisconnectPacket(NULL);
 
     this->is_listenning = 0;
+    this->game_started = 0;
     SDL_WaitThread(this->server_thread, NULL);
     p->reason = MASTER_LEAVE;
-    this->server->Send_Broadcast(this->server, packet_to_message((TPacket*)p));
+    this->server->Send_Broadcast(this->server, packet_to_message((TPacket*)p, 1));
     this->server->Free(this->server);
     this->server = NULL;
     this->map->Free(this->map);
     this->map = NULL;
-    p->Free(p);
 }
 
 static int TGameServer_Gameloop(void *p_args)
 {
     unsigned int current_time = 0;
+    unsigned int game_on = 1;
 
-    while (game_server->is_listenning) {
+    while (game_server->is_listenning && game_on) {
+        if (!game_server->game_started)
+            continue;
         bomb_node_t *current_bomb = game_server->map->bombs_head;
         bomb_t *tmp_bomb = NULL;
+        unsigned int players_alive = 0;
 
         current_time = SDL_GetTicks();
         while (current_bomb != NULL) {
@@ -102,6 +109,21 @@ static int TGameServer_Gameloop(void *p_args)
                 free(tmp_bomb);
             } else
                 current_bomb = current_bomb->next;
+        }
+
+        players_alive = alive_players(game_server->map->players);
+        if (players_alive < 2) {
+            TAckEndGamePacket *p = New_TAckEndGamePacket(NULL);
+
+            if (players_alive == 1) {
+                p->game_result = WINNER;
+                p->winner = get_first_alive_player(game_server->map->players);
+            } else if (players_alive == 0) {
+                p->game_result = DRAW;
+                p->winner = NULL;
+            }
+            game_server->server->Send_Broadcast(game_server->server, packet_to_message((TPacket*)p, 1));
+            game_on = 0;
         }
     }
     (void) p_args;
@@ -126,8 +148,7 @@ void On_Message(TServer *server, TClient *client, TMessage message)
 
                 game_server->nb_players--;
                 p->nb_players = (int)game_server->nb_players;
-                server->Send_Broadcast(server, packet_to_message((TPacket*)p));
-                p->Free(p);
+                server->Send_Broadcast(server, packet_to_message((TPacket*)p, 1));
             }
             p_d->Free(p_d);
             break;
@@ -143,19 +164,16 @@ void On_Message(TServer *server, TClient *client, TMessage message)
                 p_a->status = OK;
                 p_a->player = next_id(game_server->map->players);
                 init_player(&(game_server->map->players[p_a->player]), p_a->player, p_rc->player_name);
-                client->Send(client, packet_to_message((TPacket*)p_a));
-                p_a->Free(p_a);
+                client->Send(client, packet_to_message((TPacket*)p_a, 1));
 
                 game_server->nb_players++;
                 p->nb_players = game_server->nb_players;
-                server->Send_Broadcast(server, packet_to_message((TPacket*)p));
-                p->Free(p);
+                server->Send_Broadcast(server, packet_to_message((TPacket*)p, 1));
             } else {
                 TAckConnectPacket *p_a = New_TAckConnectPacket(NULL);
                 p_a->status = GAME_FULL;
                 p_a->player = MAX_PLAYERS + 1;
-                client->Send(client, packet_to_message((TPacket*)p_a));
-                p_a->Free(p_a);
+                client->Send(client, packet_to_message((TPacket*)p_a, 1));
             }
 
             p_rc->Free(p_rc);
@@ -168,8 +186,7 @@ void On_Message(TServer *server, TClient *client, TMessage message)
                 TAckStartGamePacket *p = New_TAckStartGamePacket(NULL);
 
                 game_server->map->Generate(game_server->map);
-                server->Send_Broadcast(server, packet_to_message((TPacket*)p));
-                p->Free(p);
+                server->Send_Broadcast(server, packet_to_message((TPacket*)p, 1));
             }
 
             p_rs->Free(p_rs);
@@ -186,8 +203,8 @@ void On_Message(TServer *server, TClient *client, TMessage message)
                 p->nb_players = (unsigned int)game_server->nb_players;
                 p->players = game_server->map->players;
                 p->block_map = game_server->map->block_map;
-                server->Send_Broadcast(server, packet_to_message((TPacket*)p));
-                p->Free(p);
+                server->Send_Broadcast(server, packet_to_message((TPacket*)p, 1));
+                game_server->game_started = 1;
             }
 
             p_rr->Free(p_rr);
@@ -207,14 +224,12 @@ void On_Message(TServer *server, TClient *client, TMessage message)
                 p->player_id = p_rm->player;
                 p->player = game_server->map->players[p_rm->player];
                 p->take_extra = take_extra;
-                server->Send_Broadcast(server, packet_to_message((TPacket*)p));
-                p->Free(p);
+                server->Send_Broadcast(server, packet_to_message((TPacket*)p, 1));
                 if (take_extra) {
                     TAckPlayerUpdatePacket *p_pu = New_TAckPlayerUpdatePacket(NULL);
 
                     p_pu->player = game_server->map->players[p_rm->player];
-                    server->Send_Broadcast(server, packet_to_message((TPacket*)p_pu));
-                    p_pu->Free(p_pu);
+                    server->Send_Broadcast(server, packet_to_message((TPacket*)p_pu, 1));
                 }
             }
 
@@ -237,12 +252,10 @@ void On_Message(TServer *server, TClient *client, TMessage message)
                 p_ab->bomb_id = game_server->map->bomb_offset - 1;
                 p_pu->player = game_server->map->players[p_rb->player];
 
-                server->Send_Broadcast(server, packet_to_message((TPacket*)p_ab));
-                server->Send_Broadcast(server, packet_to_message((TPacket*)p_pu));
-                p_pu->Free(p_pu);
+                server->Send_Broadcast(server, packet_to_message((TPacket*)p_ab, 1));
+                server->Send_Broadcast(server, packet_to_message((TPacket*)p_pu, 1));
             } else
-                client->Send(client, packet_to_message((TPacket*)p_ab));
-            p_ab->Free(p_ab);
+                client->Send(client, packet_to_message((TPacket*)p_ab, 1));
 
             p_rb->Free(p_rb);
             break;

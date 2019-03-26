@@ -76,11 +76,16 @@ void TServer_Send_Broadcast(TServer *this, TMessage message)
 
     while (current != NULL) {
         TClient *client = New_TClient();
+        TMessage tmp_message = {message.len, NULL};
+
+        tmp_message.message = malloc(sizeof(unsigned char) * message.len);
+        memcpy(tmp_message.message, message.message, message.len);
         client->sock = current->sock;
-        client->Send(client, message);
+        client->Send(client, tmp_message);
         client->Free(client);
         current = current->next;
     }
+    free(message.message);
 }
 
 static int TServer_Listenning(void *p_args)

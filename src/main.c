@@ -12,6 +12,7 @@
 #include "ui/frame_host_menu.h"
 #include "ui/frame_join_menu.h"
 #include "ui/frame_lobby.h"
+#include "ui/frame_end_game.h"
 #include "network/network.h"
 #include "network/game/client.h"
 #include "network/game/lobby.h"
@@ -26,6 +27,7 @@ int main(void)
     TFrame *frame_join_menu = New_JoinMenuFrame();
     TFrame *frame_lobby = New_LobbyFrame(lobbyclient);
     TFrame *frame_game = New_GameFrame(gameclient);
+    TFrame *frame_end_game = New_EndGameFrame();
     int process_result = EXIT_SUCCESS;
 
     InitNetworking();
@@ -35,6 +37,7 @@ int main(void)
         window->Add_Frame(window, frame_join_menu);
         window->Add_Frame(window, lobbyclient->Register_Frame(lobbyclient, frame_lobby));
         window->Add_Frame(window, gameclient->Register_Frame(gameclient, frame_game));
+        window->Add_Frame(window, frame_end_game);
         window->Create_Window(window, "Bomberman", WIN_WIDTH, WIN_HEIGHT, "FRAME_MAIN_MENU", 30);
 
         window->Free(window);

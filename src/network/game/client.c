@@ -23,6 +23,7 @@
 #include "network/packets/packet_ack_placebomb.h"
 #include "network/packets/packet_ack_bombexplode.h"
 #include "network/packets/packet_ack_playerupdate.h"
+#include "network/packets/packet_ack_endgame.h"
 #include "network/packets/packet_disconnect.h"
 #include "core/utils.h"
 #include "main.h"
@@ -59,8 +60,7 @@ void TGameClient_Ready(TGameClient *this)
     TReqReadyPacket *p_rr = New_TReqReadyPacket(NULL);
 
     p_rr->player = this->player;
-    this->client->Send(this->client, packet_to_message((TPacket*)p_rr));
-    p_rr->Free(p_rr);
+    this->client->Send(this->client, packet_to_message((TPacket*)p_rr, 1));
 }
 
 void TGameClient_Move(TGameClient *this, direction_t direction)
@@ -69,8 +69,7 @@ void TGameClient_Move(TGameClient *this, direction_t direction)
 
     p_rm->dir = (unsigned int)direction;
     p_rm->player = this->player;
-    this->client->Send(this->client, packet_to_message((TPacket*)p_rm));
-    p_rm->Free(p_rm);
+    this->client->Send(this->client, packet_to_message((TPacket*)p_rm, 1));
 }
 
 void TGameClient_Place_Bomb(TGameClient *this)
@@ -78,8 +77,7 @@ void TGameClient_Place_Bomb(TGameClient *this)
     TReqPlaceBombPacket *p_rb = New_TReqPlaceBombPacket(NULL);
 
     p_rb->player = this->player;
-    this->client->Send(this->client, packet_to_message((TPacket*)p_rb));
-    p_rb->Free(p_rb);
+    this->client->Send(this->client, packet_to_message((TPacket*)p_rb, 1));
 }
 
 void TGameClient_Handle_Messages(TGameClient *this)
@@ -271,6 +269,33 @@ void TGameClient_Handle_Messages(TGameClient *this)
 
             p_pu->Free(p_pu);
             break;
+        case ACK_END_GAME:;
+            TAckEndGamePacket *p_eg = New_TAckEndGamePacket(message.message);
+            p_eg->Unserialize(p_eg);
+
+            TReqDisconnectPacket *p_d = New_TReqDisconnectPacket(NULL);
+            p_d->reason = (this->is_owner ? MASTER_LEAVE : USER_QUIT);
+            p_d->player = (unsigned int)this->player;
+            this->client->Send(this->client, packet_to_message((TPacket*)p_d, 1));
+            this->client->Disconnect(this->client);
+            this->client->Free(this->client);
+            this->client = NULL;
+            this->is_owner = 0;
+            this->player = -1;
+            if (this->gameserver) {
+                this->gameserver->Stop(this->gameserver);
+                this->gameserver->Free(this->gameserver);
+                this->gameserver = NULL;
+            }
+            game_result_t game_result = (game_result_t)p_eg->game_result;
+            player_t *player_winner = p_eg->winner;
+            p_eg->winner = NULL;
+            p_eg->Free(p_eg);
+            this->game_frame->window->Show_Frame(
+                this->game_frame->window, "FRAME_END_GAME", 2,
+                game_result, player_winner
+            );
+            break;
         default:
             free(message.message);
     }
@@ -284,10 +309,9 @@ void TGameClient_Leave_Game(TGameClient *this)
     TReqDisconnectPacket *p_d = New_TReqDisconnectPacket(NULL);
     p_d->reason = (this->is_owner ? MASTER_LEAVE : USER_QUIT);
     p_d->player = (unsigned int)this->player;
-    this->client->Send(this->client, packet_to_message((TPacket*)p_d));
+    this->client->Send(this->client, packet_to_message((TPacket*)p_d, 1));
     this->client->Disconnect(this->client);
     this->client->Free(this->client);
-    p_d->Free(p_d);
     this->client = NULL;
     this->is_owner = 0;
     this->player = -1;

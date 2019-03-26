@@ -78,8 +78,10 @@ int TClient_Connect(TClient *this, const char *addr, unsigned short int port)
 
 int TClient_Send(TClient *this, TMessage message)
 {
-    if (this->sock == -1)
+    if (this->sock == -1) {
+        free(message.message);
         return (-1);
+    }
 
     unsigned char *buffer = malloc(sizeof(unsigned char) * (message.len + 2));
     unsigned char *start_buffer = buffer;
@@ -99,6 +101,7 @@ int TClient_Send(TClient *this, TMessage message)
     }
 
     free(start_buffer);
+    free(message.message);
     return (n == -1 ? -1 : 0);
 }
 
