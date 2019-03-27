@@ -152,10 +152,9 @@ static int TClient_Receving(void *p_args)
 {
     TClient *client = (TClient*)p_args;
 
-    while (client && client->is_receving) {
+    while (client && client->is_receving && client->is_connected) {
         TMessage message = {0, NULL};
 
-        if (!client->is_connected) continue;
         int res_read = TClient_Recv(client, &message);
         #ifdef _WIN32
         if (res_read != WSAEWOULDBLOCK && res_read != EAGAIN && message.len > 0)
