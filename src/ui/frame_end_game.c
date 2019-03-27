@@ -38,7 +38,7 @@ TFrame* New_EndGameFrame(void)
 static void Init(TFrame* frame)
 {
     SDL_Rect pos_button = {(WIN_WIDTH / 2) - (410 / 2), WIN_HEIGHT - 64 - 15, 410, 64};
-    TButton *btn_menu = New_TButton(frame, RES_PATH "button_host_normal.png", RES_PATH "button_host_hover.png", pos_button);
+    TButton *btn_menu = New_TButton(frame, RES_PATH "button_backmenu_normal.png", RES_PATH "button_backmenu_hover.png", pos_button);
     btn_menu->On_Click = On_Click_Menu_Button;
 
     frame->Add_Drawable(frame, (TDrawable*)btn_menu, "BTN_MENU", 1);

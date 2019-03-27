@@ -25,6 +25,8 @@ typedef struct TAckBombExplodePacket {
     bomb_t bomb;
     unsigned int destroyed_count;
     pos_t *destroyed_walls;
+    unsigned int flames_count;
+    pos_t *flames_blocks;
     unsigned int extra_count;
     object_t *extra_blocks;
 

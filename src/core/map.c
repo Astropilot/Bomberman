@@ -231,34 +231,49 @@ void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TServer *server)
     bomb_end_y = ((int)bomb->bomb_pos.y + (int)bomb->range < MAP_HEIGHT) ? bomb->bomb_pos.y + bomb->range: MAP_HEIGHT - 1;
 
     packet->destroyed_count = 0;
-    for (y = bomb_start_y; y <= bomb_end_y; y++)
-        for (x = bomb_start_x; x <= bomb_end_x; x++)
-            if ( (x == bomb->bomb_pos.x || y == bomb->bomb_pos.y) &&
-                this->block_map[y][x] == BREAKABLE_WALL)
-                packet->destroyed_count++;
+    packet->flames_count = 0;
+    for (y = bomb_start_y; y <= bomb_end_y; y++) {
+        for (x = bomb_start_x; x <= bomb_end_x; x++) {
+            if (x == bomb->bomb_pos.x || y == bomb->bomb_pos.y) {
+                if (this->block_map[y][x] == BREAKABLE_WALL)
+                    packet->destroyed_count++;
+                else if (this->block_map[y][x] == NOTHING)
+                    if (!(x == bomb->bomb_pos.x && y == bomb->bomb_pos.y))
+                        packet->flames_count++;
+            }
+        }
+    }
 
     packet->destroyed_walls = malloc(sizeof(pos_t) * packet->destroyed_count);
+    packet->flames_blocks = malloc(sizeof(pos_t) * packet->flames_count);
     packet->extra_blocks = malloc(sizeof(object_t) * packet->destroyed_count);
     packet->destroyed_count = 0;
+    packet->flames_count = 0;
     packet->extra_count = 0;
 
     for (y = bomb_start_y; y <= bomb_end_y; y++) {
         for (x = bomb_start_x; x <= bomb_end_x; x++) {
-            if ( (x == bomb->bomb_pos.x || y == bomb->bomb_pos.y) &&
-                this->block_map[y][x] == BREAKABLE_WALL) {
+            if (x == bomb->bomb_pos.x || y == bomb->bomb_pos.y) {
                 pos_t pos = {x, y};
-                this->block_map[y][x] = NOTHING;
-                if (rand_int(100) <= CHANCE_EXTRA) {
-                    object_type_t extra = rand_range_int(BONUS_RANGE, MALUS_SPEED);
-                    object_t obj = {extra, {x, y}};
+                if (this->block_map[y][x] == BREAKABLE_WALL) {
+                    this->block_map[y][x] = NOTHING;
+                    if (rand_int(100) <= CHANCE_EXTRA) {
+                        object_type_t extra = rand_range_int(BONUS_RANGE, MALUS_SPEED);
+                        object_t obj = {extra, {x, y}};
 
-                    this->block_map[y][x] = extra;
-                    packet->extra_blocks[packet->extra_count] = obj;
-                    packet->extra_count++;
+                        this->block_map[y][x] = extra;
+                        packet->extra_blocks[packet->extra_count] = obj;
+                        packet->extra_count++;
+                    }
+
+                    packet->destroyed_walls[packet->destroyed_count] = pos;
+                    packet->destroyed_count++;
+                } else if (this->block_map[y][x] == NOTHING) {
+                    if (!(x == bomb->bomb_pos.x && y == bomb->bomb_pos.y)) {
+                        packet->flames_blocks[packet->flames_count] = pos;
+                        packet->flames_count++;
+                    }
                 }
-
-                packet->destroyed_walls[packet->destroyed_count] = pos;
-                packet->destroyed_count++;
             }
         }
     }

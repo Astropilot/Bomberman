@@ -247,6 +247,17 @@ void TGameClient_Handle_Messages(TGameClient *this)
                 sprintf(id, "BWALL_%u_%u", p_b->destroyed_walls[i].y, p_b->destroyed_walls[i].x);
                 this->game_frame->Free_Drawable(this->game_frame, id);
             }
+            for (i = 0; i < p_b->flames_count; i++) {
+                SDL_Rect size_flame = {0, 0, 48, 48};
+                SDL_Rect pos_flame = {0, 0, 32, 32};
+
+                map_to_pix((int)p_b->flames_blocks[i].x, (int)p_b->flames_blocks[i].y, &pos_flame.x, &pos_flame.y);
+                TAnimatedSprites *sp_flame = New_TAnimatedSprites(
+                    this->game_frame, BOMB_PATH "flame_%02d.png", 5,
+                    size_flame, pos_flame, 128, 2
+                );
+                this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp_flame, "FLAME", 3);
+            }
             for (i = 0; i < p_b->extra_count; i++) {
                 SDL_Rect size_extra = {0, 0, 64, 64};
                 SDL_Rect pos_extra = {0, 0, 32, 32};

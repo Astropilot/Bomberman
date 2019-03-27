@@ -50,6 +50,11 @@ int TAckBombExplodePacket_Serialize(TAckBombExplodePacket *this)
         packet_buffer = pack_uint(packet_buffer, this->destroyed_walls[i].x);
         packet_buffer = pack_uint(packet_buffer, this->destroyed_walls[i].y);
     }
+    packet_buffer = pack_uint(packet_buffer, this->flames_count);
+    for (i = 0; i < this->flames_count; i++) {
+        packet_buffer = pack_uint(packet_buffer, this->flames_blocks[i].x);
+        packet_buffer = pack_uint(packet_buffer, this->flames_blocks[i].y);
+    }
     packet_buffer = pack_uint(packet_buffer, this->extra_count);
     for (i = 0; i < this->extra_count; i++) {
         packet_buffer = pack_uint(packet_buffer, this->extra_blocks[i].type);
@@ -84,6 +89,12 @@ void TAckBombExplodePacket_Unserialize(TAckBombExplodePacket *this)
         packet_buffer = unpack_uint(packet_buffer, &(this->destroyed_walls[i].x));
         packet_buffer = unpack_uint(packet_buffer, &(this->destroyed_walls[i].y));
     }
+    packet_buffer = unpack_uint(packet_buffer, &(this->flames_count));
+    this->flames_blocks = malloc(sizeof(pos_t) * this->flames_count);
+    for (i = 0; i < this->flames_count; i++) {
+        packet_buffer = unpack_uint(packet_buffer, &(this->flames_blocks[i].x));
+        packet_buffer = unpack_uint(packet_buffer, &(this->flames_blocks[i].y));
+    }
     packet_buffer = unpack_uint(packet_buffer, &(this->extra_count));
     this->extra_blocks = malloc(sizeof(pos_t) * this->extra_count);
     for (i = 0; i < this->extra_count; i++) {
@@ -98,6 +109,8 @@ void TAckBombExplodePacket_New_Free(TAckBombExplodePacket *this)
     if (this) {
         if (this->destroyed_count > 0)
             free(this->destroyed_walls);
+        if (this->flames_count > 0)
+            free(this->flames_blocks);
         if (this->extra_count > 0)
             free(this->extra_blocks);
         free(this->raw_packet);
