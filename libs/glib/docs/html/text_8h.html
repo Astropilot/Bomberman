@@ -74,12 +74,8 @@ $(document).ready(function(){initNavTree('text_8h.html','');});
 
 <p>Header file of the text component of GLib.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
-<code>#include &lt;unistd.h&gt;</code><br />
-<code>#include &lt;SDL2/SDL.h&gt;</code><br />
-<code>#include &lt;SDL2/SDL_image.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;SDL2/SDL.h&gt;</code><br />
 <code>#include &lt;SDL2/SDL_ttf.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="utils_8h_source.html">utils.h</a>&quot;</code><br />
 </div>
 <p><a href="text_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -106,6 +102,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aaaeb9e623d438a2e920a53fa2cdf907b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="text_8h.html#aaaeb9e623d438a2e920a53fa2cdf907b">TText_Draw</a> (<a class="el" href="struct_t_text.html">TText</a> *this, <a class="el" href="struct_t_frame.html">TFrame</a> *frame)</td></tr>
 <tr class="memdesc:aaaeb9e623d438a2e920a53fa2cdf907b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for drawing the text in the interface.  <a href="#aaaeb9e623d438a2e920a53fa2cdf907b">More...</a><br /></td></tr>
 <tr class="separator:aaaeb9e623d438a2e920a53fa2cdf907b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09b3ef00306b57bc75ff499ee95bfcd2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="text_8h.html#a09b3ef00306b57bc75ff499ee95bfcd2">TText_Change_Text</a> (<a class="el" href="struct_t_text.html">TText</a> *this, <a class="el" href="struct_t_frame.html">TFrame</a> *frame, const char *text)</td></tr>
+<tr class="memdesc:a09b3ef00306b57bc75ff499ee95bfcd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for changing the text.  <a href="#a09b3ef00306b57bc75ff499ee95bfcd2">More...</a><br /></td></tr>
+<tr class="separator:a09b3ef00306b57bc75ff499ee95bfcd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a046b9e8fb72f4520223828716aaa1f36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="text_8h.html#a046b9e8fb72f4520223828716aaa1f36">TText_New_Free</a> (<a class="el" href="struct_t_text.html">TText</a> *this)</td></tr>
 <tr class="memdesc:a046b9e8fb72f4520223828716aaa1f36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to free all ressources take by the text.  <a href="#a046b9e8fb72f4520223828716aaa1f36">More...</a><br /></td></tr>
 <tr class="separator:a046b9e8fb72f4520223828716aaa1f36"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -191,6 +190,51 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A memory allocated object of the text. </dd></dl>
+
+</div>
+</div>
+<a id="a09b3ef00306b57bc75ff499ee95bfcd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09b3ef00306b57bc75ff499ee95bfcd2">&#9670;&nbsp;</a></span>TText_Change_Text()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TText_Change_Text </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_text.html">TText</a> *&#160;</td>
+          <td class="paramname"><em>this</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_t_frame.html">TFrame</a> *&#160;</td>
+          <td class="paramname"><em>frame</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>text</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Method for changing the text. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">this</td><td>A pointer to the text object. </td></tr>
+    <tr><td class="paramname">frame</td><td>A pointer to the frame object. </td></tr>
+    <tr><td class="paramname">text</td><td>The text to change.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>You do not have to call this method directly. You must use the Change_Text method of the <a class="el" href="struct_t_text.html" title="Object oriented structure representing a text.">TText</a> structure like this: my_text-&gt;Change_Text(my_text, frame, "My text"); </p>
 
 </div>
 </div>

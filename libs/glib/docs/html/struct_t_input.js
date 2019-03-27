@@ -7,6 +7,7 @@ var struct_t_input =
     [ "Free", "struct_t_input.html#acd2a3cc6c02fac621f76ea68689d6a7a", null ],
     [ "input_sprite", "struct_t_input.html#aa066b33a76c969e7fb18d047c50bee46", null ],
     [ "is_focus", "struct_t_input.html#aa3cb47471d49b3c9204c215fd35a6e7f", null ],
+    [ "is_visible", "struct_t_input.html#afcb4740807fcc68dcbca85413497475c", null ],
     [ "last_time", "struct_t_input.html#a4887403d586b66ce3f5c1b1fea45414b", null ],
     [ "max_len", "struct_t_input.html#a956cb5a3c4322e6d67c2f2b21077716c", null ],
     [ "placeholder", "struct_t_input.html#a1932d697ff6510c20e56ec0792a5e278", null ],

@@ -30,8 +30,8 @@
  * TClient_Node is an linked list node for stock the clients.
  */
 typedef struct TClient_Node {
-    TClient *client;
-    struct TClient_Node *next;
+    TClient *client;                    /*!< The client object. */
+    struct TClient_Node *next;          /*!< A pointer to the next TClient_Node. */
 } TClient_Node ;
 
 /**
@@ -81,10 +81,10 @@ TServer* New_TServer(unsigned short int port, size_t max_c);
  * @fn void TServer_Start_Listenning(TServer *this)
  * @brief Start listening for new clients. (Asynchrone)
  *
- * @param this A pointer to the client object.
+ * @param this A pointer to the server object.
  *
  * You do not have to call this method directly. You must use the
- * Start_Listenning method of the TClient structure like this:
+ * Start_Listenning method of the TServer structure like this:
  * my_server->Start_Listenning(my_server);
  */
 void TServer_Start_Listenning(TServer *this);
@@ -93,10 +93,10 @@ void TServer_Start_Listenning(TServer *this);
  * @fn void TServer_Stop_Listenning(TServer *this)
  * @brief Stop listening for new clients.
  *
- * @param this A pointer to the client object.
+ * @param this A pointer to the server object.
  *
  * You do not have to call this method directly. You must use the
- * Stop_Listenning method of the TClient structure like this:
+ * Stop_Listenning method of the TServer structure like this:
  * my_server->Stop_Listenning(my_server);
  */
 void TServer_Stop_Listenning(TServer *this);
@@ -105,11 +105,11 @@ void TServer_Stop_Listenning(TServer *this);
  * @fn void TServer_Send_Broadcast(TServer *this, TMessage message)
  * @brief Send a message to all connected clients.
  *
- * @param this A pointer to the client object.
+ * @param this A pointer to the server object.
  * @param message The message to send.
  *
  * You do not have to call this method directly. You must use the
- * Send_Broadcast method of the TClient structure like this:
+ * Send_Broadcast method of the TServer structure like this:
  * my_server->Send_Broadcast(my_server, message);
  */
 void TServer_Send_Broadcast(TServer *this, TMessage message);
@@ -118,25 +118,36 @@ void TServer_Send_Broadcast(TServer *this, TMessage message);
  * @fn size_t TServer_CountClients(TServer *this)
  * @brief Return the number of connected clients.
  *
- * @param this A pointer to the client object.
+ * @param this A pointer to the server object.
  * @return The number of connected clients.
  *
  * You do not have to call this method directly. You must use the
- * CountClients method of the TClient structure like this:
+ * CountClients method of the TServer structure like this:
  * my_server->CountClients(my_server);
  */
 size_t TServer_CountClients(TServer *this);
 
+/**
+ * @fn void TServer_Disconnect_Client(TServer *this, TClient *client)
+ * @brief Disconnect a client and remove it from the server.
+ *
+ * @param this A pointer to the server object.
+ * @param client The client to disconnect.
+ *
+ * You do not have to call this method directly. You must use the
+ * Disconnect_Client method of the TServer structure like this:
+ * my_server->Disconnect_Client(my_server, my_client);
+ */
 void TServer_Disconnect_Client(TServer *this, TClient *client);
 
 /**
  * @fn void TServer_New_Free(TServer *this)
  * @brief Method to free all ressources take by the server and clients.
  *
- * @param this A pointer to the client object.
+ * @param this A pointer to the server object.
  *
  * You do not have to call this method directly. You must use the
- * Free method of the TClient structure like this:
+ * Free method of the TServer structure like this:
  * my_server->Free(my_server);
  */
 void TServer_New_Free(TServer *this);

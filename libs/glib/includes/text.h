@@ -75,7 +75,7 @@ TText* New_TText(TFrame *frame, const char *text, TTF_Font *font, SDL_Color colo
 void TText_Draw(TText *this, TFrame *frame);
 
 /**
- * @fn void Change_Text(TText *this, TFrame *frame, const char *text)
+ * @fn void TText_Change_Text(TText *this, TFrame *frame, const char *text)
  * @brief Method for changing the text.
  *
  * @param this A pointer to the text object.

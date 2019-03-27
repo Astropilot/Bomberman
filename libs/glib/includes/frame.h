@@ -37,11 +37,11 @@ typedef struct TFrame {
 
     TDrawable*(*Remove_Drawable)(struct TFrame*, const char*);                              /*!< Method for deleting a drawable by its ID. */
 
-    unsigned int(*Remove_Drawable_Obj)(struct TFrame*, TDrawable*);
+    unsigned int(*Remove_Drawable_Obj)(struct TFrame*, TDrawable*);                         /*!< Method for deleting a drawable. */
 
     unsigned int(*Free_Drawable)(struct TFrame*, const char*);                              /*!< Method for deleting and freeing the first drawable found by its ID. */
 
-    unsigned int(*Free_Drawable_Obj)(struct TFrame*, TDrawable*);
+    unsigned int(*Free_Drawable_Obj)(struct TFrame*, TDrawable*);                           /*!< Method for deleting and freeing a drawable. */
 
     unsigned int(*Free_Drawables)(struct TFrame*, const char*);                             /*!< Method for deleting and freeing all drawables that share the same ID. */
 
@@ -76,8 +76,8 @@ typedef struct TFrame {
  * TFrame_Node is an linked list node for stock TFrame objects.
  */
 typedef struct TFrame_Node{
-    TFrame *frame;
-    struct TFrame_Node *next;
+    TFrame *frame;                  /*!< The frame object. */
+    struct TFrame_Node *next;       /*!< A pointer to the next TFrame_Node. */
 } TFrame_Node ;
 
 /**
@@ -133,7 +133,7 @@ TDrawable *TFrame_Remove_Drawable(TFrame *this, const char *id);
 unsigned int TFrame_Remove_Drawable_Obj(TFrame *this, TDrawable *drawable);
 
 /**
- * @fn unsigned int Free_Drawable(TFrame *this, const char *id)
+ * @fn unsigned int TFrame_Free_Drawable(TFrame *this, const char *id)
  * @brief Method for deleting and free the first drawable found by ID.
  *
  * @param this A pointer to the frame object.
@@ -161,7 +161,7 @@ unsigned int TFrame_Free_Drawable(TFrame *this, const char *id);
 unsigned int TFrame_Free_Drawable_Obj(TFrame *this, TDrawable *drawable);
 
 /**
- * @fn unsigned int Free_Drawables(TFrame *this, const char *id)
+ * @fn unsigned int TFrame_Free_Drawables(TFrame *this, const char *id)
  * @brief Method for deleting and free all the drawables that share the same ID.
  *
  * @param this A pointer to the frame object.
@@ -170,7 +170,7 @@ unsigned int TFrame_Free_Drawable_Obj(TFrame *this, TDrawable *drawable);
  *
  * You do not have to call this method directly. You must use the
  * Free_Drawables method of the TFrame structure like this:
- * my_frame->Free_Drawables(my_frame, "MY_DRAWABLE");
+ * my_frame->Free_Drawables(my_frame, "MY_DRAWABLES");
  */
 unsigned int TFrame_Free_Drawables(TFrame *this, const char *id);
 

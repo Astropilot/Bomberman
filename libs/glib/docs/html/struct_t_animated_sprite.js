@@ -5,6 +5,7 @@ var struct_t_animated_sprite =
     [ "Draw", "struct_t_animated_sprite.html#ab012c1efed32c369325ee7311124d83f", null ],
     [ "file", "struct_t_animated_sprite.html#adf16cd437526a5c5e0e0af87745acbb8", null ],
     [ "Free", "struct_t_animated_sprite.html#a8c14b1c6802ea29e88a003c6ba2477ff", null ],
+    [ "is_visible", "struct_t_animated_sprite.html#afcb4740807fcc68dcbca85413497475c", null ],
     [ "last_time", "struct_t_animated_sprite.html#a4887403d586b66ce3f5c1b1fea45414b", null ],
     [ "len_frames", "struct_t_animated_sprite.html#ad4b23ef134092194af1f14c6b7285817", null ],
     [ "pos", "struct_t_animated_sprite.html#a294c5492db3ece725b68947cafdaafec", null ],
