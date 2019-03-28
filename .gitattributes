@@ -1,2 +1,4 @@
+docs/* linguist-documentation
+docs/html/* linguist-documentation
 libs/glib/docs/* linguist-documentation
 libs/glib/docs/html/* linguist-documentation
