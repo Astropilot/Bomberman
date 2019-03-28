@@ -1,9 +1,15 @@
-/*
-** ETNA PROJECT, 28/01/2019 by martin_h, hamide_a, despla_g, weber_w
-** Bomberman
-** File description:
-**      Header file of the game client component.
-*/
+/*******************************************************************************
+* PROJECT: Bomberman
+*
+* AUTHORS: Yohann Martin, Aziz Hamide, Gauthier Desplanque, William Weber
+*
+* DATE CREATED: 01/16/2019
+*
+* Copyright (c) 2019 Yohann MARTIN (@Astropilot). All rights reserved.
+*
+* Licensed under the MIT License. See LICENSE file in the project root for full
+* license information.
+*******************************************************************************/
 
 #include <string.h>
 #include <stdio.h>
@@ -119,13 +125,13 @@ void TGameClient_Handle_Messages(TGameClient *this)
                 hbar->pos.x  = player.pos.x;
                 hbar->pos.y  = player.pos.y - 10;
 
-                sprintf(id, "PLAYER_%u_%u", i, SUD);
+                sprintf(id, "PLAYER_%u_%u", i, SOUTH);
                 ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id))->is_visible = 0;
-                sprintf(id, "PLAYER_%u_%u", i, NORD);
+                sprintf(id, "PLAYER_%u_%u", i, NORTH);
                 ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id))->is_visible = 0;
-                sprintf(id, "PLAYER_%u_%u", i, OUEST);
+                sprintf(id, "PLAYER_%u_%u", i, WEST);
                 ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id))->is_visible = 0;
-                sprintf(id, "PLAYER_%u_%u", i, EST);
+                sprintf(id, "PLAYER_%u_%u", i, EAST);
                 ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id))->is_visible = 0;
 
                 sprintf(id, "PLAYER_%u_%u", i, player.direction);
@@ -172,13 +178,13 @@ void TGameClient_Handle_Messages(TGameClient *this)
             id = malloc(sizeof(char) * 255);
             player_t player = p_mv->player;
 
-            sprintf(id, "PLAYER_%u_%u", p_mv->player_id, SUD);
+            sprintf(id, "PLAYER_%u_%u", p_mv->player_id, SOUTH);
             ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id))->is_visible = 0;
-            sprintf(id, "PLAYER_%u_%u", p_mv->player_id, NORD);
+            sprintf(id, "PLAYER_%u_%u", p_mv->player_id, NORTH);
             ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id))->is_visible = 0;
-            sprintf(id, "PLAYER_%u_%u", p_mv->player_id, OUEST);
+            sprintf(id, "PLAYER_%u_%u", p_mv->player_id, WEST);
             ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id))->is_visible = 0;
-            sprintf(id, "PLAYER_%u_%u", p_mv->player_id, EST);
+            sprintf(id, "PLAYER_%u_%u", p_mv->player_id, EAST);
             ((TAnimatedSprites*)this->game_frame->Get_Drawable(this->game_frame, id))->is_visible = 0;
 
             sprintf(id, "PLAYER_%u_%u", p_mv->player_id, player.direction);
@@ -265,7 +271,7 @@ void TGameClient_Handle_Messages(TGameClient *this)
                 map_to_pix((int)p_b->extra_blocks[i].pos.x, (int)p_b->extra_blocks[i].pos.y, &pos_extra.x, &pos_extra.y);
                 sprintf(id, "EXTRA_%u_%u", p_b->extra_blocks[i].pos.y, p_b->extra_blocks[i].pos.x);
                 TAnimatedSprites *sp_extra = New_TAnimatedSprites(
-                    this->game_frame, extra_to_ressource(p_b->extra_blocks[i].type), 7,
+                    this->game_frame, extra_to_resource(p_b->extra_blocks[i].type), 7,
                     size_extra, pos_extra, 128, -1
                 );
                 this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp_extra, id, 3);

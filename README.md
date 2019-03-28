@@ -1,9 +1,8 @@
-# Bomberman ![Made with love](https://img.shields.io/badge/Made%20with-%E2%9D%A4%EF%B8%8F-yellow.svg)
+# Bomberman ![Made with love](https://img.shields.io/badge/Made%20with-%E2%9D%A4%EF%B8%8F-yellow.svg) [![MIT license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 ![Image of Bomberman](https://static.tvtropes.org/pmwiki/pub/images/bomberman.png)
 
 ## Description
-[![MIT license](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 Bomberman is a school project where the goal is to develop the famous Bomberman game in C with the SDL2 library as well as the SDL_Image and SDL_TTf extensions. <img align="right" width="220" height="100" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/SDL_Logo.svg/220px-SDL_Logo.svg.png">
 No other libraries were allowed.

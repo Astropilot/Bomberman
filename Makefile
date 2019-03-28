@@ -1,3 +1,16 @@
+#*******************************************************************************
+# PROJECT: Bomberman
+#
+# AUTHORS: Yohann Martin, Aziz Hamide, Gauthier Desplanque, William Weber
+#
+# DATE CREATED: 01/16/2019
+#
+# Copyright (c) 2019 Yohann MARTIN (@Astropilot). All rights reserved.
+#
+# Licensed under the MIT License. See LICENSE file in the project root for full
+# license information.
+#*******************************************************************************
+
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror -g -Iincludes/ -Ilibs/glib/includes
 SDL		= -lSDL2 -lSDL2_ttf -lSDL2_image

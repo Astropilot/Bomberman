@@ -1,16 +1,19 @@
-/*
-** ETNA PROJECT, 28/01/2019 by martin_h, hamide_a, despla_g, weber_w
-** gLib
-** File description:
-**      Graphic wrapper around the SDL2
-*/
+/*******************************************************************************
+* PROJECT: gLib
+*
+* AUTHORS: Yohann Martin, Aziz Hamide, Gauthier Desplanque, William Weber
+*
+* DATE CREATED: 01/16/2019
+*
+* Copyright (c) 2019 Yohann MARTIN (@Astropilot). All rights reserved.
+*
+* Licensed under the MIT License. See LICENSE file in the project root for full
+* license information.
+*******************************************************************************/
 
 /**
  * @file glib.h
  * @brief Graphic wrapper around the SDL2.
- * @author Yohann.M, Gauthier.D, Aziz.H, William.W
- * @version 1.0
- * @date 28 janvier 2019
  *
  * The GLib framework is a wrapper around the SDL2 library providing higher-level
  * methods for creating graphical games.

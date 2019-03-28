@@ -1,9 +1,15 @@
-/*
-** ETNA PROJECT, 28/01/2019 by martin_h, hamide_a, despla_g, weber_w
-** Bomberman
-** File description:
-**      Source file of the player class.
-*/
+/*******************************************************************************
+* PROJECT: Bomberman
+*
+* AUTHORS: Yohann Martin, Aziz Hamide, Gauthier Desplanque, William Weber
+*
+* DATE CREATED: 01/16/2019
+*
+* Copyright (c) 2019 Yohann MARTIN (@Astropilot). All rights reserved.
+*
+* Licensed under the MIT License. See LICENSE file in the project root for full
+* license information.
+*******************************************************************************/
 
 #include <stdlib.h>
 #include <string.h>
@@ -39,19 +45,19 @@ void init_player(player_t *player, int id, const char *username)
     switch (id) {
         case 0:
             map_to_pix(0, 0, (int *)&(player->pos.x), (int *)&(player->pos.y));
-            player->direction = (unsigned int)EST;
+            player->direction = (unsigned int)EAST;
             break;
         case 1:
             map_to_pix(MAP_WIDTH - 1, 0, (int *)&(player->pos.x), (int *)&(player->pos.y));
-            player->direction = (unsigned int)OUEST;
+            player->direction = (unsigned int)WEST;
             break;
         case 2:
             map_to_pix(0, MAP_HEIGHT - 1, (int *)&(player->pos.x), (int *)&(player->pos.y));
-            player->direction = (unsigned int)EST;
+            player->direction = (unsigned int)EAST;
             break;
         case 3:
             map_to_pix(MAP_WIDTH - 1, MAP_HEIGHT - 1, (int *)&(player->pos.x), (int *)&(player->pos.y));
-            player->direction = (unsigned int)OUEST;
+            player->direction = (unsigned int)WEST;
             break;
     }
 }

@@ -1,0 +1,26 @@
+var main_8h =
+[
+    [ "lobby_args_t", "structlobby__args__t.html", "structlobby__args__t" ],
+    [ "BLOCK_INFO_HEIGHT", "main_8h.html#a05cb53d6e9854f9925ce513403a308e3", null ],
+    [ "BLOCK_INFO_WIDTH", "main_8h.html#a0769b61ce627211438327e1da3002c78", null ],
+    [ "BOMB_PATH", "main_8h.html#ad234a1ab5834ac325750d63fb74af1a2", null ],
+    [ "CHANCE_BREAKABLE_WALL", "main_8h.html#abc7f861070bac4f21541adbfc06178da", null ],
+    [ "CHANCE_EXTRA", "main_8h.html#adfbd69f1315461003835414027f4fbae", null ],
+    [ "CHAR_PATH", "main_8h.html#a8c23b688d0e60c80556f9b5b862162d6", null ],
+    [ "FONT_PATH", "main_8h.html#af326d9b4cced6fd44a9f9567dc666014", null ],
+    [ "GAME_VERSION", "main_8h.html#af6419fce288d0638e125e8454f070db7", null ],
+    [ "IS_DEBUG", "main_8h.html#a48156cfc16c5f0d895e60968a860f1a1", null ],
+    [ "MAP_BLOCK_SIZE", "main_8h.html#ade502b21dd5a0274502219c3794dd3c1", null ],
+    [ "MAP_HEIGHT", "main_8h.html#a529d5ebb449edf31d9835d13f4fb9f89", null ],
+    [ "MAP_PATH", "main_8h.html#a57f243883cb0b226e5af5ec6ceea763b", null ],
+    [ "MAP_START_PIX_X", "main_8h.html#ad79303a6079c865118727c30727ade88", null ],
+    [ "MAP_START_PIX_Y", "main_8h.html#a0ca09f80946f5b0c74bbfabe03b51c96", null ],
+    [ "MAP_WIDTH", "main_8h.html#aa037a6d6a4f04d51c7ec1c9ee9054e76", null ],
+    [ "MAX_PLAYERS", "main_8h.html#a1c346c944e8204fd06dc057393c7c96d", null ],
+    [ "MIN_PLAYERS", "main_8h.html#ab1de365cca5246cc09e4bd07dbad5c29", null ],
+    [ "PLAYER_MAX_LIFE", "main_8h.html#ae5fdb6f6e7c67199041b03f71c5b3e2e", null ],
+    [ "RES_PATH", "main_8h.html#a793644bd88146828177a2a4f57e3bf01", null ],
+    [ "WIN_HEIGHT", "main_8h.html#a0a33b1743038db1adbbf1045aa839b38", null ],
+    [ "WIN_WIDTH", "main_8h.html#a2e6ef411e0ff00ad889788b6cde701b5", null ],
+    [ "lobby_args_t", "main_8h.html#abb69f06e6335bdcdbee10e3f7a6da318", null ]
+];

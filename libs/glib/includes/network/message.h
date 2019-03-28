@@ -1,16 +1,19 @@
-/*
-** ETNA PROJECT, 05/02/2019 by martin_h, hamide_a, despla_g, weber_w
-** gLib
-** File description:
-**      Wrapper around the socket API.
-*/
+/*******************************************************************************
+* PROJECT: gLib
+*
+* AUTHORS: Yohann Martin, Aziz Hamide, Gauthier Desplanque, William Weber
+*
+* DATE CREATED: 01/16/2019
+*
+* Copyright (c) 2019 Yohann MARTIN (@Astropilot). All rights reserved.
+*
+* Licensed under the MIT License. See LICENSE file in the project root for full
+* license information.
+*******************************************************************************/
 
 /**
  * @file message.h
  * @brief Header file of the message class of gLib.
- * @author Yohann.M, Gauthier.D, Aziz.H, William.W
- * @version 1.0
- * @date 28 janvier 2019
  *
  * This class allows you to create and manipulate high-level messages.
  *

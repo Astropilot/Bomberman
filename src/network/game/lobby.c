@@ -1,9 +1,15 @@
-/*
-** ETNA PROJECT, 28/01/2019 by martin_h, hamide_a, despla_g, weber_w
-** Bomberman
-** File description:
-**      Header file of the lobby client component.
-*/
+/*******************************************************************************
+* PROJECT: Bomberman
+*
+* AUTHORS: Yohann Martin, Aziz Hamide, Gauthier Desplanque, William Weber
+*
+* DATE CREATED: 01/16/2019
+*
+* Copyright (c) 2019 Yohann MARTIN (@Astropilot). All rights reserved.
+*
+* Licensed under the MIT License. See LICENSE file in the project root for full
+* license information.
+*******************************************************************************/
 
 #include <string.h>
 
@@ -28,7 +34,6 @@ TLobbyClient* New_TLobbyClient()
     this->client = NULL;
     this->gameserver = NULL;
     this->lobby_frame = NULL;
-    this->username = NULL;
     this->is_owner = 0;
     this->player = -1;
     this->nb_players = 0;
@@ -58,14 +63,13 @@ void TLobbyClient_Start_Server(TLobbyClient *this, int port, int max_clients)
 void TLobbyClient_Join_Lobby(TLobbyClient *this, const char *username, const char *ip, int port)
 {
     this->client = New_TClient();
-    this->username = strdup(username);
     int res = this->client->Connect(this->client, ip, port);
     if (res != 0) {
         this->Leave_Lobby(this);
     } else {
         TReqConnectPacket *p_rc = New_TReqConnectPacket(NULL);
 
-        p_rc->player_name = strdup(this->username);
+        p_rc->player_name = strdup(username);
         this->client->Send(this->client, packet_to_message((TPacket*)p_rc, 1));
     }
 }
@@ -130,8 +134,6 @@ void TLobbyClient_Handle_Messages(TLobbyClient *this)
             TClient *client_tmp = this->client;
 
             free(message.message);
-            free(this->username);
-            this->username = NULL;
             this->client = NULL;
             this->lobby_frame->window->Show_Frame(
                 this->lobby_frame->window,
@@ -156,8 +158,6 @@ void TLobbyClient_Leave_Lobby(TLobbyClient *this)
     this->client->Disconnect(this->client);
     this->client->Free(this->client);
     this->client = NULL;
-    free(this->username);
-    this->username = NULL;
     this->is_owner = 0;
     this->player = -1;
     this->nb_players = 0;

@@ -1,9 +1,15 @@
-/*
-** ETNA PROJECT, 28/01/2019 by martin_h, hamide_a, despla_g, weber_w
-** Bomberman
-** File description:
-**      Source file of the game map class.
-*/
+/*******************************************************************************
+* PROJECT: Bomberman
+*
+* AUTHORS: Yohann Martin, Aziz Hamide, Gauthier Desplanque, William Weber
+*
+* DATE CREATED: 01/16/2019
+*
+* Copyright (c) 2019 Yohann MARTIN (@Astropilot). All rights reserved.
+*
+* Licensed under the MIT License. See LICENSE file in the project root for full
+* license information.
+*******************************************************************************/
 
 #include <stdio.h>
 #include <SDL2/SDL.h>
@@ -133,10 +139,10 @@ unsigned int TMap_Move_Player(TMap *this, unsigned int player_id, direction_t di
         return (0);
     player->last_move_time = current_time;
     player->direction = (unsigned int)direction;
-    if (direction == OUEST || direction == EST)
-        new_coords.x = new_coords.x + (direction == EST ? MAP_BLOCK_SIZE : -MAP_BLOCK_SIZE);
+    if (direction == WEST || direction == EAST)
+        new_coords.x = new_coords.x + (direction == EAST ? MAP_BLOCK_SIZE : -MAP_BLOCK_SIZE);
     else
-        new_coords.y = new_coords.y + (direction == SUD ? MAP_BLOCK_SIZE : -MAP_BLOCK_SIZE);
+        new_coords.y = new_coords.y + (direction == SOUTH ? MAP_BLOCK_SIZE : -MAP_BLOCK_SIZE);
     pix_to_map((int)new_coords.x, (int)new_coords.y, &block_x, &block_y);
 
     // Gestion des collisions avec les blocs infranchissables.
@@ -328,7 +334,7 @@ void TMap_New_Free(TMap *this)
     free(this);
 }
 
-char *extra_to_ressource(object_type_t extra_type)
+char *extra_to_resource(object_type_t extra_type)
 {
     switch (extra_type) {
         case BONUS_RANGE:

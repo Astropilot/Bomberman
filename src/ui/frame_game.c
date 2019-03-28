@@ -1,9 +1,15 @@
-/*
-** ETNA PROJECT, 28/01/2019 by martin_h, hamide_a, despla_g, weber_w
-** Bomberman
-** File description:
-**      Source file of the game frame.
-*/
+/*******************************************************************************
+* PROJECT: Bomberman
+*
+* AUTHORS: Yohann Martin, Aziz Hamide, Gauthier Desplanque, William Weber
+*
+* DATE CREATED: 01/16/2019
+*
+* Copyright (c) 2019 Yohann MARTIN (@Astropilot). All rights reserved.
+*
+* Licensed under the MIT License. See LICENSE file in the project root for full
+* license information.
+*******************************************************************************/
 
 #include <stdio.h>
 #include <stdarg.h>
@@ -72,19 +78,19 @@ static void On_Load(TFrame* frame, int argc, va_list args)
         TSprite *sp_health_bar_bg = New_TSprite(frame, CHAR_PATH "health_bg.png", health_pos);
         TSprite *sp_health_actual = New_TSprite(frame, CHAR_PATH "health_bar.png", health_pos);
 
-        sprintf(player_id, "PLAYER_%d_%u", i, SUD);
+        sprintf(player_id, "PLAYER_%d_%u", i, SOUTH);
         sp_down->is_visible = 0;
         frame->Add_Drawable(frame, (TDrawable*)sp_down, player_id, 1);
 
-        sprintf(player_id, "PLAYER_%d_%u", i, NORD);
+        sprintf(player_id, "PLAYER_%d_%u", i, NORTH);
         sp_up->is_visible = 0;
         frame->Add_Drawable(frame, (TDrawable*)sp_up, player_id, 1);
 
-        sprintf(player_id, "PLAYER_%d_%u", i, EST);
+        sprintf(player_id, "PLAYER_%d_%u", i, EAST);
         sp_right->is_visible = 0;
         frame->Add_Drawable(frame, (TDrawable*)sp_right, player_id, 1);
 
-        sprintf(player_id, "PLAYER_%d_%u", i, OUEST);
+        sprintf(player_id, "PLAYER_%d_%u", i, WEST);
         sp_left->is_visible = 0;
         frame->Add_Drawable(frame, (TDrawable*)sp_left, player_id, 1);
 
@@ -209,13 +215,13 @@ static void On_Tick(TFrame* frame)
     const Uint8 *keyboard = SDL_GetKeyboardState(NULL);
 
     if (keyboard[SDL_SCANCODE_LEFT]) {
-        gameclient->Move(gameclient, OUEST);
+        gameclient->Move(gameclient, WEST);
     } else if (keyboard[SDL_SCANCODE_RIGHT]) {
-        gameclient->Move(gameclient, EST);
+        gameclient->Move(gameclient, EAST);
     } else if (keyboard[SDL_SCANCODE_UP]) {
-        gameclient->Move(gameclient, NORD);
+        gameclient->Move(gameclient, NORTH);
     } else if (keyboard[SDL_SCANCODE_DOWN]) {
-        gameclient->Move(gameclient, SUD);
+        gameclient->Move(gameclient, SOUTH);
     }
 
     SDL_RenderClear(frame->window->renderer_window);
@@ -247,13 +253,13 @@ static void On_Unload(TFrame* frame)
         frame->Free_Drawable(frame, id);
         sprintf(id, "PLAYER_%u_GO", i);
         frame->Free_Drawable(frame, id);
-        sprintf(id, "PLAYER_%u_%u", i, SUD);
+        sprintf(id, "PLAYER_%u_%u", i, SOUTH);
         frame->Free_Drawable(frame, id);
-        sprintf(id, "PLAYER_%d_%u", i, NORD);
+        sprintf(id, "PLAYER_%d_%u", i, NORTH);
         frame->Free_Drawable(frame, id);
-        sprintf(id, "PLAYER_%d_%u", i, EST);
+        sprintf(id, "PLAYER_%d_%u", i, EAST);
         frame->Free_Drawable(frame, id);
-        sprintf(id, "PLAYER_%d_%u", i, OUEST);
+        sprintf(id, "PLAYER_%d_%u", i, WEST);
         res = frame->Free_Drawable(frame, id);
         i++;
     } while (res);
