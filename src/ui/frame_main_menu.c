@@ -61,11 +61,18 @@ static void Init(TFrame* frame)
     TButton *btn_quit = New_TButton(frame, RES_PATH "button_quit_normal.png", RES_PATH "button_quit_hover.png", pos_button_quit);
     btn_quit->On_Click = On_Click_Quit_Button;
 
-    frame->Add_Drawable(frame, (TDrawable*)sp_bg, "BG", 999);
-    frame->Add_Drawable(frame, (TDrawable*)sp_title, "TITLE", 998);
-    frame->Add_Drawable(frame, (TDrawable*)btn_host, "BTN_HOST", 1);
-    frame->Add_Drawable(frame, (TDrawable*)btn_join, "BTN_JOIN", 1);
-    frame->Add_Drawable(frame, (TDrawable*)btn_quit, "BTN_QUIT", 1);
+    SDL_Rect pos_txt = { 0, 0, 0, 0 };
+	SDL_Color color = { 255, 255, 255, 255 };
+	TTF_Font *font = loadFont(FONT_PATH "fixedsys.ttf", 18);
+	TText *txt_version = New_TText(frame, "Version: " GAME_VERSION, font, color, pos_txt);
+	txt_version->pos.y = WIN_HEIGHT - txt_version->pos.h;
+
+	frame->Add_Drawable(frame, (TDrawable*)sp_bg, "BG", 999);
+	frame->Add_Drawable(frame, (TDrawable*)sp_title, "TITLE", 998);
+	frame->Add_Drawable(frame, (TDrawable*)txt_version, "TXT_VERSION", 2);
+	frame->Add_Drawable(frame, (TDrawable*)btn_host, "BTN_HOST", 1);
+	frame->Add_Drawable(frame, (TDrawable*)btn_join, "BTN_JOIN", 1);
+	frame->Add_Drawable(frame, (TDrawable*)btn_quit, "BTN_QUIT", 1);
 }
 
 static void On_Load(TFrame* frame, int argc, va_list args)
