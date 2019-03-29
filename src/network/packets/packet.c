@@ -19,12 +19,19 @@
 int extract_packet_id(unsigned char *raw_packet)
 {
     int id_packet = -1;
+
+    if (!raw_packet) return (-1);
     unpack_int(raw_packet, &id_packet);
     return (id_packet);
 }
 
 TMessage packet_to_message(TPacket *packet, unsigned int auto_free)
 {
+    if (!packet) {
+        TMessage message = {0, NULL};
+        return (message);
+    }
+
     int packet_size = packet->Serialize(packet);
     TMessage message = {packet_size, NULL};
 

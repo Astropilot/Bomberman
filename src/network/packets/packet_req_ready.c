@@ -19,14 +19,14 @@ TReqReadyPacket *New_TReqReadyPacket(unsigned char *raw)
 {
     TReqReadyPacket *this = malloc(sizeof(TReqReadyPacket));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
 
     this->raw_packet = raw;
     this->packet_id = REQ_READY;
     this->Serialize = TReqReadyPacket_Serialize;
     this->Unserialize = TReqReadyPacket_Unserialize;
     this->Free = TReqReadyPacket_New_Free;
-    return this;
+    return (this);
 }
 
 int TReqReadyPacket_Serialize(TReqReadyPacket *this)
@@ -39,7 +39,7 @@ int TReqReadyPacket_Serialize(TReqReadyPacket *this)
     packet_buffer = this->raw_packet;
     packet_buffer = pack_int(packet_buffer, this->packet_id);
     packet_buffer = pack_uint(packet_buffer, this->player);
-    return (packet_buffer - this->raw_packet);
+    return (int)(packet_buffer - this->raw_packet);
 }
 
 void TReqReadyPacket_Unserialize(TReqReadyPacket *this)

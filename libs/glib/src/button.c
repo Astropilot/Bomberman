@@ -22,14 +22,16 @@ TButton* New_TButton(TFrame *frame, const char *btn_s, const char *btn_hs, SDL_R
 {
     TButton *this = malloc(sizeof(TButton));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
     TButton_Init(this, frame, btn_s, btn_hs, pos);
     this->Free = TButton_New_Free;
-    return this;
+    return (this);
 }
 
 static void TButton_Init(TButton *this, TFrame *frame, const char *btn_s, const char *btn_hs, SDL_Rect pos)
 {
+    if (!this || !frame || !btn_s || !btn_hs) return;
+
     this->Draw = TButton_Draw;
     this->Event_Handler = TButton_Event_Handler;
     this->btn_sprite = New_TSprite(frame, btn_s, pos);
@@ -42,8 +44,7 @@ static void TButton_Init(TButton *this, TFrame *frame, const char *btn_s, const 
 
 void TButton_Draw(TButton *this, TFrame *frame)
 {
-    if (!this || !frame)
-        return;
+    if (!this || !frame || !this->btn_sprite || !this->btn_hover_sprite) return;
 
     this->btn_sprite->pos = this->pos;
     this->btn_hover_sprite->pos = this->pos;
@@ -59,8 +60,7 @@ void TButton_Draw(TButton *this, TFrame *frame)
 
 void TButton_Event_Handler(TButton *this, TFrame *frame, SDL_Event event)
 {
-    if (!this || !frame)
-        return;
+    if (!this || !frame) return;
 
     if( event.type == SDL_MOUSEMOTION || event.type == SDL_MOUSEBUTTONUP ) {
         int x;
@@ -72,15 +72,18 @@ void TButton_Event_Handler(TButton *this, TFrame *frame, SDL_Event event)
             if (y >= this->pos.y && y <= (this->pos.y + this->pos.h))
                 this->state = BUTTON_HOVER;
         if (event.type == SDL_MOUSEBUTTONUP && this->state == BUTTON_HOVER)
-            this->On_Click(this, frame);
+            if (this->On_Click)
+                this->On_Click(this, frame);
     }
 }
 
 void TButton_New_Free(TButton *this)
 {
     if (this) {
-        this->btn_sprite->Free(this->btn_sprite);
-        this->btn_hover_sprite->Free(this->btn_hover_sprite);
+        if (this->btn_sprite && this->btn_sprite->Free)
+            this->btn_sprite->Free(this->btn_sprite);
+        if (this->btn_hover_sprite && this->btn_hover_sprite->Free)
+            this->btn_hover_sprite->Free(this->btn_hover_sprite);
     }
     free(this);
 }

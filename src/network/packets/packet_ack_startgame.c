@@ -19,14 +19,14 @@ TAckStartGamePacket *New_TAckStartGamePacket(unsigned char *raw)
 {
     TAckStartGamePacket *this = malloc(sizeof(TAckStartGamePacket));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
 
     this->raw_packet = raw;
     this->packet_id = ACK_START_GAME;
     this->Serialize = TAckStartGamePacket_Serialize;
     this->Unserialize = TAckStartGamePacket_Unserialize;
     this->Free = TAckStartGamePacket_New_Free;
-    return this;
+    return (this);
 }
 
 int TAckStartGamePacket_Serialize(TAckStartGamePacket *this)
@@ -38,7 +38,7 @@ int TAckStartGamePacket_Serialize(TAckStartGamePacket *this)
         return 0;
     packet_buffer = this->raw_packet;
     packet_buffer = pack_int(packet_buffer, this->packet_id);
-    return (packet_buffer - this->raw_packet);
+    return (int)(packet_buffer - this->raw_packet);
 }
 
 void TAckStartGamePacket_Unserialize(TAckStartGamePacket *this)

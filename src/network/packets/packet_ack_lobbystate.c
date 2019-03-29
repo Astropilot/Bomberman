@@ -19,14 +19,14 @@ TAckLobbyStatePacket *New_TAckLobbyStatePacket(unsigned char *raw)
 {
     TAckLobbyStatePacket *this = malloc(sizeof(TAckLobbyStatePacket));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
 
     this->raw_packet = raw;
     this->packet_id = ACK_LOBBY_STATE;
     this->Serialize = TAckLobbyStatePacket_Serialize;
     this->Unserialize = TAckLobbyStatePacket_Unserialize;
     this->Free = TAckLobbyStatePacket_New_Free;
-    return this;
+    return (this);
 }
 
 int TAckLobbyStatePacket_Serialize(TAckLobbyStatePacket *this)
@@ -39,7 +39,7 @@ int TAckLobbyStatePacket_Serialize(TAckLobbyStatePacket *this)
     packet_buffer = this->raw_packet;
     packet_buffer = pack_int(packet_buffer, this->packet_id);
     packet_buffer = pack_uint(packet_buffer, this->nb_players);
-    return (packet_buffer - this->raw_packet);
+    return (int)(packet_buffer - this->raw_packet);
 }
 
 void TAckLobbyStatePacket_Unserialize(TAckLobbyStatePacket *this)

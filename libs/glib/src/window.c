@@ -28,14 +28,16 @@ TWindow* New_TWindow(void)
 {
     TWindow *this = malloc(sizeof(TWindow));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
     TWindow_Init(this);
     this->Free = TWindow_New_Free;
-    return this;
+    return (this);
 }
 
 static void TWindow_Init(TWindow *this)
 {
+    if (!this) return;
+
     this->Create_Window = TWindow_Create_Window;
     this->Add_Frame = TWindow_Add_Frame;
     this->Show_Frame = TWindow_Show_Frame;
@@ -48,11 +50,14 @@ static void TWindow_Init(TWindow *this)
 
 static void TWindow_Free_Frames(TWindow *this)
 {
+    if (!this) return;
+
     TFrame_Node *current = this->frames_head;
     TFrame_Node *tmp = NULL;
 
     while (current != NULL) {
-        current->frame->Free(current->frame);
+        if (current->frame && current->frame->Free)
+            current->frame->Free(current->frame);
 
         tmp = current;
         current = current->next;
@@ -62,10 +67,12 @@ static void TWindow_Free_Frames(TWindow *this)
 
 static void TWindow_Finish_Frames(TWindow *this)
 {
+    if (!this) return;
+
     TFrame_Node *current = this->frames_head;
 
     while (current != NULL) {
-        if (current->frame->Finish)
+        if (current->frame && current->frame->Finish)
             current->frame->Finish(current->frame);
         current = current->next;
     }
@@ -76,6 +83,8 @@ static void TWindow_Loop(TWindow *this)
     SDL_Event event;
     unsigned int current_time = 0;
     unsigned int last_time = 0;
+
+    if (!this) return;
 
     while (!this->finished) {
         while( SDL_PollEvent( &event ) != 0 ) {
@@ -95,13 +104,12 @@ static void TWindow_Loop(TWindow *this)
         }
     }
     TWindow_Finish_Frames(this);
-    return;
 }
 
 int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *frame_id, unsigned int fps)
 {
-    if (!title)
-        return (0);
+    if (!this || !title || !frame_id) return (0);
+
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         fprintf(stderr, "Error while loading game window (SDL): %s!\n", SDL_GetError());
         return (0);
@@ -141,34 +149,38 @@ int TWindow_Create_Window(TWindow *this, const char *title, int width, int heigh
 
 void TWindow_Add_Frame(TWindow *this, TFrame *frame)
 {
-    if (!frame)
-        return;
+    if (!this || !frame) return;
+
     frame->window = this;
     if (!this->frames_head) {
         TFrame_Node *frame_node = malloc(sizeof(TFrame_Node));
 
-        frame_node->frame = frame;
-        frame_node->next = NULL;
-        this->frames_head = frame_node;
+        if (frame_node) {
+            frame_node->frame = frame;
+            frame_node->next = NULL;
+            this->frames_head = frame_node;
+        }
     } else {
         TFrame_Node *current = this->frames_head;
 
         while (current->next != NULL)
             current = current->next;
         current->next = malloc(sizeof(TFrame_Node));
-        current->next->frame = frame;
-        current->next->next = NULL;
+        if (current->next) {
+            current->next->frame = frame;
+            current->next->next = NULL;
+        }
     }
 }
 
 void TWindow_Show_Frame(TWindow *this, const char *frame_id, int argc, ...)
 {
+    if (!this || !frame_id) return;
+
     TFrame_Node *current = this->frames_head;
 
-    if (!frame_id)
-        return;
     while (current != NULL) {
-        if (strcmp(current->frame->frame_id, frame_id) == 0) {
+        if (current->frame && strcmp(current->frame->frame_id, frame_id) == 0) {
             if (this->shown_frame && this->shown_frame->On_Unload) {
                 this->shown_frame->On_Unload(this->shown_frame);
             }

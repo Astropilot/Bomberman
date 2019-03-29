@@ -36,12 +36,14 @@ static TLobbyClient *lobbyclient;
 TFrame* New_LobbyFrame(TLobbyClient *m_lobbyclient)
 {
     TFrame *frm = New_TFrame("FRAME_LOBBY");
-    frm->Init = Init;
-    frm->On_Load = On_Load;
-    frm->On_Event = On_Event;
-    frm->On_Tick = On_Tick;
-    frm->On_Unload = On_Unload;
-    frm->Finish = Finish;
+    if (frm) {
+        frm->Init = Init;
+        frm->On_Load = On_Load;
+        frm->On_Event = On_Event;
+        frm->On_Tick = On_Tick;
+        frm->On_Unload = On_Unload;
+        frm->Finish = Finish;
+    }
     lobbyclient = m_lobbyclient;
     return (frm);
 }

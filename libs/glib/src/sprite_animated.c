@@ -25,17 +25,20 @@ TAnimatedSprite* New_TAnimatedSprite(TFrame *frame, const char *file, SDL_Rect s
 {
     TAnimatedSprite *this = malloc(sizeof(TAnimatedSprite));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
     TAnimatedSprite_Init(this, frame, file, size, pos, speed, animations);
     this->Free = TAnimatedSprite_New_Free;
-    return this;
+    return (this);
 }
 
 static void TAnimatedSprite_Init(TAnimatedSprite *this, TFrame *frame, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
 {
+    if (!this || !frame || !file) return;
+
     SDL_Surface *surface = IMG_Load(file);
     int w, h;
 
+    if (!surface) return;
     this->Draw = TAnimatedSprite_Draw;
     this->file = strdup(file);
     this->size = size;
@@ -53,8 +56,7 @@ static void TAnimatedSprite_Init(TAnimatedSprite *this, TFrame *frame, const cha
 
 void TAnimatedSprite_Draw(TAnimatedSprite *this, TFrame *frame)
 {
-    if (!this || !frame)
-        return;
+    if (!this || !frame || !this->texture) return;
 
     SDL_Rect tmp_frame = {this->size.w * this->actual_frame, this->size.y, this->size.w, this->size.h};
     unsigned int current_time = 0;
@@ -75,8 +77,10 @@ void TAnimatedSprite_Draw(TAnimatedSprite *this, TFrame *frame)
 void TAnimatedSprite_New_Free(TAnimatedSprite *this)
 {
     if (this) {
-        free(this->file);
-        SDL_DestroyTexture(this->texture);
+        if (this->file)
+            free(this->file);
+        if (this->texture)
+            SDL_DestroyTexture(this->texture);
     }
     free(this);
 }

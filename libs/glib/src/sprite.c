@@ -25,16 +25,19 @@ TSprite* New_TSprite(TFrame *frame, const char *file, SDL_Rect pos)
 {
     TSprite *this = malloc(sizeof(TSprite));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
     TSprite_Init(this, frame, file, pos);
     this->Free = TSprite_New_Free;
-    return this;
+    return (this);
 }
 
 static void TSprite_Init(TSprite *this, TFrame *frame, const char *file, SDL_Rect pos)
 {
+    if (!this || !frame || !file) return;
+
     SDL_Surface *surface = IMG_Load(file);
 
+    if (!surface) return;
     this->Draw = TSprite_Draw;
     this->file = strdup(file);
     this->pos = pos;
@@ -45,8 +48,7 @@ static void TSprite_Init(TSprite *this, TFrame *frame, const char *file, SDL_Rec
 
 void TSprite_Draw(TSprite *this, TFrame *frame)
 {
-    if (!this || !frame)
-        return;
+    if (!this || !frame || !this->texture) return;
 
     SDL_RenderCopy(frame->window->renderer_window, this->texture, NULL, &this->pos);
 }
@@ -54,8 +56,10 @@ void TSprite_Draw(TSprite *this, TFrame *frame)
 void TSprite_New_Free(TSprite *this)
 {
     if (this) {
-        free(this->file);
-        SDL_DestroyTexture(this->texture);
+        if (this->file)
+            free(this->file);
+        if (this->texture)
+            SDL_DestroyTexture(this->texture);
     }
     free(this);
 }

@@ -19,14 +19,14 @@ TAckConnectPacket *New_TAckConnectPacket(unsigned char *raw)
 {
     TAckConnectPacket *this = malloc(sizeof(TAckConnectPacket));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
 
     this->raw_packet = raw;
     this->packet_id = ACK_CONNECT;
     this->Serialize = TAckConnectPacket_Serialize;
     this->Unserialize = TAckConnectPacket_Unserialize;
     this->Free = TAckConnectPacket_New_Free;
-    return this;
+    return (this);
 }
 
 int TAckConnectPacket_Serialize(TAckConnectPacket *this)
@@ -40,7 +40,7 @@ int TAckConnectPacket_Serialize(TAckConnectPacket *this)
     packet_buffer = pack_int(packet_buffer, this->packet_id);
     packet_buffer = pack_int(packet_buffer, this->status);
     packet_buffer = pack_uint(packet_buffer, this->player);
-    return (packet_buffer - this->raw_packet);
+    return (int)(packet_buffer - this->raw_packet);
 }
 
 void TAckConnectPacket_Unserialize(TAckConnectPacket *this)

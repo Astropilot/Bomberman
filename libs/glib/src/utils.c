@@ -28,6 +28,7 @@ SDL_Texture *createText(TFrame *frame, const char *text, TTF_Font *font, SDL_Col
     SDL_Texture *text_texture = NULL;
 
     s_text = TTF_RenderText_Solid(font, text, color);
+    if (!s_text) return (NULL);
     text_texture = SDL_CreateTextureFromSurface(frame->window->renderer_window, s_text);
     pos->w = s_text->w;
     pos->h = s_text->h;
@@ -36,11 +37,13 @@ SDL_Texture *createText(TFrame *frame, const char *text, TTF_Font *font, SDL_Col
     return (text_texture);
 }
 
-TTF_Font *loadFont(const char *font_file, size_t font_size)
+TTF_Font *loadFont(const char *font_file, unsigned int font_size)
 {
+    if (!font_file) return (NULL);
+
     TTF_Font *font = NULL;
 
-    font = TTF_OpenFont(font_file, font_size);
+    font = TTF_OpenFont(font_file, (int)font_size);
     if (!font)
         fprintf(stderr, "[GLib] Unable to load the font %s, reason: %s\n", font_file, TTF_GetError());
     return (font);

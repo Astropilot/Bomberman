@@ -21,14 +21,14 @@ TAckPlayerUpdatePacket *New_TAckPlayerUpdatePacket(unsigned char *raw)
 {
     TAckPlayerUpdatePacket *this = malloc(sizeof(TAckPlayerUpdatePacket));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
 
     this->raw_packet = raw;
     this->packet_id = ACK_PLAYER_UPDATE;
     this->Serialize = TAckPlayerUpdatePacket_Serialize;
     this->Unserialize = TAckPlayerUpdatePacket_Unserialize;
     this->Free = TAckPlayerUpdatePacket_New_Free;
-    return this;
+    return (this);
 }
 
 int TAckPlayerUpdatePacket_Serialize(TAckPlayerUpdatePacket *this)
@@ -49,7 +49,7 @@ int TAckPlayerUpdatePacket_Serialize(TAckPlayerUpdatePacket *this)
     packet_buffer = pack_uint(packet_buffer, this->player.specs.bombs_capacity);
     packet_buffer = pack_uint(packet_buffer, this->player.specs.bombs_left);
     this->player.username = NULL;
-    return (packet_buffer - this->raw_packet);
+    return (int)(packet_buffer - this->raw_packet);
 }
 
 void TAckPlayerUpdatePacket_Unserialize(TAckPlayerUpdatePacket *this)

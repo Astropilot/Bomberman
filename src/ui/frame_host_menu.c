@@ -30,12 +30,14 @@ static void On_Click_Play_Button(TButton *button, TFrame *frame);
 TFrame* New_HostMenuFrame(void)
 {
     TFrame *frm = New_TFrame("FRAME_HOST_MENU");
-    frm->Init = Init;
-    frm->On_Load = On_Load;
-    frm->On_Event = On_Event;
-    frm->On_Tick = On_Tick;
-    frm->On_Unload = On_Unload;
-    frm->Finish = Finish;
+    if (frm) {
+        frm->Init = Init;
+        frm->On_Load = On_Load;
+        frm->On_Event = On_Event;
+        frm->On_Tick = On_Tick;
+        frm->On_Unload = On_Unload;
+        frm->Finish = Finish;
+    }
     return (frm);
 }
 

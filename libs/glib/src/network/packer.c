@@ -17,6 +17,8 @@
 
 unsigned char *pack_int(unsigned char *buffer, int i)
 {
+    if (!buffer) return (NULL);
+
     *buffer++ = i >> 8;
     *buffer++ = i;
     return (buffer);
@@ -24,6 +26,8 @@ unsigned char *pack_int(unsigned char *buffer, int i)
 
 unsigned char *unpack_int(unsigned char *buffer, int *i)
 {
+    if (!buffer || !i) return (NULL);
+
     unsigned int ui = ((unsigned int)buffer[0] << 8) | buffer[1];
     int tmp_i;
 
@@ -43,36 +47,46 @@ unsigned char *pack_uint(unsigned char *buffer, unsigned int ui)
 
 unsigned char *unpack_uint(unsigned char *buffer, unsigned int *ui)
 {
+    if (!buffer || !ui) return (NULL);
+
     *ui = ((unsigned int)buffer[0] << 8) | buffer[1];
     return (buffer + 2);
 }
 
 unsigned char *pack_char(unsigned char *buffer, char chr)
 {
+    if (!buffer) return (NULL);
+
     *buffer++ = chr;
     return (buffer);
 }
 
 unsigned char *unpack_char(unsigned char *buffer, char *chr)
 {
+    if (!buffer || !chr) return (NULL);
+
     *chr = *buffer;
     return (++buffer);
 }
 
 unsigned char *pack_string(unsigned char *buffer, const char *str)
 {
-    int len = strlen(str);
+    if (!buffer || !str) return (NULL);
 
-    buffer = pack_int(buffer, len);
+    unsigned int len = (unsigned int)strlen(str);
+
+    buffer = pack_uint(buffer, len);
     memcpy(buffer, str, len);
     return (buffer + len);
 }
 
 unsigned char *unpack_string(unsigned char *buffer, char *str)
 {
-    int len;
+    if (!buffer || !str) return (NULL);
 
-    buffer = unpack_int(buffer, &len);
+    unsigned int len;
+
+    buffer = unpack_uint(buffer, &len);
     memcpy(str, buffer, len);
     str[len] = '\0';
     return (buffer + len);

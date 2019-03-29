@@ -19,14 +19,14 @@ TReqDisconnectPacket *New_TReqDisconnectPacket(unsigned char *raw)
 {
     TReqDisconnectPacket *this = malloc(sizeof(TReqDisconnectPacket));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
 
     this->raw_packet = raw;
     this->packet_id = REQ_DISCONNECT;
     this->Serialize = TReqDisconnectPacket_Serialize;
     this->Unserialize = TReqDisconnectPacket_Unserialize;
     this->Free = TReqDisconnectPacket_New_Free;
-    return this;
+    return (this);
 }
 
 int TReqDisconnectPacket_Serialize(TReqDisconnectPacket *this)
@@ -40,7 +40,7 @@ int TReqDisconnectPacket_Serialize(TReqDisconnectPacket *this)
     packet_buffer = pack_int(packet_buffer, this->packet_id);
     packet_buffer = pack_int(packet_buffer, this->reason);
     packet_buffer = pack_uint(packet_buffer, this->player);
-    return (packet_buffer - this->raw_packet);
+    return (int)(packet_buffer - this->raw_packet);
 }
 
 void TReqDisconnectPacket_Unserialize(TReqDisconnectPacket *this)

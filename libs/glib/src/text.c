@@ -26,14 +26,16 @@ TText* New_TText(TFrame *frame, const char *text, TTF_Font *font, SDL_Color colo
 {
     TText *this = malloc(sizeof(TText));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
     TText_Init(this, frame, text, font, color, pos);
     this->Free = TText_New_Free;
-    return this;
+    return (this);
 }
 
 static void TText_Init(TText *this, TFrame *frame, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect pos)
 {
+    if (!this || !frame || !text || !font) return;
+
     this->Draw = TText_Draw;
     this->Change_Text = TText_Change_Text;
     this->text = strdup(text);
@@ -46,14 +48,15 @@ static void TText_Init(TText *this, TFrame *frame, const char *text, TTF_Font *f
 
 void TText_Draw(TText *this, TFrame *frame)
 {
-    if (!this || !frame)
-        return;
+    if (!this || !frame || !this->texture) return;
 
     SDL_RenderCopy(frame->window->renderer_window, this->texture, NULL, &this->pos);
 }
 
 void TText_Change_Text(TText *this, TFrame *frame, const char *text)
 {
+    if (!this || !frame || !text) return;
+
     free(this->text);
     SDL_DestroyTexture(this->texture);
 
@@ -65,8 +68,10 @@ void TText_New_Free(TText *this)
 {
     if (this) {
         free(this->text);
-        SDL_DestroyTexture(this->texture);
-        TTF_CloseFont(this->font);
+        if (this->texture)
+            SDL_DestroyTexture(this->texture);
+        if (this->font)
+            TTF_CloseFont(this->font);
     }
     free(this);
 }

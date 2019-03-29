@@ -19,14 +19,14 @@ TReqPlaceBombPacket *New_TReqPlaceBombPacket(unsigned char *raw)
 {
     TReqPlaceBombPacket *this = malloc(sizeof(TReqPlaceBombPacket));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
 
     this->raw_packet = raw;
     this->packet_id = REQ_PLACE_BOMB;
     this->Serialize = TReqPlaceBombPacket_Serialize;
     this->Unserialize = TReqPlaceBombPacket_Unserialize;
     this->Free = TReqPlaceBombPacket_New_Free;
-    return this;
+    return (this);
 }
 
 int TReqPlaceBombPacket_Serialize(TReqPlaceBombPacket *this)
@@ -39,7 +39,7 @@ int TReqPlaceBombPacket_Serialize(TReqPlaceBombPacket *this)
     packet_buffer = this->raw_packet;
     packet_buffer = pack_int(packet_buffer, this->packet_id);
     packet_buffer = pack_uint(packet_buffer, this->player);
-    return (packet_buffer - this->raw_packet);
+    return (int)(packet_buffer - this->raw_packet);
 }
 
 void TReqPlaceBombPacket_Unserialize(TReqPlaceBombPacket *this)

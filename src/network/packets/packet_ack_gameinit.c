@@ -22,14 +22,14 @@ TAckGameInitPacket *New_TAckGameInitPacket(unsigned char *raw)
 {
     TAckGameInitPacket *this = malloc(sizeof(TAckGameInitPacket));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
 
     this->raw_packet = raw;
     this->packet_id = ACK_GAME_INIT;
     this->Serialize = TAckGameInitPacket_Serialize;
     this->Unserialize = TAckGameInitPacket_Unserialize;
     this->Free = TAckGameInitPacket_New_Free;
-    return this;
+    return (this);
 }
 
 int TAckGameInitPacket_Serialize(TAckGameInitPacket *this)
@@ -69,7 +69,7 @@ int TAckGameInitPacket_Serialize(TAckGameInitPacket *this)
     this->block_map = NULL;
     this->nb_players = 0;
     this->players = NULL;
-    return (packet_buffer - this->raw_packet);
+    return (int)(packet_buffer - this->raw_packet);
 }
 
 void TAckGameInitPacket_Unserialize(TAckGameInitPacket *this)
@@ -103,7 +103,7 @@ void TAckGameInitPacket_Unserialize(TAckGameInitPacket *this)
     }
     for (i = 0; i < MAP_HEIGHT; i++) {
         for (j = 0; j < MAP_WIDTH; j++) {
-            packet_buffer = unpack_uint(packet_buffer, &(this->block_map[i][j]));
+            packet_buffer = unpack_uint(packet_buffer, (unsigned int*)&(this->block_map[i][j]));
         }
     }
 }

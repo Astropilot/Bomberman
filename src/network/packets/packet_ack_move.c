@@ -21,14 +21,14 @@ TAckMovePacket *New_TAckMovePacket(unsigned char *raw)
 {
     TAckMovePacket *this = malloc(sizeof(TAckMovePacket));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
 
     this->raw_packet = raw;
     this->packet_id = ACK_MOVE;
     this->Serialize = TAckMovePacket_Serialize;
     this->Unserialize = TAckMovePacket_Unserialize;
     this->Free = TAckMovePacket_New_Free;
-    return this;
+    return (this);
 }
 
 int TAckMovePacket_Serialize(TAckMovePacket *this)
@@ -52,7 +52,7 @@ int TAckMovePacket_Serialize(TAckMovePacket *this)
     packet_buffer = pack_uint(packet_buffer, this->player.direction);
     packet_buffer = pack_uint(packet_buffer, this->take_extra);
     this->player.username = NULL;
-    return (packet_buffer - this->raw_packet);
+    return (int)(packet_buffer - this->raw_packet);
 }
 
 void TAckMovePacket_Unserialize(TAckMovePacket *this)

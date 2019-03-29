@@ -19,14 +19,14 @@ TReqStartGamePacket *New_TReqStartGamePacket(unsigned char *raw)
 {
     TReqStartGamePacket *this = malloc(sizeof(TReqStartGamePacket));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
 
     this->raw_packet = raw;
     this->packet_id = REQ_START_GAME;
     this->Serialize = TReqStartGamePacket_Serialize;
     this->Unserialize = TReqStartGamePacket_Unserialize;
     this->Free = TReqStartGamePacket_New_Free;
-    return this;
+    return (this);
 }
 
 int TReqStartGamePacket_Serialize(TReqStartGamePacket *this)
@@ -39,7 +39,7 @@ int TReqStartGamePacket_Serialize(TReqStartGamePacket *this)
     packet_buffer = this->raw_packet;
     packet_buffer = pack_int(packet_buffer, this->packet_id);
     packet_buffer = pack_uint(packet_buffer, this->player);
-    return (packet_buffer - this->raw_packet);
+    return (int)(packet_buffer - this->raw_packet);
 }
 
 void TReqStartGamePacket_Unserialize(TReqStartGamePacket *this)

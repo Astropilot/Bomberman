@@ -21,7 +21,7 @@ TReqConnectPacket *New_TReqConnectPacket(unsigned char *raw)
 {
     TReqConnectPacket *this = malloc(sizeof(TReqConnectPacket));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
 
     this->raw_packet = raw;
     this->packet_id = REQ_CONNECT;
@@ -29,7 +29,7 @@ TReqConnectPacket *New_TReqConnectPacket(unsigned char *raw)
     this->Serialize = TReqConnectPacket_Serialize;
     this->Unserialize = TReqConnectPacket_Unserialize;
     this->Free = TReqConnectPacket_New_Free;
-    return this;
+    return (this);
 }
 
 int TReqConnectPacket_Serialize(TReqConnectPacket *this)
@@ -42,7 +42,7 @@ int TReqConnectPacket_Serialize(TReqConnectPacket *this)
     packet_buffer = this->raw_packet;
     packet_buffer = pack_int(packet_buffer, this->packet_id);
     packet_buffer = pack_string(packet_buffer, this->player_name);
-    return (packet_buffer - this->raw_packet);
+    return (int)(packet_buffer - this->raw_packet);
 }
 
 void TReqConnectPacket_Unserialize(TReqConnectPacket *this)

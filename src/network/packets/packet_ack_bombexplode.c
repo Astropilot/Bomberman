@@ -22,14 +22,14 @@ TAckBombExplodePacket *New_TAckBombExplodePacket(unsigned char *raw)
 {
     TAckBombExplodePacket *this = malloc(sizeof(TAckBombExplodePacket));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
 
     this->raw_packet = raw;
     this->packet_id = ACK_BOMB_EXPLODE;
     this->Serialize = TAckBombExplodePacket_Serialize;
     this->Unserialize = TAckBombExplodePacket_Unserialize;
     this->Free = TAckBombExplodePacket_New_Free;
-    return this;
+    return (this);
 }
 
 int TAckBombExplodePacket_Serialize(TAckBombExplodePacket *this)
@@ -67,7 +67,7 @@ int TAckBombExplodePacket_Serialize(TAckBombExplodePacket *this)
         packet_buffer = pack_uint(packet_buffer, this->extra_blocks[i].pos.x);
         packet_buffer = pack_uint(packet_buffer, this->extra_blocks[i].pos.y);
     }
-    return (packet_buffer - this->raw_packet);
+    return (int)(packet_buffer - this->raw_packet);
 }
 
 void TAckBombExplodePacket_Unserialize(TAckBombExplodePacket *this)
@@ -113,7 +113,7 @@ void TAckBombExplodePacket_Unserialize(TAckBombExplodePacket *this)
     else
         this->extra_blocks = NULL;
     for (i = 0; i < this->extra_count; i++) {
-        packet_buffer = unpack_uint(packet_buffer, &(this->extra_blocks[i].type));
+        packet_buffer = unpack_uint(packet_buffer, (unsigned int*)&(this->extra_blocks[i].type));
         packet_buffer = unpack_uint(packet_buffer, &(this->extra_blocks[i].pos.x));
         packet_buffer = unpack_uint(packet_buffer, &(this->extra_blocks[i].pos.y));
     }

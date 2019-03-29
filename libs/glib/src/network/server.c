@@ -13,25 +13,26 @@
 
 #include "network/server.h"
 
-static void TServer_Init(TServer *this, unsigned short int port, size_t max_c);
+static void TServer_Init(TServer *this, unsigned short int port, unsigned int max_c);
 static int TServer_Listenning(void *p_args);
 static void TServer_Client_OnMessage(TClient *client, TServer *server, TMessage message);
-
 static void TServer_AddClient(TServer *this, TClient *client);
 static void TServer_Free_Clients(TServer *this);
 
-TServer *New_TServer(unsigned short int port, size_t max_c)
+TServer *New_TServer(unsigned short int port, unsigned int max_c)
 {
     TServer *this = malloc(sizeof(TServer));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
     TServer_Init(this, port, max_c);
     this->Free = TServer_New_Free;
-    return this;
+    return (this);
 }
 
-static void TServer_Init(TServer *this, unsigned short int port, size_t max_c)
+static void TServer_Init(TServer *this, unsigned short int port, unsigned int max_c)
 {
+    if (!this) return;
+
     this->Start_Listenning = TServer_Start_Listenning;
     this->Stop_Listenning = TServer_Stop_Listenning;
     this->Send_Broadcast = TServer_Send_Broadcast;
@@ -65,46 +66,59 @@ static void TServer_Init(TServer *this, unsigned short int port, size_t max_c)
 
 void TServer_Start_Listenning(TServer *this)
 {
+    if (!this) return;
+
     this->is_listenning = 1;
     this->server_thread = SDL_CreateThread(TServer_Listenning, "TServer_Listenning", (void*)this);
 }
 
 void TServer_Stop_Listenning(TServer *this)
 {
+    if (!this || !this->server_thread) return;
+
     this->is_listenning = 0;
     SDL_WaitThread(this->server_thread, NULL);
 }
 
 void TServer_Send_Broadcast(TServer *this, TMessage message)
 {
+    if (!this) return;
+
     TClient_Node *current = this->clients_head;
 
     while (current != NULL) {
         TMessage tmp_message = {message.len, NULL};
 
-        tmp_message.message = malloc(sizeof(unsigned char) * message.len);
-        memcpy(tmp_message.message, message.message, message.len);
-        current->client->Send(current->client, tmp_message);
+        if (current->client && current->client->Send) {
+            tmp_message.message = malloc(sizeof(unsigned char) * message.len);
+            if (tmp_message.message) {
+                memcpy(tmp_message.message, message.message, message.len);
+                current->client->Send(current->client, tmp_message);
+            }
+        }
         current = current->next;
     }
     free(message.message);
 }
 
-size_t TServer_CountClients(TServer *this)
+unsigned int TServer_CountClients(TServer *this)
 {
+    if (!this) return (0);
+
     TClient_Node *current = this->clients_head;
-    size_t clients = 0;
+    unsigned int clients = 0;
 
     while (current != NULL) {
         clients++;
         current = current->next;
     }
-
     return (clients);
 }
 
 void TServer_Disconnect_Client(TServer *this, TClient *client)
 {
+    if (!this || !client) return;
+
     TClient_Node *current = this->clients_head;
     TClient_Node *previous = NULL;
 
@@ -115,8 +129,10 @@ void TServer_Disconnect_Client(TServer *this, TClient *client)
             else
                 previous->next = current->next;
 
-            current->client->Disconnect(current->client);
-            current->client->Free(current->client);
+            if (current->client->Disconnect)
+                current->client->Disconnect(current->client);
+            if (current->client->Free)
+                current->client->Free(current->client);
 
             free(current);
             return;
@@ -132,7 +148,7 @@ static int TServer_Listenning(void *p_args)
     fd_set rdfs;
     struct timeval timeout;
 
-    while (server->is_listenning) {
+    while (server && server->is_listenning) {
         if (server->CountClients(server) < server->max_c) {
             timeout.tv_sec = 1;
             timeout.tv_usec = 0;
@@ -140,22 +156,24 @@ static int TServer_Listenning(void *p_args)
             FD_ZERO(&rdfs);
             FD_SET(server->server_sock, &rdfs);
 
-            int res = select(server->server_sock + 1, &rdfs, NULL, NULL, &timeout);
+            int res = select((int)server->server_sock + 1, &rdfs, NULL, NULL, &timeout);
             if (res <= 0)
                 continue;
             if (FD_ISSET(server->server_sock, &rdfs)) {
-                int client_socket = accept(server->server_sock, NULL, NULL);
+                SOCKET client_socket = accept(server->server_sock, NULL, NULL);
                 if (client_socket != SOCKET_ERROR) {
                     TClient *client = New_TClient();
 
-                    SocketNonBlocking(client_socket, 0);
-                    client->sock = client_socket;
-                    client->is_connected = 1;
-                    client->Server_On_Message = TServer_Client_OnMessage;
-                    TServer_AddClient(server, client);
-                    client->Start_Recv(client, server);
-                    if (server->On_Connect)
-                        server->On_Connect(server, client);
+                    if (client) {
+                        SocketNonBlocking(client_socket, 0);
+                        client->sock = client_socket;
+                        client->is_connected = 1;
+                        client->Server_On_Message = TServer_Client_OnMessage;
+                        TServer_AddClient(server, client);
+                        client->Start_Recv(client, server);
+                        if (server->On_Connect)
+                            server->On_Connect(server, client);
+                    }
                 }
             }
         }
@@ -166,38 +184,50 @@ static int TServer_Listenning(void *p_args)
 
 static void TServer_Client_OnMessage(TClient *client, TServer *server, TMessage message)
 {
+    if (!client || !server) return;
+
     if (server->On_Message)
         server->On_Message(server, client, message);
 }
 
 static void TServer_AddClient(TServer *this, TClient *client)
 {
+    if (!this || !client) return;
+
     if (!this->clients_head) {
         TClient_Node *client_node = malloc(sizeof(TClient_Node));
 
-        client_node->client = client;
-        client_node->next = NULL;
-        this->clients_head = client_node;
+        if (client_node) {
+            client_node->client = client;
+            client_node->next = NULL;
+            this->clients_head = client_node;
+        }
     } else {
         TClient_Node *current = this->clients_head;
 
         while (current->next != NULL)
             current = current->next;
         current->next = malloc(sizeof(TClient_Node));
-        current->next->client = client;
-        current->next->next = NULL;
+        if (current->next) {
+            current->next->client = client;
+            current->next->next = NULL;
+        }
     }
 }
 
 static void TServer_Free_Clients(TServer *this)
 {
+    if (!this) return;
+
     TClient_Node *current = this->clients_head;
     TClient_Node *tmp = NULL;
 
     while (current != NULL) {
 
-        current->client->Disconnect(current->client);
-        current->client->Free(current->client);
+        if (current->client->Disconnect)
+            current->client->Disconnect(current->client);
+        if (current->client->Free)
+            current->client->Free(current->client);
 
         tmp = current;
         current = current->next;

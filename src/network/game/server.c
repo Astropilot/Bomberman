@@ -44,7 +44,7 @@ TGameServer* New_TGameServer()
 {
     TGameServer *this = malloc(sizeof(TGameServer));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
 
     game_server = this;
     this->server = NULL;
@@ -58,11 +58,13 @@ TGameServer* New_TGameServer()
     this->Start = TGameServer_Start;
     this->Stop = TGameServer_Stop;
     this->Free = TGameServer_New_Free;
-    return this;
+    return (this);
 }
 
 void TGameServer_Start(TGameServer *this, int port, int max_clients)
 {
+    if (!this) return;
+
     this->server = New_TServer(port, 15);
     this->server->On_Message = On_Message;
     this->max_clients = max_clients;
@@ -77,8 +79,8 @@ void TGameServer_Start(TGameServer *this, int port, int max_clients)
 
 void TGameServer_Stop(TGameServer *this)
 {
-    if (!this->server)
-        return;
+    if (!this || !this->server) return;
+
     TAckDisconnectPacket *p = New_TAckDisconnectPacket(NULL);
 
     this->is_listenning = 0;
@@ -97,7 +99,7 @@ static int TGameServer_Gameloop(void *p_args)
     unsigned int current_time = 0;
     unsigned int game_on = 1;
 
-    while (game_server->is_listenning && game_on) {
+    while (game_server && game_server->is_listenning && game_on) {
         if (!game_server->game_started)
             continue;
         bomb_node_t *current_bomb = game_server->map->bombs_head;
@@ -138,6 +140,8 @@ static int TGameServer_Gameloop(void *p_args)
 
 void On_Message(TServer *server, TClient *client, TMessage message)
 {
+    if (!server || !client) return;
+
     int packet_id = extract_packet_id(message.message);
     switch (packet_id) {
         case REQ_DISCONNECT:;
@@ -273,7 +277,7 @@ void On_Message(TServer *server, TClient *client, TMessage message)
 void TGameServer_New_Free(TGameServer *this)
 {
     if (this) {
-        if (this->map)
+        if (this->map && this->map->Free)
             this->map->Free(this->map);
     }
     free(this);

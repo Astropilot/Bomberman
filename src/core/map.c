@@ -29,15 +29,16 @@ TMap *New_TMap(unsigned int max_clients)
 {
     TMap *this = malloc(sizeof(TMap));
 
-    if(!this) return NULL;
-
+    if(!this) return (NULL);
     TMap_Init(this, max_clients);
     this->Free = TMap_New_Free;
-    return this;
+    return (this);
 }
 
 static void TMap_Init(TMap *this, unsigned int max_clients)
 {
+    if (!this) return;
+
     unsigned int i;
     unsigned int j;
 
@@ -46,15 +47,19 @@ static void TMap_Init(TMap *this, unsigned int max_clients)
     this->Place_Bomb = TMap_Place_Bomb;
     this->Explose_Bomb = TMap_Explose_Bomb;
     this->block_map = malloc(MAP_HEIGHT * sizeof(object_type_t*));
-    for (i = 0; i < MAP_HEIGHT; i++) {
-        this->block_map[i] = malloc(MAP_WIDTH * sizeof(object_type_t));
-        for (j = 0; j < MAP_WIDTH; j++) {
-            this->block_map[i][j] = NOTHING;
+    if (this->block_map) {
+        for (i = 0; i < MAP_HEIGHT; i++) {
+            this->block_map[i] = malloc(MAP_WIDTH * sizeof(object_type_t));
+            for (j = 0; j < MAP_WIDTH; j++) {
+                this->block_map[i][j] = NOTHING;
+            }
         }
     }
     this->players = malloc(sizeof(player_t) * max_clients);
-    for (i = 0; i < max_clients; i++) {
-        this->players[i].connected = 0;
+    if (this->players) {
+        for (i = 0; i < max_clients; i++) {
+            this->players[i].connected = 0;
+        }
     }
     this->max_players = max_clients;
     this->bombs_head = NULL;
@@ -63,6 +68,8 @@ static void TMap_Init(TMap *this, unsigned int max_clients)
 
 void TMap_Generate(TMap *this)
 {
+    if (!this || !this->block_map) return;
+
     unsigned int y;
     unsigned int x;
 
@@ -86,6 +93,8 @@ void TMap_Generate(TMap *this)
 
 static unsigned int TMap_Take_Extra(TMap *this, player_t *player, int x, int y)
 {
+    if (!this || !player || !this->block_map) return (0);
+
     unsigned int res = 1;
     if (this->block_map[y][x] == NOTHING) return (0);
 
@@ -125,6 +134,8 @@ static unsigned int TMap_Take_Extra(TMap *this, player_t *player, int x, int y)
 
 unsigned int TMap_Move_Player(TMap *this, unsigned int player_id, direction_t direction)
 {
+    if (!this || !this->block_map || !this->players) return (0);
+
     player_t *player = &(this->players[player_id]);
     pos_t new_coords = player->pos;
     int block_x, block_y;
@@ -175,6 +186,12 @@ unsigned int TMap_Move_Player(TMap *this, unsigned int player_id, direction_t di
 
 bomb_status_t TMap_Place_Bomb(TMap *this, unsigned int player_id, bomb_reason_t *reason)
 {
+    if (!this || !reason || !this->block_map || !this->players) {
+        if (reason)
+            *reason = INTERNAL_ERROR;
+        return (BOMB_CANCELED);
+    }
+
     player_t *player = &(this->players[player_id]);
     int block_x, block_y;
     unsigned int time = SDL_GetTicks();
@@ -218,6 +235,9 @@ bomb_status_t TMap_Place_Bomb(TMap *this, unsigned int player_id, bomb_reason_t 
 
 void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TServer *server)
 {
+    if (!this || !this->block_map || !this->players || !bomb || !server)
+        return;
+
     player_t *player = &(this->players[bomb->owner_id]);
     TAckBombExplodePacket *packet = New_TAckBombExplodePacket(NULL);
     TAckPlayerUpdatePacket *p_ownerupdate = New_TAckPlayerUpdatePacket(NULL);
@@ -321,13 +341,13 @@ void TMap_New_Free(TMap *this)
             current = current->next;
             free(tmp);
         }
-
-        for (i = 0; i < MAP_HEIGHT; i++) {
-            free(this->block_map[i]);
+        if (this->block_map) {
+            for (i = 0; i < MAP_HEIGHT; i++) {
+                free(this->block_map[i]);
+            }
+            free(this->block_map);
+            this->block_map = NULL;
         }
-        free(this->block_map);
-        this->block_map = NULL;
-
         free(this->players);
         this->players = NULL;
     }

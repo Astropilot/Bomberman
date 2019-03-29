@@ -11,6 +11,7 @@
 * license information.
 *******************************************************************************/
 
+#include <stdio.h>
 #include <string.h>
 
 #include "network/game/lobby.h"
@@ -29,7 +30,7 @@ TLobbyClient* New_TLobbyClient()
 {
     TLobbyClient *this = malloc(sizeof(TLobbyClient));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
 
     this->client = NULL;
     this->gameserver = NULL;
@@ -44,7 +45,7 @@ TLobbyClient* New_TLobbyClient()
     this->Handle_Messages = TLobbyClient_Handle_Messages;
     this->Leave_Lobby = TLobbyClient_Leave_Lobby;
     this->Free = TLobbyClient_New_Free;
-    return this;
+    return (this);
 }
 
 TFrame *TLobbyClient_Register_Frame(TLobbyClient *this, TFrame *frame)
@@ -55,14 +56,20 @@ TFrame *TLobbyClient_Register_Frame(TLobbyClient *this, TFrame *frame)
 
 void TLobbyClient_Start_Server(TLobbyClient *this, int port, int max_clients)
 {
+    if (!this) return;
     this->is_owner = 1;
     this->gameserver = New_TGameServer();
-    this->gameserver->Start(this->gameserver, port, max_clients);
+    if (this->gameserver)
+        this->gameserver->Start(this->gameserver, port, max_clients);
 }
 
 void TLobbyClient_Join_Lobby(TLobbyClient *this, const char *username, const char *ip, int port)
 {
+    if (!this || !username || !ip) return;
+
     this->client = New_TClient();
+
+    if (!this->client) return;
     int res = this->client->Connect(this->client, ip, port);
     if (res != 0) {
         this->Leave_Lobby(this);
@@ -148,7 +155,7 @@ void TLobbyClient_Handle_Messages(TLobbyClient *this)
 
 void TLobbyClient_Leave_Lobby(TLobbyClient *this)
 {
-    if (!(this->client))
+    if (!this || !this->client)
         return;
 
     TReqDisconnectPacket *p_d = New_TReqDisconnectPacket(NULL);

@@ -20,14 +20,14 @@ TAckEndGamePacket *New_TAckEndGamePacket(unsigned char *raw)
 {
     TAckEndGamePacket *this = malloc(sizeof(TAckEndGamePacket));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
 
     this->raw_packet = raw;
     this->packet_id = ACK_END_GAME;
     this->Serialize = TAckEndGamePacket_Serialize;
     this->Unserialize = TAckEndGamePacket_Unserialize;
     this->Free = TAckEndGamePacket_New_Free;
-    return this;
+    return (this);
 }
 
 int TAckEndGamePacket_Serialize(TAckEndGamePacket *this)
@@ -47,7 +47,7 @@ int TAckEndGamePacket_Serialize(TAckEndGamePacket *this)
         packet_buffer = pack_uint(packet_buffer, this->winner->p_id);
         this->winner = NULL;
     }
-    return (packet_buffer - this->raw_packet);
+    return (int)(packet_buffer - this->raw_packet);
 }
 
 void TAckEndGamePacket_Unserialize(TAckEndGamePacket *this)

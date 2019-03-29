@@ -19,14 +19,14 @@ TReqMovePlayerPacket *New_TReqMovePlayerPacket(unsigned char *raw)
 {
     TReqMovePlayerPacket *this = malloc(sizeof(TReqMovePlayerPacket));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
 
     this->raw_packet = raw;
     this->packet_id = REQ_MOVE;
     this->Serialize = TReqMovePlayerPacket_Serialize;
     this->Unserialize = TReqMovePlayerPacket_Unserialize;
     this->Free = TReqMovePlayerPacket_New_Free;
-    return this;
+    return (this);
 }
 
 int TReqMovePlayerPacket_Serialize(TReqMovePlayerPacket *this)
@@ -40,7 +40,7 @@ int TReqMovePlayerPacket_Serialize(TReqMovePlayerPacket *this)
     packet_buffer = pack_int(packet_buffer, this->packet_id);
     packet_buffer = pack_uint(packet_buffer, this->dir);
     packet_buffer = pack_uint(packet_buffer, this->player);
-    return (packet_buffer - this->raw_packet);
+    return (int)(packet_buffer - this->raw_packet);
 }
 
 void TReqMovePlayerPacket_Unserialize(TReqMovePlayerPacket *this)

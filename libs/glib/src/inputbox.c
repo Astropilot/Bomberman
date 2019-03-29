@@ -25,20 +25,23 @@ TInput* New_TInput(TFrame *frame, const char *sprite_file, SDL_Rect pos, SDL_Col
 {
     TInput *this = malloc(sizeof(TInput));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
     TInput_Init(this, frame, sprite_file, pos, color, len, placeholder);
     this->Free = TInput_New_Free;
-    return this;
+    return (this);
 }
 
 static void TInput_Init(TInput *this, TFrame *frame, const char *file, SDL_Rect pos, SDL_Color color, size_t len, const char *placeholder)
 {
     SDL_Surface *s_tmp;
 
+    if (!this || !frame || !file) return;
+
     this->Draw = TInput_Draw;
     this->Event_Handler = TInput_Event_Handler;
     this->text = malloc(sizeof(char) * (len + 1));
-    this->text[0] = '\0';
+    if (this->text)
+        this->text[0] = '\0';
     if (placeholder)
         this->placeholder = strdup(placeholder);
     else
@@ -60,14 +63,14 @@ static void TInput_Init(TInput *this, TFrame *frame, const char *file, SDL_Rect 
 
 void TInput_Draw(TInput *this, TFrame *frame)
 {
-    if (!this || !frame)
-        return;
+    if (!this || !frame || !this->text || !this->input_sprite) return;
 
     SDL_Texture *text_texture = NULL;
     unsigned int current_time = 0;
     SDL_Color color = {189, 189, 189, 255};
 
-    this->input_sprite->Draw(this->input_sprite, frame);
+    if (this->input_sprite->Draw)
+        this->input_sprite->Draw(this->input_sprite, frame);
     if (this->text[0] != '\0')
         text_texture = createText(frame, this->text, this->font, this->color, &this->pos_text);
     else if (this->placeholder)
@@ -87,14 +90,18 @@ void TInput_Draw(TInput *this, TFrame *frame)
             (this->pos_text.x + this->pos_text.w) + 2, this->pos_text.y, 0, 0};
 
         cursor_texture = createText(frame, "_", this->font, this->color, &pos_cursor);
-        SDL_RenderCopy(frame->window->renderer_window, cursor_texture, NULL, &pos_cursor);
-        SDL_DestroyTexture(cursor_texture);
+        if (cursor_texture) {
+            SDL_RenderCopy(frame->window->renderer_window, cursor_texture, NULL, &pos_cursor);
+            SDL_DestroyTexture(cursor_texture);
+        }
         this->last_time = current_time;
     }
 }
 
 void TInput_Event_Handler(TInput *this, SDL_Event event)
 {
+    if (!this || !this->text) return;
+
     if( event.type == SDL_MOUSEBUTTONUP ) {
         int x;
         int y;
@@ -113,15 +120,15 @@ void TInput_Event_Handler(TInput *this, SDL_Event event)
         return;
     if (event.type == SDL_TEXTINPUT) {
         if( !(SDL_GetModState() & KMOD_CTRL) ) {
-            unsigned int text_len = strlen(this->text);
-            unsigned int new_text_len = strlen(event.text.text);
+            size_t text_len = strlen(this->text);
+            size_t new_text_len = strlen(event.text.text);
 
             if ( (text_len + new_text_len) <= this->max_len)
                 strcat(this->text, event.text.text);
         }
     } else if (event.type == SDL_KEYDOWN) {
         if (event.key.keysym.sym == SDLK_BACKSPACE) {
-            unsigned int text_len = strlen(this->text);
+            size_t text_len = strlen(this->text);
 
             if (text_len > 0) {
                 this->text[text_len - 1] = '\0';
@@ -133,10 +140,12 @@ void TInput_Event_Handler(TInput *this, SDL_Event event)
 void TInput_New_Free(TInput *this)
 {
     if (this) {
-        this->input_sprite->Free(this->input_sprite);
+        if (this->input_sprite && this->input_sprite->Free)
+            this->input_sprite->Free(this->input_sprite);
         free(this->text);
         free(this->placeholder);
-        TTF_CloseFont(this->font);
+        if (this->font)
+            TTF_CloseFont(this->font);
     }
     free(this);
 }

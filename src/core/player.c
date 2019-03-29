@@ -22,6 +22,7 @@ unsigned int next_id(player_t *players)
 {
     unsigned int i;
 
+    if (!players) return (MAX_PLAYERS + 1);
     for (i = 0; i < MAX_PLAYERS; i++) {
         if (!players[i].connected)
             return (i);
@@ -31,6 +32,8 @@ unsigned int next_id(player_t *players)
 
 void init_player(player_t *player, int id, const char *username)
 {
+    if (!player || !username) return;
+
     player->connected = 1;
     player->username = strdup(username);
     player->p_id = (unsigned int)id;
@@ -67,6 +70,7 @@ unsigned int alive_players(player_t *players)
     unsigned int i;
     unsigned int alive_count = 0;
 
+    if (!players) return (0);
     for (i = 0; i < MAX_PLAYERS; i++) {
         if (players[i].connected && players[i].specs.life > 0)
             alive_count++;
@@ -78,6 +82,7 @@ player_t *get_first_alive_player(player_t *players)
 {
     unsigned int i;
 
+    if (!players) return (NULL);
     for (i = 0; i < MAX_PLAYERS; i++) {
         if (players[i].connected && players[i].specs.life > 0)
             return &(players[i]);
@@ -87,7 +92,9 @@ player_t *get_first_alive_player(player_t *players)
 
 void reset_player(player_t *player)
 {
-    player->connected = 0;
-    free(player->username);
-    player->username = NULL;
+    if (player) {
+        player->connected = 0;
+        free(player->username);
+        player->username = NULL;
+    }
 }

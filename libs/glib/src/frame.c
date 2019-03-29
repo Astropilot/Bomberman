@@ -25,14 +25,16 @@ TFrame* New_TFrame(const char *frame_id)
 {
     TFrame *this = malloc(sizeof(TFrame));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
     TFrame_Init(this, frame_id);
     this->Free = TFrame_New_Free;
-    return this;
+    return (this);
 }
 
 static void TFrame_Init(TFrame *this, const char *frame_id)
 {
+    if (!this || !frame_id) return;
+
     this->Add_Drawable = TFrame_Add_Drawable;
     this->Remove_Drawable = TFrame_Remove_Drawable;
     this->Remove_Drawable_Obj = TFrame_Remove_Drawable_Obj;
@@ -49,11 +51,14 @@ static void TFrame_Init(TFrame *this, const char *frame_id)
 
 static void TFrame_Free_All_Drawables(TFrame *this)
 {
+    if (!this) return;
+
     TDrawable_Node *current = this->drawables_head;
     TDrawable_Node *tmp = NULL;
 
     while (current != NULL) {
-        current->drawable->Free(current->drawable);
+        if (current->drawable && current->drawable->Free)
+            current->drawable->Free(current->drawable);
 
         tmp = current;
         current = current->next;
@@ -65,10 +70,11 @@ void TFrame_Add_Drawable(TFrame *this, TDrawable *drawable, const char *id, unsi
 {
     TDrawable_Node *drawable_node;
 
-    if (drawable && this && id)
-        drawable_node = malloc(sizeof(TDrawable_Node));
-    else
-        return;
+    if (!this || !drawable || !id) return;
+
+    drawable_node = malloc(sizeof(TDrawable_Node));
+    if (!drawable_node) return;
+
     drawable_node->id = hash(id);
     drawable_node->drawable = drawable;
     drawable_node->priority = priority;
@@ -98,8 +104,7 @@ void TFrame_Add_Drawable(TFrame *this, TDrawable *drawable, const char *id, unsi
 
 TDrawable *TFrame_Remove_Drawable(TFrame *this, const char *id)
 {
-    if (!this || !id)
-        return (NULL);
+    if (!this || !id) return (NULL);
 
     TDrawable_Node *current = this->drawables_head;
     TDrawable_Node *previous = NULL;
@@ -124,8 +129,7 @@ TDrawable *TFrame_Remove_Drawable(TFrame *this, const char *id)
 
 unsigned int TFrame_Remove_Drawable_Obj(TFrame *this, TDrawable *drawable)
 {
-    if (!this || !drawable)
-        return (0);
+    if (!this || !drawable) return (0);
 
     TDrawable_Node *current = this->drawables_head;
     TDrawable_Node *previous = NULL;
@@ -147,9 +151,11 @@ unsigned int TFrame_Remove_Drawable_Obj(TFrame *this, TDrawable *drawable)
 
 unsigned int TFrame_Free_Drawable(TFrame *this, const char *id)
 {
+    if (!this || !id) return (0);
+
     TDrawable *drawable = this->Remove_Drawable(this, id);
 
-    if (drawable) {
+    if (drawable && drawable->Free) {
         drawable->Free(drawable);
         return (1);
     }
@@ -158,9 +164,11 @@ unsigned int TFrame_Free_Drawable(TFrame *this, const char *id)
 
 unsigned int TFrame_Free_Drawable_Obj(TFrame *this, TDrawable *drawable)
 {
+    if (!this || !drawable) return (0);
+
     unsigned int result = this->Remove_Drawable_Obj(this, drawable);
 
-    if (result) {
+    if (result && drawable->Free) {
         drawable->Free(drawable);
         return (1);
     }
@@ -169,8 +177,10 @@ unsigned int TFrame_Free_Drawable_Obj(TFrame *this, TDrawable *drawable)
 
 unsigned int TFrame_Free_Drawables(TFrame *this, const char *id)
 {
+    if (!this || !id) return (0);
+
     unsigned int drawables_count = 0;
-    unsigned int res;
+    unsigned int res = 0;
 
     do {
         res = this->Free_Drawable(this, id);
@@ -182,15 +192,14 @@ unsigned int TFrame_Free_Drawables(TFrame *this, const char *id)
 
 TDrawable *TFrame_Get_Drawable(TFrame *this, const char *id)
 {
-    if (!this || !id)
-        return (NULL);
+    if (!this || !id) return (NULL);
 
     TDrawable_Node *current = this->drawables_head;
     unsigned long uid = hash(id);
 
     while (current != NULL) {
         if (current->id == uid)
-            return current->drawable;
+            return (current->drawable);
         current = current->next;
     }
 
@@ -199,11 +208,14 @@ TDrawable *TFrame_Get_Drawable(TFrame *this, const char *id)
 
 void TFrame_Draw_Drawables(TFrame *this)
 {
+    if (!this) return;
+
     TDrawable_Node *current = this->drawables_head;
 
     while (current != NULL) {
-        if (current->drawable->is_visible)
-            current->drawable->Draw(current->drawable, this);
+        if (current->drawable && current->drawable->is_visible)
+            if (current->drawable->Draw)
+                current->drawable->Draw(current->drawable, this);
         current = current->next;
     }
 }

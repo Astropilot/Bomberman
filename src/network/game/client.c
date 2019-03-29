@@ -38,7 +38,7 @@ TGameClient* New_TGameClient()
 {
     TGameClient *this = malloc(sizeof(TGameClient));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
 
     this->client = NULL;
     this->gameserver = NULL;
@@ -52,7 +52,7 @@ TGameClient* New_TGameClient()
     this->Handle_Messages = TGameClient_Handle_Messages;
     this->Leave_Game = TGameClient_Leave_Game;
     this->Free = TGameClient_New_Free;
-    return this;
+    return (this);
 }
 
 TFrame *TGameClient_Register_Frame(TGameClient *this, TFrame *frame)
@@ -65,31 +65,39 @@ void TGameClient_Ready(TGameClient *this)
 {
     TReqReadyPacket *p_rr = New_TReqReadyPacket(NULL);
 
-    p_rr->player = this->player;
-    this->client->Send(this->client, packet_to_message((TPacket*)p_rr, 1));
+    if (this && p_rr) {
+        p_rr->player = this->player;
+        this->client->Send(this->client, packet_to_message((TPacket*)p_rr, 1));
+    } else
+        if (p_rr) p_rr->Free(p_rr);
 }
 
 void TGameClient_Move(TGameClient *this, direction_t direction)
 {
     TReqMovePlayerPacket *p_rm = New_TReqMovePlayerPacket(NULL);
 
-    p_rm->dir = (unsigned int)direction;
-    p_rm->player = this->player;
-    this->client->Send(this->client, packet_to_message((TPacket*)p_rm, 1));
+    if (this && p_rm) {
+        p_rm->dir = (unsigned int)direction;
+        p_rm->player = this->player;
+        this->client->Send(this->client, packet_to_message((TPacket*)p_rm, 1));
+    } else
+        if (p_rm) p_rm->Free(p_rm);
 }
 
 void TGameClient_Place_Bomb(TGameClient *this)
 {
     TReqPlaceBombPacket *p_rb = New_TReqPlaceBombPacket(NULL);
 
-    p_rb->player = this->player;
-    this->client->Send(this->client, packet_to_message((TPacket*)p_rb, 1));
+    if (this && p_rb) {
+        p_rb->player = this->player;
+        this->client->Send(this->client, packet_to_message((TPacket*)p_rb, 1));
+    } else
+        if (p_rb) p_rb->Free(p_rb);
 }
 
 void TGameClient_Handle_Messages(TGameClient *this)
 {
-    if (!this->client)
-        return;
+    if (!this || !this->client) return;
 
     TMessage message;
     int packet_id;
@@ -321,13 +329,15 @@ void TGameClient_Handle_Messages(TGameClient *this)
 
 void TGameClient_Leave_Game(TGameClient *this)
 {
-    if (!(this->client))
-        return;
+    if (!this || !this->client) return;
 
     TReqDisconnectPacket *p_d = New_TReqDisconnectPacket(NULL);
-    p_d->reason = (this->is_owner ? MASTER_LEAVE : USER_QUIT);
-    p_d->player = (unsigned int)this->player;
-    this->client->Send(this->client, packet_to_message((TPacket*)p_d, 1));
+
+    if (p_d) {
+        p_d->reason = (this->is_owner ? MASTER_LEAVE : USER_QUIT);
+        p_d->player = (unsigned int)this->player;
+        this->client->Send(this->client, packet_to_message((TPacket*)p_d, 1));
+    }
     this->client->Disconnect(this->client);
     this->client->Free(this->client);
     this->client = NULL;

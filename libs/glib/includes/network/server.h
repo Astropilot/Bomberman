@@ -50,7 +50,7 @@ typedef struct TServer {
 
     void(*Send_Broadcast)(struct TServer*, TMessage);       /*!< Send a message to all connected clients. */
 
-    size_t(*CountClients)(struct TServer*);                 /*!< Get the number of connected clients. */
+    unsigned int(*CountClients)(struct TServer*);                 /*!< Get the number of connected clients. */
 
     void(*Disconnect_Client)(struct TServer*, TClient*);    /*!< Disconnect a specific client. */
 
@@ -64,21 +64,21 @@ typedef struct TServer {
 
     SOCKET server_sock;                                     /*!< The socket used by the server.*/
     unsigned int is_listenning;                             /*!< An boolean to know if the server is listening for new clients. */
-    size_t max_c;                                           /*!< The maximum number of clients allowed to connect to the server. */
+    unsigned int max_c;                                     /*!< The maximum number of clients allowed to connect to the server. */
     SDL_Thread *server_thread;                              /*!< The thread used for listening. */
     TClient_Node *clients_head;                             /*!< The list of connected clients. */
 
 } TServer ;
 
 /**
- * @fn TServer* New_TServer(unsigned short int port, size_t max_c)
+ * @fn TServer* New_TServer(unsigned short int port, unsigned int max_c)
  * @brief The constructor for create a TServer object.
  *
  * @param port The port to listening.
  * @param max_c The maximum number of clients allowed to connect.
  * @return A memory allocated object of the server.
  */
-TServer* New_TServer(unsigned short int port, size_t max_c);
+TServer* New_TServer(unsigned short int port, unsigned int max_c);
 
 /**
  * @fn void TServer_Start_Listenning(TServer *this)
@@ -118,7 +118,7 @@ void TServer_Stop_Listenning(TServer *this);
 void TServer_Send_Broadcast(TServer *this, TMessage message);
 
 /**
- * @fn size_t TServer_CountClients(TServer *this)
+ * @fn unsigned int TServer_CountClients(TServer *this)
  * @brief Return the number of connected clients.
  *
  * @param this A pointer to the server object.
@@ -128,7 +128,7 @@ void TServer_Send_Broadcast(TServer *this, TMessage message);
  * CountClients method of the TServer structure like this:
  * my_server->CountClients(my_server);
  */
-size_t TServer_CountClients(TServer *this);
+unsigned int TServer_CountClients(TServer *this);
 
 /**
  * @fn void TServer_Disconnect_Client(TServer *this, TClient *client)

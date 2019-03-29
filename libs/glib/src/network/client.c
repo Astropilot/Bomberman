@@ -26,14 +26,16 @@ TClient *New_TClient(void)
 {
     TClient *this = malloc(sizeof(TClient));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
     TClient_Init(this);
     this->Free = TClient_New_Free;
-    return this;
+    return (this);
 }
 
 static void TClient_Init(TClient *this)
 {
+    if (!this) return;
+
     this->Connect = TClient_Connect;
     this->Send = TClient_Send;
     this->Recv = TClient_Recv;
@@ -55,7 +57,7 @@ static void TClient_Init(TClient *this)
 
 int TClient_Connect(TClient *this, const char *addr, unsigned short int port)
 {
-    if (this->sock != -1)
+    if (!this || !addr || this->sock != -1)
         return (-1);
 
     SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -66,14 +68,14 @@ int TClient_Connect(TClient *this, const char *addr, unsigned short int port)
         return (-1);
 
     hostinfo = gethostbyname(addr);
-    if (hostinfo == NULL)
+    if (!hostinfo)
         return (-1);
 
-    sin.sin_addr = *(IN_ADDR *) hostinfo->h_addr;
+    sin.sin_addr = *(IN_ADDR*)hostinfo->h_addr;
     sin.sin_port = htons(port);
     sin.sin_family = AF_INET;
 
-    if(connect(sock,(SOCKADDR *) &sin, sizeof(SOCKADDR)) == SOCKET_ERROR)
+    if(connect(sock, (SOCKADDR*) &sin, sizeof(SOCKADDR)) == SOCKET_ERROR)
         return (-1);
 
     SocketNonBlocking(sock, 0);
@@ -84,7 +86,7 @@ int TClient_Connect(TClient *this, const char *addr, unsigned short int port)
 
 int TClient_Send(TClient *this, TMessage message)
 {
-    if (this->sock == -1 || !this->is_connected) {
+    if (!this || this->sock == -1 || !this->is_connected) {
         free(message.message);
         return (-1);
     }
@@ -113,7 +115,7 @@ int TClient_Send(TClient *this, TMessage message)
 
 int TClient_Recv(TClient *this, TMessage *message)
 {
-    if (this->sock == -1 || !this->is_connected)
+    if (!this || !message || this->sock == -1 || !this->is_connected)
         return (-1);
 
     unsigned char buffer_len[2];
@@ -137,6 +139,8 @@ int TClient_Recv(TClient *this, TMessage *message)
 
 void TClient_Start_Recv(TClient *this, TServer *server)
 {
+    if (!this) return;
+
     if (this->is_receving == 0) {
         if (server)
             this->server = server;
@@ -147,6 +151,8 @@ void TClient_Start_Recv(TClient *this, TServer *server)
 
 void TClient_Stop_Recv(TClient *this)
 {
+    if (!this) return;
+
     if (this->is_receving == 1) {
         this->is_receving = 0;
         SDL_WaitThread(this->client_thread, NULL);
@@ -184,9 +190,10 @@ static int TClient_Receving(void *p_args)
 
 void TClient_Disconnect(TClient *this)
 {
-    if (this->sock != -1) {
+    if (this && this->sock != -1) {
         this->is_connected = 0;
-        this->Stop_Recv(this);
+        if (this->Stop_Recv)
+            this->Stop_Recv(this);
         closesocket(this->sock);
         this->sock = -1;
     }

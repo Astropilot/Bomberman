@@ -25,14 +25,16 @@ TAnimatedSprites* New_TAnimatedSprites(TFrame *frame, const char *file_template,
 {
     TAnimatedSprites *this = malloc(sizeof(TAnimatedSprites));
 
-    if(!this) return NULL;
+    if(!this) return (NULL);
     TAnimatedSprites_Init(this, frame, file_template, files, size, pos, speed, animations);
     this->Free = TAnimatedSprites_New_Free;
-    return this;
+    return (this);
 }
 
 static void TAnimatedSprites_Init(TAnimatedSprites *this, TFrame *frame, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
 {
+    if (!this || !frame || !file_template) return;
+
     this->Draw = TAnimatedSprites_Draw;
     this->file_template = strdup(file_template);
     this->size = size;
@@ -44,6 +46,7 @@ static void TAnimatedSprites_Init(TAnimatedSprites *this, TFrame *frame, const c
     this->animations = animations;
 
     this->textures = malloc(sizeof(SDL_Texture*) * this->nb_images);
+    if (!this->textures) return;
     size_t i;
 
     for (i = 0; i < this->nb_images; i++) {
@@ -52,22 +55,24 @@ static void TAnimatedSprites_Init(TAnimatedSprites *this, TFrame *frame, const c
 
         sprintf(file_path, this->file_template, i);
         surface = IMG_Load(file_path);
-        this->textures[i] = SDL_CreateTextureFromSurface(frame->window->renderer_window, surface);
-
-        SDL_FreeSurface(surface);
+        if (surface) {
+            this->textures[i] = SDL_CreateTextureFromSurface(frame->window->renderer_window, surface);
+            SDL_FreeSurface(surface);
+        } else
+            this->textures[i] = NULL;
     }
     this->is_visible = 1;
 }
 
 void TAnimatedSprites_Draw(TAnimatedSprites *this, TFrame *frame)
 {
-    if (!this || !frame)
-        return;
+    if (!this || !frame || !this->textures) return;
 
     unsigned int current_time = 0;
 
     if (this->animations != 0)
-        SDL_RenderCopy(frame->window->renderer_window, this->textures[this->actual_image], &this->size, &this->pos);
+        if (this->textures[this->actual_image])
+            SDL_RenderCopy(frame->window->renderer_window, this->textures[this->actual_image], &this->size, &this->pos);
     current_time = SDL_GetTicks();
     if (current_time > this->last_time + this->speed && this->animations != 0) {
         this->actual_image = (this->actual_image + 1) % this->nb_images;
@@ -75,7 +80,7 @@ void TAnimatedSprites_Draw(TAnimatedSprites *this, TFrame *frame)
         if (this->actual_image == 0 && this->animations > 0)
             (this->animations)--;
     }
-    if (this->animations == 0)
+    if (this->animations == 0 && frame->Free_Drawable_Obj)
         frame->Free_Drawable_Obj(frame, (TDrawable*)this);
 }
 
@@ -85,7 +90,8 @@ void TAnimatedSprites_New_Free(TAnimatedSprites *this)
         size_t i;
 
         for (i = 0; i < this->nb_images; i++) {
-            SDL_DestroyTexture(this->textures[i]);
+            if (this->textures[i])
+                SDL_DestroyTexture(this->textures[i]);
         }
         free(this->textures);
         free(this->file_template);
