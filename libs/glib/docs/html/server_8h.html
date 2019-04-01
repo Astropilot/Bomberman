@@ -100,9 +100,9 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad3d459fa72ce93fca06c41b1b9eb961e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_server.html">TServer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8h.html#ad3d459fa72ce93fca06c41b1b9eb961e">New_TServer</a> (unsigned short int port, size_t max_c)</td></tr>
-<tr class="memdesc:ad3d459fa72ce93fca06c41b1b9eb961e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor for create a <a class="el" href="struct_t_server.html" title="Object oriented structure representing a server.">TServer</a> object.  <a href="#ad3d459fa72ce93fca06c41b1b9eb961e">More...</a><br /></td></tr>
-<tr class="separator:ad3d459fa72ce93fca06c41b1b9eb961e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a172747e7525ffec8fd2bd52d56d4d76f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_server.html">TServer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8h.html#a172747e7525ffec8fd2bd52d56d4d76f">New_TServer</a> (unsigned short int port, unsigned int max_c)</td></tr>
+<tr class="memdesc:a172747e7525ffec8fd2bd52d56d4d76f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor for create a <a class="el" href="struct_t_server.html" title="Object oriented structure representing a server.">TServer</a> object.  <a href="#a172747e7525ffec8fd2bd52d56d4d76f">More...</a><br /></td></tr>
+<tr class="separator:a172747e7525ffec8fd2bd52d56d4d76f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b87dc63a747ed97b37ddf4a02ef3138"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8h.html#a1b87dc63a747ed97b37ddf4a02ef3138">TServer_Start_Listenning</a> (<a class="el" href="struct_t_server.html">TServer</a> *this)</td></tr>
 <tr class="memdesc:a1b87dc63a747ed97b37ddf4a02ef3138"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start listening for new clients. (Asynchrone)  <a href="#a1b87dc63a747ed97b37ddf4a02ef3138">More...</a><br /></td></tr>
 <tr class="separator:a1b87dc63a747ed97b37ddf4a02ef3138"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -112,9 +112,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ad0355e8348bce84237df07c512f34ee8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8h.html#ad0355e8348bce84237df07c512f34ee8">TServer_Send_Broadcast</a> (<a class="el" href="struct_t_server.html">TServer</a> *this, <a class="el" href="struct_t_message.html">TMessage</a> message)</td></tr>
 <tr class="memdesc:ad0355e8348bce84237df07c512f34ee8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a message to all connected clients.  <a href="#ad0355e8348bce84237df07c512f34ee8">More...</a><br /></td></tr>
 <tr class="separator:ad0355e8348bce84237df07c512f34ee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a605c6f0fd22aa158bd0ef1432790bf72"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8h.html#a605c6f0fd22aa158bd0ef1432790bf72">TServer_CountClients</a> (<a class="el" href="struct_t_server.html">TServer</a> *this)</td></tr>
-<tr class="memdesc:a605c6f0fd22aa158bd0ef1432790bf72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of connected clients.  <a href="#a605c6f0fd22aa158bd0ef1432790bf72">More...</a><br /></td></tr>
-<tr class="separator:a605c6f0fd22aa158bd0ef1432790bf72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaf199714cd2aabd4b62af87ccd1350a"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8h.html#afaf199714cd2aabd4b62af87ccd1350a">TServer_CountClients</a> (<a class="el" href="struct_t_server.html">TServer</a> *this)</td></tr>
+<tr class="memdesc:afaf199714cd2aabd4b62af87ccd1350a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of connected clients.  <a href="#afaf199714cd2aabd4b62af87ccd1350a">More...</a><br /></td></tr>
+<tr class="separator:afaf199714cd2aabd4b62af87ccd1350a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0eac2f2a897f95f1e79ab0f12b87a4c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="server_8h.html#a0eac2f2a897f95f1e79ab0f12b87a4c0">TServer_Disconnect_Client</a> (<a class="el" href="struct_t_server.html">TServer</a> *this, <a class="el" href="struct_t_client.html">TClient</a> *client)</td></tr>
 <tr class="memdesc:a0eac2f2a897f95f1e79ab0f12b87a4c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disconnect a client and remove it from the server.  <a href="#a0eac2f2a897f95f1e79ab0f12b87a4c0">More...</a><br /></td></tr>
 <tr class="separator:a0eac2f2a897f95f1e79ab0f12b87a4c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,8 +161,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ad3d459fa72ce93fca06c41b1b9eb961e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3d459fa72ce93fca06c41b1b9eb961e">&#9670;&nbsp;</a></span>New_TServer()</h2>
+<a id="a172747e7525ffec8fd2bd52d56d4d76f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a172747e7525ffec8fd2bd52d56d4d76f">&#9670;&nbsp;</a></span>New_TServer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -176,7 +176,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">size_t&#160;</td>
+          <td class="paramtype">unsigned int&#160;</td>
           <td class="paramname"><em>max_c</em>&#160;</td>
         </tr>
         <tr>
@@ -199,14 +199,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a605c6f0fd22aa158bd0ef1432790bf72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a605c6f0fd22aa158bd0ef1432790bf72">&#9670;&nbsp;</a></span>TServer_CountClients()</h2>
+<a id="afaf199714cd2aabd4b62af87ccd1350a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaf199714cd2aabd4b62af87ccd1350a">&#9670;&nbsp;</a></span>TServer_CountClients()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">size_t TServer_CountClients </td>
+          <td class="memname">unsigned int TServer_CountClients </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_t_server.html">TServer</a> *&#160;</td>
           <td class="paramname"><em>this</em></td><td>)</td>

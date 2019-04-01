@@ -65,6 +65,7 @@ $(document).ready(function(){initNavTree('frame_8h.html','');});
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
+<a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
@@ -88,6 +89,15 @@ Data Structures</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A linked list node for frames.  <a href="struct_t_frame___node.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ae78203df895d62725df01ab27523c6bb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#ae78203df895d62725df01ab27523c6bb">GLIB_NO_FREE</a>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:ae78203df895d62725df01ab27523c6bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3036129407c240fbb78cc7ab8f87f2d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#ac3036129407c240fbb78cc7ab8f87f2d">GLIB_FREE_ON_FINISH</a>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:ac3036129407c240fbb78cc7ab8f87f2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb320e3536eb08ff2b232578650e790c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#aeb320e3536eb08ff2b232578650e790c">GLIB_FREE_ON_UNLOAD</a>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:aeb320e3536eb08ff2b232578650e790c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr class="memitem:aa59060f6eceb53949052e8072d070f7a"><td class="memItemLeft" align="right" valign="top"><a id="aa59060f6eceb53949052e8072d070f7a"></a>
@@ -105,9 +115,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a15e77dc9363744d571259396b253e307"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_frame.html">TFrame</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#a15e77dc9363744d571259396b253e307">New_TFrame</a> (const char *frame_id)</td></tr>
 <tr class="memdesc:a15e77dc9363744d571259396b253e307"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor for create a <a class="el" href="struct_t_frame.html" title="Object oriented structure representing a frame.">TFrame</a> object.  <a href="#a15e77dc9363744d571259396b253e307">More...</a><br /></td></tr>
 <tr class="separator:a15e77dc9363744d571259396b253e307"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32e97382605f13fbd3d0a9ef9a82c2ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#a32e97382605f13fbd3d0a9ef9a82c2ad">TFrame_Add_Drawable</a> (<a class="el" href="struct_t_frame.html">TFrame</a> *this, <a class="el" href="struct_t_drawable.html">TDrawable</a> *drawable, const char *id, unsigned int priority)</td></tr>
-<tr class="memdesc:a32e97382605f13fbd3d0a9ef9a82c2ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for adding a drawable to the frame.  <a href="#a32e97382605f13fbd3d0a9ef9a82c2ad">More...</a><br /></td></tr>
-<tr class="separator:a32e97382605f13fbd3d0a9ef9a82c2ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b661f158fc8d9b65de1a6104b18df89"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#a2b661f158fc8d9b65de1a6104b18df89">TFrame_Add_Drawable</a> (<a class="el" href="struct_t_frame.html">TFrame</a> *this, <a class="el" href="struct_t_drawable.html">TDrawable</a> *drawable, const char *id, unsigned int priority, unsigned int free_strategy)</td></tr>
+<tr class="memdesc:a2b661f158fc8d9b65de1a6104b18df89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for adding a drawable to the frame.  <a href="#a2b661f158fc8d9b65de1a6104b18df89">More...</a><br /></td></tr>
+<tr class="separator:a2b661f158fc8d9b65de1a6104b18df89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2b40797f7c12240f059e11286cbb7139"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_drawable.html">TDrawable</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#a2b40797f7c12240f059e11286cbb7139">TFrame_Remove_Drawable</a> (<a class="el" href="struct_t_frame.html">TFrame</a> *this, const char *id)</td></tr>
 <tr class="memdesc:a2b40797f7c12240f059e11286cbb7139"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for deleting a drawable. The drawable is not free !  <a href="#a2b40797f7c12240f059e11286cbb7139">More...</a><br /></td></tr>
 <tr class="separator:a2b40797f7c12240f059e11286cbb7139"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,6 +139,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a2accd665aa9bed9e04fee4f8c545dd72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#a2accd665aa9bed9e04fee4f8c545dd72">TFrame_Draw_Drawables</a> (<a class="el" href="struct_t_frame.html">TFrame</a> *this)</td></tr>
 <tr class="memdesc:a2accd665aa9bed9e04fee4f8c545dd72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for drawing all drawables in the frame.  <a href="#a2accd665aa9bed9e04fee4f8c545dd72">More...</a><br /></td></tr>
 <tr class="separator:a2accd665aa9bed9e04fee4f8c545dd72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8a9e23b8382d66c83557442c2e34a85"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#aa8a9e23b8382d66c83557442c2e34a85">TFrame_Free_All_Drawables</a> (<a class="el" href="struct_t_frame.html">TFrame</a> *this, unsigned int free_strategy)</td></tr>
+<tr class="memdesc:aa8a9e23b8382d66c83557442c2e34a85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for freeing all the drawable according to the free strategy given.  <a href="#aa8a9e23b8382d66c83557442c2e34a85">More...</a><br /></td></tr>
+<tr class="separator:aa8a9e23b8382d66c83557442c2e34a85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17be1c7f7881227012d55b13c4b9070f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="frame_8h.html#a17be1c7f7881227012d55b13c4b9070f">TFrame_New_Free</a> (<a class="el" href="struct_t_frame.html">TFrame</a> *this)</td></tr>
 <tr class="memdesc:a17be1c7f7881227012d55b13c4b9070f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to free all ressources take by the frame, drawables included.  <a href="#a17be1c7f7881227012d55b13c4b9070f">More...</a><br /></td></tr>
 <tr class="separator:a17be1c7f7881227012d55b13c4b9070f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,7 +149,53 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Header file of the <a class="el" href="struct_t_frame.html" title="Object oriented structure representing a frame.">TFrame</a> of GLib. </p>
 <p>The <a class="el" href="struct_t_frame.html" title="Object oriented structure representing a frame.">TFrame</a> object allow you to create an isolated graphic environnement whith it own logic. </p>
-</div><h2 class="groupheader">Typedef Documentation</h2>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ac3036129407c240fbb78cc7ab8f87f2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3036129407c240fbb78cc7ab8f87f2d">&#9670;&nbsp;</a></span>GLIB_FREE_ON_FINISH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GLIB_FREE_ON_FINISH&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Flag for free a resource when frame finished. </p>
+
+</div>
+</div>
+<a id="aeb320e3536eb08ff2b232578650e790c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb320e3536eb08ff2b232578650e790c">&#9670;&nbsp;</a></span>GLIB_FREE_ON_UNLOAD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GLIB_FREE_ON_UNLOAD&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Flag for free a resource when frame unloaded. </p>
+
+</div>
+</div>
+<a id="ae78203df895d62725df01ab27523c6bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae78203df895d62725df01ab27523c6bb">&#9670;&nbsp;</a></span>GLIB_NO_FREE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define GLIB_NO_FREE&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Flag for not free a resource at any moment. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Typedef Documentation</h2>
 <a id="a77aa395ec12fb8cc985fe21e89a8673b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a77aa395ec12fb8cc985fe21e89a8673b">&#9670;&nbsp;</a></span>TFrame</h2>
 
@@ -199,8 +258,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a32e97382605f13fbd3d0a9ef9a82c2ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32e97382605f13fbd3d0a9ef9a82c2ad">&#9670;&nbsp;</a></span>TFrame_Add_Drawable()</h2>
+<a id="a2b661f158fc8d9b65de1a6104b18df89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b661f158fc8d9b65de1a6104b18df89">&#9670;&nbsp;</a></span>TFrame_Add_Drawable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -227,7 +286,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>priority</em>&#160;</td>
+          <td class="paramname"><em>priority</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>free_strategy</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -243,11 +308,12 @@ Functions</h2></td></tr>
     <tr><td class="paramname">this</td><td>A pointer to the frame object. </td></tr>
     <tr><td class="paramname">drawable</td><td>A generic drawable. </td></tr>
     <tr><td class="paramname">id</td><td>An unique ID for the drawable. </td></tr>
-    <tr><td class="paramname">priority</td><td>The drawing priority. The lower the priority (close to 1), the more it will be drawn last.</td></tr>
+    <tr><td class="paramname">priority</td><td>The drawing priority. The lower the priority (close to 1), the more it will be drawn last. </td></tr>
+    <tr><td class="paramname">free_strategy</td><td>The free strategy to use for this resource.</td></tr>
   </table>
   </dd>
 </dl>
-<p>You do not have to call this method directly. You must use the Add_Drawable method of the <a class="el" href="struct_t_frame.html" title="Object oriented structure representing a frame.">TFrame</a> structure like this: my_frame-&gt;Add_Drawable(my_frame, (TDrawable*)my_drawable, "MY_DRAWABLE", 1); </p>
+<p>You do not have to call this method directly. You must use the Add_Drawable method of the <a class="el" href="struct_t_frame.html" title="Object oriented structure representing a frame.">TFrame</a> structure like this: my_frame-&gt;Add_Drawable(my_frame, (TDrawable*)my_drawable, "MY_DRAWABLE", 1, GLIB_FREE_ON_FINISH); </p>
 
 </div>
 </div>
@@ -275,6 +341,44 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <p>You do not have to call this method directly. You must use the Draw_Drawables method of the <a class="el" href="struct_t_frame.html" title="Object oriented structure representing a frame.">TFrame</a> structure like this: my_frame-&gt;Draw_Drawables(my_frame); </p>
+
+</div>
+</div>
+<a id="aa8a9e23b8382d66c83557442c2e34a85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8a9e23b8382d66c83557442c2e34a85">&#9670;&nbsp;</a></span>TFrame_Free_All_Drawables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void TFrame_Free_All_Drawables </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_frame.html">TFrame</a> *&#160;</td>
+          <td class="paramname"><em>this</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>free_strategy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Method for freeing all the drawable according to the free strategy given. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">this</td><td>A pointer to the frame object. </td></tr>
+    <tr><td class="paramname">free_strategy</td><td>The strategy to be used to free the drawables.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>You do not have to call this method directly. You must use the Free_All_Drawables method of the <a class="el" href="struct_t_frame.html" title="Object oriented structure representing a frame.">TFrame</a> structure like this: my_frame-&gt;Free_All_Drawables(my_frame, GLIB_FREE_ON_FINISH); </p>
 
 </div>
 </div>

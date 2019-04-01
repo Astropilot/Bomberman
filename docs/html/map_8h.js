@@ -16,7 +16,6 @@ var map_8h =
       [ "BONUS_SPEED", "map_8h.html#a3af7baddc641a3b4f5a9189b589eccf7a35df6f47ea6d70b66d3ae37880c031a1", null ],
       [ "MALUS_SPEED", "map_8h.html#a3af7baddc641a3b4f5a9189b589eccf7a8d47725525579ccc77b5cb9a9117c853", null ]
     ] ],
-    [ "extra_to_resource", "map_8h.html#aee3fcdbba66b1bf4053786a8dce20176", null ],
     [ "New_TMap", "map_8h.html#a4d618603e633ca795b2a0f794510c77f", null ],
     [ "TMap_Explose_Bomb", "map_8h.html#a88eaf5d9ec80bddd58ebe012b32685b4", null ],
     [ "TMap_Generate", "map_8h.html#a302d0b98ad10e903c62edb2bcc24e0af", null ],

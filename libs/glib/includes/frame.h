@@ -56,7 +56,7 @@ typedef struct TFrame {
 
     void(*Draw_Drawables)(struct TFrame*);                                                  /*!< Method for drawing all the drawables added. */
 
-    void(*Free_All_Drawables)(struct TFrame*, unsigned int);                                /*<! Method for freeing all the drawable according to the free strategy given. */
+    void(*Free_All_Drawables)(struct TFrame*, unsigned int);                                /*!< Method for freeing all the drawable according to the free strategy given. */
 
     void(*Init)(struct TFrame*);                                                            /*!< Method to be defined on the TFrame creation. Called one time on first show. */
 

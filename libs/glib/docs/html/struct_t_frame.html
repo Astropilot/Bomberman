@@ -77,8 +77,8 @@ $(document).ready(function(){initNavTree('struct_t_frame.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:aba5242171c5c065e5821097ad599d76f"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_frame.html#aba5242171c5c065e5821097ad599d76f">Add_Drawable</a> )(struct <a class="el" href="struct_t_frame.html">TFrame</a> *, <a class="el" href="struct_t_drawable.html">TDrawable</a> *, const char *, unsigned int)</td></tr>
-<tr class="separator:aba5242171c5c065e5821097ad599d76f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a1b74c12d3cd8ddacd4e0ef552e8479"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_frame.html#a6a1b74c12d3cd8ddacd4e0ef552e8479">Add_Drawable</a> )(struct <a class="el" href="struct_t_frame.html">TFrame</a> *, <a class="el" href="struct_t_drawable.html">TDrawable</a> *, const char *, unsigned int, unsigned int)</td></tr>
+<tr class="separator:a6a1b74c12d3cd8ddacd4e0ef552e8479"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe7d4b6e1ca61315ccd2691e445cd643"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_drawable.html">TDrawable</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_frame.html#abe7d4b6e1ca61315ccd2691e445cd643">Remove_Drawable</a> )(struct <a class="el" href="struct_t_frame.html">TFrame</a> *, const char *)</td></tr>
 <tr class="separator:abe7d4b6e1ca61315ccd2691e445cd643"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a806ea95aacce0c125e0644aea22432e0"><td class="memItemLeft" align="right" valign="top">unsigned int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_frame.html#a806ea95aacce0c125e0644aea22432e0">Remove_Drawable_Obj</a> )(struct <a class="el" href="struct_t_frame.html">TFrame</a> *, <a class="el" href="struct_t_drawable.html">TDrawable</a> *)</td></tr>
@@ -93,6 +93,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a1b228f803ba8449a490aa2d65de1a0c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6b40f9672ce8ded22c42476da1c36018"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_frame.html#a6b40f9672ce8ded22c42476da1c36018">Draw_Drawables</a> )(struct <a class="el" href="struct_t_frame.html">TFrame</a> *)</td></tr>
 <tr class="separator:a6b40f9672ce8ded22c42476da1c36018"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6824dbdf7bb07c1ea303eb2232fdc90f"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_frame.html#a6824dbdf7bb07c1ea303eb2232fdc90f">Free_All_Drawables</a> )(struct <a class="el" href="struct_t_frame.html">TFrame</a> *, unsigned int)</td></tr>
+<tr class="separator:a6824dbdf7bb07c1ea303eb2232fdc90f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d0e0b9232b8eac5082ae613efd07aca"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_frame.html#a4d0e0b9232b8eac5082ae613efd07aca">Init</a> )(struct <a class="el" href="struct_t_frame.html">TFrame</a> *)</td></tr>
 <tr class="separator:a4d0e0b9232b8eac5082ae613efd07aca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3452fd232d5c0f89e2f91be8dbee74f"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_frame.html#aa3452fd232d5c0f89e2f91be8dbee74f">On_Load</a> )(struct <a class="el" href="struct_t_frame.html">TFrame</a> *, int, va_list)</td></tr>
@@ -120,14 +122,14 @@ Data Fields</h2></td></tr>
 <div class="textblock"><p>Object oriented structure representing a frame. </p>
 <p><a class="el" href="struct_t_frame.html" title="Object oriented structure representing a frame.">TFrame</a> is an object that allows you to create and define a new frame. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a id="aba5242171c5c065e5821097ad599d76f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba5242171c5c065e5821097ad599d76f">&#9670;&nbsp;</a></span>Add_Drawable</h2>
+<a id="a6a1b74c12d3cd8ddacd4e0ef552e8479"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a1b74c12d3cd8ddacd4e0ef552e8479">&#9670;&nbsp;</a></span>Add_Drawable</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void(* Add_Drawable) (struct <a class="el" href="struct_t_frame.html">TFrame</a> *, <a class="el" href="struct_t_drawable.html">TDrawable</a> *, const char *, unsigned int)</td>
+          <td class="memname">void(* Add_Drawable) (struct <a class="el" href="struct_t_frame.html">TFrame</a> *, <a class="el" href="struct_t_drawable.html">TDrawable</a> *, const char *, unsigned int, unsigned int)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -207,6 +209,21 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Method for free all <a class="el" href="struct_t_frame.html" title="Object oriented structure representing a frame.">TFrame</a> ressources, include drawables. </p>
+
+</div>
+</div>
+<a id="a6824dbdf7bb07c1ea303eb2232fdc90f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6824dbdf7bb07c1ea303eb2232fdc90f">&#9670;&nbsp;</a></span>Free_All_Drawables</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* Free_All_Drawables) (struct <a class="el" href="struct_t_frame.html">TFrame</a> *, unsigned int)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Method for freeing all the drawable according to the free strategy given. </p>
 
 </div>
 </div>

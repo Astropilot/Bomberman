@@ -1,11 +1,12 @@
 var struct_t_frame =
 [
-    [ "Add_Drawable", "struct_t_frame.html#aba5242171c5c065e5821097ad599d76f", null ],
+    [ "Add_Drawable", "struct_t_frame.html#a6a1b74c12d3cd8ddacd4e0ef552e8479", null ],
     [ "Draw_Drawables", "struct_t_frame.html#a6b40f9672ce8ded22c42476da1c36018", null ],
     [ "drawables_head", "struct_t_frame.html#a2beb3f3f2fcf049414114faad6a930f4", null ],
     [ "Finish", "struct_t_frame.html#a27e8fe07d60f9d62c22e6ae5d313800e", null ],
     [ "frame_id", "struct_t_frame.html#a76c7001887be5fa8d2be8bb8aa20da41", null ],
     [ "Free", "struct_t_frame.html#a5bac001470a15a54aae1bd83cbbebb19", null ],
+    [ "Free_All_Drawables", "struct_t_frame.html#a6824dbdf7bb07c1ea303eb2232fdc90f", null ],
     [ "Free_Drawable", "struct_t_frame.html#a31b3d7c2d3207a7c9d18f6c5c4a5a6f9", null ],
     [ "Free_Drawable_Obj", "struct_t_frame.html#a25f25cba878f92f419fa63b5d2f3608f", null ],
     [ "Free_Drawables", "struct_t_frame.html#a5d63dd51c5c9903c1d7762eae1ecd694", null ],

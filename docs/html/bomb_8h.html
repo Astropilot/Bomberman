@@ -76,6 +76,7 @@ $(document).ready(function(){initNavTree('bomb_8h.html','');});
 <p>Header file of the bombs logic.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="utils_8h_source.html">core/utils.h</a>&quot;</code><br />
+<code>#include &quot;network/server.h&quot;</code><br />
 </div>
 <p><a href="bomb_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -90,6 +91,9 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
+<tr class="memitem:a1e43a7763070d6111d13d46e177cfadd"><td class="memItemLeft" align="right" valign="top"><a id="a1e43a7763070d6111d13d46e177cfadd"></a>
+typedef struct <a class="el" href="struct_t_map.html">TMap</a>&#160;</td><td class="memItemRight" valign="bottom"><b>TMap</b></td></tr>
+<tr class="separator:a1e43a7763070d6111d13d46e177cfadd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60670edea4885d16f5c8e9d40081d131"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="bomb_8h.html#abe10c73dbc9a2b5af2a4cb73c89191b7">bomb_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bomb_8h.html#a60670edea4885d16f5c8e9d40081d131">bomb_status_t</a></td></tr>
 <tr class="memdesc:a60670edea4885d16f5c8e9d40081d131"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constants of the possible status when a player try to drop a bomb.  <a href="#a60670edea4885d16f5c8e9d40081d131">More...</a><br /></td></tr>
 <tr class="separator:a60670edea4885d16f5c8e9d40081d131"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -133,6 +137,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aeba86be4974cda982dd3c1c0229de251"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bomb_8h.html#aeba86be4974cda982dd3c1c0229de251">remove_bomb</a> (<a class="el" href="structbomb__node__t.html">bomb_node_t</a> **bombs_head, <a class="el" href="structbomb__t.html">bomb_t</a> *bomb)</td></tr>
 <tr class="memdesc:aeba86be4974cda982dd3c1c0229de251"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for deleting a bomb from a bomb linked list.  <a href="#aeba86be4974cda982dd3c1c0229de251">More...</a><br /></td></tr>
 <tr class="separator:aeba86be4974cda982dd3c1c0229de251"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9568bcd6f397e1e19b4d39f3ff85897e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bomb_8h.html#a9568bcd6f397e1e19b4d39f3ff85897e">do_bomb_logic</a> (<a class="el" href="struct_t_map.html">TMap</a> *map, <a class="el" href="structbomb__t.html">bomb_t</a> *bomb, TServer *server)</td></tr>
+<tr class="memdesc:a9568bcd6f397e1e19b4d39f3ff85897e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call the logic function corresponding to the bomb type.  <a href="#a9568bcd6f397e1e19b4d39f3ff85897e">More...</a><br /></td></tr>
+<tr class="separator:a9568bcd6f397e1e19b4d39f3ff85897e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Header file of the bombs logic. </p>
@@ -327,6 +334,50 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">bombs_head</td><td>A pointer to the linked list. </td></tr>
     <tr><td class="paramname">bomb</td><td>The bomb to add. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9568bcd6f397e1e19b4d39f3ff85897e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9568bcd6f397e1e19b4d39f3ff85897e">&#9670;&nbsp;</a></span>do_bomb_logic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void do_bomb_logic </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_t_map.html">TMap</a> *&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structbomb__t.html">bomb_t</a> *&#160;</td>
+          <td class="paramname"><em>bomb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TServer *&#160;</td>
+          <td class="paramname"><em>server</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Call the logic function corresponding to the bomb type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>A pointer to the game map. </td></tr>
+    <tr><td class="paramname">bomb</td><td>A pointer to the bomb. </td></tr>
+    <tr><td class="paramname">server</td><td>A pointer to the network server. </td></tr>
   </table>
   </dd>
 </dl>
