@@ -99,12 +99,10 @@ SDL_Surface *TResourceCache_FetchSurface(TResourceCache *this, const char *res_p
 
     while (current != NULL) {
         if (current->res_id == uid) {
-            printf("[Cache Manager - FetchSurface] Found %s in cache\n", res_path);
             return (current->surface);
         }
         current = current->next;
     }
-    printf("[Cache Manager - FetchSurface] Not found %s in cache\n", res_path);
     surface = this->CacheResource(this, res_path);
     if (!surface)
         loadImageResource(this->window, res_path, &surface, NULL);
