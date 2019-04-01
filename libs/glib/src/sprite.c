@@ -18,6 +18,7 @@
 #include "sprite.h"
 #include "frame.h"
 #include "window.h"
+#include "resource.h"
 
 static void TSprite_Init(TSprite *this, TFrame *frame, const char *file, SDL_Rect pos);
 
@@ -35,15 +36,17 @@ static void TSprite_Init(TSprite *this, TFrame *frame, const char *file, SDL_Rec
 {
     if (!this || !frame || !file) return;
 
-    SDL_Surface *surface = IMG_Load(file);
+    //unsigned int res_load = 0;
+    TResourceCache *cache = frame->window->cache_manager;
 
-    if (!surface) return;
+    //res_load = loadImageResource(frame->window, file, NULL, &(this->texture));
+    //if (!res_load) return;
+    this->texture = cache->FetchTexture(cache, file);
+    if (!this->texture) return;
     this->Draw = TSprite_Draw;
     this->file = strdup(file);
     this->pos = pos;
-    this->texture = SDL_CreateTextureFromSurface(frame->window->renderer_window, surface);
     this->is_visible = 1;
-    SDL_FreeSurface(surface);
 }
 
 void TSprite_Draw(TSprite *this, TFrame *frame)

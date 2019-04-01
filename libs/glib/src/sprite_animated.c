@@ -18,6 +18,7 @@
 #include "sprite_animated.h"
 #include "frame.h"
 #include "window.h"
+#include "resource.h"
 
 static void TAnimatedSprite_Init(TAnimatedSprite *this, TFrame *frame, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations);
 
@@ -35,23 +36,25 @@ static void TAnimatedSprite_Init(TAnimatedSprite *this, TFrame *frame, const cha
 {
     if (!this || !frame || !file) return;
 
-    SDL_Surface *surface = IMG_Load(file);
+    //unsigned int res_load = 0;
     int w, h;
+    TResourceCache *cache = frame->window->cache_manager;
 
-    if (!surface) return;
+    //res_load = loadImageResource(frame->window, file, NULL, &(this->texture));
+    //if (!res_load) return;
+    this->texture = cache->FetchTexture(cache, file);
+    if (!this->texture) return;
     this->Draw = TAnimatedSprite_Draw;
     this->file = strdup(file);
     this->size = size;
     this->pos = pos;
     this->speed = speed;
     this->actual_frame = 0;
-    this->texture = SDL_CreateTextureFromSurface(frame->window->renderer_window, surface);
     SDL_QueryTexture(this->texture, NULL, NULL, &w, &h);
     this->len_frames = w / size.w;
     this->last_time = 0;
     this->animations = animations;
     this->is_visible = 1;
-    SDL_FreeSurface(surface);
 }
 
 void TAnimatedSprite_Draw(TAnimatedSprite *this, TFrame *frame)

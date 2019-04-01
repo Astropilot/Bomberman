@@ -29,7 +29,7 @@ typedef struct TFrame TFrame;
 /**
  * @brief An abstract mother class for all the graphical components.
  *
- * Drawable_Node is an abstract mother class for all the graphical components.
+ * TDrawable is an abstract mother class for all the graphical components.
  */
 typedef struct TDrawable {
 
@@ -44,14 +44,14 @@ typedef struct TDrawable {
 /**
  * @brief A linked list for generic drawables.
  *
- * Drawable_Node is an linked list for stock differents types of drawables.
+ * TDrawable_Node is an linked list for stock differents types of drawables.
  */
 typedef struct TDrawable_Node {
     unsigned long id;               /*!< An unique ID for each drawable. */
     unsigned int priority;          /*!< The drawing priority, the lower the priority (close to 1), the more it will be drawn last. */
     unsigned int free_strategy;     /*!< The free strategy to use. */
     TDrawable *drawable;            /*!< The drawable object. */
-    struct TDrawable_Node *next;    /*!< A pointer to the next Drawable_Node. */
+    struct TDrawable_Node *next;    /*!< A pointer to the next TDrawable_Node. */
 } TDrawable_Node ;
 
 #endif

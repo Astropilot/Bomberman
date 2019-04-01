@@ -19,19 +19,8 @@ NAME	= libglib.a
 RM		= rm -f
 
 SRC		= \
-		src/window.c \
-		src/frame.c \
-		src/sprite.c \
-		src/sprite_animated.c \
-		src/sprites_animated.c \
-		src/text.c \
-		src/button.c \
-		src/inputbox.c \
-		src/utils.c \
-		src/network/sockets.c \
-		src/network/packer.c \
-		src/network/client.c \
-		src/network/server.c
+		$(wildcard src/*.c) \
+		$(wildcard src/network/*.c)
 
 OBJ		= $(SRC:.c=.o)
 

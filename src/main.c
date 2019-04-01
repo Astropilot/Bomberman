@@ -27,7 +27,7 @@ int main(void)
 {
     TLobbyClient *lobbyclient = New_TLobbyClient();
     TGameClient *gameclient = New_TGameClient();
-    TWindow *window = New_TWindow();
+    TWindow *window = New_TWindow(130);
     TFrame *frame_main_menu = New_MainMenuFrame();
     TFrame *frame_host_menu = New_HostMenuFrame();
     TFrame *frame_join_menu = New_JoinMenuFrame();

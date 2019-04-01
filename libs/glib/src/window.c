@@ -19,22 +19,22 @@
 
 #include "window.h"
 
-static void TWindow_Init(TWindow *this);
+static void TWindow_Init(TWindow *this, unsigned int max_caching);
 static void TWindow_Free_Frames(TWindow *this);
 static void TWindow_Finish_Frames(TWindow *this);
 static void TWindow_Loop(TWindow *this);
 
-TWindow* New_TWindow(void)
+TWindow* New_TWindow(unsigned int max_caching)
 {
     TWindow *this = malloc(sizeof(TWindow));
 
     if(!this) return (NULL);
-    TWindow_Init(this);
+    TWindow_Init(this, max_caching);
     this->Free = TWindow_New_Free;
     return (this);
 }
 
-static void TWindow_Init(TWindow *this)
+static void TWindow_Init(TWindow *this, unsigned int max_caching)
 {
     if (!this) return;
 
@@ -46,6 +46,7 @@ static void TWindow_Init(TWindow *this)
     this->finished = 0;
     this->frames_head = NULL;
     this->shown_frame = NULL;
+    this->cache_manager = New_TResourceCache(this, max_caching);
 }
 
 static void TWindow_Free_Frames(TWindow *this)
@@ -208,6 +209,7 @@ void TWindow_New_Free(TWindow *this)
 {
     if (this) {
         TWindow_Free_Frames(this);
+        this->cache_manager->Free(this->cache_manager);
         TTF_Quit();
         IMG_Quit();
         SDL_DestroyRenderer(this->renderer_window);

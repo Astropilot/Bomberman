@@ -18,6 +18,7 @@
 #include "sprites_animated.h"
 #include "frame.h"
 #include "window.h"
+#include "resource.h"
 
 static void TAnimatedSprites_Init(TAnimatedSprites *this, TFrame *frame, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations);
 
@@ -48,18 +49,14 @@ static void TAnimatedSprites_Init(TAnimatedSprites *this, TFrame *frame, const c
     this->textures = malloc(sizeof(SDL_Texture*) * this->nb_images);
     if (!this->textures) return;
     size_t i;
+    TResourceCache *cache = frame->window->cache_manager;
 
     for (i = 0; i < this->nb_images; i++) {
         char file_path[128];
-        SDL_Surface *surface = NULL;
 
         sprintf(file_path, this->file_template, i);
-        surface = IMG_Load(file_path);
-        if (surface) {
-            this->textures[i] = SDL_CreateTextureFromSurface(frame->window->renderer_window, surface);
-            SDL_FreeSurface(surface);
-        } else
-            this->textures[i] = NULL;
+        //loadImageResource(frame->window, file_path, NULL, &(this->textures[i]));
+        this->textures[i] = cache->FetchTexture(cache, file_path);
     }
     this->is_visible = 1;
 }

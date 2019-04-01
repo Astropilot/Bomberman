@@ -27,6 +27,7 @@
 #include <SDL2/SDL.h>
 
 #include "frame.h"
+#include "cache.h"
 
 /**
  * @brief Object oriented structure representing a window.
@@ -46,6 +47,7 @@ typedef struct TWindow {
     TFrame_Node *frames_head;                                                   /*!< A linked list of frames (TFrame). */
     TFrame *shown_frame;                                                        /*!< The actual frame to be show. */
     unsigned int fps;                                                           /*!< The delay in milliseconds between each game loop. */
+    TResourceCache *cache_manager;                                              /*!< The cache manager for resources. */
 
 } TWindow ;
 
@@ -55,7 +57,7 @@ typedef struct TWindow {
  *
  * @return A memory allocated object of the window.
  */
-TWindow* New_TWindow(void);
+TWindow* New_TWindow(unsigned int max_caching);
 
 /**
  * @fn int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *frame_id, unsigned int fps)
