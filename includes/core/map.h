@@ -159,13 +159,4 @@ void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TServer *server);
  */
 void TMap_New_Free(TMap *this);
 
-/**
- * @fn char *extra_to_resource(object_type_t extra_type)
- * @brief Function that give the resource path according to the extra_type given.
- *
- * @param extra_type The type of extra whose path to the resource is desired.
- * @return Return the path of the resource.
- */
-char *extra_to_resource(object_type_t extra_type);
-
 #endif

@@ -16,6 +16,7 @@
 
 #include "main.h"
 #include "core/map.h"
+#include "core/extra.h"
 #include "core/player.h"
 #include "core/utils.h"
 #include "network/packets/packet.h"
@@ -94,39 +95,10 @@ void TMap_Generate(TMap *this)
 static unsigned int TMap_Take_Extra(TMap *this, player_t *player, int x, int y)
 {
     if (!this || !player || !this->block_map) return (0);
-
-    unsigned int res = 1;
     if (this->block_map[y][x] == NOTHING) return (0);
 
-    switch (this->block_map[y][x]) {
-        case BONUS_RANGE:;
-            player->specs.bombs_range++;
-            break;
-        case MALUS_RANGE:;
-            if (player->specs.bombs_range > 1)
-                player->specs.bombs_range--;
-            break;
-        case BONUS_CAPACITY:;
-            player->specs.bombs_capacity++;
-            player->specs.bombs_left++;
-            break;
-        case MALUS_CAPACITY:;
-            if (player->specs.bombs_capacity > 1) {
-                player->specs.bombs_capacity--;
-                player->specs.bombs_left--;
-            }
-            break;
-        case BONUS_SPEED:;
-            if (player->specs.move_speed > 200)
-                player->specs.move_speed -= 50;
-            break;
-        case MALUS_SPEED:;
-            if (player->specs.move_speed < 400)
-                player->specs.move_speed += 50;
-            break;
-        default:
-            res = 0;
-    }
+    unsigned int res = do_extra_logic(player, this->block_map[y][x]);
+
     if (res)
         this->block_map[y][x] = NOTHING;
     return (res);
@@ -352,24 +324,4 @@ void TMap_New_Free(TMap *this)
         this->players = NULL;
     }
     free(this);
-}
-
-char *extra_to_resource(object_type_t extra_type)
-{
-    switch (extra_type) {
-        case BONUS_RANGE:
-            return MAP_PATH "bomb_range_bonus%02d.png";
-        case MALUS_RANGE:
-            return MAP_PATH "bomb_range_malus%02d.png";
-        case BONUS_CAPACITY:
-            return MAP_PATH "bomb_amount_bonus%02d.png";
-        case MALUS_CAPACITY:
-            return MAP_PATH "bomb_amount_malus%02d.png";
-        case BONUS_SPEED:
-            return MAP_PATH "speed_bonus%02d.png";
-        case MALUS_SPEED:
-            return MAP_PATH "speed_malus%02d.png";
-        default:
-            return "";
-    }
 }

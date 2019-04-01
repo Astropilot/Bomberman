@@ -16,6 +16,7 @@
 
 #include "network/game/client.h"
 #include "glib.h"
+#include "core/extra.h"
 #include "core/player.h"
 #include "ui/frame_game.h"
 #include "network/network.h"
