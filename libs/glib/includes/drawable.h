@@ -49,6 +49,7 @@ typedef struct TDrawable {
 typedef struct TDrawable_Node {
     unsigned long id;               /*!< An unique ID for each drawable. */
     unsigned int priority;          /*!< The drawing priority, the lower the priority (close to 1), the more it will be drawn last. */
+    unsigned int free_strategy;     /*!< The free strategy to use. */
     TDrawable *drawable;            /*!< The drawable object. */
     struct TDrawable_Node *next;    /*!< A pointer to the next Drawable_Node. */
 } TDrawable_Node ;

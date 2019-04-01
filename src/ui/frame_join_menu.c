@@ -64,12 +64,12 @@ static void Init(TFrame* frame)
     TButton *btn_play = New_TButton(frame, RES_PATH "button_join_normal.png", RES_PATH "button_join_hover.png", pos_button_play);
     btn_play->On_Click = On_Click_Play_Button;
 
-    frame->Add_Drawable(frame, (TDrawable*)sp_bg, "BG", 999);
-    frame->Add_Drawable(frame, (TDrawable*)sp_title, "TITLE", 998);
-    frame->Add_Drawable(frame, (TDrawable*)input_username, "INPUT_USER", 1);
-    frame->Add_Drawable(frame, (TDrawable*)input_serverip, "INPUT_IP", 1);
-    frame->Add_Drawable(frame, (TDrawable*)input_serverport, "INPUT_PORT", 1);
-    frame->Add_Drawable(frame, (TDrawable*)btn_play, "BTN_PLAY", 1);
+    frame->Add_Drawable(frame, (TDrawable*)sp_bg, "BG", 999, GLIB_FREE_ON_FINISH);
+    frame->Add_Drawable(frame, (TDrawable*)sp_title, "TITLE", 998, GLIB_FREE_ON_FINISH);
+    frame->Add_Drawable(frame, (TDrawable*)input_username, "INPUT_USER", 1, GLIB_FREE_ON_FINISH);
+    frame->Add_Drawable(frame, (TDrawable*)input_serverip, "INPUT_IP", 1, GLIB_FREE_ON_FINISH);
+    frame->Add_Drawable(frame, (TDrawable*)input_serverport, "INPUT_PORT", 1, GLIB_FREE_ON_FINISH);
+    frame->Add_Drawable(frame, (TDrawable*)btn_play, "BTN_PLAY", 1, GLIB_FREE_ON_FINISH);
 }
 
 static void On_Load(TFrame* frame, int argc, va_list args)

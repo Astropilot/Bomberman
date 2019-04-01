@@ -27,6 +27,10 @@
 
 #include "drawable.h"
 
+#define GLIB_NO_FREE 0          /*!< Flag for not free a resource at any moment. */
+#define GLIB_FREE_ON_FINISH 1   /*!< Flag for free a resource when frame finished. */
+#define GLIB_FREE_ON_UNLOAD 2   /*!< Flag for free a resource when frame unloaded. */
+
 typedef struct TWindow TWindow;
 
 /**
@@ -36,7 +40,7 @@ typedef struct TWindow TWindow;
  */
 typedef struct TFrame {
 
-    void(*Add_Drawable)(struct TFrame*, TDrawable*, const char*, unsigned int);             /*!< Method for adding a drawable with an ID and a priority. */
+    void(*Add_Drawable)(struct TFrame*, TDrawable*, const char*, unsigned int, unsigned int);/*!< Method for adding a drawable with an ID and a priority. */
 
     TDrawable*(*Remove_Drawable)(struct TFrame*, const char*);                              /*!< Method for deleting a drawable by its ID. */
 
@@ -51,6 +55,8 @@ typedef struct TFrame {
     TDrawable*(*Get_Drawable)(struct TFrame*, const char*);                                 /*!< Method for getting a drawable by its ID. */
 
     void(*Draw_Drawables)(struct TFrame*);                                                  /*!< Method for drawing all the drawables added. */
+
+    void(*Free_All_Drawables)(struct TFrame*, unsigned int);                                /*<! Method for freeing all the drawable according to the free strategy given. */
 
     void(*Init)(struct TFrame*);                                                            /*!< Method to be defined on the TFrame creation. Called one time on first show. */
 
@@ -78,7 +84,7 @@ typedef struct TFrame {
  *
  * TFrame_Node is an linked list node for stock TFrame objects.
  */
-typedef struct TFrame_Node{
+typedef struct TFrame_Node {
     TFrame *frame;                  /*!< The frame object. */
     struct TFrame_Node *next;       /*!< A pointer to the next TFrame_Node. */
 } TFrame_Node ;
@@ -93,19 +99,20 @@ typedef struct TFrame_Node{
 TFrame* New_TFrame(const char *frame_id);
 
 /**
- * @fn void TFrame_Add_Drawable(TFrame *this, TDrawable *drawable, const char *id, unsigned int priority)
+ * @fn void TFrame_Add_Drawable(TFrame *this, TDrawable *drawable, const char *id, unsigned int priority, unsigned int free_strategy)
  * @brief Method for adding a drawable to the frame.
  *
  * @param this A pointer to the frame object.
  * @param drawable A generic drawable.
  * @param id An unique ID for the drawable.
  * @param priority The drawing priority. The lower the priority (close to 1), the more it will be drawn last.
+ * @param free_strategy The free strategy to use for this resource.
  *
  * You do not have to call this method directly. You must use the
  * Add_Drawable method of the TFrame structure like this:
- * my_frame->Add_Drawable(my_frame, (TDrawable*)my_drawable, "MY_DRAWABLE", 1);
+ * my_frame->Add_Drawable(my_frame, (TDrawable*)my_drawable, "MY_DRAWABLE", 1, GLIB_FREE_ON_FINISH);
  */
-void TFrame_Add_Drawable(TFrame *this, TDrawable *drawable, const char *id, unsigned int priority);
+void TFrame_Add_Drawable(TFrame *this, TDrawable *drawable, const char *id, unsigned int priority, unsigned int free_strategy);
 
 /**
  * @fn TDrawable *TFrame_Remove_Drawable(TFrame *this, const char *id)
@@ -202,6 +209,19 @@ TDrawable *TFrame_Get_Drawable(TFrame *this, const char *id);
  * my_frame->Draw_Drawables(my_frame);
  */
 void TFrame_Draw_Drawables(TFrame *this);
+
+/**
+ * @fn void TFrame_Free_All_Drawables(TFrame *this, unsigned int free_strategy)
+ * @brief Method for freeing all the drawable according to the free strategy given.
+ *
+ * @param this A pointer to the frame object.
+ * @param free_strategy The strategy to be used to free the drawables.
+ *
+ * You do not have to call this method directly. You must use the
+ * Free_All_Drawables method of the TFrame structure like this:
+ * my_frame->Free_All_Drawables(my_frame, GLIB_FREE_ON_FINISH);
+ */
+void TFrame_Free_All_Drawables(TFrame *this, unsigned int free_strategy);
 
 /**
  * @fn void TFrame_New_Free(TFrame *this)

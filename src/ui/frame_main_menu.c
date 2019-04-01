@@ -69,12 +69,12 @@ static void Init(TFrame* frame)
     TText *txt_version = New_TText(frame, "Version: " GAME_VERSION, font, color, pos_txt);
     txt_version->pos.y = WIN_HEIGHT - txt_version->pos.h;
 
-    frame->Add_Drawable(frame, (TDrawable*)sp_bg, "BG", 999);
-    frame->Add_Drawable(frame, (TDrawable*)sp_title, "TITLE", 998);
-    frame->Add_Drawable(frame, (TDrawable*)txt_version, "TXT_VERSION", 2);
-    frame->Add_Drawable(frame, (TDrawable*)btn_host, "BTN_HOST", 1);
-    frame->Add_Drawable(frame, (TDrawable*)btn_join, "BTN_JOIN", 1);
-    frame->Add_Drawable(frame, (TDrawable*)btn_quit, "BTN_QUIT", 1);
+    frame->Add_Drawable(frame, (TDrawable*)sp_bg, "BG", 999, GLIB_FREE_ON_FINISH);
+    frame->Add_Drawable(frame, (TDrawable*)sp_title, "TITLE", 998, GLIB_FREE_ON_FINISH);
+    frame->Add_Drawable(frame, (TDrawable*)txt_version, "TXT_VERSION", 2, GLIB_FREE_ON_FINISH);
+    frame->Add_Drawable(frame, (TDrawable*)btn_host, "BTN_HOST", 1, GLIB_FREE_ON_FINISH);
+    frame->Add_Drawable(frame, (TDrawable*)btn_join, "BTN_JOIN", 1, GLIB_FREE_ON_FINISH);
+    frame->Add_Drawable(frame, (TDrawable*)btn_quit, "BTN_QUIT", 1, GLIB_FREE_ON_FINISH);
 }
 
 static void On_Load(TFrame* frame, int argc, va_list args)

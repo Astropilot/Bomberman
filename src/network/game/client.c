@@ -161,7 +161,7 @@ void TGameClient_Handle_Messages(TGameClient *this)
 
                             map_to_pix(j, i, &(spw->pos.x), &(spw->pos.y));
                             sprintf(id, "WALL_%u_%u", i, j);
-                            this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)spw, id, 3);
+                            this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)spw, id, 3, GLIB_FREE_ON_UNLOAD);
                             break;
                         case BREAKABLE_WALL:;
                         SDL_Rect posbw = {0, 0, 32, 32};
@@ -169,7 +169,7 @@ void TGameClient_Handle_Messages(TGameClient *this)
 
                         map_to_pix(j, i, &(spbw->pos.x), &(spbw->pos.y));
                         sprintf(id, "BWALL_%u_%u", i, j);
-                        this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)spbw, id, 3);
+                        this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)spbw, id, 3, GLIB_FREE_ON_UNLOAD);
                         default:
                             break;
                     }
@@ -233,7 +233,7 @@ void TGameClient_Handle_Messages(TGameClient *this)
                     size_bomb, pos_bomb, 100, -1
                 );
                 sprintf(bomb_id, "BOMB_%u", p_ab->bomb_id);
-                this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp, bomb_id, 2);
+                this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp, bomb_id, 2, GLIB_FREE_ON_UNLOAD);
                 free(bomb_id);
                 this->bomb_offset = p_ab->bomb_id;
             }
@@ -255,7 +255,7 @@ void TGameClient_Handle_Messages(TGameClient *this)
                 this->game_frame, BOMB_PATH "bomb_explode_%02d.png", 5,
                 size_bomb, pos_bomb, 128, 1
             );
-            this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp, "BOMB", 2);
+            this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp, "BOMB", 2, GLIB_FREE_ON_UNLOAD);
 
             for (i = 0; i < p_b->destroyed_count; i++) {
                 sprintf(id, "BWALL_%u_%u", p_b->destroyed_walls[i].y, p_b->destroyed_walls[i].x);
@@ -270,7 +270,7 @@ void TGameClient_Handle_Messages(TGameClient *this)
                     this->game_frame, BOMB_PATH "flame_%02d.png", 5,
                     size_flame, pos_flame, 128, 2
                 );
-                this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp_flame, "FLAME", 3);
+                this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp_flame, "FLAME", 3, GLIB_FREE_ON_UNLOAD);
             }
             for (i = 0; i < p_b->extra_count; i++) {
                 SDL_Rect size_extra = {0, 0, 64, 64};
@@ -282,7 +282,7 @@ void TGameClient_Handle_Messages(TGameClient *this)
                     this->game_frame, extra_to_resource(p_b->extra_blocks[i].type), 7,
                     size_extra, pos_extra, 128, -1
                 );
-                this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp_extra, id, 3);
+                this->game_frame->Add_Drawable(this->game_frame, (TDrawable*)sp_extra, id, 3, GLIB_FREE_ON_UNLOAD);
             }
             free(id);
             p_b->Free(p_b);

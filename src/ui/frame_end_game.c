@@ -49,7 +49,7 @@ static void Init(TFrame* frame)
     TButton *btn_menu = New_TButton(frame, RES_PATH "button_backmenu_normal.png", RES_PATH "button_backmenu_hover.png", pos_button);
     btn_menu->On_Click = On_Click_Menu_Button;
 
-    frame->Add_Drawable(frame, (TDrawable*)btn_menu, "BTN_MENU", 1);
+    frame->Add_Drawable(frame, (TDrawable*)btn_menu, "BTN_MENU", 1, GLIB_FREE_ON_FINISH);
 }
 
 static void On_Load(TFrame* frame, int argc, va_list args)
@@ -81,7 +81,7 @@ static void On_Load(TFrame* frame, int argc, va_list args)
         free(winner->username);
         free(winner);
     }
-    frame->Add_Drawable(frame, (TDrawable*)txt_label, "LABEL_STATUS", 1);
+    frame->Add_Drawable(frame, (TDrawable*)txt_label, "LABEL_STATUS", 1, GLIB_FREE_ON_UNLOAD);
 }
 
 static void On_Event(TFrame* frame, SDL_Event event)
@@ -107,7 +107,8 @@ static void On_Tick(TFrame* frame)
 
 static void On_Unload(TFrame* frame)
 {
-    frame->Free_Drawable(frame, "LABEL_STATUS");
+    if (IS_DEBUG)
+        printf("Frame [%s]: On_Unload method called\n", frame->frame_id);
 }
 
 static void Finish(TFrame* frame)

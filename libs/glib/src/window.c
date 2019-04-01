@@ -178,12 +178,16 @@ void TWindow_Show_Frame(TWindow *this, const char *frame_id, int argc, ...)
     if (!this || !frame_id) return;
 
     TFrame_Node *current = this->frames_head;
+    TFrame *tmp_shown_frame = NULL;
 
     while (current != NULL) {
         if (current->frame && strcmp(current->frame->frame_id, frame_id) == 0) {
-            if (this->shown_frame && this->shown_frame->On_Unload) {
-                this->shown_frame->On_Unload(this->shown_frame);
-            }
+            tmp_shown_frame = this->shown_frame;
+            this->shown_frame = NULL;
+            if (tmp_shown_frame && tmp_shown_frame->On_Unload)
+                tmp_shown_frame->On_Unload(tmp_shown_frame);
+            if (tmp_shown_frame)
+                tmp_shown_frame->Free_All_Drawables(tmp_shown_frame, GLIB_FREE_ON_UNLOAD);
             if (!current->frame->initialized && current->frame->Init) {
                 current->frame->Init(current->frame);
                 current->frame->initialized = 1;

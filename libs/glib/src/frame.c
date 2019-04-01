@@ -19,7 +19,6 @@
 #include "utils.h"
 
 static void TFrame_Init(TFrame *this, const char *frame_id);
-static void TFrame_Free_All_Drawables(TFrame *this);
 
 TFrame* New_TFrame(const char *frame_id)
 {
@@ -43,30 +42,14 @@ static void TFrame_Init(TFrame *this, const char *frame_id)
     this->Free_Drawables = TFrame_Free_Drawables;
     this->Get_Drawable = TFrame_Get_Drawable;
     this->Draw_Drawables = TFrame_Draw_Drawables;
+    this->Free_All_Drawables = TFrame_Free_All_Drawables;
     this->window = NULL;
     this->frame_id = strdup(frame_id);
     this->initialized = 0;
     this->drawables_head = NULL;
 }
 
-static void TFrame_Free_All_Drawables(TFrame *this)
-{
-    if (!this) return;
-
-    TDrawable_Node *current = this->drawables_head;
-    TDrawable_Node *tmp = NULL;
-
-    while (current != NULL) {
-        if (current->drawable && current->drawable->Free)
-            current->drawable->Free(current->drawable);
-
-        tmp = current;
-        current = current->next;
-        free(tmp);
-    }
-}
-
-void TFrame_Add_Drawable(TFrame *this, TDrawable *drawable, const char *id, unsigned int priority)
+void TFrame_Add_Drawable(TFrame *this, TDrawable *drawable, const char *id, unsigned int priority, unsigned int free_strategy)
 {
     TDrawable_Node *drawable_node;
 
@@ -78,6 +61,7 @@ void TFrame_Add_Drawable(TFrame *this, TDrawable *drawable, const char *id, unsi
     drawable_node->id = hash(id);
     drawable_node->drawable = drawable;
     drawable_node->priority = priority;
+    drawable_node->free_strategy = free_strategy;
     if (this->drawables_head == NULL) {
         drawable_node->next = NULL;
         this->drawables_head = drawable_node;
@@ -220,10 +204,34 @@ void TFrame_Draw_Drawables(TFrame *this)
     }
 }
 
+void TFrame_Free_All_Drawables(TFrame *this, unsigned int free_strategy)
+{
+    if (!this) return;
+
+    TDrawable_Node *current = this->drawables_head;
+    TDrawable_Node *tmp = NULL;
+
+    while (current != NULL) {
+        tmp = current;
+        current = current->next;
+        if (tmp->drawable && tmp->drawable->Free) {
+            if (free_strategy != GLIB_NO_FREE) {
+                if ((free_strategy & GLIB_FREE_ON_FINISH) != 0) {
+                    this->Free_Drawable_Obj(this, tmp->drawable);
+                }
+                else if ((free_strategy & GLIB_FREE_ON_UNLOAD) != 0 &&
+                         (tmp->free_strategy & GLIB_FREE_ON_UNLOAD) != 0) {
+                    this->Free_Drawable_Obj(this, tmp->drawable);
+                }
+            }
+        }
+    }
+}
+
 void TFrame_New_Free(TFrame *this)
 {
     if (this) {
-        TFrame_Free_All_Drawables(this);
+        this->Free_All_Drawables(this, GLIB_FREE_ON_FINISH | GLIB_FREE_ON_UNLOAD);
         free(this->frame_id);
     }
     free(this);
