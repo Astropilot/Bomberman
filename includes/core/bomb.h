@@ -23,6 +23,9 @@
 #define CORE_BOMB_H_
 
 #include "core/utils.h"
+#include "network/server.h"
+
+typedef struct TMap TMap;
 
 /**
  * @brief Constants of the possible status when a player try to drop a bomb.
@@ -103,5 +106,15 @@ void add_bomb(bomb_node_t **bombs_head, bomb_t *bomb);
  * @param bomb The bomb to delete.
  */
 void remove_bomb(bomb_node_t **bombs_head, bomb_t *bomb);
+
+/**
+ * @fn void do_bomb_logic(TMap *map, bomb_t *bomb, TServer *server)
+ * @brief Call the logic function corresponding to the bomb type.
+ *
+ * @param map A pointer to the game map.
+ * @param bomb A pointer to the bomb.
+ * @param server A pointer to the network server.
+ */
+void do_bomb_logic(TMap *map, bomb_t *bomb, TServer *server);
 
 #endif

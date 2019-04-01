@@ -18,10 +18,8 @@
 #include "core/map.h"
 #include "core/extra.h"
 #include "core/player.h"
+#include "core/bomb.h"
 #include "core/utils.h"
-#include "network/packets/packet.h"
-#include "network/packets/packet_ack_bombexplode.h"
-#include "network/packets/packet_ack_playerupdate.h"
 
 static void TMap_Init(TMap *this, unsigned int max_clients);
 static unsigned int TMap_Take_Extra(TMap *this, player_t *player, int x, int y);
@@ -198,7 +196,7 @@ bomb_status_t TMap_Place_Bomb(TMap *this, unsigned int player_id, bomb_reason_t 
     bomb->bomb_pos.y = (unsigned int)block_y;
     bomb->type = CLASSIC;
     bomb->range = player->specs.bombs_range;
-    bomb->time_explode = time + 5000;
+    bomb->time_explode = time + rand_range_int(2000, 5000);
     bomb->owner_id = player_id;
     add_bomb(&(this->bombs_head), bomb);
 
@@ -210,94 +208,7 @@ void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TServer *server)
     if (!this || !this->block_map || !this->players || !bomb || !server)
         return;
 
-    player_t *player = &(this->players[bomb->owner_id]);
-    TAckBombExplodePacket *packet = New_TAckBombExplodePacket(NULL);
-    TAckPlayerUpdatePacket *p_ownerupdate = New_TAckPlayerUpdatePacket(NULL);
-    unsigned int y;
-    unsigned int x;
-    unsigned int i;
-    unsigned int bomb_start_x, bomb_start_y;
-    unsigned int bomb_end_x, bomb_end_y;
-
-    player->specs.bombs_left++;
-    packet->bomb = *bomb;
-
-    // Classic bomb logic
-    bomb_start_x = ((int)bomb->bomb_pos.x - (int)bomb->range >= 0) ? bomb->bomb_pos.x - bomb->range : 0;
-    bomb_start_y = ((int)bomb->bomb_pos.y - (int)bomb->range >= 0) ? bomb->bomb_pos.y - bomb->range : 0;
-    bomb_end_x = ((int)bomb->bomb_pos.x + (int)bomb->range < MAP_WIDTH) ? bomb->bomb_pos.x + bomb->range : MAP_WIDTH - 1;
-    bomb_end_y = ((int)bomb->bomb_pos.y + (int)bomb->range < MAP_HEIGHT) ? bomb->bomb_pos.y + bomb->range: MAP_HEIGHT - 1;
-
-    packet->destroyed_count = 0;
-    packet->flames_count = 0;
-    for (y = bomb_start_y; y <= bomb_end_y; y++) {
-        for (x = bomb_start_x; x <= bomb_end_x; x++) {
-            if (x == bomb->bomb_pos.x || y == bomb->bomb_pos.y) {
-                if (this->block_map[y][x] == BREAKABLE_WALL)
-                    packet->destroyed_count++;
-                else if (this->block_map[y][x] == NOTHING)
-                    if (!(x == bomb->bomb_pos.x && y == bomb->bomb_pos.y))
-                        packet->flames_count++;
-            }
-        }
-    }
-
-    packet->destroyed_walls = malloc(sizeof(pos_t) * packet->destroyed_count);
-    packet->flames_blocks = malloc(sizeof(pos_t) * packet->flames_count);
-    packet->extra_blocks = malloc(sizeof(object_t) * packet->destroyed_count);
-    packet->destroyed_count = 0;
-    packet->flames_count = 0;
-    packet->extra_count = 0;
-
-    for (y = bomb_start_y; y <= bomb_end_y; y++) {
-        for (x = bomb_start_x; x <= bomb_end_x; x++) {
-            if (x == bomb->bomb_pos.x || y == bomb->bomb_pos.y) {
-                pos_t pos = {x, y};
-                if (this->block_map[y][x] == BREAKABLE_WALL) {
-                    this->block_map[y][x] = NOTHING;
-                    if (rand_int(100) <= CHANCE_EXTRA) {
-                        object_type_t extra = rand_range_int(BONUS_RANGE, MALUS_SPEED);
-                        object_t obj = {extra, {x, y}};
-
-                        this->block_map[y][x] = extra;
-                        packet->extra_blocks[packet->extra_count] = obj;
-                        packet->extra_count++;
-                    }
-
-                    packet->destroyed_walls[packet->destroyed_count] = pos;
-                    packet->destroyed_count++;
-                } else if (this->block_map[y][x] == NOTHING) {
-                    if (!(x == bomb->bomb_pos.x && y == bomb->bomb_pos.y)) {
-                        packet->flames_blocks[packet->flames_count] = pos;
-                        packet->flames_count++;
-                    }
-                }
-            }
-        }
-    }
-
-    //TODO: Checker les joueurs dans le rayon et leur retirer de la vie.
-    for (i = 0; i < this->max_players; i++) {
-        if (this->players[i].connected == 1 && this->players[i].specs.life > 0) {
-            int player_y, player_x;
-            pos_t player_pos = this->players[i].pos;
-
-            pix_to_map((int)player_pos.x, (int)player_pos.y, &player_x, &player_y);
-            if ( (player_x >= (int)bomb_start_x && player_x <= (int)bomb_end_x && player_y == (int)bomb->bomb_pos.y)
-                ||
-                (player_y >= (int)bomb_start_y && player_y <= (int)bomb_end_y && player_x == (int)bomb->bomb_pos.x) ) {
-                    TAckPlayerUpdatePacket *p_pu = New_TAckPlayerUpdatePacket(NULL);
-
-                    this->players[i].specs.life = ((int)this->players[i].specs.life - 30 < 0) ? 0 : this->players[i].specs.life - 30;
-                    p_pu->player = this->players[i];
-                    server->Send_Broadcast(server, packet_to_message((TPacket*)p_pu, 1));
-            }
-        }
-    }
-
-    p_ownerupdate->player = this->players[bomb->owner_id];
-    server->Send_Broadcast(server, packet_to_message((TPacket*)packet, 1));
-    server->Send_Broadcast(server, packet_to_message((TPacket*)p_ownerupdate, 1));
+    do_bomb_logic(this, bomb, server);
 }
 
 void TMap_New_Free(TMap *this)
