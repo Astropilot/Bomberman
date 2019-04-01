@@ -87,7 +87,7 @@ int TAckDisconnectPacket_Serialize(TAckDisconnectPacket *this)
     packet_buffer = this->raw_packet;
     packet_buffer = pack_int(packet_buffer, this->packet_id);
     packet_buffer = pack_int(packet_buffer, this->reason);
-    return (packet_buffer - this->raw_packet);
+    return (int)(packet_buffer - this->raw_packet);
 }
 
 void TAckDisconnectPacket_Unserialize(TAckDisconnectPacket *this)
