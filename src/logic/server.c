@@ -89,6 +89,16 @@ static void handle_connect(TGameServer *game_server, TClient* client, TMessage m
     p_rc->Unserialize(p_rc);
 
     int nb_clients = (int)game_server->server->CountClients(game_server->server);
+
+    if (game_server->game_started) {
+        TAckConnectPacket *p_a = New_TAckConnectPacket(NULL);
+        p_a->status = GAME_STARTED;
+        p_a->player = MAX_PLAYERS + 1;
+        client->Send(client, packet_to_message((TPacket*)p_a, 1));
+        p_rc->Free(p_rc);
+        return;
+    }
+
     if (nb_clients <= game_server->max_clients) {
         TAckConnectPacket *p_a = New_TAckConnectPacket(NULL);
         TAckLobbyStatePacket *p = New_TAckLobbyStatePacket(NULL);

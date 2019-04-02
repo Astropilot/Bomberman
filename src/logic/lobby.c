@@ -51,7 +51,7 @@ static void handle_connect(TLobbyClient *lobby, TMessage message)
     p_ac->Unserialize(p_ac);
 
     if (p_ac->status != OK) {
-        lobby->player = p_ac->player;
+        lobby->player = (int)p_ac->player;
         lobby->Leave_Lobby(lobby);
     } else
         lobby->player = (int)p_ac->player;

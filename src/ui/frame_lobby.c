@@ -76,13 +76,6 @@ static void On_Load(TFrame* frame, int argc, va_list args)
 
     lobby_args_t param = va_arg(args, lobby_args_t);
 
-    if (!param.server_ip) {
-        lobbyclient->Start_Server(lobbyclient, param.port, MAX_PLAYERS);
-        lobbyclient->Join_Lobby(lobbyclient, param.username, "127.0.0.1", param.port);
-    } else {
-        lobbyclient->Join_Lobby(lobbyclient, param.username, param.server_ip, param.port);
-    }
-
     SDL_Rect pos_label = {0, 0, 0, 0};
     SDL_Color color = {255, 255, 255, 255};
     TTF_Font *font = loadFont(FONT_PATH "fixedsys.ttf", 24);
@@ -97,6 +90,13 @@ static void On_Load(TFrame* frame, int argc, va_list args)
     TButton *btn_quit = (TButton*)frame->Get_Drawable(frame, "BTN_QUIT");
 
     btn_quit->state = BUTTON_NORMAL;
+
+    if (!param.server_ip) {
+        lobbyclient->Start_Server(lobbyclient, param.port, MAX_PLAYERS);
+        lobbyclient->Join_Lobby(lobbyclient, param.username, "127.0.0.1", param.port);
+    } else {
+        lobbyclient->Join_Lobby(lobbyclient, param.username, param.server_ip, param.port);
+    }
 }
 
 static void On_Event(TFrame* frame, SDL_Event event)
