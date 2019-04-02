@@ -45,7 +45,8 @@ static char *extra_paths[] = {
 
 unsigned int do_extra_logic(player_t *player, object_type_t extra_type)
 {
-    if (!player || extra_type < BONUS_RANGE || extra_type > MALUS_SPEED) return (0);
+    if (!player || extra_type < BONUS_RANGE || extra_type > MALUS_SPEED)
+        return (0);
 
     (*extras_logic[extra_type])(player);
     return (1);

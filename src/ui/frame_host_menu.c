@@ -46,26 +46,48 @@ static void Init(TFrame* frame)
     SDL_Color color = {255, 255, 255, 255};
     SDL_Rect pos_sprite_bg = {0, 0, 430, 242};
     SDL_Rect size_sprite_bg = {0, 0, 1280, 720};
-    TAnimatedSprite *sp_bg = New_TAnimatedSprite(frame, RES_PATH "animated_background.png", pos_sprite_bg, size_sprite_bg, 52, -1);
+    TAnimatedSprite *sp_bg = New_TAnimatedSprite(frame,
+        RES_PATH "animated_background.png", pos_sprite_bg,
+        size_sprite_bg, 52, -1
+    );
 
     SDL_Rect pos_title = {(WIN_WIDTH / 2) - (644 / 2), 100, 644, 104};
-    TSprite *sp_title = New_TSprite(frame, RES_PATH "bomberman_logo_title.png", pos_title);
+    TSprite *sp_title = New_TSprite(frame,
+        RES_PATH "bomberman_logo_title.png", pos_title
+    );
 
     SDL_Rect pos = {(WIN_WIDTH / 2) - (400 / 2), 250, 400, 92};
-    TInput *input_username = New_TInput(frame, RES_PATH "input.png", pos, color, 15, "Username");
+    TInput *input_username = New_TInput(frame, RES_PATH "input.png",
+        pos, color, 15, "Username"
+    );
 
     SDL_Rect pos2 = {(WIN_WIDTH / 2) - (400 / 2), (pos.y + pos.h) + 15, 400, 92};
-    TInput *input_serverport = New_TInput(frame, RES_PATH "input.png", pos2, color, 5, "Server port");
+    TInput *input_serverport = New_TInput(frame,
+        RES_PATH "input.png", pos2, color, 5, "Server port"
+    );
 
     SDL_Rect pos_button_play = {(WIN_WIDTH / 2) - (410 / 2), (pos2.y + pos2.h) + 15, 410, 64};
-    TButton *btn_play = New_TButton(frame, RES_PATH "button_create_normal.png", RES_PATH "button_create_hover.png", pos_button_play);
+    TButton *btn_play = New_TButton(frame,
+        RES_PATH "button_create_normal.png",
+        RES_PATH "button_create_hover.png", pos_button_play
+    );
     btn_play->On_Click = On_Click_Play_Button;
 
-    frame->Add_Drawable(frame, (TDrawable*)sp_bg, "BG", 999, GLIB_FREE_ON_FINISH);
-    frame->Add_Drawable(frame, (TDrawable*)sp_title, "TITLE", 998, GLIB_FREE_ON_FINISH);
-    frame->Add_Drawable(frame, (TDrawable*)input_username, "INPUT_USER", 1, GLIB_FREE_ON_FINISH);
-    frame->Add_Drawable(frame, (TDrawable*)input_serverport, "INPUT_PORT", 1, GLIB_FREE_ON_FINISH);
-    frame->Add_Drawable(frame, (TDrawable*)btn_play, "BTN_PLAY", 1, GLIB_FREE_ON_FINISH);
+    frame->Add_Drawable(frame, (TDrawable*)sp_bg,
+        "BG", 999, GLIB_FREE_ON_FINISH
+    );
+    frame->Add_Drawable(frame, (TDrawable*)sp_title,
+        "TITLE", 998, GLIB_FREE_ON_FINISH
+    );
+    frame->Add_Drawable(frame, (TDrawable*)input_username,
+        "INPUT_USER", 1, GLIB_FREE_ON_FINISH
+    );
+    frame->Add_Drawable(frame, (TDrawable*)input_serverport,
+        "INPUT_PORT", 1, GLIB_FREE_ON_FINISH
+    );
+    frame->Add_Drawable(frame, (TDrawable*)btn_play,
+        "BTN_PLAY", 1, GLIB_FREE_ON_FINISH
+    );
 }
 
 static void On_Load(TFrame* frame, int argc, va_list args)

@@ -82,7 +82,8 @@ void TMap_Generate(TMap *this)
                         (y > 1 || x < MAP_WIDTH - 2) &&
                         (y < MAP_HEIGHT - 2 || x < MAP_WIDTH - 2)
                       ) {
-                if (rand_int(100) <= CHANCE_BREAKABLE_WALL) { // Si chance d'avoir un mur cassable
+                // Si chance d'avoir un mur cassable
+                if (rand_int(100) <= CHANCE_BREAKABLE_WALL) {
                     this->block_map[y][x] = BREAKABLE_WALL;
                 }
             }
@@ -129,7 +130,8 @@ unsigned int TMap_Move_Player(TMap *this, unsigned int player_id, direction_t di
     // Gestion des collisions avec les blocs infranchissables.
     if (block_x < 0 || block_x >= MAP_WIDTH) return (0);
     if (block_y < 0 || block_y >= MAP_HEIGHT) return (0);
-    if (this->block_map[block_y][block_x] == WALL || this->block_map[block_y][block_x] == BREAKABLE_WALL)
+    if (this->block_map[block_y][block_x] == WALL ||
+        this->block_map[block_y][block_x] == BREAKABLE_WALL)
         return (0);
 
     // Gestion des collisions avec les autres joueurs.
@@ -142,7 +144,8 @@ unsigned int TMap_Move_Player(TMap *this, unsigned int player_id, direction_t di
 
     // Gestion des collisions avec les bombes.
     while (current_bomb != NULL) {
-        if ((int)current_bomb->bomb->bomb_pos.x == block_x && (int)current_bomb->bomb->bomb_pos.y == block_y) {
+        if ((int)current_bomb->bomb->bomb_pos.x == block_x &&
+            (int)current_bomb->bomb->bomb_pos.y == block_y) {
             return (0);
         }
         current_bomb = current_bomb->next;
@@ -175,7 +178,8 @@ bomb_status_t TMap_Place_Bomb(TMap *this, unsigned int player_id, bomb_reason_t 
     pix_to_map((int)player->pos.x, (int)player->pos.y, &block_x, &block_y);
 
     while (current_bomb != NULL) {
-        if (current_bomb->bomb->bomb_pos.x == (unsigned int)block_x && current_bomb->bomb->bomb_pos.y == (unsigned int)block_y) {
+        if (current_bomb->bomb->bomb_pos.x == (unsigned int)block_x &&
+            current_bomb->bomb->bomb_pos.y == (unsigned int)block_y) {
             *reason = ALREADY_ITEM;
             return (BOMB_CANCELED);
         }

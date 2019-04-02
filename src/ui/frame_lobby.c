@@ -51,14 +51,22 @@ TFrame* New_LobbyFrame(TLobbyClient *m_lobbyclient)
 static void Init(TFrame* frame)
 {
     SDL_Rect pos_button_start = {(WIN_WIDTH / 2) - (410 / 2), 400, 410, 64};
-    btn_start = New_TButton(frame, RES_PATH "button_startgame_normal.png", RES_PATH "button_startgame_hover.png", pos_button_start);
+    btn_start = New_TButton(frame,
+        RES_PATH "button_startgame_normal.png",
+        RES_PATH "button_startgame_hover.png", pos_button_start
+    );
     btn_start->On_Click = On_Click_Start_Button;
 
     SDL_Rect pos_button_quit = {(WIN_WIDTH / 2) - (410 / 2), (pos_button_start.y + pos_button_start.h) + 15, 410, 64};
-    TButton *btn_quit = New_TButton(frame, RES_PATH "button_quit_normal.png", RES_PATH "button_quit_hover.png", pos_button_quit);
+    TButton *btn_quit = New_TButton(frame,
+        RES_PATH "button_quit_normal.png",
+        RES_PATH "button_quit_hover.png", pos_button_quit
+    );
     btn_quit->On_Click = On_Click_Quit_Button;
 
-    frame->Add_Drawable(frame, (TDrawable*)btn_quit, "BTN_QUIT", 1, GLIB_FREE_ON_FINISH);
+    frame->Add_Drawable(frame, (TDrawable*)btn_quit,
+        "BTN_QUIT", 1, GLIB_FREE_ON_FINISH
+    );
 }
 
 static void On_Load(TFrame* frame, int argc, va_list args)
@@ -82,7 +90,9 @@ static void On_Load(TFrame* frame, int argc, va_list args)
     txt_label->pos.x = (WIN_WIDTH / 2) - (txt_label->pos.w / 2);
     txt_label->pos.y = (WIN_HEIGHT / 2) - (txt_label->pos.h / 2);
 
-    frame->Add_Drawable(frame, (TDrawable*)txt_label, "LABEL_STATUS", 1, GLIB_FREE_ON_UNLOAD);
+    frame->Add_Drawable(frame, (TDrawable*)txt_label,
+        "LABEL_STATUS", 1, GLIB_FREE_ON_UNLOAD
+    );
 
     TButton *btn_quit = (TButton*)frame->Get_Drawable(frame, "BTN_QUIT");
 
@@ -118,7 +128,9 @@ static void On_Tick(TFrame* frame)
     lobbyclient->Handle_Messages(lobbyclient);
     if (lobbyclient->nb_players >= MIN_PLAYERS && lobbyclient->is_owner) {
         if (!frame->Get_Drawable(frame, "BTN_START"))
-            frame->Add_Drawable(frame, (TDrawable*)btn_start, "BTN_START", 1, GLIB_FREE_ON_FINISH);
+            frame->Add_Drawable(frame, (TDrawable*)btn_start,
+                "BTN_START", 1, GLIB_FREE_ON_FINISH
+            );
     } else {
         frame->Remove_Drawable(frame, "BTN_START");
     }

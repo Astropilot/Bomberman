@@ -47,19 +47,19 @@ void init_player(player_t *player, int id, const char *username)
     player->last_move_time = 0;
     switch (id) {
         case 0:
-            map_to_pix(0, 0, (int *)&(player->pos.x), (int *)&(player->pos.y));
+            map_to_pix(0, 0, (int*)&(player->pos.x), (int*)&(player->pos.y));
             player->direction = (unsigned int)EAST;
             break;
         case 1:
-            map_to_pix(MAP_WIDTH - 1, 0, (int *)&(player->pos.x), (int *)&(player->pos.y));
+            map_to_pix(MAP_WIDTH - 1, 0, (int*)&(player->pos.x), (int*)&(player->pos.y));
             player->direction = (unsigned int)WEST;
             break;
         case 2:
-            map_to_pix(0, MAP_HEIGHT - 1, (int *)&(player->pos.x), (int *)&(player->pos.y));
+            map_to_pix(0, MAP_HEIGHT - 1, (int*)&(player->pos.x), (int*)&(player->pos.y));
             player->direction = (unsigned int)EAST;
             break;
         case 3:
-            map_to_pix(MAP_WIDTH - 1, MAP_HEIGHT - 1, (int *)&(player->pos.x), (int *)&(player->pos.y));
+            map_to_pix(MAP_WIDTH - 1, MAP_HEIGHT - 1, (int*)&(player->pos.x), (int*)&(player->pos.y));
             player->direction = (unsigned int)WEST;
             break;
     }

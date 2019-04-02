@@ -37,7 +37,11 @@ int TAckBombExplodePacket_Serialize(TAckBombExplodePacket *this)
     unsigned char *packet_buffer;
     unsigned int i;
 
-    this->raw_packet = malloc(sizeof(TAckBombExplodePacket));
+    this->raw_packet = malloc(
+        sizeof(TAckBombExplodePacket) +
+        (sizeof(pos_t) * (this->destroyed_count + this->flames_count)) +
+        (sizeof(object_t) * this->extra_count)
+    );
     if (!this->raw_packet)
         return 0;
     packet_buffer = this->raw_packet;

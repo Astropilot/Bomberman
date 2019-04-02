@@ -88,6 +88,7 @@ static void logic_bomb_classic(TMap *map, bomb_t *bomb, TServer *server)
     unsigned int y, x, i;
     unsigned int bomb_start_x, bomb_start_y;
     unsigned int bomb_end_x, bomb_end_y;
+    unsigned int max_blocs;
     bomb_node_t *node_bomb = map->bombs_head;
 
     player->specs.bombs_left++;
@@ -98,27 +99,42 @@ static void logic_bomb_classic(TMap *map, bomb_t *bomb, TServer *server)
     bomb_end_x = ((int)bomb->bomb_pos.x + (int)bomb->range < MAP_WIDTH) ? bomb->bomb_pos.x + bomb->range : MAP_WIDTH - 1;
     bomb_end_y = ((int)bomb->bomb_pos.y + (int)bomb->range < MAP_HEIGHT) ? bomb->bomb_pos.y + bomb->range: MAP_HEIGHT - 1;
 
-    packet->destroyed_count = 0;
-    packet->flames_count = 0;
+    /*
+     * Reduction of the explosion radius if obstacles are present.
+     */
+    for (x = bomb_start_x; x <= bomb_end_x; x++) {
+        object_type_t obj = map->block_map[bomb->bomb_pos.y][x];
+        if (obj == WALL && x < bomb->bomb_pos.x)
+            bomb_start_x = x + 1;
+        if (obj == WALL && x > bomb->bomb_pos.x)
+            bomb_end_x = x - 1;
+        if (obj == BREAKABLE_WALL && x < bomb->bomb_pos.x)
+            bomb_start_x = x;
+        if (obj == BREAKABLE_WALL && x > bomb->bomb_pos.x)
+            bomb_end_x = x;
+    }
     for (y = bomb_start_y; y <= bomb_end_y; y++) {
-        for (x = bomb_start_x; x <= bomb_end_x; x++) {
-            if (x == bomb->bomb_pos.x || y == bomb->bomb_pos.y) {
-                if (map->block_map[y][x] == BREAKABLE_WALL)
-                    packet->destroyed_count++;
-                else if (map->block_map[y][x] == NOTHING)
-                    if (!(x == bomb->bomb_pos.x && y == bomb->bomb_pos.y))
-                        packet->flames_count++;
-            }
-        }
+        object_type_t obj = map->block_map[y][bomb->bomb_pos.x];
+        if (obj == WALL && y < bomb->bomb_pos.y)
+            bomb_start_y = y + 1;
+        if (obj == WALL && y > bomb->bomb_pos.y)
+            bomb_end_y = y - 1;
+        if (obj == BREAKABLE_WALL && y < bomb->bomb_pos.y)
+            bomb_start_y = y;
+        if (obj == BREAKABLE_WALL && y > bomb->bomb_pos.y)
+            bomb_end_y = y;
     }
 
-    packet->destroyed_walls = malloc(sizeof(pos_t) * packet->destroyed_count);
-    packet->flames_blocks = malloc(sizeof(pos_t) * packet->flames_count);
-    packet->extra_blocks = malloc(sizeof(object_t) * packet->destroyed_count);
+    max_blocs = (bomb_end_x - bomb_start_x + 1) * (bomb_end_y - bomb_start_y + 1);
+    packet->destroyed_walls = malloc(sizeof(pos_t) * max_blocs);
+    packet->flames_blocks = malloc(sizeof(pos_t) * max_blocs);
+    packet->extra_blocks = malloc(sizeof(object_t) * max_blocs);
     packet->destroyed_count = 0;
     packet->flames_count = 0;
     packet->extra_count = 0;
-
+    /*
+     * Addition of destroyed walls and generated flames.
+     */
     for (y = bomb_start_y; y <= bomb_end_y; y++) {
         for (x = bomb_start_x; x <= bomb_end_x; x++) {
             if (x == bomb->bomb_pos.x || y == bomb->bomb_pos.y) {
@@ -146,6 +162,9 @@ static void logic_bomb_classic(TMap *map, bomb_t *bomb, TServer *server)
         }
     }
 
+    /*
+     * Application of damage to players within the bomb's range.
+     */
     for (i = 0; i < map->max_players; i++) {
         if (map->players[i].connected == 1 && map->players[i].specs.life > 0) {
             int player_y, player_x;
@@ -164,6 +183,9 @@ static void logic_bomb_classic(TMap *map, bomb_t *bomb, TServer *server)
         }
     }
 
+    /*
+     * Explosion of other bombs within the bomb's range.
+     */
     while (node_bomb != NULL) {
         pos_t bomb_pos = node_bomb->bomb->bomb_pos;
         if ( (bomb_pos.x >= bomb_start_x && bomb_pos.x <= bomb_end_x && bomb_pos.y == bomb->bomb_pos.y)

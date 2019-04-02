@@ -47,9 +47,13 @@ TFrame* New_GameFrame(TGameClient *m_gameclient)
 static void Init(TFrame* frame)
 {
     SDL_Rect pos_sprite2 = {0, 0, WIN_WIDTH, WIN_HEIGHT};
-    TSprite *sp2 = New_TSprite(frame, RES_PATH "bomberman_game.png", pos_sprite2);
+    TSprite *sp2 = New_TSprite(frame,
+        RES_PATH "bomberman_game.png", pos_sprite2
+    );
 
-    frame->Add_Drawable(frame, (TDrawable*)sp2, "BG", 999, GLIB_FREE_ON_FINISH);
+    frame->Add_Drawable(frame, (TDrawable*)sp2,
+        "BG", 999, GLIB_FREE_ON_FINISH
+    );
 }
 
 static void On_Load(TFrame* frame, int argc, va_list args)
@@ -73,33 +77,57 @@ static void On_Load(TFrame* frame, int argc, va_list args)
     SDL_Rect health_pos = {0, 0, 32, 9};
     char *player_id = malloc(sizeof(char) * 15);
     for (i = 0; i < nb_players; i++) {
-        TAnimatedSprites *sp_down = New_TAnimatedSprites(frame, CHAR_PATH "face%02d.png", 7, size, pos, 66, -1);
-        TAnimatedSprites *sp_up = New_TAnimatedSprites(frame, CHAR_PATH "back%02d.png", 7, size, pos, 66, -1);
-        TAnimatedSprites *sp_right = New_TAnimatedSprites(frame, CHAR_PATH "side_right%02d.png", 17, size, pos, 66, -1);
-        TAnimatedSprites *sp_left = New_TAnimatedSprites(frame, CHAR_PATH "side_left%02d.png", 21, size, pos, 66, -1);
-        TSprite *sp_health_bar_bg = New_TSprite(frame, CHAR_PATH "health_bg.png", health_pos);
-        TSprite *sp_health_actual = New_TSprite(frame, CHAR_PATH "health_bar.png", health_pos);
+        TAnimatedSprites *sp_down = New_TAnimatedSprites(frame,
+            CHAR_PATH "face%02d.png", 7, size, pos, 66, -1
+        );
+        TAnimatedSprites *sp_up = New_TAnimatedSprites(frame,
+            CHAR_PATH "back%02d.png", 7, size, pos, 66, -1
+        );
+        TAnimatedSprites *sp_right = New_TAnimatedSprites(frame,
+            CHAR_PATH "side_right%02d.png", 17, size, pos, 66, -1
+        );
+        TAnimatedSprites *sp_left = New_TAnimatedSprites(frame,
+            CHAR_PATH "side_left%02d.png", 21, size, pos, 66, -1
+        );
+        TSprite *sp_health_bar_bg = New_TSprite(frame,
+            CHAR_PATH "health_bg.png", health_pos
+        );
+        TSprite *sp_health_actual = New_TSprite(frame,
+            CHAR_PATH "health_bar.png", health_pos
+        );
 
         sprintf(player_id, "PLAYER_%d_%u", i, SOUTH);
         sp_down->is_visible = 0;
-        frame->Add_Drawable(frame, (TDrawable*)sp_down, player_id, 1, GLIB_FREE_ON_UNLOAD);
+        frame->Add_Drawable(frame, (TDrawable*)sp_down,
+            player_id, 1, GLIB_FREE_ON_UNLOAD
+        );
 
         sprintf(player_id, "PLAYER_%d_%u", i, NORTH);
         sp_up->is_visible = 0;
-        frame->Add_Drawable(frame, (TDrawable*)sp_up, player_id, 1, GLIB_FREE_ON_UNLOAD);
+        frame->Add_Drawable(frame, (TDrawable*)sp_up,
+            player_id, 1, GLIB_FREE_ON_UNLOAD
+        );
 
         sprintf(player_id, "PLAYER_%d_%u", i, EAST);
         sp_right->is_visible = 0;
-        frame->Add_Drawable(frame, (TDrawable*)sp_right, player_id, 1, GLIB_FREE_ON_UNLOAD);
+        frame->Add_Drawable(frame, (TDrawable*)sp_right,
+            player_id, 1, GLIB_FREE_ON_UNLOAD
+        );
 
         sprintf(player_id, "PLAYER_%d_%u", i, WEST);
         sp_left->is_visible = 0;
-        frame->Add_Drawable(frame, (TDrawable*)sp_left, player_id, 1, GLIB_FREE_ON_UNLOAD);
+        frame->Add_Drawable(frame, (TDrawable*)sp_left,
+            player_id, 1, GLIB_FREE_ON_UNLOAD
+        );
 
         sprintf(player_id, "PLAYER_%d_HPBG", i);
-        frame->Add_Drawable(frame, (TDrawable*)sp_health_bar_bg, player_id, 1, GLIB_FREE_ON_UNLOAD);
+        frame->Add_Drawable(frame, (TDrawable*)sp_health_bar_bg,
+            player_id, 1, GLIB_FREE_ON_UNLOAD
+        );
         sprintf(player_id, "PLAYER_%d_HPBAR", i);
-        frame->Add_Drawable(frame, (TDrawable*)sp_health_actual, player_id, 1, GLIB_FREE_ON_UNLOAD);
+        frame->Add_Drawable(frame, (TDrawable*)sp_health_actual,
+            player_id, 1, GLIB_FREE_ON_UNLOAD
+        );
     }
     free(player_id);
 
@@ -156,11 +184,15 @@ void GameFrame_UpdatePlayerInfo(TFrame *frame, player_t player)
 
         txt_name = New_TText(frame, "[PLAYER_NAME]", font, color, pos_text);
         sprintf(res_id, "PLAYER_%u_NAME", player.p_id);
-        frame->Add_Drawable(frame, (TDrawable*)txt_name, res_id, 2, GLIB_FREE_ON_UNLOAD);
+        frame->Add_Drawable(frame, (TDrawable*)txt_name,
+            res_id, 2, GLIB_FREE_ON_UNLOAD
+        );
         font = loadFont(FONT_PATH "fixedsys.ttf", 14);
         txt_info = New_TText(frame, "[PLAYER_INFOS]", font, color, pos_text);
         sprintf(res_id, "PLAYER_%u_INFOS", player.p_id);
-        frame->Add_Drawable(frame, (TDrawable*)txt_info, res_id, 2, GLIB_FREE_ON_UNLOAD);
+        frame->Add_Drawable(frame, (TDrawable*)txt_info,
+            res_id, 2, GLIB_FREE_ON_UNLOAD
+        );
 
     }
     txt_name->Change_Text(txt_name, frame, player.username);
@@ -184,7 +216,9 @@ void GameFrame_UpdatePlayerInfo(TFrame *frame, player_t player)
 
         sp_game_over = New_TSprite(frame, CHAR_PATH "game_over.png", pos);
         sprintf(res_id, "PLAYER_%u_GO", player.p_id);
-        frame->Add_Drawable(frame, (TDrawable*)sp_game_over, res_id, 1, GLIB_FREE_ON_UNLOAD);
+        frame->Add_Drawable(frame, (TDrawable*)sp_game_over,
+            res_id, 1, GLIB_FREE_ON_UNLOAD
+        );
 
         sprintf(res_id, "PLAYER_%u_%u", player.p_id, player.direction);
         TAnimatedSprites *asp = (TAnimatedSprites*)frame->Get_Drawable(frame, res_id);

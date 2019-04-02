@@ -13,18 +13,19 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
-#include "network/game/lobby.h"
+#include "main.h"
 #include "glib.h"
+#include "logic/lobby.h"
+#include "network/game/lobby.h"
 #include "network/network.h"
 #include "network/game/server.h"
 #include "network/packets/packet.h"
 #include "network/packets/packet_req_connect.h"
 #include "network/packets/packet_req_startgame.h"
-#include "network/packets/packet_ack_connect.h"
-#include "network/packets/packet_ack_lobbystate.h"
 #include "network/packets/packet_disconnect.h"
-#include "main.h"
+
 
 TLobbyClient* New_TLobbyClient()
 {
@@ -104,53 +105,7 @@ void TLobbyClient_Handle_Messages(TLobbyClient *this)
     #endif
 
     packet_id = extract_packet_id(message.message);
-    switch (packet_id) {
-        case ACK_CONNECT:;
-            TAckConnectPacket *p_ac = New_TAckConnectPacket(message.message);
-            p_ac->Unserialize(p_ac);
-
-            if (p_ac->status != OK) {
-                this->player = p_ac->player;
-                this->Leave_Lobby(this);
-            } else
-                this->player = (int)p_ac->player;
-            p_ac->Free(p_ac);
-            break;
-        case ACK_DISCONNECT:;
-            free(message.message);
-            this->Leave_Lobby(this);
-            break;
-        case ACK_LOBBY_STATE:;
-            TText *txt_label = NULL;
-            TAckLobbyStatePacket *p_as = New_TAckLobbyStatePacket(message.message);
-
-            p_as->Unserialize(p_as);
-            this->nb_players = p_as->nb_players;
-            char *status = malloc(sizeof(char) * 255);
-            sprintf(status, "Nombre de joueurs presents: %d/%d", this->nb_players, MAX_PLAYERS);
-
-            txt_label = (TText*)this->lobby_frame->Get_Drawable(this->lobby_frame, "LABEL_STATUS");
-            txt_label->Change_Text(txt_label, this->lobby_frame, status);
-            txt_label->pos.x = (WIN_WIDTH / 2) - (txt_label->pos.w / 2);
-            txt_label->pos.y = (WIN_HEIGHT / 2) - (txt_label->pos.h / 2);
-
-            free(status);
-            p_as->Free(p_as);
-            break;
-        case ACK_START_GAME:;
-            TClient *client_tmp = this->client;
-
-            free(message.message);
-            this->client = NULL;
-            this->lobby_frame->window->Show_Frame(
-                this->lobby_frame->window,
-                "FRAME_GAME",
-                4, client_tmp, this->gameserver, this->player, this->nb_players
-            );
-            break;
-        default:
-            free(message.message);
-    }
+    handle_lobby_logic(this, message, packet_id);
 }
 
 void TLobbyClient_Leave_Lobby(TLobbyClient *this)

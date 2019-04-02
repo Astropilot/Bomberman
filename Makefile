@@ -25,6 +25,7 @@ SRC		= \
 		$(wildcard src/core/*.c) \
 		$(wildcard src/ui/*.c) \
 		$(wildcard src/network/packets/*.c) \
+		$(wildcard src/logic/*.c) \
 		$(wildcard src/network/game/*.c) \
 		src/main.c
 

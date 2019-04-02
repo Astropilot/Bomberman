@@ -46,10 +46,15 @@ TFrame* New_EndGameFrame(void)
 static void Init(TFrame* frame)
 {
     SDL_Rect pos_button = {(WIN_WIDTH / 2) - (410 / 2), WIN_HEIGHT - 64 - 15, 410, 64};
-    TButton *btn_menu = New_TButton(frame, RES_PATH "button_backmenu_normal.png", RES_PATH "button_backmenu_hover.png", pos_button);
+    TButton *btn_menu = New_TButton(frame,
+        RES_PATH "button_backmenu_normal.png",
+        RES_PATH "button_backmenu_hover.png", pos_button
+    );
     btn_menu->On_Click = On_Click_Menu_Button;
 
-    frame->Add_Drawable(frame, (TDrawable*)btn_menu, "BTN_MENU", 1, GLIB_FREE_ON_FINISH);
+    frame->Add_Drawable(frame, (TDrawable*)btn_menu,
+        "BTN_MENU", 1, GLIB_FREE_ON_FINISH
+    );
 }
 
 static void On_Load(TFrame* frame, int argc, va_list args)
@@ -81,7 +86,9 @@ static void On_Load(TFrame* frame, int argc, va_list args)
         free(winner->username);
         free(winner);
     }
-    frame->Add_Drawable(frame, (TDrawable*)txt_label, "LABEL_STATUS", 1, GLIB_FREE_ON_UNLOAD);
+    frame->Add_Drawable(frame, (TDrawable*)txt_label,
+        "LABEL_STATUS", 1, GLIB_FREE_ON_UNLOAD
+    );
 }
 
 static void On_Event(TFrame* frame, SDL_Event event)
