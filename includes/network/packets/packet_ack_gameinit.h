@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file packet_ack_gameinit.h
+ * @file network/packets/packet_ack_gameinit.h
  * @brief Header file of the TAckGameInitPacket class.
  *
  * The TAckGameInitPacket class is a high-level packet.

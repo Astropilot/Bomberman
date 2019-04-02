@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file player.h
+ * @file core/player.h
  * @brief Header file of the players logic.
  *
  * All methods for players logic are here.

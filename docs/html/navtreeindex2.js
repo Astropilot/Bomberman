@@ -1,5 +1,16 @@
 var NAVTREEINDEX2 =
 {
+"struct_t_req_ready_packet.html#a0dc135a41688d92270d8b2136873731d":[1,0,26,0],
+"struct_t_req_ready_packet.html#a5c6708d0c88252500c112744d5781589":[1,0,26,5],
+"struct_t_req_ready_packet.html#a9e99ad476c3b6476710210ef39567b5a":[1,0,26,1],
+"struct_t_req_ready_packet.html#aa62f24afeba4f23e9a191adeea164fe9":[1,0,26,2],
+"struct_t_req_start_game_packet.html":[1,0,27],
+"struct_t_req_start_game_packet.html#a0a46526af00531434b15ca297be8b247":[1,0,27,3],
+"struct_t_req_start_game_packet.html#a14c606882f8869c0a1a5cf6a271ae081":[1,0,27,5],
+"struct_t_req_start_game_packet.html#a6a7d6e908648dfa2e0038f0f7710e6f2":[1,0,27,0],
+"struct_t_req_start_game_packet.html#a7eac44cc807ec3447473770cd029ea4f":[1,0,27,4],
+"struct_t_req_start_game_packet.html#a9e99ad476c3b6476710210ef39567b5a":[1,0,27,1],
+"struct_t_req_start_game_packet.html#aa62f24afeba4f23e9a191adeea164fe9":[1,0,27,2],
 "structbomb__node__t.html":[1,0,0],
 "structbomb__node__t.html#a1d226552f17044acc79db2977e188998":[1,0,0,0],
 "structbomb__node__t.html#a2ac7af3142d6639fa1475e5fe0dde76e":[1,0,0,1],

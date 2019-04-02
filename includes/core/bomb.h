@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file bomb.h
+ * @file core/bomb.h
  * @brief Header file of the bombs logic.
  *
  * All methods for bombs logic are here.

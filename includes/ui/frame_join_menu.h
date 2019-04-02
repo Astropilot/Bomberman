@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file frame_join_menu.h
+ * @file ui/frame_join_menu.h
  * @brief Header file of the Join Menu TFrame class.
  *
  * This file allow you to instantiate a new Join Menu TFrame.

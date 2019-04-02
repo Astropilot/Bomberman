@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file packet_req_placebomb.h
+ * @file network/packets/packet_req_placebomb.h
  * @brief Header file of the TReqPlaceBombPacket class.
  *
  * The TReqPlaceBombPacket class is a high-level packet.

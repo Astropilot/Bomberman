@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file extra.h
+ * @file core/extra.h
  * @brief Header file of the extras logic.
  *
  * All methods for extras logic are here.

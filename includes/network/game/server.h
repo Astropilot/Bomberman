@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file server.h
+ * @file network/game/server.h
  * @brief Header file of the TGameServer class.
  *
  * The TGameServer object allow you to create a game server.

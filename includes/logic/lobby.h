@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file lobby.h
+ * @file logic/lobby.h
  * @brief Header file of the lobby logic.
  *
  * All methods for lobby logic are here.

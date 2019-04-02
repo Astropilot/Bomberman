@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file server.h
+ * @file logic/server.h
  * @brief Header file of the server logic.
  *
  * All methods for server logic are here.

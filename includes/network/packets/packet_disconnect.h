@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file packet_disconnect.h
+ * @file network/packets/packet_disconnect.h
  * @brief Header file of the TReqDisconnectPacket & TAckDisconnectPacket classes.
  *
  * The TReqDisconnectPacket & TAckDisconnectPacket classes are high-level packets.

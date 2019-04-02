@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file frame_lobby.h
+ * @file ui/frame_lobby.h
  * @brief Header file of the Lobby TFrame class.
  *
  * This file allow you to instantiate a new Lobby TFrame.

@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file packet_req_move.h
+ * @file network/packets/packet_req_move.h
  * @brief Header file of the TReqMovePlayerPacket class.
  *
  * The TReqMovePlayerPacket class is a high-level packet.

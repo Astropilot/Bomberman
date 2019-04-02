@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file frame_main_menu.h
+ * @file ui/frame_main_menu.h
  * @brief Header file of the Main Menu TFrame class.
  *
  * This file allow you to instantiate a new Main Menu TFrame.

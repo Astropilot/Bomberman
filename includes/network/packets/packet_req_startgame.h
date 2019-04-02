@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file packet_req_startgame.h
+ * @file network/packets/packet_req_startgame.h
  * @brief Header file of the TReqStartGamePacket class.
  *
  * The TReqStartGamePacket class is a high-level packet.

@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file packet_ack_placebomb.h
+ * @file network/packets/packet_ack_placebomb.h
  * @brief Header file of the TAckPlaceBombPacket class.
  *
  * The TAckPlaceBombPacket class is a high-level packet.

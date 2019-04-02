@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file lobby.h
+ * @file network/game/lobby.h
  * @brief Header file of the TLobbyClient class.
  *
  * The TLobbyClient object allow you to create a lobby client.

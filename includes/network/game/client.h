@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file client.h
+ * @file network/game/client.h
  * @brief Header file of the TGameClient class.
  *
  * The TGameClient object allow you to create a game client.

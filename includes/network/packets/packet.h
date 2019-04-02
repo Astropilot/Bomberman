@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file packet.h
+ * @file network/packets/packet.h
  * @brief Header file of the TPacket class.
  *
  * The TPacket mother class is a high-level packet which is inherited

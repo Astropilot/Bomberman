@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file utils.h
+ * @file core/utils.h
  * @brief Header file of some internal utils of Bomberman.
  *
  * This file have some utils for internal purpose in Bomberman.

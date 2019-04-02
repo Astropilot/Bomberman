@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file frame_end_game.h
+ * @file ui/frame_end_game.h
  * @brief Header file of the Game TFrame class.
  *
  * This file allow you to instantiate a new Game TFrame.

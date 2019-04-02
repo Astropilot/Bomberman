@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file packet_ack_bombexplode.h
+ * @file network/packets/packet_ack_bombexplode.h
  * @brief Header file of the TAckBombExplodePacket class.
  *
  * The TAckBombExplodePacket class is a high-level packet.

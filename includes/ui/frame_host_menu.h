@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file frame_host_menu.h
+ * @file ui/frame_host_menu.h
  * @brief Header file of the Host Menu TFrame class.
  *
  * This file allow you to instantiate a new Host Menu TFrame.

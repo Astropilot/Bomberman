@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file packet_ack_connect.h
+ * @file network/packets/packet_ack_connect.h
  * @brief Header file of the TAckConnectPacket class.
  *
  * The TAckConnectPacket class is a high-level packet.

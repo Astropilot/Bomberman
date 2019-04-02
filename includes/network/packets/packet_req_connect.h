@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file packet_req_connect.h
+ * @file network/packets/packet_req_connect.h
  * @brief Header file of the TReqConnectPacket class.
  *
  * The TReqConnectPacket class is a high-level packet.

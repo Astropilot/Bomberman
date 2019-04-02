@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file map.h
+ * @file core/map.h
  * @brief Header file of the Map class.
  *
  * This class allows you to create new Bomberman Map and manipulate it.

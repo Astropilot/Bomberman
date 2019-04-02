@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file client.h
+ * @file logic/client.h
  * @brief Header file of the client logic.
  *
  * All methods for client logic are here.
