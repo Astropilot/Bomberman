@@ -20,6 +20,7 @@ RM		= rm -f
 
 SRC		= \
 		$(wildcard src/*.c) \
+		$(wildcard src/pathfinding/*.c) \
 		$(wildcard src/network/*.c)
 
 OBJ		= $(SRC:.c=.o)

@@ -195,12 +195,17 @@ void TFrame_Draw_Drawables(TFrame *this)
     if (!this) return;
 
     TDrawable_Node *current = this->drawables_head;
+    TDrawable_Node *next = NULL;
 
     while (current != NULL) {
-        if (current->drawable && current->drawable->is_visible)
-            if (current->drawable->Draw)
+        next = current->next;
+        if (current->drawable && current->drawable->is_visible) {
+            if (current->drawable->Draw) {
                 current->drawable->Draw(current->drawable, this);
-        current = current->next;
+            }
+
+        }
+        current = next;
     }
 }
 

@@ -126,12 +126,9 @@ void TAckBombExplodePacket_Unserialize(TAckBombExplodePacket *this)
 void TAckBombExplodePacket_New_Free(TAckBombExplodePacket *this)
 {
     if (this) {
-        if (this->destroyed_count > 0)
-            free(this->destroyed_walls);
-        if (this->flames_count > 0)
-            free(this->flames_blocks);
-        if (this->extra_count > 0)
-            free(this->extra_blocks);
+        free(this->destroyed_walls);
+        free(this->flames_blocks);
+        free(this->extra_blocks);
         free(this->raw_packet);
     }
     free(this);

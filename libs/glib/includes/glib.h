@@ -24,6 +24,7 @@
 #define GLIB_H_
 
 #include "network/network.h"
+#include "pathfinding/pathfinding.h"
 #include "drawable.h"
 #include "window.h"
 #include "frame.h"
