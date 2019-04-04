@@ -1,6 +1,7 @@
 var struct_t_window =
 [
     [ "Add_Frame", "struct_t_window.html#a6fd63a58baa61deab3d7853bbe3ee9c9", null ],
+    [ "cache_manager", "struct_t_window.html#a81d77e68a61e3577628929e1ddaad5cf", null ],
     [ "Create_Window", "struct_t_window.html#abf122b8529870e9ba4f4bd4debb953e0", null ],
     [ "finished", "struct_t_window.html#a84a09434e6225d7d26b051506c931104", null ],
     [ "fps", "struct_t_window.html#a0256d25b86a9f6d108e63e630fd20cf2", null ],

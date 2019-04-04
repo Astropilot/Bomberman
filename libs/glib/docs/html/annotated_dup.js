@@ -1,5 +1,11 @@
 var annotated_dup =
 [
+    [ "adjacency_list_node_t", "structadjacency__list__node__t.html", "structadjacency__list__node__t" ],
+    [ "graph_t", "structgraph__t.html", "structgraph__t" ],
+    [ "priority_queue_node_t", "structpriority__queue__node__t.html", "structpriority__queue__node__t" ],
+    [ "priority_queue_t", "structpriority__queue__t.html", "structpriority__queue__t" ],
+    [ "queue_node_t", "structqueue__node__t.html", "structqueue__node__t" ],
+    [ "queue_t", "structqueue__t.html", "structqueue__t" ],
     [ "TAnimatedSprite", "struct_t_animated_sprite.html", "struct_t_animated_sprite" ],
     [ "TAnimatedSprites", "struct_t_animated_sprites.html", "struct_t_animated_sprites" ],
     [ "TButton", "struct_t_button.html", "struct_t_button" ],
@@ -11,8 +17,11 @@ var annotated_dup =
     [ "TFrame_Node", "struct_t_frame___node.html", "struct_t_frame___node" ],
     [ "TInput", "struct_t_input.html", "struct_t_input" ],
     [ "TMessage", "struct_t_message.html", "struct_t_message" ],
+    [ "TResource_Node", "struct_t_resource___node.html", "struct_t_resource___node" ],
+    [ "TResourceCache", "struct_t_resource_cache.html", "struct_t_resource_cache" ],
     [ "TServer", "struct_t_server.html", "struct_t_server" ],
     [ "TSprite", "struct_t_sprite.html", "struct_t_sprite" ],
     [ "TText", "struct_t_text.html", "struct_t_text" ],
-    [ "TWindow", "struct_t_window.html", "struct_t_window" ]
+    [ "TWindow", "struct_t_window.html", "struct_t_window" ],
+    [ "vertice_t", "structvertice__t.html", "structvertice__t" ]
 ];

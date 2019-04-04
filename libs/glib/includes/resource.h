@@ -31,7 +31,7 @@
  * @brief Function for load and create a SDL_Surface and SDL_Texture.
  *
  * @param window A pointer to the window object.
- * @param text The path of the resource.
+ * @param path The path of the resource.
  * @param surface A pointer to the SDL Surface pointer that will be created.
  * @param texture A pointer to the SDL Texture pointer that will be created.
  * @return Return 1 if the resource has been successfully loaded, otherwise 0.

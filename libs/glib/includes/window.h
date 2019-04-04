@@ -52,9 +52,10 @@ typedef struct TWindow {
 } TWindow ;
 
 /**
- * @fn TWindow* New_TWindow(void)
+ * @fn TWindow* New_TWindow(unsigned int max_caching)
  * @brief The constructor for create a TWindow object.
  *
+ * @param max_caching The maximum amount of resources that can be cached.
  * @return A memory allocated object of the window.
  */
 TWindow* New_TWindow(unsigned int max_caching);

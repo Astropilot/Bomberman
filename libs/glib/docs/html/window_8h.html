@@ -77,6 +77,7 @@ $(document).ready(function(){initNavTree('window_8h.html','');});
 <div class="textblock"><code>#include &lt;stdarg.h&gt;</code><br />
 <code>#include &lt;SDL2/SDL.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="frame_8h_source.html">frame.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="cache_8h_source.html">cache.h</a>&quot;</code><br />
 </div>
 <p><a href="window_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -94,9 +95,9 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a90c996ad07aa2f58dfe08bd8e66069ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_window.html">TWindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="window_8h.html#a90c996ad07aa2f58dfe08bd8e66069ed">New_TWindow</a> (void)</td></tr>
-<tr class="memdesc:a90c996ad07aa2f58dfe08bd8e66069ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor for create a <a class="el" href="struct_t_window.html" title="Object oriented structure representing a window.">TWindow</a> object.  <a href="#a90c996ad07aa2f58dfe08bd8e66069ed">More...</a><br /></td></tr>
-<tr class="separator:a90c996ad07aa2f58dfe08bd8e66069ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52c1b6a05004075004563e328fa876ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_window.html">TWindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="window_8h.html#a52c1b6a05004075004563e328fa876ef">New_TWindow</a> (unsigned int max_caching)</td></tr>
+<tr class="memdesc:a52c1b6a05004075004563e328fa876ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor for create a <a class="el" href="struct_t_window.html" title="Object oriented structure representing a window.">TWindow</a> object.  <a href="#a52c1b6a05004075004563e328fa876ef">More...</a><br /></td></tr>
+<tr class="separator:a52c1b6a05004075004563e328fa876ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ea053a5c1c6c104213d703b78b92251"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="window_8h.html#a7ea053a5c1c6c104213d703b78b92251">TWindow_Create_Window</a> (<a class="el" href="struct_t_window.html">TWindow</a> *this, const char *title, int width, int height, const char *frame_id, unsigned int fps)</td></tr>
 <tr class="memdesc:a7ea053a5c1c6c104213d703b78b92251"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for creating and showing the SDL window.  <a href="#a7ea053a5c1c6c104213d703b78b92251">More...</a><br /></td></tr>
 <tr class="separator:a7ea053a5c1c6c104213d703b78b92251"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -132,8 +133,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a90c996ad07aa2f58dfe08bd8e66069ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90c996ad07aa2f58dfe08bd8e66069ed">&#9670;&nbsp;</a></span>New_TWindow()</h2>
+<a id="a52c1b6a05004075004563e328fa876ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52c1b6a05004075004563e328fa876ef">&#9670;&nbsp;</a></span>New_TWindow()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -141,14 +142,20 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="struct_t_window.html">TWindow</a> * New_TWindow </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>max_caching</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>The constructor for create a <a class="el" href="struct_t_window.html" title="Object oriented structure representing a window.">TWindow</a> object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">max_caching</td><td>The maximum amount of resources that can be cached. </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>A memory allocated object of the window. </dd></dl>
 
 </div>
