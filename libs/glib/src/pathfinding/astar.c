@@ -35,7 +35,7 @@ int heuristic_manhattan(vertice_t *src, vertice_t *dest)
     return ( abs(src->x - dest->x) + abs(src->y - dest->y) );
 }
 
-int astar_search(graph_t *graph, vertice_t *start, vertice_t *goal)
+int astar_search(graph_t *graph, int(*node_cost)(int, int), vertice_t *start, vertice_t *goal)
 {
     if (!graph || !start || !goal) return (0);
 
@@ -61,10 +61,12 @@ int astar_search(graph_t *graph, vertice_t *start, vertice_t *goal)
         neighbor = get_neighbors(graph, u);
         while (neighbor) {
             vertice_t *v = (vertice_t*)neighbor->vertice;
+            int v_cost = node_cost((int)v->x, (int)v->y);
 
-            if (v->passable && !is_present_in_queue(closed_list, (void*)v) &&
+            if (v_cost != -1 &&
+                !is_present_in_queue(closed_list, (void*)v) &&
                 !is_present_in_priority_queue(open_list, (void*)v)) {
-                    v->cost++;
+                    v->cost = v->cost + v_cost;
                     v->heuristic = v->cost + heuristic_manhattan(v, goal);
                     v->predecessor = u;
                     push_priority_queue(open_list, v);

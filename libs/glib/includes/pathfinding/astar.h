@@ -21,6 +21,6 @@
 
 #include "pathfinding/graph.h"
 
-int astar_search(graph_t *graph, vertice_t *start, vertice_t *goal);
+int astar_search(graph_t *graph, int(*node_cost)(int, int), vertice_t *start, vertice_t *goal);
 
 #endif

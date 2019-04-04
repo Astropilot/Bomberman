@@ -15,7 +15,7 @@
 
 #include "pathfinding/graph.h"
 
-vertice_t *new_vertice(unsigned int x, unsigned int y, unsigned int passable)
+vertice_t *new_vertice(unsigned int x, unsigned int y)
 {
     vertice_t *vertice = malloc(sizeof(vertice_t));
 
@@ -23,7 +23,6 @@ vertice_t *new_vertice(unsigned int x, unsigned int y, unsigned int passable)
 
     vertice->x = x;
     vertice->y = y;
-    vertice->passable = passable;
     vertice->cost = 0;
     vertice->heuristic = 0;
     vertice->predecessor = NULL;
@@ -46,21 +45,66 @@ graph_t *create_graph(unsigned int width, unsigned int height)
 {
     graph_t *graph = malloc(sizeof(graph_t));
     unsigned int i;
+    unsigned int j;
 
     if (!graph) return (NULL);
-    graph->vertices = width * height;
+    graph->count_vertices = width * height;
     graph->map_width = width;
     graph->map_height = height;
+    graph->vertices = NULL;
 
-    graph->adjacency_list = malloc(graph->vertices * sizeof(adjacency_list_node_t));
-    if (!graph->adjacency_list) {
-        free(graph);
+    graph->adjacency_list = malloc(graph->count_vertices * sizeof(adjacency_list_node_t));
+    graph->vertices = malloc(height * sizeof(vertice_t**));
+    if (!graph->adjacency_list || !graph->vertices) {
+        free_graph(graph);
         return (NULL);
     }
-    for (i = 0; i < graph->vertices; i++)
+    for (i = 0; i < graph->count_vertices; i++)
         graph->adjacency_list[i] = NULL;
 
+    for (i = 0; i < height; i++) {
+        graph->vertices[i] = malloc(width * sizeof(vertice_t*));
+        if (!graph->vertices[i]) {
+            free_graph(graph);
+            return (NULL);
+        }
+        for (j = 0; j < width; j++) {
+            graph->vertices[i][j] = NULL;
+        }
+    }
+
     return (graph);
+}
+
+void init_vertices(graph_t *graph)
+{
+    if (!graph) return;
+
+    int i;
+    int j;
+    int map_height = (int)graph->map_height;
+    int map_width = (int)graph->map_width;
+
+    for (i = 0; i < map_height; i++) {
+        for (j = 0; j < map_width; j++) {
+            vertice_t *vert = new_vertice(j, i);
+
+            graph->vertices[i][j] = vert;
+        }
+    }
+
+    for (i = 0; i < map_height; i++) {
+        for (j = 0; j < map_width; j++) {
+            if (i - 1 >= 0)
+                add_edge(graph, graph->vertices[i][j], graph->vertices[i-1][j]);
+            if (i + 1 < map_height)
+                add_edge(graph, graph->vertices[i][j], graph->vertices[i+1][j]);
+            if (j - 1 >= 0)
+                add_edge(graph, graph->vertices[i][j], graph->vertices[i][j-1]);
+            if (j + 1 < map_width)
+                add_edge(graph, graph->vertices[i][j], graph->vertices[i][j+1]);
+        }
+    }
 }
 
 void add_edge(graph_t *graph, vertice_t *src, vertice_t *dest)
@@ -87,12 +131,13 @@ adjacency_list_node_t *get_neighbors(graph_t *graph, vertice_t *vertice)
 void free_graph(graph_t *graph)
 {
     unsigned int i;
+    unsigned int j;
     adjacency_list_node_t *current;
     adjacency_list_node_t *next;
 
     if (graph) {
         if (graph->adjacency_list) {
-            for (i = 0; i < graph->vertices; i++) {
+            for (i = 0; i < graph->count_vertices; i++) {
                 current = graph->adjacency_list[i];
 
                 while (current) {
@@ -104,6 +149,18 @@ void free_graph(graph_t *graph)
         }
         free(graph->adjacency_list);
         graph->adjacency_list = NULL;
+        if (graph->vertices) {
+            for (i = 0; i < graph->map_height; i++) {
+                if (graph->vertices[i]) {
+                    for (j = 0; j < graph->map_width; j++) {
+                        free(graph->vertices[i][j]);
+                    }
+                }
+                free(graph->vertices[i]);
+            }
+        }
+        free(graph->vertices);
+        graph->vertices = NULL;
     }
     free(graph);
 }

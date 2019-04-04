@@ -22,7 +22,6 @@
 typedef struct vertice_t {
     unsigned int x;
     unsigned int y;
-    unsigned int passable;
     int cost;
     int heuristic;
     struct vertice_t *predecessor;
@@ -37,16 +36,18 @@ typedef struct adjacency_list_node_t {
 
 typedef struct graph_t {
 
-    unsigned int vertices;
+    unsigned int count_vertices;
     unsigned int map_width;
     unsigned int map_height;
     adjacency_list_node_t **adjacency_list;
+    vertice_t ***vertices;
 
 } graph_t ;
 
-vertice_t *new_vertice(unsigned int x, unsigned int y, unsigned int passable);
+vertice_t *new_vertice(unsigned int x, unsigned int y);
 adjacency_list_node_t *new_adjacency_node(vertice_t *vertice);
 graph_t *create_graph(unsigned int width, unsigned int height);
+void init_vertices(graph_t *graph);
 void add_edge(graph_t *graph, vertice_t *src, vertice_t *dest);
 adjacency_list_node_t *get_neighbors(graph_t *graph, vertice_t *vertice);
 void free_graph(graph_t *graph);
