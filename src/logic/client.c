@@ -20,6 +20,7 @@
 #include "logic/client.h"
 #include "core/extra.h"
 #include "core/player.h"
+#include "core/minion.h"
 #include "core/utils.h"
 #include "ui/frame_game.h"
 #include "network/game/client.h"
@@ -31,6 +32,7 @@
 #include "network/packets/packet_ack_placebomb.h"
 #include "network/packets/packet_ack_bombexplode.h"
 #include "network/packets/packet_ack_playerupdate.h"
+#include "network/packets/packet_ack_minionupdate.h"
 #include "network/packets/packet_ack_endgame.h"
 #include "network/packets/packet_disconnect.h"
 
@@ -40,6 +42,7 @@ static void handle_move(TGameClient *game, TMessage message);
 static void handle_placebomb(TGameClient *game, TMessage message);
 static void handle_bombexplode(TGameClient *game, TMessage message);
 static void handle_playerupdate(TGameClient *game, TMessage message);
+static void handle_minionupdate(TGameClient *game, TMessage message);
 static void handle_endgame(TGameClient *game, TMessage message);
 
 static void (*message_handler[])(TGameClient*, TMessage) = {
@@ -49,7 +52,8 @@ static void (*message_handler[])(TGameClient*, TMessage) = {
     [ACK_PLACE_BOMB] = handle_placebomb,
     [ACK_BOMB_EXPLODE] = handle_bombexplode,
     [ACK_PLAYER_UPDATE] = handle_playerupdate,
-    [ACK_END_GAME] = handle_endgame
+    [ACK_END_GAME] = handle_endgame,
+    [ACK_MINION_UPDATE] = handle_minionupdate
 };
 
 void handle_game_logic(TGameClient *game, TMessage message, int packet_id)
@@ -102,6 +106,15 @@ static void handle_gameinit(TGameClient *game, TMessage message)
         GameFrame_UpdatePlayerInfo(game->game_frame, player);
     }
 
+    TAnimatedSprites *sp_minion =
+        (TAnimatedSprites*)game->game_frame->Get_Drawable(game->game_frame, "MINION");
+    map_to_pix(
+        (int)p_as->minion.pos.x, (int)p_as->minion.pos.y,
+        (int*)&(i), (int*)&(j)
+    );
+    sp_minion->is_visible = 1;
+    sp_minion->pos.x = i;
+    sp_minion->pos.y = j;
 
     for (i = 0; i < MAP_HEIGHT; i++) {
         for (j = 0; j < MAP_WIDTH; j++) {
@@ -113,15 +126,21 @@ static void handle_gameinit(TGameClient *game, TMessage message)
 
                     map_to_pix(j, i, &(spw->pos.x), &(spw->pos.y));
                     sprintf(id, "WALL_%u_%u", i, j);
-                    game->game_frame->Add_Drawable(game->game_frame, (TDrawable*)spw, id, 3, GLIB_FREE_ON_UNLOAD);
+                    game->game_frame->Add_Drawable(game->game_frame,
+                        (TDrawable*)spw, id, 3, GLIB_FREE_ON_UNLOAD
+                    );
                     break;
                 case BREAKABLE_WALL:;
                     SDL_Rect posbw = {0, 0, 32, 32};
-                    TSprite *spbw = New_TSprite(game->game_frame, MAP_PATH "breakable_wall.png", posbw);
+                    TSprite *spbw = New_TSprite(game->game_frame,
+                        MAP_PATH "breakable_wall.png", posbw
+                    );
 
                     map_to_pix(j, i, &(spbw->pos.x), &(spbw->pos.y));
                     sprintf(id, "BWALL_%u_%u", i, j);
-                    game->game_frame->Add_Drawable(game->game_frame, (TDrawable*)spbw, id, 3, GLIB_FREE_ON_UNLOAD);
+                    game->game_frame->Add_Drawable(game->game_frame,
+                        (TDrawable*)spbw, id, 3, GLIB_FREE_ON_UNLOAD
+                    );
                 default:
                     break;
             }
@@ -264,6 +283,26 @@ static void handle_playerupdate(TGameClient *game, TMessage message)
     GameFrame_UpdatePlayerInfo(game->game_frame, p_pu->player);
 
     p_pu->Free(p_pu);
+}
+
+static void handle_minionupdate(TGameClient *game, TMessage message)
+{
+    TAckMinionUpdatePacket *p_mu = New_TAckMinionUpdatePacket(message.message);
+    TAnimatedSprites *sp_minion = (TAnimatedSprites*)game->game_frame->Get_Drawable(game->game_frame, "MINION");
+    unsigned int x_pix;
+    unsigned int y_pix;
+
+    p_mu->Unserialize(p_mu);
+
+    map_to_pix(
+        (int)p_mu->minion_pos.x, (int)p_mu->minion_pos.y,
+        (int*)&(x_pix), (int*)&(y_pix)
+    );
+    sp_minion->is_visible = 1;
+    sp_minion->pos.x = x_pix;
+    sp_minion->pos.y = y_pix;
+
+    p_mu->Free(p_mu);
 }
 
 static void handle_endgame(TGameClient *game, TMessage message)

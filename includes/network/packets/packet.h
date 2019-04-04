@@ -48,7 +48,8 @@ typedef enum packet_t {
     ACK_PLACE_BOMB    = 0x0D,
     ACK_BOMB_EXPLODE  = 0x0E,
     ACK_PLAYER_UPDATE = 0x0F,
-    ACK_END_GAME      = 0x10
+    ACK_END_GAME      = 0x10,
+    ACK_MINION_UPDATE = 0x11
 } packet_t;
 
 /**

@@ -16,12 +16,14 @@
 
 #include "core/bomb.h"
 #include "core/map.h"
+#include "core/minion.h"
 #include "main.h"
 #include "core/utils.h"
 #include "network/server.h"
 #include "network/packets/packet.h"
 #include "network/packets/packet_ack_bombexplode.h"
 #include "network/packets/packet_ack_playerupdate.h"
+#include "network/packets/packet_ack_minionupdate.h"
 
 static void logic_bomb_classic(TMap *map, bomb_t *bomb, TServer *server);
 
@@ -176,9 +178,17 @@ static void logic_bomb_classic(TMap *map, bomb_t *bomb, TServer *server)
                 (player_y >= (int)bomb_start_y && player_y <= (int)bomb_end_y && player_x == (int)bomb->bomb_pos.x) ) {
                     TAckPlayerUpdatePacket *p_pu = New_TAckPlayerUpdatePacket(NULL);
 
-                    map->players[i].specs.life = ((int)map->players[i].specs.life - 30 < 0) ? 0 : map->players[i].specs.life - 30;
+                    map->players[i].specs.life = ((int)map->players[i].specs.life - 40 < 0) ? 0 : map->players[i].specs.life - 40;
                     p_pu->player = map->players[i];
                     server->Send_Broadcast(server, packet_to_message((TPacket*)p_pu, 1));
+
+                    if (map->minion->target_id == (int)map->players[i].p_id) {
+                        TAckMinionUpdatePacket *p_mu = New_TAckMinionUpdatePacket(NULL);
+
+                        init_minion(map->minion);
+                        p_mu->minion_pos = map->minion->pos;
+                        server->Send_Broadcast(server, packet_to_message((TPacket*)p_mu, 1));
+                    }
             }
         }
     }

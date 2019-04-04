@@ -18,6 +18,7 @@
 #include "main.h"
 #include "logic/server.h"
 #include "core/map.h"
+#include "core/minion.h"
 #include "network/game/server.h"
 #include "network/network.h"
 #include "network/packets/packet.h"
@@ -96,6 +97,9 @@ static int TGameServer_Gameloop(void *p_args)
         unsigned int players_alive = 0;
 
         current_time = SDL_GetTicks();
+
+        minion_handle_logic(game_server->map->minion, current_time, game_server);
+        
         while (current_bomb != NULL) {
             if (current_time >= current_bomb->bomb->time_explode) {
                 game_server->map->Explose_Bomb(game_server->map, current_bomb->bomb, game_server->server);

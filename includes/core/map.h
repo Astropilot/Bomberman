@@ -27,6 +27,8 @@
 #include "core/bomb.h"
 #include "network/network.h"
 
+typedef struct minion_t minion_t;
+
 /**
  * @brief Constants of the static blocks on the map.
  *
@@ -77,6 +79,7 @@ typedef struct TMap {
     object_type_t **block_map;  /*!< The 2D array representing the Map. */
     unsigned int max_players;   /*!< The maximum of player that can be on the map. */
     player_t *players;          /*!< The list of players. */
+    minion_t *minion;           /*!< The minion entity. */
     bomb_node_t *bombs_head;    /*!< The list of bombs that need to explode soon. */
     unsigned int bomb_offset;   /*!< A self-incrementing integer representing the next ID of a new bomb. */
 

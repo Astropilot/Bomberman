@@ -52,11 +52,12 @@
 
 #define IS_DEBUG 0                          /*!< Define if the game is in debug mode or not. */
 
-#define RES_PATH "images/"                  /*!< The path for the sprite resource. */
-#define FONT_PATH "fonts/"                  /*!< The path for the font resource. */
-#define CHAR_PATH RES_PATH "character/"     /*!< The path for the character specific resource. */
-#define MAP_PATH RES_PATH "map/"            /*!< The path for the map specific resource. */
-#define BOMB_PATH RES_PATH "bomb/"          /*!< The path for the bomb specific resource. */
+#define RES_PATH "images/"                  /*!< The path for the sprite resources. */
+#define FONT_PATH "fonts/"                  /*!< The path for the font resources. */
+#define CHAR_PATH RES_PATH "character/"     /*!< The path for the character specific resources. */
+#define MINION_PATH RES_PATH "minion/"      /*!< The path for the minion specific resources. */
+#define MAP_PATH RES_PATH "map/"            /*!< The path for the map specific resources. */
+#define BOMB_PATH RES_PATH "bomb/"          /*!< The path for the bomb specific resources. */
 
 /**
  * @brief A structure representing differents args for lobby and game frames.

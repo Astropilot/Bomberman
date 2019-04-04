@@ -131,6 +131,16 @@ static void On_Load(TFrame* frame, int argc, va_list args)
     }
     free(player_id);
 
+    SDL_Rect size_minion = {0, 0, 850, 604};
+    SDL_Rect pos_minion = {0, 0, 32, 23};
+    TAnimatedSprites *sp_minion = New_TAnimatedSprites(frame,
+        MINION_PATH "minion_%02d.png", 4, size_minion, pos_minion, 66, -1
+    );
+    sp_minion->is_visible = 0;
+    frame->Add_Drawable(frame, (TDrawable*)sp_minion,
+        "MINION", 2, GLIB_FREE_ON_UNLOAD
+    );
+
     gameclient->Ready(gameclient);
 
     SDL_RenderClear(frame->window->renderer_window);

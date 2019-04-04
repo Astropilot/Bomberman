@@ -14,6 +14,7 @@
 #include "main.h"
 #include "core/player.h"
 #include "core/map.h"
+#include "core/minion.h"
 #include "network/packets/packet.h"
 #include "network/packets/packet_ack_gameinit.h"
 #include "network/network.h"
@@ -61,6 +62,8 @@ int TAckGameInitPacket_Serialize(TAckGameInitPacket *this)
             packet_buffer = pack_uint(packet_buffer, this->players[i].specs.bombs_left);
         }
     }
+    packet_buffer = pack_uint(packet_buffer, this->minion.pos.x);
+    packet_buffer = pack_uint(packet_buffer, this->minion.pos.y);
     for (i = 0; i < MAP_HEIGHT; i++) {
         for (j = 0; j < MAP_WIDTH; j++) {
             packet_buffer = pack_uint(packet_buffer, this->block_map[i][j]);
@@ -97,6 +100,8 @@ void TAckGameInitPacket_Unserialize(TAckGameInitPacket *this)
         packet_buffer = unpack_uint(packet_buffer, &(this->players[i].specs.bombs_capacity));
         packet_buffer = unpack_uint(packet_buffer, &(this->players[i].specs.bombs_left));
     }
+    packet_buffer = unpack_uint(packet_buffer, &(this->minion.pos.x));
+    packet_buffer = unpack_uint(packet_buffer, &(this->minion.pos.y));
     this->block_map = malloc(MAP_HEIGHT * sizeof(object_type_t*));
     for (i = 0; i < MAP_HEIGHT; i++) {
         this->block_map[i] = malloc(MAP_WIDTH * sizeof(object_type_t));

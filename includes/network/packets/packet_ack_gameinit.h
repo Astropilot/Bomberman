@@ -24,6 +24,7 @@
 
 #include "core/player.h"
 #include "core/map.h"
+#include "core/minion.h"
 
 /**
  * @brief An class representing the server response game init packet.
@@ -42,6 +43,7 @@ typedef struct TAckGameInitPacket {
     int packet_id;                                  /*!< The packet ID. */
     unsigned int nb_players;                        /*!< The number of players in the game. */
     player_t *players;                              /*!< The list of players. */
+    minion_t minion;                                /*!< The minion entity. */
     object_type_t **block_map;                      /*!< The new map generated. */
 
 

@@ -18,6 +18,7 @@
 #include "core/map.h"
 #include "core/extra.h"
 #include "core/player.h"
+#include "core/minion.h"
 #include "core/bomb.h"
 #include "core/utils.h"
 
@@ -60,6 +61,9 @@ static void TMap_Init(TMap *this, unsigned int max_clients)
             this->players[i].connected = 0;
         }
     }
+    this->minion = malloc(sizeof(minion_t));
+    if (this->minion)
+        init_minion(this->minion);
     this->max_players = max_clients;
     this->bombs_head = NULL;
     this->bomb_offset = 0;
@@ -237,6 +241,8 @@ void TMap_New_Free(TMap *this)
         }
         free(this->players);
         this->players = NULL;
+        free(this->minion);
+        this->minion = NULL;
     }
     free(this);
 }
