@@ -29,8 +29,6 @@ SRC		= \
 		$(wildcard src/network/game/*.c) \
 		src/main.c
 
-#SRC			= src/pathfinding_tests.c
-
 OBJ		= $(SRC:.c=.o)
 
 all: $(TARGET)

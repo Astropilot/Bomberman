@@ -18,7 +18,27 @@ Once the game is launched you can move with the directional arrows and set bombs
 
 For the rest of the gameplay I let you discover for yourself ;-)
 
-Note: Currently we can compile the game under Debian 8 & 9, Windows 10 x86 and x64, and Mac OSX !
+### How to compile and play
+
+Currently we can compile the game under Debian 8 & 9, Windows 10 x86 and x64, and Mac OSX !
+
+#### Prerequisites
+
+You will need SDL 2 as well as the SDL2_Image and SDL2_TTf extensions.
+
+#### GNU/Linux / OSX
+
+```bash
+$> git clone https://github.com/Astropilot/Bomberman.git
+$> cd Bomberman
+Bomberman$> make
+Bomberman$> cd build/
+Bomberman$> ./bomberman
+```
+
+#### Windows x86 & x64
+
+We recommend that you use Visual Studio and import the header and source files.
 
 ## gLib Framework
 
