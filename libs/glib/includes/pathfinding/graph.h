@@ -29,7 +29,7 @@
  * vertice_t is a representation of a node of a graph.
  */
 typedef struct vertice_t {
-    unsigned int x                      /*!< The x-axis position of the node. */
+    unsigned int x;                      /*!< The x-axis position of the node. */
     unsigned int y;                     /*!< The y-axis position of the node. */
     int cost;                           /*!< Internal cost for path finding algorithms. */
     int heuristic;                      /*!< Internal heuristic for path finding algorithms. */
