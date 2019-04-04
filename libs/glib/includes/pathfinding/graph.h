@@ -44,6 +44,7 @@ typedef struct graph_t {
 
 } graph_t ;
 
+vertice_t *new_vertice(unsigned int x, unsigned int y, unsigned int passable);
 adjacency_list_node_t *new_adjacency_node(vertice_t *vertice);
 graph_t *create_graph(unsigned int width, unsigned int height);
 void add_edge(graph_t *graph, vertice_t *src, vertice_t *dest);

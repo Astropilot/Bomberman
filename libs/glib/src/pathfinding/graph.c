@@ -15,8 +15,25 @@
 
 #include "pathfinding/graph.h"
 
+vertice_t *new_vertice(unsigned int x, unsigned int y, unsigned int passable)
+{
+    vertice_t *vertice = malloc(sizeof(vertice_t));
+
+    if (!vertice) return (NULL);
+
+    vertice->x = x;
+    vertice->y = y;
+    vertice->passable = passable;
+    vertice->cost = 0;
+    vertice->heuristic = 0;
+    vertice->predecessor = NULL;
+    return (vertice);
+}
+
 adjacency_list_node_t *new_adjacency_node(vertice_t *vertice)
 {
+    if (!vertice) return (NULL);
+
     adjacency_list_node_t *node = malloc(sizeof(adjacency_list_node_t));
 
     if (!node) return (NULL);
@@ -48,22 +65,19 @@ graph_t *create_graph(unsigned int width, unsigned int height)
 
 void add_edge(graph_t *graph, vertice_t *src, vertice_t *dest)
 {
-    if (!graph) return;
+    if (!graph || !src || !dest) return;
 
     adjacency_list_node_t *node_dest = new_adjacency_node(dest);
     unsigned int src_i = (src->y * graph->map_width) + src->x;
 
-    if (!node_dest) {
-        free(node_dest);
-        return;
-    }
+    if (!node_dest) return;
     node_dest->next = graph->adjacency_list[src_i];
     graph->adjacency_list[src_i] = node_dest;
 }
 
 adjacency_list_node_t *get_neighbors(graph_t *graph, vertice_t *vertice)
 {
-    if (!graph) return (NULL);
+    if (!graph || !vertice) return (NULL);
 
     unsigned int verticle_i = (vertice->y * graph->map_width) + vertice->x;
 
@@ -77,16 +91,19 @@ void free_graph(graph_t *graph)
     adjacency_list_node_t *next;
 
     if (graph) {
-        for (i = 0; i < graph->vertices; i++) {
-            current = graph->adjacency_list[i];
+        if (graph->adjacency_list) {
+            for (i = 0; i < graph->vertices; i++) {
+                current = graph->adjacency_list[i];
 
-            while (current) {
-                next = current->next;
-                free(current);
-                current = next;
+                while (current) {
+                    next = current->next;
+                    free(current);
+                    current = next;
+                }
             }
         }
         free(graph->adjacency_list);
+        graph->adjacency_list = NULL;
     }
     free(graph);
 }

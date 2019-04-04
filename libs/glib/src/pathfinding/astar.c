@@ -31,13 +31,22 @@ int compare_node(void *n1, void *n2)
 
 int heuristic_manhattan(vertice_t *src, vertice_t *dest)
 {
+    if (!src || !dest) return (-1);
     return ( abs(src->x - dest->x) + abs(src->y - dest->y) );
 }
 
 int astar_search(graph_t *graph, vertice_t *start, vertice_t *goal)
 {
+    if (!graph || !start || !goal) return (0);
+
     queue_t *closed_list = create_queue();
     priority_queue_t *open_list = create_priority_queue(compare_node);
+
+    if (!closed_list || !open_list) {
+        free_queue(closed_list);
+        free_priority_queue(open_list);
+        return (0);
+    }
 
     push_priority_queue(open_list, (void*)start);
     while (!is_priority_queue_empty(open_list)) {

@@ -26,7 +26,7 @@ static int map[MAP_HEIGHT][MAP_WIDTH] = {
 
 static vertice_t *map_nodes[MAP_HEIGHT][MAP_WIDTH];
 
-int main(void)
+void print_map()
 {
     int i;
     int j;
@@ -37,21 +37,34 @@ int main(void)
         }
         printf("\n");
     }
+}
 
-    graph_t *graph = create_graph(MAP_WIDTH, MAP_HEIGHT);
+void init_vertices()
+{
+    int i;
+    int j;
+
     for (i = 0; i < MAP_HEIGHT; i++) {
         for (j = 0; j < MAP_WIDTH; j++) {
-            vertice_t *vert = malloc(sizeof(vertice_t));
+            vertice_t *vert;
 
-            vert->x = j;
-            vert->y = i;
-            vert->passable = (map[i][j] == 1 ? 0 : 1);
-            vert->cost = 0;
-            vert->heuristic = 0;
-            vert->predecessor = NULL;
+            vert = new_vertice(j, i, (map[i][j] == 1 ? 0 : 1));
             map_nodes[i][j] = vert;
         }
     }
+}
+
+int main(void)
+{
+    int i;
+    int j;
+
+    print_map();
+
+    init_vertices();
+
+    graph_t *graph = create_graph(MAP_WIDTH, MAP_HEIGHT);
+
     for (i = 0; i < MAP_HEIGHT; i++) {
         for (j = 0; j < MAP_WIDTH; j++) {
             // Bloc du haut
@@ -68,8 +81,10 @@ int main(void)
                 add_edge(graph, map_nodes[i][j], map_nodes[i][j+1]);
         }
     }
+
+
     int res_astar = astar_search(graph, map_nodes[8][1], map_nodes[1][8]);
-    printf("Résultat astar: %d\n", res_astar);
+    printf("A* return result: %d\n", res_astar);
 
     if (res_astar) {
         vertice_t *path = map_nodes[1][8];
@@ -80,14 +95,15 @@ int main(void)
         }
     }
 
+    print_map();
+
     for (i = 0; i < MAP_HEIGHT; i++) {
         for (j = 0; j < MAP_WIDTH; j++) {
-            printf("%d ", map[i][j]);
             free(map_nodes[i][j]);
             map_nodes[i][j] = NULL;
         }
-        printf("\n");
     }
     free_graph(graph);
+    
     return (EXIT_SUCCESS);
 }
