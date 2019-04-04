@@ -6,6 +6,7 @@ var dir_d742e485a7418ac1a2da0a9d64192c57 =
     [ "packet_ack_endgame.h", "packet__ack__endgame_8h.html", "packet__ack__endgame_8h" ],
     [ "packet_ack_gameinit.h", "packet__ack__gameinit_8h.html", "packet__ack__gameinit_8h" ],
     [ "packet_ack_lobbystate.h", "packet__ack__lobbystate_8h.html", "packet__ack__lobbystate_8h" ],
+    [ "packet_ack_minionupdate.h", "packet__ack__minionupdate_8h.html", "packet__ack__minionupdate_8h" ],
     [ "packet_ack_move.h", "packet__ack__move_8h.html", "packet__ack__move_8h" ],
     [ "packet_ack_placebomb.h", "packet__ack__placebomb_8h.html", "packet__ack__placebomb_8h" ],
     [ "packet_ack_playerupdate.h", "packet__ack__playerupdate_8h.html", "packet__ack__playerupdate_8h" ],

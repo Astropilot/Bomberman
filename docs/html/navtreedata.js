@@ -29,8 +29,8 @@ var NAVTREE =
       [ "Data Structures", "annotated.html", "annotated_dup" ],
       [ "Data Structure Index", "classes.html", null ],
       [ "Data Fields", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Variables", "functions_vars.html", null ]
+        [ "All", "functions.html", "functions_dup" ],
+        [ "Variables", "functions_vars.html", "functions_vars" ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -50,8 +50,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"packet__ack__playerupdate_8h.html#af841f48c21a7f25bfeb206a812ee956a",
-"struct_t_req_ready_packet.html#a0dc135a41688d92270d8b2136873731d"
+"packet__ack__connect_8h.html#a16e71ed8f48e0d2f5f1a66c0f958785bab06ef60eb5dacd1ae490706ec7f52af8",
+"struct_t_game_server.html#ace2f58256de52cdcf38ea9a7c375943a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

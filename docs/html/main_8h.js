@@ -18,6 +18,7 @@ var main_8h =
     [ "MAP_WIDTH", "main_8h.html#aa037a6d6a4f04d51c7ec1c9ee9054e76", null ],
     [ "MAX_PLAYERS", "main_8h.html#a1c346c944e8204fd06dc057393c7c96d", null ],
     [ "MIN_PLAYERS", "main_8h.html#ab1de365cca5246cc09e4bd07dbad5c29", null ],
+    [ "MINION_PATH", "main_8h.html#ac7f70e5dce6f0fc513c4053335224cc8", null ],
     [ "PLAYER_MAX_LIFE", "main_8h.html#ae5fdb6f6e7c67199041b03f71c5b3e2e", null ],
     [ "RES_PATH", "main_8h.html#a793644bd88146828177a2a4f57e3bf01", null ],
     [ "WIN_HEIGHT", "main_8h.html#a0a33b1743038db1adbbf1045aa839b38", null ],

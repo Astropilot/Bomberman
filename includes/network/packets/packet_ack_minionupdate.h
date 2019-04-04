@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file network/packets/packet_ack_move.h
+ * @file network/packets/packet_ack_minionupdate.h
  * @brief Header file of the TAckMinionUpdatePacket class.
  *
  * The TAckMinionUpdatePacket class is a high-level packet.
@@ -25,9 +25,9 @@
 #include "core/utils.h"
 
 /**
- * @brief An class representing the server response move packet.
+ * @brief An class representing the server response minion update packet.
  *
- * TAckMinionUpdatePacket is a class representing the server response move packet.
+ * TAckMinionUpdatePacket is a class representing the server response minion update packet.
  */
 typedef struct TAckMinionUpdatePacket {
 

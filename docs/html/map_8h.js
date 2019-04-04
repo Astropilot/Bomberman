@@ -2,6 +2,7 @@ var map_8h =
 [
     [ "object_t", "structobject__t.html", "structobject__t" ],
     [ "TMap", "struct_t_map.html", "struct_t_map" ],
+    [ "minion_t", "map_8h.html#a4cfb0c1f723c3bb85592c078afeda369", null ],
     [ "object_t", "map_8h.html#a012925d018662e7b0ce2baa544b77b15", null ],
     [ "object_type_t", "map_8h.html#a96ace20a9a7b3362b08e0c8725bbd241", null ],
     [ "TMap", "map_8h.html#af9276398c6e9c97828fdced40f5b41bc", null ],

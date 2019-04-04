@@ -19,7 +19,8 @@ var packet_8h =
       [ "ACK_PLACE_BOMB", "packet_8h.html#a766060a4e31dbc4296b7c5b600d89b8da007252e97f2e3273b34d097029875501", null ],
       [ "ACK_BOMB_EXPLODE", "packet_8h.html#a766060a4e31dbc4296b7c5b600d89b8da3ee4479838dc3e967673596d6196608b", null ],
       [ "ACK_PLAYER_UPDATE", "packet_8h.html#a766060a4e31dbc4296b7c5b600d89b8da7db1d51b8937c6123c62f3d336d27e55", null ],
-      [ "ACK_END_GAME", "packet_8h.html#a766060a4e31dbc4296b7c5b600d89b8da1acba3854f10c941d1347b9acfdfbab6", null ]
+      [ "ACK_END_GAME", "packet_8h.html#a766060a4e31dbc4296b7c5b600d89b8da1acba3854f10c941d1347b9acfdfbab6", null ],
+      [ "ACK_MINION_UPDATE", "packet_8h.html#a766060a4e31dbc4296b7c5b600d89b8daf99f3ad66f1cbae4b1d066542c449d55", null ]
     ] ],
     [ "extract_packet_id", "packet_8h.html#a68be0fd9d39db9ca3ec1ea6d4e80f807", null ],
     [ "packet_to_message", "packet_8h.html#a37f675d73f604ebbeaff6b46c9926382", null ]

@@ -7,6 +7,7 @@ var struct_t_map =
     [ "Free", "struct_t_map.html#a7a17dabd84296545eabe845c49e1c7f0", null ],
     [ "Generate", "struct_t_map.html#a70254bdf9c740ef9a4f538eff0320e89", null ],
     [ "max_players", "struct_t_map.html#a28674b147ffc9260af6adfc579470006", null ],
+    [ "minion", "struct_t_map.html#a18f2b07644df8e0a1ddd1397e0d4e3c0", null ],
     [ "Move_Player", "struct_t_map.html#adfc692f5c3552eb107e65529dd7fc75d", null ],
     [ "Place_Bomb", "struct_t_map.html#afa3e54c3cc8efae8a4783180260f6045", null ],
     [ "players", "struct_t_map.html#a4e5d6e84a1d02c005a1c86e812511adb", null ]
