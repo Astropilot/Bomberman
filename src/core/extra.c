@@ -84,12 +84,12 @@ static void logic_malus_capacity(player_t *player)
 
 static void logic_bonus_speed(player_t *player)
 {
-    if (player->specs.move_speed > 200)
+    if (player->specs.move_speed > 70)
         player->specs.move_speed -= 50;
 }
 
 static void logic_malus_speed(player_t *player)
 {
-    if (player->specs.move_speed < 400)
+    if (player->specs.move_speed < 200)
         player->specs.move_speed += 50;
 }

@@ -45,8 +45,8 @@
 #define BLOCK_INFO_WIDTH 290                /*!< The width in pixels of a information player block.*/
 #define BLOCK_INFO_HEIGHT 95                /*!< The height in pixels of a information player block.*/
 
-#define CHANCE_BREAKABLE_WALL 20            /*!< Percentage chance of breakable walls appearing. */
-#define CHANCE_EXTRA 60                     /*!< Percentage chance of extras appearing (bonus / malus). */
+#define CHANCE_BREAKABLE_WALL 40            /*!< Percentage chance of breakable walls appearing. */
+#define CHANCE_EXTRA 90                     /*!< Percentage chance of extras appearing (bonus / malus). */
 
 #define PLAYER_MAX_LIFE 100                 /*!< The maximum life value for a player. */
 

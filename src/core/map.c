@@ -140,7 +140,9 @@ unsigned int TMap_Move_Player(TMap *this, unsigned int player_id, direction_t di
 
     // Gestion des collisions avec les autres joueurs.
     for(i = 0; i < this->max_players; i++) {
-        if (this->players[i].connected == 1 && this->players[i].p_id != player_id) {
+        if (this->players[i].connected == 1 &&
+            this->players[i].specs.life > 0 &&
+            this->players[i].p_id != player_id) {
             pix_to_map((int)this->players[i].pos.x, (int)this->players[i].pos.y, &tmp_x, &tmp_y);
             if (block_y == tmp_y && block_x == tmp_x) return (0);
         }

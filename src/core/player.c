@@ -39,7 +39,7 @@ void init_player(player_t *player, int id, const char *username)
     player->p_id = (unsigned int)id;
 
     player->specs.life = PLAYER_MAX_LIFE;
-    player->specs.move_speed = 400;
+    player->specs.move_speed = 200;
     player->specs.bombs_capacity = 1;
     player->specs.bombs_left = player->specs.bombs_capacity;
     player->specs.bombs_range = 1;
