@@ -75,7 +75,7 @@ static void On_Load(TFrame* frame, int argc, va_list args)
     SDL_Rect size = {0, 0, 64, 64};
     SDL_Rect pos = {0, 0, 32, 32};
     SDL_Rect health_pos = {0, 0, 32, 9};
-    char *player_id = malloc(sizeof(char) * 15);
+    char *player_id = malloc(sizeof(char) * 255);
     for (i = 0; i < nb_players; i++) {
         TAnimatedSprites *sp_down = New_TAnimatedSprites(frame,
             CHAR_PATH "face%02d.png", 7, size, pos, 66, -1
@@ -92,8 +92,9 @@ static void On_Load(TFrame* frame, int argc, va_list args)
         TSprite *sp_health_bar_bg = New_TSprite(frame,
             CHAR_PATH "health_bg.png", health_pos
         );
+        sprintf(player_id, CHAR_PATH "health_bar_%d.png", i);
         TSprite *sp_health_actual = New_TSprite(frame,
-            CHAR_PATH "health_bar.png", health_pos
+            player_id, health_pos
         );
 
         sprintf(player_id, "PLAYER_%d_%u", i, SOUTH);
@@ -189,7 +190,7 @@ void GameFrame_UpdatePlayerInfo(TFrame *frame, player_t player)
     // Création du block d'info si non existant
     if (!txt_name) {
         SDL_Rect pos_text = {0, 0, 0, 0};
-        SDL_Color color = {0, 0, 0, 255};
+        SDL_Color color = {255, 255, 255, 255};
         TTF_Font *font = loadFont(FONT_PATH "fixedsys.ttf", 14);
 
         txt_name = New_TText(frame, "[PLAYER_NAME]", font, color, pos_text);
