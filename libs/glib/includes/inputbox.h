@@ -52,7 +52,6 @@ typedef struct TInput {
     TSprite *input_sprite;                                          /*!< A sprite for the input. */
     TTF_Font *font;                                                 /*!< The font to be used for the text. */
     SDL_Color color;                                                /*!< The text color. */
-    SDL_Rect pos_input;                                             /*!< The position and size of the input box. */
     SDL_Rect pos_text;                                              /*!< The position of the text in the input box. */
     unsigned int is_focus;                                          /*!< Boolean to know if the input have the focus */
     unsigned int last_time;                                         /*!< Internal variable for cursor animation timing */
@@ -60,18 +59,21 @@ typedef struct TInput {
 } TInput ;
 
 /**
- * @fn TInput* TInput* New_TInput(TFrame *frame, const char *sprite_file, SDL_Rect pos, SDL_Color color, size_t len, const char *placeholder)
+ * @fn TInput* TInput* New_TInput(TFrame *frame, TSprite *input_sprite, SDL_Color color, size_t len, const char *placeholder, TTF_Font *font)
  * @brief The constructor for create a TInput object.
  *
  * @param frame A pointer to the frame object.
- * @param sprite_file The path of an image file for the input.
- * @param pos The position and size of the input box.
+ * @param input_sprite The sprite of the inputbox.
  * @param color The color of the text.
  * @param len The maximum length of the input text.
  * @param placeholder A placeholder text when no text has been entered.
+ * @param font The font of the text to be used.
  * @return A memory allocated object of the input box.
  */
-TInput* New_TInput(TFrame *frame, const char *sprite_file, SDL_Rect pos, SDL_Color color, size_t len, const char *placeholder);
+TInput* New_TInput(
+    TFrame *frame, TSprite *input_sprite,
+    SDL_Color color, size_t len, const char *placeholder, TTF_Font *font
+);
 
 /**
  * @fn void TInput_Draw(TInput *this, TFrame *frame)

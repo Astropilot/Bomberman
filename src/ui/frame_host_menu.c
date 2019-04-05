@@ -43,6 +43,7 @@ TFrame* New_HostMenuFrame(void)
 
 static void Init(TFrame* frame)
 {
+    TTF_Font *font = NULL;
     SDL_Color color = {255, 255, 255, 255};
     SDL_Rect pos_sprite_bg = {0, 0, 430, 242};
     SDL_Rect size_sprite_bg = {0, 0, 1280, 720};
@@ -57,13 +58,17 @@ static void Init(TFrame* frame)
     );
 
     SDL_Rect pos = {(WIN_WIDTH / 2) - (400 / 2), 250, 400, 92};
-    TInput *input_username = New_TInput(frame, RES_PATH "input.png",
-        pos, color, 15, "Username"
+    TSprite *sprite_input_username = New_TSprite(frame, RES_PATH "input.png", pos);
+    font = loadFont(FONT_PATH "fixedsys.ttf", 24);
+    TInput *input_username = New_TInput(frame, sprite_input_username,
+        color, 15, "Username", font
     );
 
     SDL_Rect pos2 = {(WIN_WIDTH / 2) - (400 / 2), (pos.y + pos.h) + 15, 400, 92};
-    TInput *input_serverport = New_TInput(frame,
-        RES_PATH "input.png", pos2, color, 5, "Server port"
+    TSprite *sprite_input_serverport = New_TSprite(frame, RES_PATH "input.png", pos2);
+    font = loadFont(FONT_PATH "fixedsys.ttf", 24);
+    TInput *input_serverport = New_TInput(frame, sprite_input_serverport,
+        color, 5, "Server port", font
     );
 
     SDL_Rect pos_button_play = {(WIN_WIDTH / 2) - (410 / 2), (pos2.y + pos2.h) + 15, 410, 64};

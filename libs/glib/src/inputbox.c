@@ -19,23 +19,33 @@
 #include "frame.h"
 #include "window.h"
 
-static void TInput_Init(TInput *this, TFrame *frame, const char *file, SDL_Rect pos, SDL_Color color, size_t len, const char *placeholder);
+static void TInput_Init(
+    TInput *this, TFrame *frame, TSprite *input_sprite,
+    SDL_Color color, size_t len, const char *placeholder, TTF_Font *font
+);
 
-TInput* New_TInput(TFrame *frame, const char *sprite_file, SDL_Rect pos, SDL_Color color, size_t len, const char *placeholder)
+TInput* New_TInput(
+    TFrame *frame, TSprite *input_sprite,
+    SDL_Color color, size_t len, const char *placeholder, TTF_Font *font
+)
 {
     TInput *this = malloc(sizeof(TInput));
 
     if(!this) return (NULL);
-    TInput_Init(this, frame, sprite_file, pos, color, len, placeholder);
+    TInput_Init(this, frame, input_sprite, color, len, placeholder, font);
     this->Free = TInput_New_Free;
     return (this);
 }
 
-static void TInput_Init(TInput *this, TFrame *frame, const char *file, SDL_Rect pos, SDL_Color color, size_t len, const char *placeholder)
+static void TInput_Init(
+    TInput *this, TFrame *frame, TSprite *input_sprite,
+    SDL_Color color, size_t len, const char *placeholder, TTF_Font *font
+)
 {
     SDL_Surface *s_tmp;
+    SDL_Rect pos;
 
-    if (!this || !frame || !file) return;
+    if (!this || !frame || !input_sprite) return;
 
     this->Draw = TInput_Draw;
     this->Event_Handler = TInput_Event_Handler;
@@ -46,11 +56,11 @@ static void TInput_Init(TInput *this, TFrame *frame, const char *file, SDL_Rect 
         this->placeholder = strdup(placeholder);
     else
         this->placeholder = NULL;
-    this->input_sprite = New_TSprite(frame, file, pos);
-    this->font = loadFont("fonts/fixedsys.ttf", 24); //TODO: Remove font dependency.
+    this->input_sprite = input_sprite;
+    this->font = font;
     this->color = color;
-    this->pos_input = pos;
     s_tmp = TTF_RenderText_Solid(this->font, "TmP", this->color);
+    pos = input_sprite->pos;
     pos.x += 40;
     pos.y = ( (pos.y + pos.h) / 2) - ( (s_tmp->h - pos.y) / 2);
     this->pos_text = pos;
@@ -102,13 +112,15 @@ void TInput_Event_Handler(TInput *this, SDL_Event event)
 {
     if (!this || !this->text) return;
 
+    SDL_Rect pos_input = this->input_sprite->pos;
+
     if( event.type == SDL_MOUSEBUTTONUP ) {
         int x;
         int y;
 
         SDL_GetMouseState( &x, &y );
-        if (x >= this->pos_input.x && x <= (this->pos_input.x + this->pos_input.w))
-            if (y >= this->pos_input.y && y <= (this->pos_input.y + this->pos_input.h))
+        if (x >= pos_input.x && x <= (pos_input.x + pos_input.w))
+            if (y >= pos_input.y && y <= (pos_input.y + pos_input.h))
                 this->is_focus = 1;
             else
                 this->is_focus = 0;
