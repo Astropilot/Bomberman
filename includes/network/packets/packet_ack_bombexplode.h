@@ -43,7 +43,7 @@ typedef struct TAckBombExplodePacket {
     int packet_id;                                      /*!< The packet ID. */
     bomb_t bomb;                                        /*!< The bomb that exploded. */
     unsigned int destroyed_count;                       /*!< The number of walls destroyed. */
-    pos_t *destroyed_walls;                             /*!< The list of the destroyed walls. */
+    object_t *destroyed_blocks;                         /*!< The list of the destroyed blocks. */
     unsigned int flames_count;                          /*!< The number of flames. */
     pos_t *flames_blocks;                               /*!< The list of the flames. */
     unsigned int extra_count;                           /*!< The number of extra created. */

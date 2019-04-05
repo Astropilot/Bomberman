@@ -128,7 +128,7 @@ static void logic_bomb_classic(TMap *map, bomb_t *bomb, TServer *server)
     }
 
     max_blocs = (bomb_end_x - bomb_start_x + 1) * (bomb_end_y - bomb_start_y + 1);
-    packet->destroyed_walls = malloc(sizeof(pos_t) * max_blocs);
+    packet->destroyed_blocks = malloc(sizeof(object_t) * max_blocs);
     packet->flames_blocks = malloc(sizeof(pos_t) * max_blocs);
     packet->extra_blocks = malloc(sizeof(object_t) * max_blocs);
     packet->destroyed_count = 0;
@@ -142,6 +142,8 @@ static void logic_bomb_classic(TMap *map, bomb_t *bomb, TServer *server)
             if (x == bomb->bomb_pos.x || y == bomb->bomb_pos.y) {
                 pos_t pos = {x, y};
                 if (map->block_map[y][x] == BREAKABLE_WALL) {
+                    object_t obj_des = {BREAKABLE_WALL, {x, y}};
+
                     map->block_map[y][x] = NOTHING;
                     if (rand_int(100) <= CHANCE_EXTRA) {
                         object_type_t extra = rand_range_int(BONUS_RANGE, MALUS_SPEED);
@@ -151,8 +153,14 @@ static void logic_bomb_classic(TMap *map, bomb_t *bomb, TServer *server)
                         packet->extra_blocks[packet->extra_count] = obj;
                         packet->extra_count++;
                     }
+                    packet->destroyed_blocks[packet->destroyed_count] = obj_des;
+                    packet->destroyed_count++;
+                } else if (map->block_map[y][x] >= BONUS_RANGE &&
+                           map->block_map[y][x] <= MALUS_SPEED) {
+                    object_t obj = {map->block_map[y][x], {x, y}};
 
-                    packet->destroyed_walls[packet->destroyed_count] = pos;
+                    map->block_map[y][x] = NOTHING;
+                    packet->destroyed_blocks[packet->destroyed_count] = obj;
                     packet->destroyed_count++;
                 } else if (map->block_map[y][x] == NOTHING) {
                     if (!(x == bomb->bomb_pos.x && y == bomb->bomb_pos.y)) {

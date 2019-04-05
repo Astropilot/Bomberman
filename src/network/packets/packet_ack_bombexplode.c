@@ -57,8 +57,9 @@ int TAckBombExplodePacket_Serialize(TAckBombExplodePacket *this)
 
     packet_buffer = pack_uint(packet_buffer, this->destroyed_count);
     for (i = 0; i < this->destroyed_count; i++) {
-        packet_buffer = pack_uint(packet_buffer, this->destroyed_walls[i].x);
-        packet_buffer = pack_uint(packet_buffer, this->destroyed_walls[i].y);
+        packet_buffer = pack_uint(packet_buffer, this->destroyed_blocks[i].type);
+        packet_buffer = pack_uint(packet_buffer, this->destroyed_blocks[i].pos.x);
+        packet_buffer = pack_uint(packet_buffer, this->destroyed_blocks[i].pos.y);
     }
     packet_buffer = pack_uint(packet_buffer, this->flames_count);
     for (i = 0; i < this->flames_count; i++) {
@@ -95,12 +96,13 @@ void TAckBombExplodePacket_Unserialize(TAckBombExplodePacket *this)
 
     packet_buffer = unpack_uint(packet_buffer, &(this->destroyed_count));
     if (this->destroyed_count > 0)
-        this->destroyed_walls = malloc(sizeof(pos_t) * this->destroyed_count);
+        this->destroyed_blocks = malloc(sizeof(object_t) * this->destroyed_count);
     else
-        this->destroyed_walls = NULL;
+        this->destroyed_blocks = NULL;
     for (i = 0; i < this->destroyed_count; i++) {
-        packet_buffer = unpack_uint(packet_buffer, &(this->destroyed_walls[i].x));
-        packet_buffer = unpack_uint(packet_buffer, &(this->destroyed_walls[i].y));
+        packet_buffer = unpack_uint(packet_buffer, (unsigned int*)&(this->destroyed_blocks[i].type));
+        packet_buffer = unpack_uint(packet_buffer, &(this->destroyed_blocks[i].pos.x));
+        packet_buffer = unpack_uint(packet_buffer, &(this->destroyed_blocks[i].pos.y));
     }
     packet_buffer = unpack_uint(packet_buffer, &(this->flames_count));
     if (this->flames_count > 0)
@@ -126,7 +128,7 @@ void TAckBombExplodePacket_Unserialize(TAckBombExplodePacket *this)
 void TAckBombExplodePacket_New_Free(TAckBombExplodePacket *this)
 {
     if (this) {
-        free(this->destroyed_walls);
+        free(this->destroyed_blocks);
         free(this->flames_blocks);
         free(this->extra_blocks);
         free(this->raw_packet);

@@ -239,8 +239,13 @@ static void handle_bombexplode(TGameClient *game, TMessage message)
     );
 
     for (i = 0; i < p_b->destroyed_count; i++) {
-        sprintf(id, "BWALL_%u_%u", p_b->destroyed_walls[i].y, p_b->destroyed_walls[i].x);
-        game->game_frame->Free_Drawable(game->game_frame, id);
+        if (p_b->destroyed_blocks[i].type == BREAKABLE_WALL) {
+            sprintf(id, "BWALL_%u_%u", p_b->destroyed_blocks[i].pos.y, p_b->destroyed_blocks[i].pos.x);
+            game->game_frame->Free_Drawable(game->game_frame, id);
+        } else {
+            sprintf(id, "EXTRA_%u_%u", p_b->destroyed_blocks[i].pos.y, p_b->destroyed_blocks[i].pos.x);
+            game->game_frame->Free_Drawable(game->game_frame, id);
+        }
     }
     for (i = 0; i < p_b->flames_count; i++) {
         SDL_Rect size_flame = {0, 0, 48, 48};
