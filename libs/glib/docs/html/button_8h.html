@@ -76,7 +76,7 @@ $(document).ready(function(){initNavTree('button_8h.html','');});
 <p>Header file of the button component of GLib.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;SDL2/SDL.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="frame_8h_source.html">frame.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="scene_8h_source.html">scene.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="sprite_8h_source.html">sprite.h</a>&quot;</code><br />
 </div>
 <p><a href="button_8h_source.html">Go to the source code of this file.</a></p>
@@ -89,9 +89,9 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:af16290279a15cd7a1d6cf9992ba33966"><td class="memItemLeft" align="right" valign="top"><a id="af16290279a15cd7a1d6cf9992ba33966"></a>
-typedef struct <a class="el" href="struct_t_frame.html">TFrame</a>&#160;</td><td class="memItemRight" valign="bottom"><b>TFrame</b></td></tr>
-<tr class="separator:af16290279a15cd7a1d6cf9992ba33966"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ef5c35e920fed5e5108f77d19028c03"><td class="memItemLeft" align="right" valign="top"><a id="a3ef5c35e920fed5e5108f77d19028c03"></a>
+typedef struct <a class="el" href="struct_t_scene.html">TScene</a>&#160;</td><td class="memItemRight" valign="bottom"><b>TScene</b></td></tr>
+<tr class="separator:a3ef5c35e920fed5e5108f77d19028c03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1aa0df721784a9e061719b58d7db7eea"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="button_8h.html#a9b4fd6c74b9fb7eb37f063f67c143190">TButton_State</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="button_8h.html#a1aa0df721784a9e061719b58d7db7eea">TButton_State</a></td></tr>
 <tr class="memdesc:a1aa0df721784a9e061719b58d7db7eea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constants of the states of a button.  <a href="#a1aa0df721784a9e061719b58d7db7eea">More...</a><br /></td></tr>
 <tr class="separator:a1aa0df721784a9e061719b58d7db7eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -109,15 +109,15 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a6455d0542d3b468c8e00e46d1a8d1ba5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_button.html">TButton</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="button_8h.html#a6455d0542d3b468c8e00e46d1a8d1ba5">New_TButton</a> (<a class="el" href="struct_t_frame.html">TFrame</a> *frame, const char *btn_s, const char *btn_hs, SDL_Rect pos)</td></tr>
-<tr class="memdesc:a6455d0542d3b468c8e00e46d1a8d1ba5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor for create a <a class="el" href="struct_t_button.html" title="Object oriented structure representing a button.">TButton</a> object.  <a href="#a6455d0542d3b468c8e00e46d1a8d1ba5">More...</a><br /></td></tr>
-<tr class="separator:a6455d0542d3b468c8e00e46d1a8d1ba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5df515458f4467a452a5206ba712f85b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="button_8h.html#a5df515458f4467a452a5206ba712f85b">TButton_Draw</a> (<a class="el" href="struct_t_button.html">TButton</a> *this, <a class="el" href="struct_t_frame.html">TFrame</a> *frame)</td></tr>
-<tr class="memdesc:a5df515458f4467a452a5206ba712f85b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for drawing the button in the interface.  <a href="#a5df515458f4467a452a5206ba712f85b">More...</a><br /></td></tr>
-<tr class="separator:a5df515458f4467a452a5206ba712f85b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7f5866478bcd219fab0657a0e0876e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="button_8h.html#ad7f5866478bcd219fab0657a0e0876e4">TButton_Event_Handler</a> (<a class="el" href="struct_t_button.html">TButton</a> *this, <a class="el" href="struct_t_frame.html">TFrame</a> *frame, SDL_Event event)</td></tr>
-<tr class="memdesc:ad7f5866478bcd219fab0657a0e0876e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to process an SDL event and change the status of the button or manage clicks.  <a href="#ad7f5866478bcd219fab0657a0e0876e4">More...</a><br /></td></tr>
-<tr class="separator:ad7f5866478bcd219fab0657a0e0876e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88f0c5e48cdb607c775ef3468d6f9dac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_button.html">TButton</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="button_8h.html#a88f0c5e48cdb607c775ef3468d6f9dac">New_TButton</a> (<a class="el" href="struct_t_scene.html">TScene</a> *scene, const char *btn_s, const char *btn_hs, SDL_Rect pos)</td></tr>
+<tr class="memdesc:a88f0c5e48cdb607c775ef3468d6f9dac"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor for create a <a class="el" href="struct_t_button.html" title="Object oriented structure representing a button.">TButton</a> object.  <a href="#a88f0c5e48cdb607c775ef3468d6f9dac">More...</a><br /></td></tr>
+<tr class="separator:a88f0c5e48cdb607c775ef3468d6f9dac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab18fbdf4b5fd0ab857e9cb8edcc7bb15"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="button_8h.html#ab18fbdf4b5fd0ab857e9cb8edcc7bb15">TButton_Draw</a> (<a class="el" href="struct_t_button.html">TButton</a> *this, <a class="el" href="struct_t_scene.html">TScene</a> *scene)</td></tr>
+<tr class="memdesc:ab18fbdf4b5fd0ab857e9cb8edcc7bb15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for drawing the button in the interface.  <a href="#ab18fbdf4b5fd0ab857e9cb8edcc7bb15">More...</a><br /></td></tr>
+<tr class="separator:ab18fbdf4b5fd0ab857e9cb8edcc7bb15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a481c87b7992b257f7414b0229d3be606"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="button_8h.html#a481c87b7992b257f7414b0229d3be606">TButton_Event_Handler</a> (<a class="el" href="struct_t_button.html">TButton</a> *this, <a class="el" href="struct_t_scene.html">TScene</a> *scene, SDL_Event event)</td></tr>
+<tr class="memdesc:a481c87b7992b257f7414b0229d3be606"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to process an SDL event and change the status of the button or manage clicks.  <a href="#a481c87b7992b257f7414b0229d3be606">More...</a><br /></td></tr>
+<tr class="separator:a481c87b7992b257f7414b0229d3be606"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb1d85f81a349858abd59ee3f6c27db1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="button_8h.html#abb1d85f81a349858abd59ee3f6c27db1">TButton_New_Free</a> (<a class="el" href="struct_t_button.html">TButton</a> *this)</td></tr>
 <tr class="memdesc:abb1d85f81a349858abd59ee3f6c27db1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to free all ressources take by the button.  <a href="#abb1d85f81a349858abd59ee3f6c27db1">More...</a><br /></td></tr>
 <tr class="separator:abb1d85f81a349858abd59ee3f6c27db1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -185,8 +185,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a6455d0542d3b468c8e00e46d1a8d1ba5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6455d0542d3b468c8e00e46d1a8d1ba5">&#9670;&nbsp;</a></span>New_TButton()</h2>
+<a id="a88f0c5e48cdb607c775ef3468d6f9dac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88f0c5e48cdb607c775ef3468d6f9dac">&#9670;&nbsp;</a></span>New_TButton()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -194,8 +194,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="struct_t_button.html">TButton</a> * New_TButton </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_t_frame.html">TFrame</a> *&#160;</td>
-          <td class="paramname"><em>frame</em>, </td>
+          <td class="paramtype"><a class="el" href="struct_t_scene.html">TScene</a> *&#160;</td>
+          <td class="paramname"><em>scene</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -226,7 +226,7 @@ Functions</h2></td></tr>
 <p>The constructor for create a <a class="el" href="struct_t_button.html" title="Object oriented structure representing a button.">TButton</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">frame</td><td>A pointer to the frame object. </td></tr>
+    <tr><td class="paramname">scene</td><td>A pointer to the scene object. </td></tr>
     <tr><td class="paramname">btn_s</td><td>The path of an image file for the button in normal state. </td></tr>
     <tr><td class="paramname">btn_hs</td><td>The path of an image file for the button in hover state. </td></tr>
     <tr><td class="paramname">pos</td><td>The position and size of the button. </td></tr>
@@ -237,8 +237,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5df515458f4467a452a5206ba712f85b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5df515458f4467a452a5206ba712f85b">&#9670;&nbsp;</a></span>TButton_Draw()</h2>
+<a id="ab18fbdf4b5fd0ab857e9cb8edcc7bb15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab18fbdf4b5fd0ab857e9cb8edcc7bb15">&#9670;&nbsp;</a></span>TButton_Draw()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -252,8 +252,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="struct_t_frame.html">TFrame</a> *&#160;</td>
-          <td class="paramname"><em>frame</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_t_scene.html">TScene</a> *&#160;</td>
+          <td class="paramname"><em>scene</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -267,16 +267,16 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">this</td><td>A pointer to the button object to draw. </td></tr>
-    <tr><td class="paramname">frame</td><td>A pointer to the frame object.</td></tr>
+    <tr><td class="paramname">scene</td><td>A pointer to the scene object.</td></tr>
   </table>
   </dd>
 </dl>
-<p>You do not have to call this method directly. You must use the Draw method of the <a class="el" href="struct_t_button.html" title="Object oriented structure representing a button.">TButton</a> structure like this: my_button-&gt;Draw(my_button, frame); </p>
+<p>You do not have to call this method directly. You must use the Draw method of the <a class="el" href="struct_t_button.html" title="Object oriented structure representing a button.">TButton</a> structure like this: my_button-&gt;Draw(my_button, scene); </p>
 
 </div>
 </div>
-<a id="ad7f5866478bcd219fab0657a0e0876e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7f5866478bcd219fab0657a0e0876e4">&#9670;&nbsp;</a></span>TButton_Event_Handler()</h2>
+<a id="a481c87b7992b257f7414b0229d3be606"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a481c87b7992b257f7414b0229d3be606">&#9670;&nbsp;</a></span>TButton_Event_Handler()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -290,8 +290,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="struct_t_frame.html">TFrame</a> *&#160;</td>
-          <td class="paramname"><em>frame</em>, </td>
+          <td class="paramtype"><a class="el" href="struct_t_scene.html">TScene</a> *&#160;</td>
+          <td class="paramname"><em>scene</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -311,12 +311,12 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">this</td><td>A pointer to the button object. </td></tr>
-    <tr><td class="paramname">frame</td><td>A pointer to the frame object. </td></tr>
+    <tr><td class="paramname">scene</td><td>A pointer to the scene object. </td></tr>
     <tr><td class="paramname">event</td><td>A SDL event.</td></tr>
   </table>
   </dd>
 </dl>
-<p>You do not have to call this method directly. You must use the Event_Handler method of the <a class="el" href="struct_t_button.html" title="Object oriented structure representing a button.">TButton</a> structure like this: my_button-&gt;Event_Handler(my_button, frame, event); </p>
+<p>You do not have to call this method directly. You must use the Event_Handler method of the <a class="el" href="struct_t_button.html" title="Object oriented structure representing a button.">TButton</a> structure like this: my_button-&gt;Event_Handler(my_button, scene, event); </p>
 
 </div>
 </div>

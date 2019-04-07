@@ -1,0 +1,154 @@
+/*******************************************************************************
+* PROJECT: Bomberman
+*
+* AUTHORS: Yohann Martin, Aziz Hamide, Gauthier Desplanque, William Weber
+*
+* DATE CREATED: 01/16/2019
+*
+* Copyright (c) 2019 Yohann MARTIN (@Astropilot). All rights reserved.
+*
+* Licensed under the MIT License. See LICENSE file in the project root for full
+* license information.
+*******************************************************************************/
+
+#include <stdio.h>
+#include <stdarg.h>
+
+#include "main.h"
+#include "glib.h"
+#include "ui/scene_lobby.h"
+#include "network/game/lobby.h"
+
+static void Init(TScene* scene);
+static void On_Load(TScene* scene, int argc, va_list args);
+static void On_Event(TScene* scene, SDL_Event event);
+static void On_Tick(TScene* scene);
+static void On_Unload(TScene* scene);
+static void Finish(TScene* scene);
+
+static TButton *btn_start;
+
+static void On_Click_Start_Button(TButton *button, TScene *scene);
+static void On_Click_Quit_Button(TButton *button, TScene *scene);
+
+static TLobbyClient *lobbyclient;
+
+TScene* New_LobbyScene(TLobbyClient *m_lobbyclient)
+{
+    TScene *frm = New_TScene("SCENE_LOBBY");
+    if (frm) {
+        frm->Init = Init;
+        frm->On_Load = On_Load;
+        frm->On_Event = On_Event;
+        frm->On_Tick = On_Tick;
+        frm->On_Unload = On_Unload;
+        frm->Finish = Finish;
+    }
+    lobbyclient = m_lobbyclient;
+    return (frm);
+}
+
+static void Init(TScene* scene)
+{
+    SDL_Rect pos_button_start = {(WIN_WIDTH / 2) - (410 / 2), 400, 410, 64};
+    btn_start = New_TButton(scene,
+        RES_PATH "button_startgame_normal.png",
+        RES_PATH "button_startgame_hover.png", pos_button_start
+    );
+    btn_start->On_Click = On_Click_Start_Button;
+
+    SDL_Rect pos_button_quit = {(WIN_WIDTH / 2) - (410 / 2), (pos_button_start.y + pos_button_start.h) + 15, 410, 64};
+    TButton *btn_quit = New_TButton(scene,
+        RES_PATH "button_quit_normal.png",
+        RES_PATH "button_quit_hover.png", pos_button_quit
+    );
+    btn_quit->On_Click = On_Click_Quit_Button;
+
+    scene->Add_Drawable(scene, (TDrawable*)btn_quit,
+        "BTN_QUIT", 1, GLIB_FREE_ON_FINISH
+    );
+}
+
+static void On_Load(TScene* scene, int argc, va_list args)
+{
+    if (IS_DEBUG)
+        printf("Scene [%s]: On_Load method called: %d\n", scene->scene_id, argc);
+
+    lobby_args_t param = va_arg(args, lobby_args_t);
+
+    SDL_Rect pos_label = {0, 0, 0, 0};
+    SDL_Color color = {255, 255, 255, 255};
+    TTF_Font *font = loadFont(FONT_PATH "fixedsys.ttf", 24);
+    TText *txt_label = New_TText(scene, "Connexion en cours...", font, color, pos_label);
+    txt_label->pos.x = (WIN_WIDTH / 2) - (txt_label->pos.w / 2);
+    txt_label->pos.y = (WIN_HEIGHT / 2) - (txt_label->pos.h / 2);
+
+    scene->Add_Drawable(scene, (TDrawable*)txt_label,
+        "LABEL_STATUS", 1, GLIB_FREE_ON_UNLOAD
+    );
+
+    TButton *btn_quit = (TButton*)scene->Get_Drawable(scene, "BTN_QUIT");
+
+    btn_quit->state = BUTTON_NORMAL;
+
+    if (!param.server_ip) {
+        lobbyclient->Start_Server(lobbyclient, param.port, MAX_PLAYERS);
+        lobbyclient->Join_Lobby(lobbyclient, param.username, "127.0.0.1", param.port);
+    } else {
+        lobbyclient->Join_Lobby(lobbyclient, param.username, param.server_ip, param.port);
+    }
+}
+
+static void On_Event(TScene* scene, SDL_Event event)
+{
+    TButton *btn_quit = (TButton*)scene->Get_Drawable(scene, "BTN_QUIT");
+
+    btn_quit->Event_Handler(btn_quit, scene, event);
+    if (lobbyclient->nb_players >= MIN_PLAYERS && lobbyclient->is_owner)
+        btn_start->Event_Handler(btn_start, scene, event);
+}
+
+static void On_Click_Start_Button(TButton *button, TScene *scene)
+{
+    if (!button || !scene)
+        printf("Button: Host Button pressed!\n");
+    lobbyclient->Start_Game(lobbyclient);
+}
+
+static void On_Click_Quit_Button(TButton *button, TScene *scene)
+{
+    if (!button || !scene)
+        printf("Button: Join Button pressed!\n");
+    lobbyclient->Leave_Lobby(lobbyclient);
+}
+
+static void On_Tick(TScene* scene)
+{
+    SDL_RenderClear(scene->window->renderer_window);
+    lobbyclient->Handle_Messages(lobbyclient);
+    if (lobbyclient->nb_players >= MIN_PLAYERS && lobbyclient->is_owner) {
+        if (!scene->Get_Drawable(scene, "BTN_START"))
+            scene->Add_Drawable(scene, (TDrawable*)btn_start,
+                "BTN_START", 1, GLIB_FREE_ON_FINISH
+            );
+    } else {
+        scene->Remove_Drawable(scene, "BTN_START");
+    }
+    scene->Draw_Drawables(scene);
+    SDL_RenderPresent(scene->window->renderer_window);
+    if (scene->window->finished)
+        lobbyclient->Leave_Lobby(lobbyclient);
+}
+
+static void On_Unload(TScene* scene)
+{
+    if (IS_DEBUG)
+        printf("Scene [%s]: On_Unload method called\n", scene->scene_id);
+}
+
+static void Finish(TScene* scene)
+{
+    if (IS_DEBUG)
+        printf("Scene [%s]: Finish method called\n", scene->scene_id);
+    lobbyclient->Free(lobbyclient);
+}

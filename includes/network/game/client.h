@@ -34,7 +34,7 @@
  */
 typedef struct TGameClient {
 
-    TFrame*(*Register_Frame)(struct TGameClient*, TFrame*);     /*!< Method for register the UI frame used for the game. */
+    TScene*(*Register_Scene)(struct TGameClient*, TScene*);     /*!< Method for register the UI scene used for the game. */
 
     void(*Ready)(struct TGameClient*);                          /*!< Method for say to the server that the player is ready to process the game. */
 
@@ -50,7 +50,7 @@ typedef struct TGameClient {
 
     TClient *client;                                            /*!< The network client. */
     TGameServer *gameserver;                                    /*!< The game server object if the client is the game owner. */
-    TFrame *game_frame;                                         /*!< The UI frame corresponding to the game.*/
+    TScene *game_scene;                                         /*!< The UI scene corresponding to the game.*/
     unsigned int is_owner;                                      /*!< A boolean to know if the client is the game owner. */
     int player;                                                 /*!< The unique ID of the player. */
     unsigned int bomb_offset;                                   /*!< The latest bomb id dropped. */
@@ -66,18 +66,18 @@ typedef struct TGameClient {
 TGameClient* New_TGameClient();
 
 /**
- * @fn TFrame *TGameClient_Register_Frame(TGameClient *this, TFrame *frame)
- * @brief Method for register the UI frame responsible for displaying the game.
+ * @fn TScene *TGameClient_Register_Scene(TGameClient *this, TScene *scene)
+ * @brief Method for register the UI scene responsible for displaying the game.
  *
  * @param this A pointer to the game client object.
- * @param frame The UI frame responsible for displaying the game.
- * @return Returns the same pointer of the frame given.
+ * @param scene The UI scene responsible for displaying the game.
+ * @return Returns the same pointer of the scene given.
  *
  * You do not have to call this method directly. You must use the
- * Register_Frame method of the TGameClient structure like this:
- * my_gameclient->Register_Frame(my_gameclient, my_frame);
+ * Register_Scene method of the TGameClient structure like this:
+ * my_gameclient->Register_Scene(my_gameclient, my_scene);
  */
-TFrame *TGameClient_Register_Frame(TGameClient *this, TFrame *frame);
+TScene *TGameClient_Register_Scene(TGameClient *this, TScene *scene);
 
 /**
  * @fn void TGameClient_Ready(TGameClient *this)

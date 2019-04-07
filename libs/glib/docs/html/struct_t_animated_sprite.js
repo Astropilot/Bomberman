@@ -2,7 +2,7 @@ var struct_t_animated_sprite =
 [
     [ "actual_frame", "struct_t_animated_sprite.html#a64cdcc418cee00ffeac8531f3e09084d", null ],
     [ "animations", "struct_t_animated_sprite.html#af29128bc48e354204be87119ad5d3c56", null ],
-    [ "Draw", "struct_t_animated_sprite.html#ab012c1efed32c369325ee7311124d83f", null ],
+    [ "Draw", "struct_t_animated_sprite.html#a331f66ff038f9cac134ffa86ce9ba244", null ],
     [ "file", "struct_t_animated_sprite.html#adf16cd437526a5c5e0e0af87745acbb8", null ],
     [ "Free", "struct_t_animated_sprite.html#a8c14b1c6802ea29e88a003c6ba2477ff", null ],
     [ "is_visible", "struct_t_animated_sprite.html#afcb4740807fcc68dcbca85413497475c", null ],

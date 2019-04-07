@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file queue.h
+ * @file priority_queue.h
  * @brief Header file of the priority queue data structure.
  */
 

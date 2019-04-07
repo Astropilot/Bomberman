@@ -33,7 +33,7 @@
  */
 typedef struct TLobbyClient {
 
-    TFrame*(*Register_Frame)(struct TLobbyClient*, TFrame*);                /*!< Method for register the UI frame used for the lobby. */
+    TScene*(*Register_Scene)(struct TLobbyClient*, TScene*);                /*!< Method for register the UI scene used for the lobby. */
 
     void(*Start_Server)(struct TLobbyClient*, int, int);                    /*!< Method for start the game server. */
 
@@ -49,7 +49,7 @@ typedef struct TLobbyClient {
 
     TClient *client;                /*!< The network client for sending messages to the server. */
     TGameServer *gameserver;        /*!< The game server object if the client is the game owner. */
-    TFrame *lobby_frame;            /*!< The UI frame corresponding to the lobby.*/
+    TScene *lobby_scene;            /*!< The UI scene corresponding to the lobby.*/
     unsigned int is_owner;          /*!< A boolean to know if the client is the game owner. */
     int player;                     /*!< The unique ID of the player. */
     unsigned int nb_players;        /*!< The actual number of players in the lobby. */
@@ -65,18 +65,18 @@ typedef struct TLobbyClient {
 TLobbyClient* New_TLobbyClient();
 
 /**
- * @fn TFrame *TLobbyClient_Register_Frame(TLobbyClient *this, TFrame *frame)
- * @brief Method for register the UI frame responsible for displaying the lobby.
+ * @fn TScene *TLobbyClient_Register_Scene(TLobbyClient *this, TScene *scene)
+ * @brief Method for register the UI scene responsible for displaying the lobby.
  *
  * @param this A pointer to the lobby client object.
- * @param frame The UI frame responsible for displaying the lobby.
- * @return Returns the same pointer of the frame given.
+ * @param scene The UI scene responsible for displaying the lobby.
+ * @return Returns the same pointer of the scene given.
  *
  * You do not have to call this method directly. You must use the
- * Register_Frame method of the TLobbyClient structure like this:
- * my_lobbyclient->Register_Frame(my_lobbyclient, my_frame);
+ * Register_Scene method of the TLobbyClient structure like this:
+ * my_lobbyclient->Register_Scene(my_lobbyclient, my_scene);
  */
-TFrame *TLobbyClient_Register_Frame(TLobbyClient *this, TFrame *frame);
+TScene *TLobbyClient_Register_Scene(TLobbyClient *this, TScene *scene);
 
 /**
  * @fn void TLobbyClient_Start_Server(TLobbyClient *this, int port, int max_clients)

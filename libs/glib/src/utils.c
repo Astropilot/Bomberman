@@ -16,12 +16,12 @@
 #include <SDL2/SDL_ttf.h>
 
 #include "utils.h"
-#include "frame.h"
+#include "scene.h"
 #include "window.h"
 
-SDL_Texture *createText(TFrame *frame, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect *pos)
+SDL_Texture *createText(TScene *scene, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect *pos)
 {
-    if (!text || !font || !pos || !frame)
+    if (!text || !font || !pos || !scene)
         return (NULL);
 
     SDL_Surface *s_text = NULL;
@@ -29,7 +29,7 @@ SDL_Texture *createText(TFrame *frame, const char *text, TTF_Font *font, SDL_Col
 
     s_text = TTF_RenderText_Solid(font, text, color);
     if (!s_text) return (NULL);
-    text_texture = SDL_CreateTextureFromSurface(frame->window->renderer_window, s_text);
+    text_texture = SDL_CreateTextureFromSurface(scene->window->renderer_window, s_text);
     pos->w = s_text->w;
     pos->h = s_text->h;
     SDL_FreeSurface(s_text);

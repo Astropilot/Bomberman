@@ -16,7 +16,7 @@
  * @brief Header file of the TWindow of GLib.
  *
  * The TWindow allows you to create a SDL window that can
- * be manipulated by GLib and handle TFrames and game loop.
+ * be manipulated by GLib and handle TScenes and game loop.
  *
  */
 
@@ -26,7 +26,7 @@
 #include <stdarg.h>
 #include <SDL2/SDL.h>
 
-#include "frame.h"
+#include "scene.h"
 #include "cache.h"
 
 /**
@@ -37,15 +37,15 @@
 typedef struct TWindow {
 
     int(*Create_Window)(struct TWindow*, const char*, int, int, const char*, unsigned int);     /*!< Method for creating the SDL window. */
-    void(*Add_Frame)(struct TWindow*, TFrame*);                                                 /*!< Method for adding a TFrame to the window. */
-    void(*Show_Frame)(struct TWindow*, const char *, int argc, ...);                            /*!< Method for showing a frame by its ID with optionnals parameters. */
+    void(*Add_Scene)(struct TWindow*, TScene*);                                                 /*!< Method for adding a TScene to the window. */
+    void(*Show_Scene)(struct TWindow*, const char *, int argc, ...);                            /*!< Method for showing a scene by its ID with optionnals parameters. */
     void(*Free)(struct TWindow*);                                                               /*!< Method for free all ressources. */
 
     SDL_Window *screen_window;                                                  /*!< The SDL_Window pointer. */
     SDL_Renderer *renderer_window;                                              /*!< The SDL_Renderer pointer. */
     unsigned int finished;                                                      /*!< Boolean to know if the window need to be closed. */
-    TFrame_Node *frames_head;                                                   /*!< A linked list of frames (TFrame). */
-    TFrame *shown_frame;                                                        /*!< The actual frame to be show. */
+    TScene_Node *scenes_head;                                                   /*!< A linked list of scenes (TScene). */
+    TScene *shown_scene;                                                        /*!< The actual scene to be show. */
     unsigned int fps;                                                           /*!< The delay in milliseconds between each game loop. */
     TResourceCache *cache_manager;                                              /*!< The cache manager for resources. */
 
@@ -61,52 +61,52 @@ typedef struct TWindow {
 TWindow* New_TWindow(unsigned int max_caching);
 
 /**
- * @fn int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *frame_id, unsigned int fps)
+ * @fn int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *scene_id, unsigned int fps)
  * @brief Method for creating and showing the SDL window.
  *
  * @param this A pointer to the window object.
  * @param title The title of the SDL window.
  * @param width The width of the SDL window.
  * @param height The height of the SDL window.
- * @param frame_id The ID of the frame to be show first.
+ * @param scene_id The ID of the scene to be show first.
  * @param fps The delay in milliseconds between each game loop.
  *
  * You do not have to call this method directly. You must use the
  * Create_Window method of the TWindow structure like this:
- * my_window->Create_Window(my_window, "My window", 50, 50, "MY_FRAME", 30);
+ * my_window->Create_Window(my_window, "My window", 50, 50, "MY_SCENE", 30);
  */
-int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *frame_id, unsigned int fps);
+int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *scene_id, unsigned int fps);
 
 /**
- * @fn void TWindow_Add_Frame(TWindow *this, TFrame *frame)
- * @brief Method for adding a frame to the window.
+ * @fn void TWindow_Add_Scene(TWindow *this, TScene *scene)
+ * @brief Method for adding a scene to the window.
  *
  * @param this A pointer to the window object.
- * @param frame The frame to add.
+ * @param scene The scene to add.
  *
  * You do not have to call this method directly. You must use the
- * Add_Frame method of the TWindow structure like this:
- * my_window->Add_Frame(my_window, my_frame);
+ * Add_Scene method of the TWindow structure like this:
+ * my_window->Add_Scene(my_window, my_scene);
  */
-void TWindow_Add_Frame(TWindow *this, TFrame *frame);
+void TWindow_Add_Scene(TWindow *this, TScene *scene);
 
 /**
- * @fn void TWindow_Show_Frame(TWindow *this, const char *frame_id, int argc, ...)
- * @brief Method for showing a frame to the window.
+ * @fn void TWindow_Show_Scene(TWindow *this, const char *scene_id, int argc, ...)
+ * @brief Method for showing a scene to the window.
  *
  * @param this A pointer to the window object.
- * @param frame_id The frame ID to show.
- * @param argc The number of optionnals parameters for the frame to show. To be followed by the parameters if argc > 0.
+ * @param scene_id The scene ID to show.
+ * @param argc The number of optionnals parameters for the scene to show. To be followed by the parameters if argc > 0.
  *
  * You do not have to call this method directly. You must use the
- * Show_Frame method of the TWindow structure like this:
- * my_window->Show_Frame(my_window, "MY_FRAME", 0);
+ * Show_Scene method of the TWindow structure like this:
+ * my_window->Show_Scene(my_window, "MY_SCENE", 0);
  */
-void TWindow_Show_Frame(TWindow *this, const char *frame_id, int argc, ...);
+void TWindow_Show_Scene(TWindow *this, const char *scene_id, int argc, ...);
 
 /**
  * @fn void TWindow_New_Free(TWindow *this)
- * @brief Method to free all ressources take by the window and frames.
+ * @brief Method to free all ressources take by the window and scenes.
  *
  * @param this A pointer to the window object to free.
  *

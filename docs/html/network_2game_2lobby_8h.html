@@ -97,9 +97,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a8f4ecc9247bf1af6c16c1570fcc08910"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_lobby_client.html">TLobbyClient</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="network_2game_2lobby_8h.html#a8f4ecc9247bf1af6c16c1570fcc08910">New_TLobbyClient</a> ()</td></tr>
 <tr class="memdesc:a8f4ecc9247bf1af6c16c1570fcc08910"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor for create a <a class="el" href="struct_t_lobby_client.html" title="An class representing the lobby logic from client side.">TLobbyClient</a> object.  <a href="#a8f4ecc9247bf1af6c16c1570fcc08910">More...</a><br /></td></tr>
 <tr class="separator:a8f4ecc9247bf1af6c16c1570fcc08910"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e53dce98e149724f4823c3d731afe46"><td class="memItemLeft" align="right" valign="top">TFrame *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="network_2game_2lobby_8h.html#a3e53dce98e149724f4823c3d731afe46">TLobbyClient_Register_Frame</a> (<a class="el" href="struct_t_lobby_client.html">TLobbyClient</a> *this, TFrame *frame)</td></tr>
-<tr class="memdesc:a3e53dce98e149724f4823c3d731afe46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for register the UI frame responsible for displaying the lobby.  <a href="#a3e53dce98e149724f4823c3d731afe46">More...</a><br /></td></tr>
-<tr class="separator:a3e53dce98e149724f4823c3d731afe46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79823255dc7572657c7c3ed7271c5138"><td class="memItemLeft" align="right" valign="top">TScene *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="network_2game_2lobby_8h.html#a79823255dc7572657c7c3ed7271c5138">TLobbyClient_Register_Scene</a> (<a class="el" href="struct_t_lobby_client.html">TLobbyClient</a> *this, TScene *scene)</td></tr>
+<tr class="memdesc:a79823255dc7572657c7c3ed7271c5138"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for register the UI scene responsible for displaying the lobby.  <a href="#a79823255dc7572657c7c3ed7271c5138">More...</a><br /></td></tr>
+<tr class="separator:a79823255dc7572657c7c3ed7271c5138"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab006ba723abc0915b6cb71aa5ffe819a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="network_2game_2lobby_8h.html#ab006ba723abc0915b6cb71aa5ffe819a">TLobbyClient_Start_Server</a> (<a class="el" href="struct_t_lobby_client.html">TLobbyClient</a> *this, int port, int max_clients)</td></tr>
 <tr class="memdesc:ab006ba723abc0915b6cb71aa5ffe819a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to create a new game server in background.  <a href="#ab006ba723abc0915b6cb71aa5ffe819a">More...</a><br /></td></tr>
 <tr class="separator:ab006ba723abc0915b6cb71aa5ffe819a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -294,14 +294,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a3e53dce98e149724f4823c3d731afe46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e53dce98e149724f4823c3d731afe46">&#9670;&nbsp;</a></span>TLobbyClient_Register_Frame()</h2>
+<a id="a79823255dc7572657c7c3ed7271c5138"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79823255dc7572657c7c3ed7271c5138">&#9670;&nbsp;</a></span>TLobbyClient_Register_Scene()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">TFrame * TLobbyClient_Register_Frame </td>
+          <td class="memname">TScene * TLobbyClient_Register_Scene </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_t_lobby_client.html">TLobbyClient</a> *&#160;</td>
           <td class="paramname"><em>this</em>, </td>
@@ -309,8 +309,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TFrame *&#160;</td>
-          <td class="paramname"><em>frame</em>&#160;</td>
+          <td class="paramtype">TScene *&#160;</td>
+          <td class="paramname"><em>scene</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -320,16 +320,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Method for register the UI frame responsible for displaying the lobby. </p>
+<p>Method for register the UI scene responsible for displaying the lobby. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">this</td><td>A pointer to the lobby client object. </td></tr>
-    <tr><td class="paramname">frame</td><td>The UI frame responsible for displaying the lobby. </td></tr>
+    <tr><td class="paramname">scene</td><td>The UI scene responsible for displaying the lobby. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns the same pointer of the frame given.</dd></dl>
-<p>You do not have to call this method directly. You must use the Register_Frame method of the <a class="el" href="struct_t_lobby_client.html" title="An class representing the lobby logic from client side.">TLobbyClient</a> structure like this: my_lobbyclient-&gt;Register_Frame(my_lobbyclient, my_frame); </p>
+<dl class="section return"><dt>Returns</dt><dd>Returns the same pointer of the scene given.</dd></dl>
+<p>You do not have to call this method directly. You must use the Register_Scene method of the <a class="el" href="struct_t_lobby_client.html" title="An class representing the lobby logic from client side.">TLobbyClient</a> structure like this: my_lobbyclient-&gt;Register_Scene(my_lobbyclient, my_scene); </p>
 
 </div>
 </div>

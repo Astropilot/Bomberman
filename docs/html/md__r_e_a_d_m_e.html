@@ -81,7 +81,13 @@ $(document).ready(function(){initNavTree('md__r_e_a_d_m_e.html','');});
  It requires a minimum of 2 players for the creator of the game to launch the game.<br />
  Once the game is launched you can move with the directional arrows and set bombs with the space key.</p>
 <p>For the rest of the gameplay I let you discover for yourself ;-)</p>
-<p>Note: Currently we can compile the game under Debian 8 &amp; 9, Windows 10 x86 and x64, and Mac OSX !</p>
+<h3>How to compile and play</h3>
+<p>Currently we can compile the game under Debian 8 &amp; 9, Windows 10 x86 and x64, and Mac OSX !</p>
+<h4>Prerequisites</h4>
+<p>You will need SDL 2 as well as the SDL2_Image and SDL2_TTf extensions.</p>
+<h4>GNU/Linux / OSX</h4>
+<div class="fragment"><div class="line">$&gt; git clone https://github.com/Astropilot/Bomberman.git</div><div class="line">$&gt; cd Bomberman</div><div class="line">Bomberman$&gt; make</div><div class="line">Bomberman$&gt; cd build/</div><div class="line">Bomberman$&gt; ./bomberman</div></div><!-- fragment --><h4>Windows x86 &amp; x64</h4>
+<p>We recommend that you use Visual Studio and import the header and source files.</p>
 <h2>gLib Framework</h2>
 <p>Having dealt with the SDL library many times before, we were tired of always having to re-code the graphical management from zero.<br />
  We decided for this project to develop a framework around the SDL allowing to set up small 2D games quickly.</p>

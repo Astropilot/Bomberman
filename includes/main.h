@@ -60,10 +60,10 @@
 #define BOMB_PATH RES_PATH "bomb/"          /*!< The path for the bomb specific resources. */
 
 /**
- * @brief A structure representing differents args for lobby and game frames.
+ * @brief A structure representing differents args for lobby and game scenes.
  *
  * lobby_args_t is structure representing differents args for
- * lobby and game frames.
+ * lobby and game scenes.
  */
 typedef struct lobby_args_t {
     char *username;             /*!< The username of the player. */

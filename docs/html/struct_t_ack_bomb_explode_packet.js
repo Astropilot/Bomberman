@@ -1,8 +1,8 @@
 var struct_t_ack_bomb_explode_packet =
 [
     [ "bomb", "struct_t_ack_bomb_explode_packet.html#ac3c862fd86bcf35db7785b6fb9c4b541", null ],
+    [ "destroyed_blocks", "struct_t_ack_bomb_explode_packet.html#afb4f376b074ff4aefe51a5448eafd1d9", null ],
     [ "destroyed_count", "struct_t_ack_bomb_explode_packet.html#aaf3cc109f8be3fe6b5411ca07965b97d", null ],
-    [ "destroyed_walls", "struct_t_ack_bomb_explode_packet.html#a22be55e7010c958626a1f7b01f21efe6", null ],
     [ "extra_blocks", "struct_t_ack_bomb_explode_packet.html#a5b359e33ac978258a8220a766dafbfcf", null ],
     [ "extra_count", "struct_t_ack_bomb_explode_packet.html#a0f3ac8bdef37cce7b70dc7cfc6cb5ccf", null ],
     [ "flames_blocks", "struct_t_ack_bomb_explode_packet.html#a3edcd9b20d319a1eca470095172540ee", null ],

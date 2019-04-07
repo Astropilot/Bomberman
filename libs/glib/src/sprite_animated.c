@@ -16,32 +16,29 @@
 #include <SDL2/SDL_image.h>
 
 #include "sprite_animated.h"
-#include "frame.h"
+#include "scene.h"
 #include "window.h"
 #include "resource.h"
 
-static void TAnimatedSprite_Init(TAnimatedSprite *this, TFrame *frame, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations);
+static void TAnimatedSprite_Init(TAnimatedSprite *this, TScene *scene, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations);
 
-TAnimatedSprite* New_TAnimatedSprite(TFrame *frame, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
+TAnimatedSprite* New_TAnimatedSprite(TScene *scene, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
 {
     TAnimatedSprite *this = malloc(sizeof(TAnimatedSprite));
 
     if(!this) return (NULL);
-    TAnimatedSprite_Init(this, frame, file, size, pos, speed, animations);
+    TAnimatedSprite_Init(this, scene, file, size, pos, speed, animations);
     this->Free = TAnimatedSprite_New_Free;
     return (this);
 }
 
-static void TAnimatedSprite_Init(TAnimatedSprite *this, TFrame *frame, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
+static void TAnimatedSprite_Init(TAnimatedSprite *this, TScene *scene, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
 {
-    if (!this || !frame || !file) return;
+    if (!this || !scene || !file) return;
 
-    //unsigned int res_load = 0;
     int w, h;
-    TResourceCache *cache = frame->window->cache_manager;
+    TResourceCache *cache = scene->window->cache_manager;
 
-    //res_load = loadImageResource(frame->window, file, NULL, &(this->texture));
-    //if (!res_load) return;
     this->texture = cache->FetchTexture(cache, file);
     if (!this->texture) return;
     this->Draw = TAnimatedSprite_Draw;
@@ -57,9 +54,9 @@ static void TAnimatedSprite_Init(TAnimatedSprite *this, TFrame *frame, const cha
     this->is_visible = 1;
 }
 
-void TAnimatedSprite_Draw(TAnimatedSprite *this, TFrame *frame)
+void TAnimatedSprite_Draw(TAnimatedSprite *this, TScene *scene)
 {
-    if (!this || !frame || !this->texture) return;
+    if (!this || !scene || !this->texture) return;
 
     SDL_Rect tmp_frame = {this->size.w * this->actual_frame, this->size.y, this->size.w, this->size.h};
     unsigned int current_time = 0;
@@ -72,9 +69,9 @@ void TAnimatedSprite_Draw(TAnimatedSprite *this, TFrame *frame)
             (this->animations)--;
     }
     if (this->animations != 0)
-        SDL_RenderCopy(frame->window->renderer_window, this->texture, &tmp_frame, &this->pos);
+        SDL_RenderCopy(scene->window->renderer_window, this->texture, &tmp_frame, &this->pos);
     else
-        frame->Free_Drawable_Obj(frame, (TDrawable*)this);
+        scene->Free_Drawable_Obj(scene, (TDrawable*)this);
 }
 
 void TAnimatedSprite_New_Free(TAnimatedSprite *this)

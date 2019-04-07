@@ -22,7 +22,7 @@
 #include "core/player.h"
 #include "core/minion.h"
 #include "core/utils.h"
-#include "ui/frame_game.h"
+#include "ui/scene_game.h"
 #include "network/game/client.h"
 #include "network/network.h"
 #include "network/game/server.h"
@@ -81,33 +81,33 @@ static void handle_gameinit(TGameClient *game, TMessage message)
         player_t player = p_as->players[i];
 
         sprintf(id, "PLAYER_%u_HPBG", i);
-        TSprite *hbg = (TSprite*)game->game_frame->Get_Drawable(game->game_frame, id);
+        TSprite *hbg = (TSprite*)game->game_scene->Get_Drawable(game->game_scene, id);
         hbg->pos.x  = player.pos.x;
         hbg->pos.y  = player.pos.y - 10;
         sprintf(id, "PLAYER_%u_HPBAR", i);
-        TSprite *hbar = (TSprite*)game->game_frame->Get_Drawable(game->game_frame, id);
+        TSprite *hbar = (TSprite*)game->game_scene->Get_Drawable(game->game_scene, id);
         hbar->pos.x  = player.pos.x;
         hbar->pos.y  = player.pos.y - 10;
 
         sprintf(id, "PLAYER_%u_%u", i, SOUTH);
-        ((TAnimatedSprites*)game->game_frame->Get_Drawable(game->game_frame, id))->is_visible = 0;
+        ((TAnimatedSprites*)game->game_scene->Get_Drawable(game->game_scene, id))->is_visible = 0;
         sprintf(id, "PLAYER_%u_%u", i, NORTH);
-        ((TAnimatedSprites*)game->game_frame->Get_Drawable(game->game_frame, id))->is_visible = 0;
+        ((TAnimatedSprites*)game->game_scene->Get_Drawable(game->game_scene, id))->is_visible = 0;
         sprintf(id, "PLAYER_%u_%u", i, WEST);
-        ((TAnimatedSprites*)game->game_frame->Get_Drawable(game->game_frame, id))->is_visible = 0;
+        ((TAnimatedSprites*)game->game_scene->Get_Drawable(game->game_scene, id))->is_visible = 0;
         sprintf(id, "PLAYER_%u_%u", i, EAST);
-        ((TAnimatedSprites*)game->game_frame->Get_Drawable(game->game_frame, id))->is_visible = 0;
+        ((TAnimatedSprites*)game->game_scene->Get_Drawable(game->game_scene, id))->is_visible = 0;
 
         sprintf(id, "PLAYER_%u_%u", i, player.direction);
-        TAnimatedSprites *asp = (TAnimatedSprites*)game->game_frame->Get_Drawable(game->game_frame, id);
+        TAnimatedSprites *asp = (TAnimatedSprites*)game->game_scene->Get_Drawable(game->game_scene, id);
         asp->pos.x = player.pos.x;
         asp->pos.y = player.pos.y;
         asp->is_visible = 1;
-        GameFrame_UpdatePlayerInfo(game->game_frame, player);
+        GameScene_UpdatePlayerInfo(game->game_scene, player);
     }
 
     TAnimatedSprites *sp_minion =
-        (TAnimatedSprites*)game->game_frame->Get_Drawable(game->game_frame, "MINION");
+        (TAnimatedSprites*)game->game_scene->Get_Drawable(game->game_scene, "MINION");
     map_to_pix(
         (int)p_as->minion.pos.x, (int)p_as->minion.pos.y,
         (int*)&(i), (int*)&(j)
@@ -122,23 +122,23 @@ static void handle_gameinit(TGameClient *game, TMessage message)
                 case WALL:;
                     SDL_Rect posw = {0, 0, 32, 32};
 
-                    TSprite *spw = New_TSprite(game->game_frame, MAP_PATH "wall.png", posw);
+                    TSprite *spw = New_TSprite(game->game_scene, MAP_PATH "wall.png", posw);
 
                     map_to_pix(j, i, &(spw->pos.x), &(spw->pos.y));
                     sprintf(id, "WALL_%u_%u", i, j);
-                    game->game_frame->Add_Drawable(game->game_frame,
+                    game->game_scene->Add_Drawable(game->game_scene,
                         (TDrawable*)spw, id, 3, GLIB_FREE_ON_UNLOAD
                     );
                     break;
                 case BREAKABLE_WALL:;
                     SDL_Rect posbw = {0, 0, 32, 32};
-                    TSprite *spbw = New_TSprite(game->game_frame,
+                    TSprite *spbw = New_TSprite(game->game_scene,
                         MAP_PATH "breakable_wall.png", posbw
                     );
 
                     map_to_pix(j, i, &(spbw->pos.x), &(spbw->pos.y));
                     sprintf(id, "BWALL_%u_%u", i, j);
-                    game->game_frame->Add_Drawable(game->game_frame,
+                    game->game_scene->Add_Drawable(game->game_scene,
                         (TDrawable*)spbw, id, 3, GLIB_FREE_ON_UNLOAD
                     );
                 default:
@@ -159,26 +159,26 @@ static void handle_move(TGameClient *game, TMessage message)
     player_t player = p_mv->player;
 
     sprintf(id, "PLAYER_%u_%u", p_mv->player_id, SOUTH);
-    ((TAnimatedSprites*)game->game_frame->Get_Drawable(game->game_frame, id))->is_visible = 0;
+    ((TAnimatedSprites*)game->game_scene->Get_Drawable(game->game_scene, id))->is_visible = 0;
     sprintf(id, "PLAYER_%u_%u", p_mv->player_id, NORTH);
-    ((TAnimatedSprites*)game->game_frame->Get_Drawable(game->game_frame, id))->is_visible = 0;
+    ((TAnimatedSprites*)game->game_scene->Get_Drawable(game->game_scene, id))->is_visible = 0;
     sprintf(id, "PLAYER_%u_%u", p_mv->player_id, WEST);
-    ((TAnimatedSprites*)game->game_frame->Get_Drawable(game->game_frame, id))->is_visible = 0;
+    ((TAnimatedSprites*)game->game_scene->Get_Drawable(game->game_scene, id))->is_visible = 0;
     sprintf(id, "PLAYER_%u_%u", p_mv->player_id, EAST);
-    ((TAnimatedSprites*)game->game_frame->Get_Drawable(game->game_frame, id))->is_visible = 0;
+    ((TAnimatedSprites*)game->game_scene->Get_Drawable(game->game_scene, id))->is_visible = 0;
 
     sprintf(id, "PLAYER_%u_%u", p_mv->player_id, player.direction);
-    TAnimatedSprites *asp = (TAnimatedSprites*)game->game_frame->Get_Drawable(game->game_frame, id);
+    TAnimatedSprites *asp = (TAnimatedSprites*)game->game_scene->Get_Drawable(game->game_scene, id);
     asp->pos.x = player.pos.x;
     asp->pos.y = player.pos.y;
     asp->is_visible = 1;
 
     sprintf(id, "PLAYER_%u_HPBG", p_mv->player_id);
-    TSprite *hbg = (TSprite*)game->game_frame->Get_Drawable(game->game_frame, id);
+    TSprite *hbg = (TSprite*)game->game_scene->Get_Drawable(game->game_scene, id);
     hbg->pos.x = player.pos.x;
     hbg->pos.y = player.pos.y - 10;
     sprintf(id, "PLAYER_%u_HPBAR", p_mv->player_id);
-    TSprite *hbar = (TSprite*)game->game_frame->Get_Drawable(game->game_frame, id);
+    TSprite *hbar = (TSprite*)game->game_scene->Get_Drawable(game->game_scene, id);
     hbar->pos.x = player.pos.x;
     hbar->pos.y = player.pos.y - 10;
 
@@ -186,7 +186,7 @@ static void handle_move(TGameClient *game, TMessage message)
         int x_tmp, y_tmp;
         pix_to_map((int)player.pos.x, (int)player.pos.y, &x_tmp, &y_tmp);
         sprintf(id, "EXTRA_%d_%d", y_tmp, x_tmp);
-        game->game_frame->Free_Drawable(game->game_frame, id);
+        game->game_scene->Free_Drawable(game->game_scene, id);
     }
 
     free(id);
@@ -203,12 +203,12 @@ static void handle_placebomb(TGameClient *game, TMessage message)
         SDL_Rect pos_bomb = {p_ab->x + 8, p_ab->y + 8, 16, 16};
         char *bomb_id = malloc(sizeof(char) * 255);
         TAnimatedSprites *sp = New_TAnimatedSprites(
-            game->game_frame, BOMB_PATH "static_bomb_%02d.png", 3,
+            game->game_scene, BOMB_PATH "static_bomb_%02d.png", 3,
             size_bomb, pos_bomb, 100, -1
         );
 
         sprintf(bomb_id, "BOMB_%u", p_ab->bomb_id);
-        game->game_frame->Add_Drawable(game->game_frame, (TDrawable*)sp, bomb_id, 2, GLIB_FREE_ON_UNLOAD);
+        game->game_scene->Add_Drawable(game->game_scene, (TDrawable*)sp, bomb_id, 2, GLIB_FREE_ON_UNLOAD);
         free(bomb_id);
         game->bomb_offset = p_ab->bomb_id;
     }
@@ -224,27 +224,27 @@ static void handle_bombexplode(TGameClient *game, TMessage message)
     unsigned int i;
     char *id = malloc(sizeof(char) * 255);
     sprintf(id, "BOMB_%u", p_b->bomb.id);
-    game->game_frame->Free_Drawable(game->game_frame, id);
+    game->game_scene->Free_Drawable(game->game_scene, id);
 
     SDL_Rect size_bomb = {0, 0, 94, 94};
     SDL_Rect pos_bomb = {0, 0, 32, 32};
     map_to_pix((int)p_b->bomb.bomb_pos.x, (int)p_b->bomb.bomb_pos.y, &pos_bomb.x, &pos_bomb.y);
     TAnimatedSprites *sp = New_TAnimatedSprites(
-        game->game_frame, BOMB_PATH "bomb_explode_%02d.png", 5,
+        game->game_scene, BOMB_PATH "bomb_explode_%02d.png", 5,
         size_bomb, pos_bomb, 128, 1
     );
-    game->game_frame->Add_Drawable(
-        game->game_frame, (TDrawable*)sp, "BOMB",
+    game->game_scene->Add_Drawable(
+        game->game_scene, (TDrawable*)sp, "BOMB",
         2, GLIB_FREE_ON_UNLOAD
     );
 
     for (i = 0; i < p_b->destroyed_count; i++) {
         if (p_b->destroyed_blocks[i].type == BREAKABLE_WALL) {
             sprintf(id, "BWALL_%u_%u", p_b->destroyed_blocks[i].pos.y, p_b->destroyed_blocks[i].pos.x);
-            game->game_frame->Free_Drawable(game->game_frame, id);
+            game->game_scene->Free_Drawable(game->game_scene, id);
         } else {
             sprintf(id, "EXTRA_%u_%u", p_b->destroyed_blocks[i].pos.y, p_b->destroyed_blocks[i].pos.x);
-            game->game_frame->Free_Drawable(game->game_frame, id);
+            game->game_scene->Free_Drawable(game->game_scene, id);
         }
     }
     for (i = 0; i < p_b->flames_count; i++) {
@@ -253,11 +253,11 @@ static void handle_bombexplode(TGameClient *game, TMessage message)
 
         map_to_pix((int)p_b->flames_blocks[i].x, (int)p_b->flames_blocks[i].y, &pos_flame.x, &pos_flame.y);
         TAnimatedSprites *sp_flame = New_TAnimatedSprites(
-            game->game_frame, BOMB_PATH "flame_%02d.png", 5,
+            game->game_scene, BOMB_PATH "flame_%02d.png", 5,
             size_flame, pos_flame, 128, 2
         );
-        game->game_frame->Add_Drawable(
-            game->game_frame, (TDrawable*)sp_flame, "FLAME",
+        game->game_scene->Add_Drawable(
+            game->game_scene, (TDrawable*)sp_flame, "FLAME",
             3, GLIB_FREE_ON_UNLOAD
         );
     }
@@ -268,11 +268,11 @@ static void handle_bombexplode(TGameClient *game, TMessage message)
         map_to_pix((int)p_b->extra_blocks[i].pos.x, (int)p_b->extra_blocks[i].pos.y, &pos_extra.x, &pos_extra.y);
         sprintf(id, "EXTRA_%u_%u", p_b->extra_blocks[i].pos.y, p_b->extra_blocks[i].pos.x);
         TAnimatedSprites *sp_extra = New_TAnimatedSprites(
-            game->game_frame, extra_to_resource(p_b->extra_blocks[i].type), 7,
+            game->game_scene, extra_to_resource(p_b->extra_blocks[i].type), 7,
             size_extra, pos_extra, 128, -1
         );
-        game->game_frame->Add_Drawable(
-            game->game_frame, (TDrawable*)sp_extra, id,
+        game->game_scene->Add_Drawable(
+            game->game_scene, (TDrawable*)sp_extra, id,
             3, GLIB_FREE_ON_UNLOAD
         );
     }
@@ -285,7 +285,7 @@ static void handle_playerupdate(TGameClient *game, TMessage message)
     TAckPlayerUpdatePacket *p_pu = New_TAckPlayerUpdatePacket(message.message);
     p_pu->Unserialize(p_pu);
 
-    GameFrame_UpdatePlayerInfo(game->game_frame, p_pu->player);
+    GameScene_UpdatePlayerInfo(game->game_scene, p_pu->player);
 
     p_pu->Free(p_pu);
 }
@@ -293,7 +293,7 @@ static void handle_playerupdate(TGameClient *game, TMessage message)
 static void handle_minionupdate(TGameClient *game, TMessage message)
 {
     TAckMinionUpdatePacket *p_mu = New_TAckMinionUpdatePacket(message.message);
-    TAnimatedSprites *sp_minion = (TAnimatedSprites*)game->game_frame->Get_Drawable(game->game_frame, "MINION");
+    TAnimatedSprites *sp_minion = (TAnimatedSprites*)game->game_scene->Get_Drawable(game->game_scene, "MINION");
     unsigned int x_pix;
     unsigned int y_pix;
 
@@ -333,8 +333,8 @@ static void handle_endgame(TGameClient *game, TMessage message)
     player_t *player_winner = p_eg->winner;
     p_eg->winner = NULL;
     p_eg->Free(p_eg);
-    game->game_frame->window->Show_Frame(
-        game->game_frame->window, "FRAME_END_GAME", 2,
+    game->game_scene->window->Show_Scene(
+        game->game_scene->window, "SCENE_END_GAME", 2,
         game_result, player_winner
     );
 }

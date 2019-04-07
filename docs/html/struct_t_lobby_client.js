@@ -7,10 +7,10 @@ var struct_t_lobby_client =
     [ "is_owner", "struct_t_lobby_client.html#a73b3a162014910abb96c2ca5f0835b81", null ],
     [ "Join_Lobby", "struct_t_lobby_client.html#a312ff76a0818b5ed6ec79049f663d0bb", null ],
     [ "Leave_Lobby", "struct_t_lobby_client.html#a4ed409cdd07886e3fd4e175603df29da", null ],
-    [ "lobby_frame", "struct_t_lobby_client.html#a0f88aba76bfc195c3ab586a8c2b1bbea", null ],
+    [ "lobby_scene", "struct_t_lobby_client.html#a168f9b4e3e7dc3ed09f1ab7310b7344d", null ],
     [ "nb_players", "struct_t_lobby_client.html#aac7be749ba17bfc557966765f1b1fa22", null ],
     [ "player", "struct_t_lobby_client.html#ae78f447e0fc84c538b91b0cc8c8a34fa", null ],
-    [ "Register_Frame", "struct_t_lobby_client.html#a49367fbe7aac39b60d4cf54dc551c2f4", null ],
+    [ "Register_Scene", "struct_t_lobby_client.html#aa55cc26780b9cee25a16e1fb25c094ab", null ],
     [ "Start_Game", "struct_t_lobby_client.html#ab90939d32859b731629c5faac73b43ee", null ],
     [ "Start_Server", "struct_t_lobby_client.html#a244ac22672d2a2ce858ebfd14ab5884a", null ]
 ];

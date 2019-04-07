@@ -80,15 +80,15 @@ $(document).ready(function(){initNavTree('utils_8h.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:af16290279a15cd7a1d6cf9992ba33966"><td class="memItemLeft" align="right" valign="top"><a id="af16290279a15cd7a1d6cf9992ba33966"></a>
-typedef struct <a class="el" href="struct_t_frame.html">TFrame</a>&#160;</td><td class="memItemRight" valign="bottom"><b>TFrame</b></td></tr>
-<tr class="separator:af16290279a15cd7a1d6cf9992ba33966"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ef5c35e920fed5e5108f77d19028c03"><td class="memItemLeft" align="right" valign="top"><a id="a3ef5c35e920fed5e5108f77d19028c03"></a>
+typedef struct <a class="el" href="struct_t_scene.html">TScene</a>&#160;</td><td class="memItemRight" valign="bottom"><b>TScene</b></td></tr>
+<tr class="separator:a3ef5c35e920fed5e5108f77d19028c03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0badce3466e1045d670794ea37088e33"><td class="memItemLeft" align="right" valign="top">SDL_Texture *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#a0badce3466e1045d670794ea37088e33">createText</a> (<a class="el" href="struct_t_frame.html">TFrame</a> *frame, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect *pos)</td></tr>
-<tr class="memdesc:a0badce3466e1045d670794ea37088e33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Util function for create a SDL texture from a text, a font and a color.  <a href="#a0badce3466e1045d670794ea37088e33">More...</a><br /></td></tr>
-<tr class="separator:a0badce3466e1045d670794ea37088e33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd138d23d73ba94af4e561a5c5737af1"><td class="memItemLeft" align="right" valign="top">SDL_Texture *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#acd138d23d73ba94af4e561a5c5737af1">createText</a> (<a class="el" href="struct_t_scene.html">TScene</a> *scene, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect *pos)</td></tr>
+<tr class="memdesc:acd138d23d73ba94af4e561a5c5737af1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Util function for create a SDL texture from a text, a font and a color.  <a href="#acd138d23d73ba94af4e561a5c5737af1">More...</a><br /></td></tr>
+<tr class="separator:acd138d23d73ba94af4e561a5c5737af1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af514e9163894887ed2000bad6b49fe8b"><td class="memItemLeft" align="right" valign="top">TTF_Font *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="utils_8h.html#af514e9163894887ed2000bad6b49fe8b">loadFont</a> (const char *font_file, unsigned int font_size)</td></tr>
 <tr class="memdesc:af514e9163894887ed2000bad6b49fe8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Util function for load a font file with a specific size.  <a href="#af514e9163894887ed2000bad6b49fe8b">More...</a><br /></td></tr>
 <tr class="separator:af514e9163894887ed2000bad6b49fe8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -100,8 +100,8 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Header file of some internal utils of GLib. </p>
 <p>This file have some utils for internal purpose in GLib. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a0badce3466e1045d670794ea37088e33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0badce3466e1045d670794ea37088e33">&#9670;&nbsp;</a></span>createText()</h2>
+<a id="acd138d23d73ba94af4e561a5c5737af1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd138d23d73ba94af4e561a5c5737af1">&#9670;&nbsp;</a></span>createText()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -109,8 +109,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">SDL_Texture * createText </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_t_frame.html">TFrame</a> *&#160;</td>
-          <td class="paramname"><em>frame</em>, </td>
+          <td class="paramtype"><a class="el" href="struct_t_scene.html">TScene</a> *&#160;</td>
+          <td class="paramname"><em>scene</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -147,7 +147,7 @@ Functions</h2></td></tr>
 <p>Util function for create a SDL texture from a text, a font and a color. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">frame</td><td>A pointer to the window object. </td></tr>
+    <tr><td class="paramname">scene</td><td>A pointer to the window object. </td></tr>
     <tr><td class="paramname">text</td><td>The text. </td></tr>
     <tr><td class="paramname">font</td><td>The font of the text. </td></tr>
     <tr><td class="paramname">color</td><td>The color of the text. </td></tr>

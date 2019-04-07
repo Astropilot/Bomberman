@@ -16,36 +16,36 @@
 #include <string.h>
 
 #include "inputbox.h"
-#include "frame.h"
+#include "scene.h"
 #include "window.h"
 
 static void TInput_Init(
-    TInput *this, TFrame *frame, TSprite *input_sprite,
+    TInput *this, TScene *scene, TSprite *input_sprite,
     SDL_Color color, size_t len, const char *placeholder, TTF_Font *font
 );
 
 TInput* New_TInput(
-    TFrame *frame, TSprite *input_sprite,
+    TScene *scene, TSprite *input_sprite,
     SDL_Color color, size_t len, const char *placeholder, TTF_Font *font
 )
 {
     TInput *this = malloc(sizeof(TInput));
 
     if(!this) return (NULL);
-    TInput_Init(this, frame, input_sprite, color, len, placeholder, font);
+    TInput_Init(this, scene, input_sprite, color, len, placeholder, font);
     this->Free = TInput_New_Free;
     return (this);
 }
 
 static void TInput_Init(
-    TInput *this, TFrame *frame, TSprite *input_sprite,
+    TInput *this, TScene *scene, TSprite *input_sprite,
     SDL_Color color, size_t len, const char *placeholder, TTF_Font *font
 )
 {
     SDL_Surface *s_tmp;
     SDL_Rect pos;
 
-    if (!this || !frame || !input_sprite) return;
+    if (!this || !scene || !input_sprite) return;
 
     this->Draw = TInput_Draw;
     this->Event_Handler = TInput_Event_Handler;
@@ -71,22 +71,22 @@ static void TInput_Init(
     SDL_FreeSurface(s_tmp);
 }
 
-void TInput_Draw(TInput *this, TFrame *frame)
+void TInput_Draw(TInput *this, TScene *scene)
 {
-    if (!this || !frame || !this->text || !this->input_sprite) return;
+    if (!this || !scene || !this->text || !this->input_sprite) return;
 
     SDL_Texture *text_texture = NULL;
     unsigned int current_time = 0;
     SDL_Color color = {189, 189, 189, 255};
 
     if (this->input_sprite->Draw)
-        this->input_sprite->Draw(this->input_sprite, frame);
+        this->input_sprite->Draw(this->input_sprite, scene);
     if (this->text[0] != '\0')
-        text_texture = createText(frame, this->text, this->font, this->color, &this->pos_text);
+        text_texture = createText(scene, this->text, this->font, this->color, &this->pos_text);
     else if (this->placeholder)
-        text_texture = createText(frame, this->placeholder, this->font, color, &this->pos_text);
+        text_texture = createText(scene, this->placeholder, this->font, color, &this->pos_text);
     if (text_texture) {
-        SDL_RenderCopy(frame->window->renderer_window, text_texture, NULL, &this->pos_text);
+        SDL_RenderCopy(scene->window->renderer_window, text_texture, NULL, &this->pos_text);
         SDL_DestroyTexture(text_texture);
     }
     if (!text_texture || (this->text[0] == '\0')) {
@@ -99,9 +99,9 @@ void TInput_Draw(TInput *this, TFrame *frame)
         SDL_Rect pos_cursor = {
             (this->pos_text.x + this->pos_text.w) + 2, this->pos_text.y, 0, 0};
 
-        cursor_texture = createText(frame, "_", this->font, this->color, &pos_cursor);
+        cursor_texture = createText(scene, "_", this->font, this->color, &pos_cursor);
         if (cursor_texture) {
-            SDL_RenderCopy(frame->window->renderer_window, cursor_texture, NULL, &pos_cursor);
+            SDL_RenderCopy(scene->window->renderer_window, cursor_texture, NULL, &pos_cursor);
             SDL_DestroyTexture(cursor_texture);
         }
         this->last_time = current_time;

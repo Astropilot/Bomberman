@@ -20,8 +20,8 @@
 #include "window.h"
 
 static void TWindow_Init(TWindow *this, unsigned int max_caching);
-static void TWindow_Free_Frames(TWindow *this);
-static void TWindow_Finish_Frames(TWindow *this);
+static void TWindow_Free_Scenes(TWindow *this);
+static void TWindow_Finish_Scenes(TWindow *this);
 static void TWindow_Loop(TWindow *this);
 
 TWindow* New_TWindow(unsigned int max_caching)
@@ -39,26 +39,26 @@ static void TWindow_Init(TWindow *this, unsigned int max_caching)
     if (!this) return;
 
     this->Create_Window = TWindow_Create_Window;
-    this->Add_Frame = TWindow_Add_Frame;
-    this->Show_Frame = TWindow_Show_Frame;
+    this->Add_Scene = TWindow_Add_Scene;
+    this->Show_Scene = TWindow_Show_Scene;
     this->screen_window = NULL;
     this->renderer_window = NULL;
     this->finished = 0;
-    this->frames_head = NULL;
-    this->shown_frame = NULL;
+    this->scenes_head = NULL;
+    this->shown_scene = NULL;
     this->cache_manager = New_TResourceCache(this, max_caching);
 }
 
-static void TWindow_Free_Frames(TWindow *this)
+static void TWindow_Free_Scenes(TWindow *this)
 {
     if (!this) return;
 
-    TFrame_Node *current = this->frames_head;
-    TFrame_Node *tmp = NULL;
+    TScene_Node *current = this->scenes_head;
+    TScene_Node *tmp = NULL;
 
     while (current != NULL) {
-        if (current->frame && current->frame->Free)
-            current->frame->Free(current->frame);
+        if (current->scene && current->scene->Free)
+            current->scene->Free(current->scene);
 
         tmp = current;
         current = current->next;
@@ -66,15 +66,15 @@ static void TWindow_Free_Frames(TWindow *this)
     }
 }
 
-static void TWindow_Finish_Frames(TWindow *this)
+static void TWindow_Finish_Scenes(TWindow *this)
 {
     if (!this) return;
 
-    TFrame_Node *current = this->frames_head;
+    TScene_Node *current = this->scenes_head;
 
     while (current != NULL) {
-        if (current->frame && current->frame->Finish)
-            current->frame->Finish(current->frame);
+        if (current->scene && current->scene->Finish)
+            current->scene->Finish(current->scene);
         current = current->next;
     }
 }
@@ -92,24 +92,24 @@ static void TWindow_Loop(TWindow *this)
             if( event.type == SDL_QUIT )
                 this->finished = 1;
             else {
-                if (this->shown_frame && this->shown_frame->On_Event)
-                    this->shown_frame->On_Event(this->shown_frame, event);
+                if (this->shown_scene && this->shown_scene->On_Event)
+                    this->shown_scene->On_Event(this->shown_scene, event);
             }
         }
-        if (this->shown_frame && this->shown_frame->On_Tick) {
+        if (this->shown_scene && this->shown_scene->On_Tick) {
             current_time = SDL_GetTicks();
             if (current_time > last_time + this->fps || this->finished) {
-                this->shown_frame->On_Tick(this->shown_frame);
+                this->shown_scene->On_Tick(this->shown_scene);
                 last_time = current_time;
             }
         }
     }
-    TWindow_Finish_Frames(this);
+    TWindow_Finish_Scenes(this);
 }
 
-int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *frame_id, unsigned int fps)
+int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *scene_id, unsigned int fps)
 {
-    if (!this || !title || !frame_id) return (0);
+    if (!this || !title || !scene_id) return (0);
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         fprintf(stderr, "Error while loading game window (SDL): %s!\n", SDL_GetError());
@@ -142,63 +142,63 @@ int TWindow_Create_Window(TWindow *this, const char *title, int width, int heigh
     }
 
     this->fps = fps;
-    TWindow_Show_Frame(this, frame_id, 0);
+    TWindow_Show_Scene(this, scene_id, 0);
     TWindow_Loop(this);
 
     return (1);
 }
 
-void TWindow_Add_Frame(TWindow *this, TFrame *frame)
+void TWindow_Add_Scene(TWindow *this, TScene *scene)
 {
-    if (!this || !frame) return;
+    if (!this || !scene) return;
 
-    frame->window = this;
-    if (!this->frames_head) {
-        TFrame_Node *frame_node = malloc(sizeof(TFrame_Node));
+    scene->window = this;
+    if (!this->scenes_head) {
+        TScene_Node *scene_node = malloc(sizeof(TScene_Node));
 
-        if (frame_node) {
-            frame_node->frame = frame;
-            frame_node->next = NULL;
-            this->frames_head = frame_node;
+        if (scene_node) {
+            scene_node->scene = scene;
+            scene_node->next = NULL;
+            this->scenes_head = scene_node;
         }
     } else {
-        TFrame_Node *current = this->frames_head;
+        TScene_Node *current = this->scenes_head;
 
         while (current->next != NULL)
             current = current->next;
-        current->next = malloc(sizeof(TFrame_Node));
+        current->next = malloc(sizeof(TScene_Node));
         if (current->next) {
-            current->next->frame = frame;
+            current->next->scene = scene;
             current->next->next = NULL;
         }
     }
 }
 
-void TWindow_Show_Frame(TWindow *this, const char *frame_id, int argc, ...)
+void TWindow_Show_Scene(TWindow *this, const char *scene_id, int argc, ...)
 {
-    if (!this || !frame_id) return;
+    if (!this || !scene_id) return;
 
-    TFrame_Node *current = this->frames_head;
-    TFrame *tmp_shown_frame = NULL;
+    TScene_Node *current = this->scenes_head;
+    TScene *tmp_shown_scene = NULL;
 
     while (current != NULL) {
-        if (current->frame && strcmp(current->frame->frame_id, frame_id) == 0) {
-            tmp_shown_frame = this->shown_frame;
-            this->shown_frame = NULL;
-            if (tmp_shown_frame && tmp_shown_frame->On_Unload)
-                tmp_shown_frame->On_Unload(tmp_shown_frame);
-            if (tmp_shown_frame)
-                tmp_shown_frame->Free_All_Drawables(tmp_shown_frame, GLIB_FREE_ON_UNLOAD);
-            if (!current->frame->initialized && current->frame->Init) {
-                current->frame->Init(current->frame);
-                current->frame->initialized = 1;
+        if (current->scene && strcmp(current->scene->scene_id, scene_id) == 0) {
+            tmp_shown_scene = this->shown_scene;
+            this->shown_scene = NULL;
+            if (tmp_shown_scene && tmp_shown_scene->On_Unload)
+                tmp_shown_scene->On_Unload(tmp_shown_scene);
+            if (tmp_shown_scene)
+                tmp_shown_scene->Free_All_Drawables(tmp_shown_scene, GLIB_FREE_ON_UNLOAD);
+            if (!current->scene->initialized && current->scene->Init) {
+                current->scene->Init(current->scene);
+                current->scene->initialized = 1;
             }
             va_list argp;
             va_start(argp, argc);
-            if (current->frame->On_Load)
-                current->frame->On_Load(current->frame, argc, argp);
+            if (current->scene->On_Load)
+                current->scene->On_Load(current->scene, argc, argp);
             va_end(argp);
-            this->shown_frame = current->frame;
+            this->shown_scene = current->scene;
             return;
         }
         current = current->next;
@@ -208,7 +208,7 @@ void TWindow_Show_Frame(TWindow *this, const char *frame_id, int argc, ...)
 void TWindow_New_Free(TWindow *this)
 {
     if (this) {
-        TWindow_Free_Frames(this);
+        TWindow_Free_Scenes(this);
         this->cache_manager->Free(this->cache_manager);
         TTF_Quit();
         IMG_Quit();

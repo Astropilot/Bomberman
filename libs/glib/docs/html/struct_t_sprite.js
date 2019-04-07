@@ -1,6 +1,6 @@
 var struct_t_sprite =
 [
-    [ "Draw", "struct_t_sprite.html#a8d7c7ab8e5290174f707b096ac1db397", null ],
+    [ "Draw", "struct_t_sprite.html#a0f3d53e5e57ee3c8410676961d7bc735", null ],
     [ "file", "struct_t_sprite.html#adf16cd437526a5c5e0e0af87745acbb8", null ],
     [ "Free", "struct_t_sprite.html#a977f9191db9a53a738db1af7cc5325f8", null ],
     [ "is_visible", "struct_t_sprite.html#afcb4740807fcc68dcbca85413497475c", null ],

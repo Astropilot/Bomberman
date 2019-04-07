@@ -13,12 +13,12 @@
 
 #include "main.h"
 #include "glib.h"
-#include "ui/frame_game.h"
-#include "ui/frame_main_menu.h"
-#include "ui/frame_host_menu.h"
-#include "ui/frame_join_menu.h"
-#include "ui/frame_lobby.h"
-#include "ui/frame_end_game.h"
+#include "ui/scene_game.h"
+#include "ui/scene_main_menu.h"
+#include "ui/scene_host_menu.h"
+#include "ui/scene_join_menu.h"
+#include "ui/scene_lobby.h"
+#include "ui/scene_end_game.h"
 #include "network/network.h"
 #include "network/game/client.h"
 #include "network/game/lobby.h"
@@ -28,23 +28,23 @@ int main(void)
     TLobbyClient *lobbyclient = New_TLobbyClient();
     TGameClient *gameclient = New_TGameClient();
     TWindow *window = New_TWindow(134);
-    TFrame *frame_main_menu = New_MainMenuFrame();
-    TFrame *frame_host_menu = New_HostMenuFrame();
-    TFrame *frame_join_menu = New_JoinMenuFrame();
-    TFrame *frame_lobby = New_LobbyFrame(lobbyclient);
-    TFrame *frame_game = New_GameFrame(gameclient);
-    TFrame *frame_end_game = New_EndGameFrame();
+    TScene *scene_main_menu = New_MainMenuScene();
+    TScene *scene_host_menu = New_HostMenuScene();
+    TScene *scene_join_menu = New_JoinMenuScene();
+    TScene *scene_lobby = New_LobbyScene(lobbyclient);
+    TScene *scene_game = New_GameScene(gameclient);
+    TScene *scene_end_game = New_EndGameScene();
     int process_result = EXIT_SUCCESS;
 
     InitNetworking();
     if (window) {
-        window->Add_Frame(window, frame_main_menu);
-        window->Add_Frame(window, frame_host_menu);
-        window->Add_Frame(window, frame_join_menu);
-        window->Add_Frame(window, lobbyclient->Register_Frame(lobbyclient, frame_lobby));
-        window->Add_Frame(window, gameclient->Register_Frame(gameclient, frame_game));
-        window->Add_Frame(window, frame_end_game);
-        window->Create_Window(window, "Bomberman", WIN_WIDTH, WIN_HEIGHT, "FRAME_MAIN_MENU", 30);
+        window->Add_Scene(window, scene_main_menu);
+        window->Add_Scene(window, scene_host_menu);
+        window->Add_Scene(window, scene_join_menu);
+        window->Add_Scene(window, lobbyclient->Register_Scene(lobbyclient, scene_lobby));
+        window->Add_Scene(window, gameclient->Register_Scene(gameclient, scene_game));
+        window->Add_Scene(window, scene_end_game);
+        window->Create_Window(window, "Bomberman", WIN_WIDTH, WIN_HEIGHT, "SCENE_MAIN_MENU", 30);
 
         window->Free(window);
         window = NULL;

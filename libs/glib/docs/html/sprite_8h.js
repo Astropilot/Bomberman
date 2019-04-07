@@ -1,9 +1,9 @@
 var sprite_8h =
 [
     [ "TSprite", "struct_t_sprite.html", "struct_t_sprite" ],
-    [ "TFrame", "sprite_8h.html#af16290279a15cd7a1d6cf9992ba33966", null ],
+    [ "TScene", "sprite_8h.html#a3ef5c35e920fed5e5108f77d19028c03", null ],
     [ "TSprite", "sprite_8h.html#a89a1b048e074e10f087be944d60ea5d2", null ],
-    [ "New_TSprite", "sprite_8h.html#a89f37559077bec2f2341b563afacd0b5", null ],
-    [ "TSprite_Draw", "sprite_8h.html#a9363737c239d2fa4389c7989f6be3f9e", null ],
+    [ "New_TSprite", "sprite_8h.html#a0e883ce2bca3dea5d34b906d63c9561a", null ],
+    [ "TSprite_Draw", "sprite_8h.html#aee8be172e95c43ae9c0ab8a042945eb4", null ],
     [ "TSprite_New_Free", "sprite_8h.html#ad64457d3ce2b3826a6bb5a3482e5ecc1", null ]
 ];

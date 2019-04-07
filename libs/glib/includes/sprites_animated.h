@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file sprite_animated.h
+ * @file sprites_animated.h
  * @brief Header file of the animated sprites component of GLib.
  *
  * The animated sprites component allows you to create a graphical animated
@@ -25,7 +25,7 @@
 
 #include <SDL2/SDL.h>
 
-typedef struct TFrame TFrame;
+typedef struct TScene TScene;
 
 /**
  * @brief Object oriented structure representing a animated sprite from multiple images..
@@ -34,7 +34,7 @@ typedef struct TFrame TFrame;
  */
 typedef struct TAnimatedSprites {
 
-    void(*Draw)(struct TAnimatedSprites*, TFrame*);     /*!< Draw method. */
+    void(*Draw)(struct TAnimatedSprites*, TScene*);     /*!< Draw method. */
 
     void(*Free)(struct TAnimatedSprites*);              /*!< Free (ressources) method. */
 
@@ -52,10 +52,10 @@ typedef struct TAnimatedSprites {
 } TAnimatedSprites ;
 
 /**
- * @fn TAnimatedSprites* New_TAnimatedSprites(TFrame *frame, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
+ * @fn TAnimatedSprites* New_TAnimatedSprites(TScene *scene, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
  * @brief The constructor for create a TAnimatedSprites object.
  *
- * @param frame A pointer to the frame object.
+ * @param scene A pointer to the scene object.
  * @param file_template The template path of the image files containing all the sprite frames.
  * @param files The number of files.
  * @param size The size of a single frame, the x and y are ignored.
@@ -64,20 +64,20 @@ typedef struct TAnimatedSprites {
  * @param animations The number of animations, can be -1 for infinite loop.
  * @return A memory allocated object of the animated sprite.
  */
-TAnimatedSprites* New_TAnimatedSprites(TFrame *frame, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations);
+TAnimatedSprites* New_TAnimatedSprites(TScene *scene, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations);
 
 /**
- * @fn void TAnimatedSprites_Draw(TAnimatedSprites *this, TFrame *frame)
+ * @fn void TAnimatedSprites_Draw(TAnimatedSprites *this, TScene *scene)
  * @brief Method for drawing the animated sprite in the interface.
  *
  * @param this A pointer to the animated sprite object to draw.
- * @param frame A pointer to the frame object.
+ * @param scene A pointer to the scene object.
  *
  * You do not have to call this method directly. You must use the
  * Draw method of the TAnimatedSprites structure like this:
- * my_sprite->Draw(my_sprite, frame);
+ * my_sprite->Draw(my_sprite, scene);
  */
-void TAnimatedSprites_Draw(TAnimatedSprites *this, TFrame *frame);
+void TAnimatedSprites_Draw(TAnimatedSprites *this, TScene *scene);
 
 /**
  * @fn void TAnimatedSprites_New_Free(TAnimatedSprites *this)

@@ -25,7 +25,7 @@
 
 #include <SDL2/SDL.h>
 
-typedef struct TFrame TFrame;
+typedef struct TScene TScene;
 
 /**
  * @brief Object oriented structure representing a animated sprite.
@@ -34,7 +34,7 @@ typedef struct TFrame TFrame;
  */
 typedef struct TAnimatedSprite {
 
-    void(*Draw)(struct TAnimatedSprite*, TFrame*);      /*!< Draw method. */
+    void(*Draw)(struct TAnimatedSprite*, TScene*);      /*!< Draw method. */
 
     void(*Free)(struct TAnimatedSprite*);               /*!< Free (ressources) method. */
 
@@ -53,10 +53,10 @@ typedef struct TAnimatedSprite {
 } TAnimatedSprite ;
 
 /**
- * @fn TAnimatedSprite* New_TAnimatedSprite(TFrame *frame, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
+ * @fn TAnimatedSprite* New_TAnimatedSprite(TScene *scene, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
  * @brief The constructor for create a TAnimatedSprite object.
  *
- * @param frame A pointer to the frame object.
+ * @param scene A pointer to the scene object.
  * @param file The path of an image file containing all the sprite frames.
  * @param size The size of a single frame, the x and y are ignored.
  * @param pos The position and size of the sprite on the screen.
@@ -64,20 +64,20 @@ typedef struct TAnimatedSprite {
  * @param animations The number of animations, can be -1 for infinite loop.
  * @return A memory allocated object of the animated sprite.
  */
-TAnimatedSprite* New_TAnimatedSprite(TFrame *frame, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations);
+TAnimatedSprite* New_TAnimatedSprite(TScene *scene, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations);
 
 /**
- * @fn void TAnimatedSprite_Draw(TAnimatedSprite *this, TFrame *frame)
+ * @fn void TAnimatedSprite_Draw(TAnimatedSprite *this, TScene *scene)
  * @brief Method for drawing the animated sprite in the interface.
  *
  * @param this A pointer to the animated sprite object to draw.
- * @param frame A pointer to the frame object.
+ * @param scene A pointer to the scene object.
  *
  * You do not have to call this method directly. You must use the
  * Draw method of the TAnimatedSprite structure like this:
- * my_sprite->Draw(my_sprite, frame);
+ * my_sprite->Draw(my_sprite, scene);
  */
-void TAnimatedSprite_Draw(TAnimatedSprite *this, TFrame *frame);
+void TAnimatedSprite_Draw(TAnimatedSprite *this, TScene *scene);
 
 /**
  * @fn void TAnimatedSprite_New_Free(TAnimatedSprite *this)

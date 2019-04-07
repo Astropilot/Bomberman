@@ -98,9 +98,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a43f31aa14d77b9c79167960e1ba12fb3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_game_client.html">TGameClient</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="network_2game_2client_8h.html#a43f31aa14d77b9c79167960e1ba12fb3">New_TGameClient</a> ()</td></tr>
 <tr class="memdesc:a43f31aa14d77b9c79167960e1ba12fb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor for create a <a class="el" href="struct_t_game_client.html" title="An class representing the game logic from client side.">TGameClient</a> object.  <a href="#a43f31aa14d77b9c79167960e1ba12fb3">More...</a><br /></td></tr>
 <tr class="separator:a43f31aa14d77b9c79167960e1ba12fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42e47c66ff3bd1bd831435aa60d67b41"><td class="memItemLeft" align="right" valign="top">TFrame *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="network_2game_2client_8h.html#a42e47c66ff3bd1bd831435aa60d67b41">TGameClient_Register_Frame</a> (<a class="el" href="struct_t_game_client.html">TGameClient</a> *this, TFrame *frame)</td></tr>
-<tr class="memdesc:a42e47c66ff3bd1bd831435aa60d67b41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for register the UI frame responsible for displaying the game.  <a href="#a42e47c66ff3bd1bd831435aa60d67b41">More...</a><br /></td></tr>
-<tr class="separator:a42e47c66ff3bd1bd831435aa60d67b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fd34402e29047e4bb20a37dbb06d218"><td class="memItemLeft" align="right" valign="top">TScene *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="network_2game_2client_8h.html#a0fd34402e29047e4bb20a37dbb06d218">TGameClient_Register_Scene</a> (<a class="el" href="struct_t_game_client.html">TGameClient</a> *this, TScene *scene)</td></tr>
+<tr class="memdesc:a0fd34402e29047e4bb20a37dbb06d218"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for register the UI scene responsible for displaying the game.  <a href="#a0fd34402e29047e4bb20a37dbb06d218">More...</a><br /></td></tr>
+<tr class="separator:a0fd34402e29047e4bb20a37dbb06d218"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af19ac54f70f602c9dfbc734314cf8b23"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="network_2game_2client_8h.html#af19ac54f70f602c9dfbc734314cf8b23">TGameClient_Ready</a> (<a class="el" href="struct_t_game_client.html">TGameClient</a> *this)</td></tr>
 <tr class="memdesc:af19ac54f70f602c9dfbc734314cf8b23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to inform the server that this client is ready to start the game.  <a href="#af19ac54f70f602c9dfbc734314cf8b23">More...</a><br /></td></tr>
 <tr class="separator:af19ac54f70f602c9dfbc734314cf8b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -335,14 +335,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a42e47c66ff3bd1bd831435aa60d67b41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42e47c66ff3bd1bd831435aa60d67b41">&#9670;&nbsp;</a></span>TGameClient_Register_Frame()</h2>
+<a id="a0fd34402e29047e4bb20a37dbb06d218"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fd34402e29047e4bb20a37dbb06d218">&#9670;&nbsp;</a></span>TGameClient_Register_Scene()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">TFrame * TGameClient_Register_Frame </td>
+          <td class="memname">TScene * TGameClient_Register_Scene </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_t_game_client.html">TGameClient</a> *&#160;</td>
           <td class="paramname"><em>this</em>, </td>
@@ -350,8 +350,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TFrame *&#160;</td>
-          <td class="paramname"><em>frame</em>&#160;</td>
+          <td class="paramtype">TScene *&#160;</td>
+          <td class="paramname"><em>scene</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -361,16 +361,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Method for register the UI frame responsible for displaying the game. </p>
+<p>Method for register the UI scene responsible for displaying the game. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">this</td><td>A pointer to the game client object. </td></tr>
-    <tr><td class="paramname">frame</td><td>The UI frame responsible for displaying the game. </td></tr>
+    <tr><td class="paramname">scene</td><td>The UI scene responsible for displaying the game. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Returns the same pointer of the frame given.</dd></dl>
-<p>You do not have to call this method directly. You must use the Register_Frame method of the <a class="el" href="struct_t_game_client.html" title="An class representing the game logic from client side.">TGameClient</a> structure like this: my_gameclient-&gt;Register_Frame(my_gameclient, my_frame); </p>
+<dl class="section return"><dt>Returns</dt><dd>Returns the same pointer of the scene given.</dd></dl>
+<p>You do not have to call this method directly. You must use the Register_Scene method of the <a class="el" href="struct_t_game_client.html" title="An class representing the game logic from client side.">TGameClient</a> structure like this: my_gameclient-&gt;Register_Scene(my_gameclient, my_scene); </p>
 
 </div>
 </div>

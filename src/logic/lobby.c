@@ -74,8 +74,8 @@ static void handle_lobbystate(TLobbyClient *lobby, TMessage message)
     char *status = malloc(sizeof(char) * 255);
     sprintf(status, "Nombre de joueurs presents: %d/%d", lobby->nb_players, MAX_PLAYERS);
 
-    txt_label = (TText*)lobby->lobby_frame->Get_Drawable(lobby->lobby_frame, "LABEL_STATUS");
-    txt_label->Change_Text(txt_label, lobby->lobby_frame, status);
+    txt_label = (TText*)lobby->lobby_scene->Get_Drawable(lobby->lobby_scene, "LABEL_STATUS");
+    txt_label->Change_Text(txt_label, lobby->lobby_scene, status);
     txt_label->pos.x = (WIN_WIDTH / 2) - (txt_label->pos.w / 2);
     txt_label->pos.y = (WIN_HEIGHT / 2) - (txt_label->pos.h / 2);
 
@@ -89,9 +89,9 @@ static void handle_startgame(TLobbyClient *lobby, TMessage message)
 
     free(message.message);
     lobby->client = NULL;
-    lobby->lobby_frame->window->Show_Frame(
-        lobby->lobby_frame->window,
-        "FRAME_GAME",
+    lobby->lobby_scene->window->Show_Scene(
+        lobby->lobby_scene->window,
+        "SCENE_GAME",
         4, client_tmp, lobby->gameserver, lobby->player, lobby->nb_players
     );
 }

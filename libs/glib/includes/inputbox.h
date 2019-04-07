@@ -29,7 +29,7 @@
 #include "sprite.h"
 #include "utils.h"
 
-typedef struct TFrame TFrame;
+typedef struct TScene TScene;
 
 /**
  * @brief Object oriented structure representing a input box.
@@ -38,7 +38,7 @@ typedef struct TFrame TFrame;
  */
 typedef struct TInput {
 
-    void(*Draw)(struct TInput*, TFrame*);                           /*!< Draw method. */
+    void(*Draw)(struct TInput*, TScene*);                           /*!< Draw method. */
 
     void(*Free)(struct TInput*);                                    /*!< Free (ressources) method. */
 
@@ -59,10 +59,10 @@ typedef struct TInput {
 } TInput ;
 
 /**
- * @fn TInput* TInput* New_TInput(TFrame *frame, TSprite *input_sprite, SDL_Color color, size_t len, const char *placeholder, TTF_Font *font)
+ * @fn TInput* TInput* New_TInput(TScene *scene, TSprite *input_sprite, SDL_Color color, size_t len, const char *placeholder, TTF_Font *font)
  * @brief The constructor for create a TInput object.
  *
- * @param frame A pointer to the frame object.
+ * @param scene A pointer to the scene object.
  * @param input_sprite The sprite of the inputbox.
  * @param color The color of the text.
  * @param len The maximum length of the input text.
@@ -71,22 +71,22 @@ typedef struct TInput {
  * @return A memory allocated object of the input box.
  */
 TInput* New_TInput(
-    TFrame *frame, TSprite *input_sprite,
+    TScene *scene, TSprite *input_sprite,
     SDL_Color color, size_t len, const char *placeholder, TTF_Font *font
 );
 
 /**
- * @fn void TInput_Draw(TInput *this, TFrame *frame)
+ * @fn void TInput_Draw(TInput *this, TScene *scene)
  * @brief Method for drawing the input box in the interface.
  *
  * @param this A pointer to the input object to draw.
- * @param frame A pointer to the frame object.
+ * @param scene A pointer to the scene object.
  *
  * You do not have to call this method directly. You must use the
  * Draw method of the TInput structure like this:
- * my_input->Draw(my_input, frame);
+ * my_input->Draw(my_input, scene);
  */
-void TInput_Draw(TInput *this, TFrame *frame);
+void TInput_Draw(TInput *this, TScene *scene);
 
 /**
  * @fn void TInput_Event_Handler(TInput *this, SDL_Event event)

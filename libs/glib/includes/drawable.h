@@ -24,7 +24,7 @@
 
 #include <SDL2/SDL.h>
 
-typedef struct TFrame TFrame;
+typedef struct TScene TScene;
 
 /**
  * @brief An abstract mother class for all the graphical components.
@@ -33,7 +33,7 @@ typedef struct TFrame TFrame;
  */
 typedef struct TDrawable {
 
-    void(*Draw)(struct TDrawable*, TFrame*);                           /*!< Draw method. */
+    void(*Draw)(struct TDrawable*, TScene*);                           /*!< Draw method. */
 
     void(*Free)(struct TDrawable*);                                    /*!< Free (ressources) method. */
 

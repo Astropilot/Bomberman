@@ -1,8 +1,8 @@
 var struct_t_text =
 [
-    [ "Change_Text", "struct_t_text.html#ae7a087179611bed6ffcaf7ca386dcde3", null ],
+    [ "Change_Text", "struct_t_text.html#a2a33b90ee90c6b3c06c7682224f9a049", null ],
     [ "color", "struct_t_text.html#a631bf4babe4c1825a2cdc0c19c2bd04f", null ],
-    [ "Draw", "struct_t_text.html#a3ba36c84b827306020d96af5a2acb493", null ],
+    [ "Draw", "struct_t_text.html#a637bbb251ac1cf4d2b2c87063e6e1f8e", null ],
     [ "font", "struct_t_text.html#abf5bfa705e66ffc1ddaa6ce46c960873", null ],
     [ "Free", "struct_t_text.html#a06c0403840f39259e5695ed6bc341c2a", null ],
     [ "is_visible", "struct_t_text.html#afcb4740807fcc68dcbca85413497475c", null ],

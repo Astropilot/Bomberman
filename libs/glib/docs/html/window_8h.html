@@ -76,7 +76,7 @@ $(document).ready(function(){initNavTree('window_8h.html','');});
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;stdarg.h&gt;</code><br />
 <code>#include &lt;SDL2/SDL.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="frame_8h_source.html">frame.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="scene_8h_source.html">scene.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="cache_8h_source.html">cache.h</a>&quot;</code><br />
 </div>
 <p><a href="window_8h_source.html">Go to the source code of this file.</a></p>
@@ -98,22 +98,22 @@ Functions</h2></td></tr>
 <tr class="memitem:a52c1b6a05004075004563e328fa876ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_window.html">TWindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="window_8h.html#a52c1b6a05004075004563e328fa876ef">New_TWindow</a> (unsigned int max_caching)</td></tr>
 <tr class="memdesc:a52c1b6a05004075004563e328fa876ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor for create a <a class="el" href="struct_t_window.html" title="Object oriented structure representing a window.">TWindow</a> object.  <a href="#a52c1b6a05004075004563e328fa876ef">More...</a><br /></td></tr>
 <tr class="separator:a52c1b6a05004075004563e328fa876ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ea053a5c1c6c104213d703b78b92251"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="window_8h.html#a7ea053a5c1c6c104213d703b78b92251">TWindow_Create_Window</a> (<a class="el" href="struct_t_window.html">TWindow</a> *this, const char *title, int width, int height, const char *frame_id, unsigned int fps)</td></tr>
-<tr class="memdesc:a7ea053a5c1c6c104213d703b78b92251"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for creating and showing the SDL window.  <a href="#a7ea053a5c1c6c104213d703b78b92251">More...</a><br /></td></tr>
-<tr class="separator:a7ea053a5c1c6c104213d703b78b92251"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3916cc8f2ed2585fa900de9d2ae3d7c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="window_8h.html#ab3916cc8f2ed2585fa900de9d2ae3d7c">TWindow_Add_Frame</a> (<a class="el" href="struct_t_window.html">TWindow</a> *this, <a class="el" href="struct_t_frame.html">TFrame</a> *frame)</td></tr>
-<tr class="memdesc:ab3916cc8f2ed2585fa900de9d2ae3d7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for adding a frame to the window.  <a href="#ab3916cc8f2ed2585fa900de9d2ae3d7c">More...</a><br /></td></tr>
-<tr class="separator:ab3916cc8f2ed2585fa900de9d2ae3d7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1841bb2dc7025f44a453cf34a344bc7c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="window_8h.html#a1841bb2dc7025f44a453cf34a344bc7c">TWindow_Show_Frame</a> (<a class="el" href="struct_t_window.html">TWindow</a> *this, const char *frame_id, int argc,...)</td></tr>
-<tr class="memdesc:a1841bb2dc7025f44a453cf34a344bc7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for showing a frame to the window.  <a href="#a1841bb2dc7025f44a453cf34a344bc7c">More...</a><br /></td></tr>
-<tr class="separator:a1841bb2dc7025f44a453cf34a344bc7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb926843fe05fbfa5e9fd752cf3ebe9a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="window_8h.html#acb926843fe05fbfa5e9fd752cf3ebe9a">TWindow_Create_Window</a> (<a class="el" href="struct_t_window.html">TWindow</a> *this, const char *title, int width, int height, const char *scene_id, unsigned int fps)</td></tr>
+<tr class="memdesc:acb926843fe05fbfa5e9fd752cf3ebe9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for creating and showing the SDL window.  <a href="#acb926843fe05fbfa5e9fd752cf3ebe9a">More...</a><br /></td></tr>
+<tr class="separator:acb926843fe05fbfa5e9fd752cf3ebe9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21905b0fc6af8a96c990b427ddcfcc56"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="window_8h.html#a21905b0fc6af8a96c990b427ddcfcc56">TWindow_Add_Scene</a> (<a class="el" href="struct_t_window.html">TWindow</a> *this, <a class="el" href="struct_t_scene.html">TScene</a> *scene)</td></tr>
+<tr class="memdesc:a21905b0fc6af8a96c990b427ddcfcc56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for adding a scene to the window.  <a href="#a21905b0fc6af8a96c990b427ddcfcc56">More...</a><br /></td></tr>
+<tr class="separator:a21905b0fc6af8a96c990b427ddcfcc56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9580f406b724582503ae45f2e9e6cc76"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="window_8h.html#a9580f406b724582503ae45f2e9e6cc76">TWindow_Show_Scene</a> (<a class="el" href="struct_t_window.html">TWindow</a> *this, const char *scene_id, int argc,...)</td></tr>
+<tr class="memdesc:a9580f406b724582503ae45f2e9e6cc76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for showing a scene to the window.  <a href="#a9580f406b724582503ae45f2e9e6cc76">More...</a><br /></td></tr>
+<tr class="separator:a9580f406b724582503ae45f2e9e6cc76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7743faffb5114af8cd02f5bfcc35294"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="window_8h.html#af7743faffb5114af8cd02f5bfcc35294">TWindow_New_Free</a> (<a class="el" href="struct_t_window.html">TWindow</a> *this)</td></tr>
-<tr class="memdesc:af7743faffb5114af8cd02f5bfcc35294"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to free all ressources take by the window and frames.  <a href="#af7743faffb5114af8cd02f5bfcc35294">More...</a><br /></td></tr>
+<tr class="memdesc:af7743faffb5114af8cd02f5bfcc35294"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to free all ressources take by the window and scenes.  <a href="#af7743faffb5114af8cd02f5bfcc35294">More...</a><br /></td></tr>
 <tr class="separator:af7743faffb5114af8cd02f5bfcc35294"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Header file of the <a class="el" href="struct_t_window.html" title="Object oriented structure representing a window.">TWindow</a> of GLib. </p>
-<p>The <a class="el" href="struct_t_window.html" title="Object oriented structure representing a window.">TWindow</a> allows you to create a SDL window that can be manipulated by GLib and handle TFrames and game loop. </p>
+<p>The <a class="el" href="struct_t_window.html" title="Object oriented structure representing a window.">TWindow</a> allows you to create a SDL window that can be manipulated by GLib and handle TScenes and game loop. </p>
 </div><h2 class="groupheader">Typedef Documentation</h2>
 <a id="a4d1cfdf2bb8db0b48399f174f46cbe17"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4d1cfdf2bb8db0b48399f174f46cbe17">&#9670;&nbsp;</a></span>TWindow</h2>
@@ -160,14 +160,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab3916cc8f2ed2585fa900de9d2ae3d7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3916cc8f2ed2585fa900de9d2ae3d7c">&#9670;&nbsp;</a></span>TWindow_Add_Frame()</h2>
+<a id="a21905b0fc6af8a96c990b427ddcfcc56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21905b0fc6af8a96c990b427ddcfcc56">&#9670;&nbsp;</a></span>TWindow_Add_Scene()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void TWindow_Add_Frame </td>
+          <td class="memname">void TWindow_Add_Scene </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_t_window.html">TWindow</a> *&#160;</td>
           <td class="paramname"><em>this</em>, </td>
@@ -175,8 +175,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="struct_t_frame.html">TFrame</a> *&#160;</td>
-          <td class="paramname"><em>frame</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="struct_t_scene.html">TScene</a> *&#160;</td>
+          <td class="paramname"><em>scene</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -186,20 +186,20 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Method for adding a frame to the window. </p>
+<p>Method for adding a scene to the window. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">this</td><td>A pointer to the window object. </td></tr>
-    <tr><td class="paramname">frame</td><td>The frame to add.</td></tr>
+    <tr><td class="paramname">scene</td><td>The scene to add.</td></tr>
   </table>
   </dd>
 </dl>
-<p>You do not have to call this method directly. You must use the Add_Frame method of the <a class="el" href="struct_t_window.html" title="Object oriented structure representing a window.">TWindow</a> structure like this: my_window-&gt;Add_Frame(my_window, my_frame); </p>
+<p>You do not have to call this method directly. You must use the Add_Scene method of the <a class="el" href="struct_t_window.html" title="Object oriented structure representing a window.">TWindow</a> structure like this: my_window-&gt;Add_Scene(my_window, my_scene); </p>
 
 </div>
 </div>
-<a id="a7ea053a5c1c6c104213d703b78b92251"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ea053a5c1c6c104213d703b78b92251">&#9670;&nbsp;</a></span>TWindow_Create_Window()</h2>
+<a id="acb926843fe05fbfa5e9fd752cf3ebe9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb926843fe05fbfa5e9fd752cf3ebe9a">&#9670;&nbsp;</a></span>TWindow_Create_Window()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -232,7 +232,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>frame_id</em>, </td>
+          <td class="paramname"><em>scene_id</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -255,12 +255,12 @@ Functions</h2></td></tr>
     <tr><td class="paramname">title</td><td>The title of the SDL window. </td></tr>
     <tr><td class="paramname">width</td><td>The width of the SDL window. </td></tr>
     <tr><td class="paramname">height</td><td>The height of the SDL window. </td></tr>
-    <tr><td class="paramname">frame_id</td><td>The ID of the frame to be show first. </td></tr>
+    <tr><td class="paramname">scene_id</td><td>The ID of the scene to be show first. </td></tr>
     <tr><td class="paramname">fps</td><td>The delay in milliseconds between each game loop.</td></tr>
   </table>
   </dd>
 </dl>
-<p>You do not have to call this method directly. You must use the Create_Window method of the <a class="el" href="struct_t_window.html" title="Object oriented structure representing a window.">TWindow</a> structure like this: my_window-&gt;Create_Window(my_window, "My window", 50, 50, "MY_FRAME", 30); </p>
+<p>You do not have to call this method directly. You must use the Create_Window method of the <a class="el" href="struct_t_window.html" title="Object oriented structure representing a window.">TWindow</a> structure like this: my_window-&gt;Create_Window(my_window, "My window", 50, 50, "MY_SCENE", 30); </p>
 
 </div>
 </div>
@@ -280,7 +280,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Method to free all ressources take by the window and frames. </p>
+<p>Method to free all ressources take by the window and scenes. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">this</td><td>A pointer to the window object to free.</td></tr>
@@ -291,14 +291,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a1841bb2dc7025f44a453cf34a344bc7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1841bb2dc7025f44a453cf34a344bc7c">&#9670;&nbsp;</a></span>TWindow_Show_Frame()</h2>
+<a id="a9580f406b724582503ae45f2e9e6cc76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9580f406b724582503ae45f2e9e6cc76">&#9670;&nbsp;</a></span>TWindow_Show_Scene()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void TWindow_Show_Frame </td>
+          <td class="memname">void TWindow_Show_Scene </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_t_window.html">TWindow</a> *&#160;</td>
           <td class="paramname"><em>this</em>, </td>
@@ -307,7 +307,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>frame_id</em>, </td>
+          <td class="paramname"><em>scene_id</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -329,16 +329,16 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Method for showing a frame to the window. </p>
+<p>Method for showing a scene to the window. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">this</td><td>A pointer to the window object. </td></tr>
-    <tr><td class="paramname">frame_id</td><td>The frame ID to show. </td></tr>
-    <tr><td class="paramname">argc</td><td>The number of optionnals parameters for the frame to show. To be followed by the parameters if argc &gt; 0.</td></tr>
+    <tr><td class="paramname">scene_id</td><td>The scene ID to show. </td></tr>
+    <tr><td class="paramname">argc</td><td>The number of optionnals parameters for the scene to show. To be followed by the parameters if argc &gt; 0.</td></tr>
   </table>
   </dd>
 </dl>
-<p>You do not have to call this method directly. You must use the Show_Frame method of the <a class="el" href="struct_t_window.html" title="Object oriented structure representing a window.">TWindow</a> structure like this: my_window-&gt;Show_Frame(my_window, "MY_FRAME", 0); </p>
+<p>You do not have to call this method directly. You must use the Show_Scene method of the <a class="el" href="struct_t_window.html" title="Object oriented structure representing a window.">TWindow</a> structure like this: my_window-&gt;Show_Scene(my_window, "MY_SCENE", 0); </p>
 
 </div>
 </div>

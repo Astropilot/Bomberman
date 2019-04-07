@@ -16,25 +16,25 @@
 #include <SDL2/SDL_image.h>
 
 #include "sprites_animated.h"
-#include "frame.h"
+#include "scene.h"
 #include "window.h"
 #include "resource.h"
 
-static void TAnimatedSprites_Init(TAnimatedSprites *this, TFrame *frame, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations);
+static void TAnimatedSprites_Init(TAnimatedSprites *this, TScene *scene, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations);
 
-TAnimatedSprites* New_TAnimatedSprites(TFrame *frame, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
+TAnimatedSprites* New_TAnimatedSprites(TScene *scene, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
 {
     TAnimatedSprites *this = malloc(sizeof(TAnimatedSprites));
 
     if(!this) return (NULL);
-    TAnimatedSprites_Init(this, frame, file_template, files, size, pos, speed, animations);
+    TAnimatedSprites_Init(this, scene, file_template, files, size, pos, speed, animations);
     this->Free = TAnimatedSprites_New_Free;
     return (this);
 }
 
-static void TAnimatedSprites_Init(TAnimatedSprites *this, TFrame *frame, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
+static void TAnimatedSprites_Init(TAnimatedSprites *this, TScene *scene, const char *file_template, size_t files, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
 {
-    if (!this || !frame || !file_template) return;
+    if (!this || !scene || !file_template) return;
 
     this->Draw = TAnimatedSprites_Draw;
     this->file_template = strdup(file_template);
@@ -49,27 +49,26 @@ static void TAnimatedSprites_Init(TAnimatedSprites *this, TFrame *frame, const c
     this->textures = malloc(sizeof(SDL_Texture*) * this->nb_images);
     if (!this->textures) return;
     size_t i;
-    TResourceCache *cache = frame->window->cache_manager;
+    TResourceCache *cache = scene->window->cache_manager;
 
     for (i = 0; i < this->nb_images; i++) {
         char file_path[128];
 
         sprintf(file_path, this->file_template, i);
-        //loadImageResource(frame->window, file_path, NULL, &(this->textures[i]));
         this->textures[i] = cache->FetchTexture(cache, file_path);
     }
     this->is_visible = 1;
 }
 
-void TAnimatedSprites_Draw(TAnimatedSprites *this, TFrame *frame)
+void TAnimatedSprites_Draw(TAnimatedSprites *this, TScene *scene)
 {
-    if (!this || !frame || !this->textures) return;
+    if (!this || !scene || !this->textures) return;
 
     unsigned int current_time = 0;
 
     if (this->animations != 0)
         if (this->textures[this->actual_image])
-            SDL_RenderCopy(frame->window->renderer_window, this->textures[this->actual_image], &this->size, &this->pos);
+            SDL_RenderCopy(scene->window->renderer_window, this->textures[this->actual_image], &this->size, &this->pos);
     current_time = SDL_GetTicks();
     if (current_time > this->last_time + this->speed && this->animations != 0) {
         this->actual_image = (this->actual_image + 1) % this->nb_images;
@@ -77,8 +76,8 @@ void TAnimatedSprites_Draw(TAnimatedSprites *this, TFrame *frame)
         if (this->actual_image == 0 && this->animations > 0)
             (this->animations)--;
     }
-    if (this->animations == 0 && frame->Free_Drawable_Obj)
-        frame->Free_Drawable_Obj(frame, (TDrawable*)this);
+    if (this->animations == 0 && scene->Free_Drawable_Obj)
+        scene->Free_Drawable_Obj(scene, (TDrawable*)this);
 }
 
 void TAnimatedSprites_New_Free(TAnimatedSprites *this)

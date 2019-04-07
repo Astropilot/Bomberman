@@ -35,11 +35,11 @@ TLobbyClient* New_TLobbyClient()
 
     this->client = NULL;
     this->gameserver = NULL;
-    this->lobby_frame = NULL;
+    this->lobby_scene = NULL;
     this->is_owner = 0;
     this->player = -1;
     this->nb_players = 0;
-    this->Register_Frame = TLobbyClient_Register_Frame;
+    this->Register_Scene = TLobbyClient_Register_Scene;
     this->Start_Server = TLobbyClient_Start_Server;
     this->Join_Lobby = TLobbyClient_Join_Lobby;
     this->Start_Game = TLobbyClient_Start_Game;
@@ -49,10 +49,10 @@ TLobbyClient* New_TLobbyClient()
     return (this);
 }
 
-TFrame *TLobbyClient_Register_Frame(TLobbyClient *this, TFrame *frame)
+TScene *TLobbyClient_Register_Scene(TLobbyClient *this, TScene *scene)
 {
-    this->lobby_frame = frame;
-    return (frame);
+    this->lobby_scene = scene;
+    return (scene);
 }
 
 void TLobbyClient_Start_Server(TLobbyClient *this, int port, int max_clients)
@@ -128,7 +128,7 @@ void TLobbyClient_Leave_Lobby(TLobbyClient *this)
         this->gameserver->Free(this->gameserver);
         this->gameserver = NULL;
     }
-    this->lobby_frame->window->Show_Frame(this->lobby_frame->window, "FRAME_MAIN_MENU", 0);
+    this->lobby_scene->window->Show_Scene(this->lobby_scene->window, "SCENE_MAIN_MENU", 0);
 }
 
 void TLobbyClient_New_Free(TLobbyClient *this)

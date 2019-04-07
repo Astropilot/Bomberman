@@ -27,7 +27,7 @@
 #include "pathfinding/pathfinding.h"
 #include "drawable.h"
 #include "window.h"
-#include "frame.h"
+#include "scene.h"
 #include "sprite.h"
 #include "sprite_animated.h"
 #include "sprites_animated.h"

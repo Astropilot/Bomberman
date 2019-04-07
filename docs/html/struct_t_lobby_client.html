@@ -77,8 +77,8 @@ $(document).ready(function(){initNavTree('struct_t_lobby_client.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a49367fbe7aac39b60d4cf54dc551c2f4"><td class="memItemLeft" align="right" valign="top">TFrame *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_lobby_client.html#a49367fbe7aac39b60d4cf54dc551c2f4">Register_Frame</a> )(struct <a class="el" href="struct_t_lobby_client.html">TLobbyClient</a> *, TFrame *)</td></tr>
-<tr class="separator:a49367fbe7aac39b60d4cf54dc551c2f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa55cc26780b9cee25a16e1fb25c094ab"><td class="memItemLeft" align="right" valign="top">TScene *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_lobby_client.html#aa55cc26780b9cee25a16e1fb25c094ab">Register_Scene</a> )(struct <a class="el" href="struct_t_lobby_client.html">TLobbyClient</a> *, TScene *)</td></tr>
+<tr class="separator:aa55cc26780b9cee25a16e1fb25c094ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a244ac22672d2a2ce858ebfd14ab5884a"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_lobby_client.html#a244ac22672d2a2ce858ebfd14ab5884a">Start_Server</a> )(struct <a class="el" href="struct_t_lobby_client.html">TLobbyClient</a> *, int, int)</td></tr>
 <tr class="separator:a244ac22672d2a2ce858ebfd14ab5884a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a312ff76a0818b5ed6ec79049f663d0bb"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_lobby_client.html#a312ff76a0818b5ed6ec79049f663d0bb">Join_Lobby</a> )(struct <a class="el" href="struct_t_lobby_client.html">TLobbyClient</a> *, const char *, const char *, int)</td></tr>
@@ -95,8 +95,8 @@ Data Fields</h2></td></tr>
 <tr class="separator:a553b15dc46a09f5db62dd7da67685eba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0fabd8bdb7bd6db879fd9762b1cd095b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_game_server.html">TGameServer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_lobby_client.html#a0fabd8bdb7bd6db879fd9762b1cd095b">gameserver</a></td></tr>
 <tr class="separator:a0fabd8bdb7bd6db879fd9762b1cd095b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f88aba76bfc195c3ab586a8c2b1bbea"><td class="memItemLeft" align="right" valign="top">TFrame *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_lobby_client.html#a0f88aba76bfc195c3ab586a8c2b1bbea">lobby_frame</a></td></tr>
-<tr class="separator:a0f88aba76bfc195c3ab586a8c2b1bbea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a168f9b4e3e7dc3ed09f1ab7310b7344d"><td class="memItemLeft" align="right" valign="top">TScene *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_lobby_client.html#a168f9b4e3e7dc3ed09f1ab7310b7344d">lobby_scene</a></td></tr>
+<tr class="separator:a168f9b4e3e7dc3ed09f1ab7310b7344d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73b3a162014910abb96c2ca5f0835b81"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_lobby_client.html#a73b3a162014910abb96c2ca5f0835b81">is_owner</a></td></tr>
 <tr class="separator:a73b3a162014910abb96c2ca5f0835b81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae78f447e0fc84c538b91b0cc8c8a34fa"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_lobby_client.html#ae78f447e0fc84c538b91b0cc8c8a34fa">player</a></td></tr>
@@ -213,18 +213,18 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a0f88aba76bfc195c3ab586a8c2b1bbea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f88aba76bfc195c3ab586a8c2b1bbea">&#9670;&nbsp;</a></span>lobby_frame</h2>
+<a id="a168f9b4e3e7dc3ed09f1ab7310b7344d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a168f9b4e3e7dc3ed09f1ab7310b7344d">&#9670;&nbsp;</a></span>lobby_scene</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">TFrame* lobby_frame</td>
+          <td class="memname">TScene* lobby_scene</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The UI frame corresponding to the lobby. </p>
+<p>The UI scene corresponding to the lobby. </p>
 
 </div>
 </div>
@@ -258,18 +258,18 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a49367fbe7aac39b60d4cf54dc551c2f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49367fbe7aac39b60d4cf54dc551c2f4">&#9670;&nbsp;</a></span>Register_Frame</h2>
+<a id="aa55cc26780b9cee25a16e1fb25c094ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa55cc26780b9cee25a16e1fb25c094ab">&#9670;&nbsp;</a></span>Register_Scene</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">TFrame*(* Register_Frame) (struct <a class="el" href="struct_t_lobby_client.html">TLobbyClient</a> *, TFrame *)</td>
+          <td class="memname">TScene*(* Register_Scene) (struct <a class="el" href="struct_t_lobby_client.html">TLobbyClient</a> *, TScene *)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Method for register the UI frame used for the lobby. </p>
+<p>Method for register the UI scene used for the lobby. </p>
 
 </div>
 </div>

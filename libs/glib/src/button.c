@@ -14,53 +14,53 @@
 #include <SDL2/SDL.h>
 
 #include "button.h"
-#include "frame.h"
+#include "scene.h"
 
-static void TButton_Init(TButton *this, TFrame *frame, const char *btn_s, const char *btn_hs, SDL_Rect pos);
+static void TButton_Init(TButton *this, TScene *scene, const char *btn_s, const char *btn_hs, SDL_Rect pos);
 
-TButton* New_TButton(TFrame *frame, const char *btn_s, const char *btn_hs, SDL_Rect pos)
+TButton* New_TButton(TScene *scene, const char *btn_s, const char *btn_hs, SDL_Rect pos)
 {
     TButton *this = malloc(sizeof(TButton));
 
     if(!this) return (NULL);
-    TButton_Init(this, frame, btn_s, btn_hs, pos);
+    TButton_Init(this, scene, btn_s, btn_hs, pos);
     this->Free = TButton_New_Free;
     return (this);
 }
 
-static void TButton_Init(TButton *this, TFrame *frame, const char *btn_s, const char *btn_hs, SDL_Rect pos)
+static void TButton_Init(TButton *this, TScene *scene, const char *btn_s, const char *btn_hs, SDL_Rect pos)
 {
-    if (!this || !frame || !btn_s || !btn_hs) return;
+    if (!this || !scene || !btn_s || !btn_hs) return;
 
     this->Draw = TButton_Draw;
     this->Event_Handler = TButton_Event_Handler;
-    this->btn_sprite = New_TSprite(frame, btn_s, pos);
-    this->btn_hover_sprite = New_TSprite(frame, btn_hs, pos);
+    this->btn_sprite = New_TSprite(scene, btn_s, pos);
+    this->btn_hover_sprite = New_TSprite(scene, btn_hs, pos);
     this->state = BUTTON_NORMAL;
     this->pos = pos;
     this->is_visible = 1;
 }
 
 
-void TButton_Draw(TButton *this, TFrame *frame)
+void TButton_Draw(TButton *this, TScene *scene)
 {
-    if (!this || !frame || !this->btn_sprite || !this->btn_hover_sprite) return;
+    if (!this || !scene || !this->btn_sprite || !this->btn_hover_sprite) return;
 
     this->btn_sprite->pos = this->pos;
     this->btn_hover_sprite->pos = this->pos;
 
     switch (this->state) {
         case BUTTON_NORMAL:
-            this->btn_sprite->Draw(this->btn_sprite, frame);
+            this->btn_sprite->Draw(this->btn_sprite, scene);
             break;
         case BUTTON_HOVER:
-            this->btn_hover_sprite->Draw(this->btn_hover_sprite, frame);
+            this->btn_hover_sprite->Draw(this->btn_hover_sprite, scene);
     }
 }
 
-void TButton_Event_Handler(TButton *this, TFrame *frame, SDL_Event event)
+void TButton_Event_Handler(TButton *this, TScene *scene, SDL_Event event)
 {
-    if (!this || !frame) return;
+    if (!this || !scene) return;
 
     if( event.type == SDL_MOUSEMOTION || event.type == SDL_MOUSEBUTTONUP ) {
         int x;
@@ -73,7 +73,7 @@ void TButton_Event_Handler(TButton *this, TFrame *frame, SDL_Event event)
                 this->state = BUTTON_HOVER;
         if (event.type == SDL_MOUSEBUTTONUP && this->state == BUTTON_HOVER)
             if (this->On_Click)
-                this->On_Click(this, frame);
+                this->On_Click(this, scene);
     }
 }
 

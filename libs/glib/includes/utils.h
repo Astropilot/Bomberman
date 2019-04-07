@@ -25,20 +25,20 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-typedef struct TFrame TFrame;
+typedef struct TScene TScene;
 
 /**
- * @fn SDL_Texture *createText(TFrame *frame, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect *pos)
+ * @fn SDL_Texture *createText(TScene *scene, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect *pos)
  * @brief Util function for create a SDL texture from a text, a font and a color.
  *
- * @param frame A pointer to the window object.
+ * @param scene A pointer to the window object.
  * @param text The text.
  * @param font The font of the text.
  * @param color The color of the text.
  * @param pos The position of the text.
  * @return A pointer to a SDL_Texture of the text.
  */
-SDL_Texture *createText(TFrame *frame, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect *pos);
+SDL_Texture *createText(TScene *scene, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect *pos);
 
 /**
  * @fn TTF_Font *loadFont(const char *font_file, unsigned int font_size)

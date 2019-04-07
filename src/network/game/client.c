@@ -20,7 +20,7 @@
 #include "logic/client.h"
 #include "core/extra.h"
 #include "core/player.h"
-#include "ui/frame_game.h"
+#include "ui/scene_game.h"
 #include "network/network.h"
 #include "network/game/server.h"
 #include "network/packets/packet.h"
@@ -38,10 +38,10 @@ TGameClient* New_TGameClient()
 
     this->client = NULL;
     this->gameserver = NULL;
-    this->game_frame = NULL;
+    this->game_scene = NULL;
     this->is_owner = 0;
     this->player = -1;
-    this->Register_Frame = TGameClient_Register_Frame;
+    this->Register_Scene = TGameClient_Register_Scene;
     this->Ready = TGameClient_Ready;
     this->Move = TGameClient_Move;
     this->Place_Bomb = TGameClient_Place_Bomb;
@@ -51,10 +51,10 @@ TGameClient* New_TGameClient()
     return (this);
 }
 
-TFrame *TGameClient_Register_Frame(TGameClient *this, TFrame *frame)
+TScene *TGameClient_Register_Scene(TGameClient *this, TScene *scene)
 {
-    this->game_frame = frame;
-    return (frame);
+    this->game_scene = scene;
+    return (scene);
 }
 
 void TGameClient_Ready(TGameClient *this)
@@ -131,7 +131,7 @@ void TGameClient_Leave_Game(TGameClient *this)
         this->gameserver->Free(this->gameserver);
         this->gameserver = NULL;
     }
-    this->game_frame->window->Show_Frame(this->game_frame->window, "FRAME_MAIN_MENU", 0);
+    this->game_scene->window->Show_Scene(this->game_scene->window, "SCENE_MAIN_MENU", 0);
 }
 
 void TGameClient_New_Free(TGameClient *this)

@@ -16,25 +16,25 @@
 #include <SDL2/SDL_ttf.h>
 
 #include "text.h"
-#include "frame.h"
+#include "scene.h"
 #include "window.h"
 #include "utils.h"
 
-static void TText_Init(TText *this, TFrame *frame, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect pos);
+static void TText_Init(TText *this, TScene *scene, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect pos);
 
-TText* New_TText(TFrame *frame, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect pos)
+TText* New_TText(TScene *scene, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect pos)
 {
     TText *this = malloc(sizeof(TText));
 
     if(!this) return (NULL);
-    TText_Init(this, frame, text, font, color, pos);
+    TText_Init(this, scene, text, font, color, pos);
     this->Free = TText_New_Free;
     return (this);
 }
 
-static void TText_Init(TText *this, TFrame *frame, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect pos)
+static void TText_Init(TText *this, TScene *scene, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect pos)
 {
-    if (!this || !frame || !text || !font) return;
+    if (!this || !scene || !text || !font) return;
 
     this->Draw = TText_Draw;
     this->Change_Text = TText_Change_Text;
@@ -42,26 +42,26 @@ static void TText_Init(TText *this, TFrame *frame, const char *text, TTF_Font *f
     this->pos = pos;
     this->font = font;
     this->color = color;
-    this->texture = createText(frame, this->text, font, color, &this->pos);
+    this->texture = createText(scene, this->text, font, color, &this->pos);
     this->is_visible = 1;
 }
 
-void TText_Draw(TText *this, TFrame *frame)
+void TText_Draw(TText *this, TScene *scene)
 {
-    if (!this || !frame || !this->texture) return;
+    if (!this || !scene || !this->texture) return;
 
-    SDL_RenderCopy(frame->window->renderer_window, this->texture, NULL, &this->pos);
+    SDL_RenderCopy(scene->window->renderer_window, this->texture, NULL, &this->pos);
 }
 
-void TText_Change_Text(TText *this, TFrame *frame, const char *text)
+void TText_Change_Text(TText *this, TScene *scene, const char *text)
 {
-    if (!this || !frame || !text) return;
+    if (!this || !scene || !text) return;
 
     free(this->text);
     SDL_DestroyTexture(this->texture);
 
     this->text = strdup(text);
-    this->texture = createText(frame, this->text, this->font, this->color, &this->pos);
+    this->texture = createText(scene, this->text, this->font, this->color, &this->pos);
 }
 
 void TText_New_Free(TText *this)

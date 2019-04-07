@@ -9,5 +9,5 @@ var network_2game_2client_8h =
     [ "TGameClient_New_Free", "network_2game_2client_8h.html#a2135f2d8d3b3f8988d9971f3e1a7f270", null ],
     [ "TGameClient_Place_Bomb", "network_2game_2client_8h.html#af4139d91d80a9020482e073b8da92196", null ],
     [ "TGameClient_Ready", "network_2game_2client_8h.html#af19ac54f70f602c9dfbc734314cf8b23", null ],
-    [ "TGameClient_Register_Frame", "network_2game_2client_8h.html#a42e47c66ff3bd1bd831435aa60d67b41", null ]
+    [ "TGameClient_Register_Scene", "network_2game_2client_8h.html#a0fd34402e29047e4bb20a37dbb06d218", null ]
 ];
