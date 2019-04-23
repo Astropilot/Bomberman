@@ -23,8 +23,18 @@
 #define GLIB_CACHE_H_
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 
 typedef struct TWindow TWindow;
+
+/**
+ * @brief Constants of the types of resources.
+ */
+typedef enum TResource_Type {
+    GRAPHICAL,
+    SHORT_AUDIO,
+    LONG_AUDIO
+} TResource_Type ;
 
 /**
  * @brief A linked list for resource caching database.
@@ -33,7 +43,8 @@ typedef struct TWindow TWindow;
  */
 typedef struct TResource_Node {
     unsigned long res_id;           /*!< The unique ID of the resource. */
-    SDL_Surface *surface;           /*!< The SDL surface of the resource. */
+    void *resource;                 /*!< The SDL resource. */
+    TResource_Type type;            /*!< The type of resource. */
     struct TResource_Node *next;    /*!< A pointer to the next TResource_Node. */
 } TResource_Node ;
 
@@ -44,15 +55,13 @@ typedef struct TResource_Node {
  */
 typedef struct TResourceCache {
 
-    SDL_Surface*(*CacheResource)(struct TResourceCache*, const char*);      /*!< Method for cache a resource. */
+    void*(*CacheResource)(struct TResourceCache*, const char*, TResource_Type);         /*!< Method for cache a resource. */
 
-    SDL_Surface*(*FetchSurface)(struct TResourceCache*, const char*);       /*!< Method for fetch a resource Surface. */
+    void*(*FetchResource)(struct TResourceCache*, const char*, TResource_Type);         /*!< Method for fetch a resource. */
 
-    SDL_Texture*(*FetchTexture)(struct TResourceCache*, const char*);       /*!< Method for fetch a resource Texture. */
+    void(*ClearCache)(struct TResourceCache*);                                          /*!< Method for clear the cache. */
 
-    void(*ClearCache)(struct TResourceCache*);                              /*!< Method for clear the cache. */
-
-    void(*Free)(struct TResourceCache*);                                    /*!< Free (ressources) method. */
+    void(*Free)(struct TResourceCache*);                                                /*!< Free (ressources) method. */
 
     TResource_Node *cache;          /*!< The internal cache database. */
     unsigned int count_cache;       /*!< The amount of resources cached. */
@@ -62,7 +71,6 @@ typedef struct TResourceCache {
 } TResourceCache ;
 
 /**
- * @fn TResourceCache* New_TResourceCache(TWindow *window, unsigned int max_cache)
  * @brief The constructor for create a TResourceCache object.
  *
  * @param window A pointer to the window object.
@@ -72,49 +80,34 @@ typedef struct TResourceCache {
 TResourceCache* New_TResourceCache(TWindow *window, unsigned int max_cache);
 
 /**
- * @fn SDL_Surface* TResourceCache_CacheResource(TResourceCache *this, const char *res_path)
  * @brief Method for add to cache a resource.
  *
  * @param this A pointer to the cache manager object.
  * @param res_path The path of the resource to cache.
+ * @param type The type of resource to cache.
  * @return Return an SDL_Surface of the resource.
  *
  * You do not have to call this method directly. You must use the
  * CacheResource method of the TResourceCache structure like this:
  * my_cache->CacheResource(my_cache, "images/sample_resource.png");
  */
-SDL_Surface* TResourceCache_CacheResource(TResourceCache *this, const char *res_path);
+void* TResourceCache_CacheResource(TResourceCache *this, const char *res_path, TResource_Type type);
 
 /**
- * @fn SDL_Surface *TResourceCache_FetchSurface(TResourceCache *this, const char *res_path)
- * @brief Method for fetch a resource Surface from cache or a new resource if not cached.
+ * @brief Method for fetch a resource from cache or a new resource if not cached.
  *
  * @param this A pointer to the cache manager object.
  * @param res_path The path of the resource to cache.
- * @return Return an SDL_Surface of the resource.
+ * @param type The type of resource to cache.
+ * @return Return an SDL object of the resource.
  *
  * You do not have to call this method directly. You must use the
- * FetchSurface method of the TResourceCache structure like this:
- * my_cache->FetchSurface(my_cache, "images/sample_resource.png");
+ * FetchResource method of the TResourceCache structure like this:
+ * my_cache->FetchResource(my_cache, "images/sample_resource.png");
  */
-SDL_Surface *TResourceCache_FetchSurface(TResourceCache *this, const char *res_path);
+void *TResourceCache_FetchResource(TResourceCache *this, const char *res_path, TResource_Type type);
 
 /**
- * @fn SDL_Texture *TResourceCache_FetchTexture(TResourceCache *this, const char *res_path)
- * @brief Method for fetch a resource Texture from cache or a new resource if not cached.
- *
- * @param this A pointer to the cache manager object.
- * @param res_path The path of the resource to cache.
- * @return Return an SDL_Texture of the resource.
- *
- * You do not have to call this method directly. You must use the
- * FetchTexture method of the TResourceCache structure like this:
- * my_cache->FetchTexture(my_cache, "images/sample_resource.png");
- */
-SDL_Texture *TResourceCache_FetchTexture(TResourceCache *this, const char *res_path);
-
-/**
- * @fn void TResourceCache_ClearCache(TResourceCache *this)
  * @brief Method for clear the cache.
  *
  * @param this A pointer to the cache manager object.
@@ -126,7 +119,6 @@ SDL_Texture *TResourceCache_FetchTexture(TResourceCache *this, const char *res_p
 void TResourceCache_ClearCache(TResourceCache *this);
 
 /**
- * @fn void TResourceCache_New_Free(TResourceCache *this)
  * @brief Method to free all ressources take by the cache manager.
  *
  * @param this A pointer to the cache manager object.

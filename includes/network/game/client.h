@@ -58,7 +58,6 @@ typedef struct TGameClient {
 } TGameClient ;
 
 /**
- * @fn TGameClient* New_TGameClient()
  * @brief The constructor for create a TGameClient object.
  *
  * @return A memory allocated object of the game client.
@@ -66,7 +65,6 @@ typedef struct TGameClient {
 TGameClient* New_TGameClient();
 
 /**
- * @fn TScene *TGameClient_Register_Scene(TGameClient *this, TScene *scene)
  * @brief Method for register the UI scene responsible for displaying the game.
  *
  * @param this A pointer to the game client object.
@@ -80,7 +78,6 @@ TGameClient* New_TGameClient();
 TScene *TGameClient_Register_Scene(TGameClient *this, TScene *scene);
 
 /**
- * @fn void TGameClient_Ready(TGameClient *this)
  * @brief Method to inform the server that this client is ready to start the game.
  *
  * @param this A pointer to the game client object.
@@ -92,7 +89,6 @@ TScene *TGameClient_Register_Scene(TGameClient *this, TScene *scene);
 void TGameClient_Ready(TGameClient *this);
 
 /**
- * @fn void TGameClient_Move(TGameClient *this, direction_t direction)
  * @brief Method to inform the server that this client want to move in a specific direction.
  *
  * @param this A pointer to the game client object.
@@ -105,7 +101,6 @@ void TGameClient_Ready(TGameClient *this);
 void TGameClient_Move(TGameClient *this, direction_t direction);
 
 /**
- * @fn void TGameClient_Place_Bomb(TGameClient *this)
  * @brief Method to inform the server that this client want to drop a bomb.
  *
  * @param this A pointer to the game client object.
@@ -117,7 +112,6 @@ void TGameClient_Move(TGameClient *this, direction_t direction);
 void TGameClient_Place_Bomb(TGameClient *this);
 
 /**
- * @fn void TGameClient_Handle_Messages(TGameClient *this)
  * @brief Method that handle the messages sended by the server.
  *
  * @param this A pointer to the game client object.
@@ -129,7 +123,6 @@ void TGameClient_Place_Bomb(TGameClient *this);
 void TGameClient_Handle_Messages(TGameClient *this);
 
 /**
- * @fn void TGameClient_Leave_Game(TGameClient *this)
  * @brief Method to inform the server that this client leave the game.
  *
  * @param this A pointer to the game client object.
@@ -141,7 +134,6 @@ void TGameClient_Handle_Messages(TGameClient *this);
 void TGameClient_Leave_Game(TGameClient *this);
 
 /**
- * @fn void TGameClient_New_Free(TGameClient *this)
  * @brief Method to free all ressources take by the game client.
  *
  * @param this A pointer to the game client object to free.

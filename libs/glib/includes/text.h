@@ -35,13 +35,13 @@ typedef struct TScene TScene;
  */
 typedef struct TText {
 
-    void(*Draw)(struct TText*, TScene*);        /*!< Draw method. */
+    void(*Draw)(struct TText*, TScene*);                        /*!< Draw method. */
 
-    void(*Free)(struct TText*);                 /*!< Free (ressources) method. */
+    void(*Free)(struct TText*);                                 /*!< Free (ressources) method. */
 
-    unsigned int is_visible;                    /*!< Boolean to know if the drawable can be drawed automatically. */
+    unsigned int is_visible;                                    /*!< Boolean to know if the drawable can be drawed automatically. */
 
-    void(*Change_Text)(struct TText*, TScene*, const char*); /*!< Method to change the actual text. */
+    void(*Change_Text)(struct TText*, TScene*, const char*);    /*!< Method to change the actual text. */
 
     char *text;                                 /*!< The text to be drawed. */
     SDL_Texture *texture;                       /*!< The SDL texture of the text. */
@@ -52,7 +52,6 @@ typedef struct TText {
 } TText ;
 
 /**
- * @fn TText* New_TText(TScene *scene, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect pos)
  * @brief The constructor for create a TText object.
  *
  * @param scene A pointer to the window object.
@@ -65,7 +64,6 @@ typedef struct TText {
 TText* New_TText(TScene *scene, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect pos);
 
 /**
- * @fn void TText_Draw(TText *this, TScene *scene)
  * @brief Method for drawing the text in the interface.
  *
  * @param this A pointer to the text object to draw.
@@ -78,7 +76,6 @@ TText* New_TText(TScene *scene, const char *text, TTF_Font *font, SDL_Color colo
 void TText_Draw(TText *this, TScene *scene);
 
 /**
- * @fn void TText_Change_Text(TText *this, TScene *scene, const char *text)
  * @brief Method for changing the text.
  *
  * @param this A pointer to the text object.
@@ -92,7 +89,6 @@ void TText_Draw(TText *this, TScene *scene);
 void TText_Change_Text(TText *this, TScene *scene, const char *text);
 
 /**
- * @fn void TText_New_Free(TText *this)
  * @brief Method to free all ressources take by the text.
  *
  * @param this A pointer to the text object to free.

@@ -111,7 +111,7 @@ int TWindow_Create_Window(TWindow *this, const char *title, int width, int heigh
 {
     if (!this || !title || !scene_id) return (0);
 
-    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
         fprintf(stderr, "Error while loading game window (SDL): %s!\n", SDL_GetError());
         return (0);
     }
@@ -127,19 +127,25 @@ int TWindow_Create_Window(TWindow *this, const char *title, int width, int heigh
     }
     this->renderer_window = SDL_CreateRenderer(this->screen_window, -1, SDL_RENDERER_ACCELERATED);
     if (this->renderer_window == NULL) {
-        fprintf(stderr, "Error while loading game window (SDL): %s!\n", SDL_GetError());
+        fprintf(stderr, "Error while loading game window (SDL): %s\n", SDL_GetError());
         return (0);
     }
 
     if ( (IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG ) {
-        fprintf(stderr, "Error while loading IMG Plugin (SDL): %s!\n", IMG_GetError());
+        fprintf(stderr, "Error while loading IMG Plugin (SDL): %s\n", IMG_GetError());
         return (0);
     }
 
-    if(TTF_Init() == -1) {
-        fprintf(stderr, "Error while loading TTF (SDL): %s!\n", TTF_GetError());
+    if (TTF_Init() == -1) {
+        fprintf(stderr, "Error while loading TTF (SDL): %s\n", TTF_GetError());
         return (0);
     }
+
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048 ) == -1) {
+        fprintf(stderr, "Error while loading SDL_mixer (SDL): %s\n", Mix_GetError());
+        return (0);
+    }
+    Mix_AllocateChannels(10);
 
     this->fps = fps;
     TWindow_Show_Scene(this, scene_id, 0);
@@ -210,6 +216,7 @@ void TWindow_New_Free(TWindow *this)
     if (this) {
         TWindow_Free_Scenes(this);
         this->cache_manager->Free(this->cache_manager);
+        Mix_CloseAudio();
         TTF_Quit();
         IMG_Quit();
         SDL_DestroyRenderer(this->renderer_window);

@@ -47,7 +47,6 @@ typedef struct TAckMovePacket {
 } TAckMovePacket ;
 
 /**
- * @fn TAckMovePacket *New_TAckMovePacket(unsigned char *raw)
  * @brief The constructor for create a TAckMovePacket object.
  *
  * @return A memory allocated object of the packet.
@@ -55,7 +54,6 @@ typedef struct TAckMovePacket {
 TAckMovePacket *New_TAckMovePacket(unsigned char *raw);
 
 /**
- * @fn int TAckMovePacket_Serialize(TAckMovePacket *this)
  * @brief Method to serialize the packet into a low-level buffer.
  *
  * @param this A pointer to the packet object.
@@ -68,7 +66,6 @@ TAckMovePacket *New_TAckMovePacket(unsigned char *raw);
 int TAckMovePacket_Serialize(TAckMovePacket *this);
 
 /**
- * @fn void TAckMovePacket_Unserialize(TAckMovePacket *this)
  * @brief Method to de-serialize the low-level buffer into the packet.
  *
  * @param this A pointer to the packet object.
@@ -80,7 +77,6 @@ int TAckMovePacket_Serialize(TAckMovePacket *this);
 void TAckMovePacket_Unserialize(TAckMovePacket *this);
 
 /**
- * @fn void TAckMovePacket_New_Free(TAckMovePacket *this)
  * @brief Method to free the resource take by the object.
  *
  * @param this A pointer to the packet object.

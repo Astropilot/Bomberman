@@ -9,7 +9,7 @@ var packet__ack__connect_8h =
       [ "GAME_STARTED", "packet__ack__connect_8h.html#a16e71ed8f48e0d2f5f1a66c0f958785ba40cb592fc4860fa6621bb4e4abad2253", null ],
       [ "UNDEFINED", "packet__ack__connect_8h.html#a16e71ed8f48e0d2f5f1a66c0f958785ba605159e8a4c32319fd69b5d151369d93", null ]
     ] ],
-    [ "New_TAckConnectPacket", "packet__ack__connect_8h.html#af118ba915f0ee1270353aebbc4a55cd9", null ],
+    [ "New_TAckConnectPacket", "packet__ack__connect_8h.html#af19d2339324925492b294eb16658d05c", null ],
     [ "TAckConnectPacket_New_Free", "packet__ack__connect_8h.html#ae2e60fa488e1040eefe6f213f4a2f6fe", null ],
     [ "TAckConnectPacket_Serialize", "packet__ack__connect_8h.html#a8af3a3e40edfb2abbd87e94ea25ab477", null ],
     [ "TAckConnectPacket_Unserialize", "packet__ack__connect_8h.html#a3c17e6c61e4b6b4138d92db7c50cb611", null ]

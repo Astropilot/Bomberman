@@ -12,7 +12,7 @@
 #*******************************************************************************
 
 CC		= gcc
-SDL		= -lSDL2 -lSDL2_ttf -lSDL2_image
+SDL		= -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer
 CFLAGS	= -Wall -Wextra -Werror -g -Iincludes/ $(SDL)
 
 NAME	= libglib.a

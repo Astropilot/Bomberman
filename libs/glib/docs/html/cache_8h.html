@@ -66,6 +66,7 @@ $(document).ready(function(){initNavTree('cache_8h.html','');});
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">cache.h File Reference</div>  </div>
@@ -75,6 +76,7 @@ $(document).ready(function(){initNavTree('cache_8h.html','');});
 <p>Header file of resource caching manipulation.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;SDL2/SDL.h&gt;</code><br />
+<code>#include &lt;SDL2/SDL_mixer.h&gt;</code><br />
 </div>
 <p><a href="cache_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -92,6 +94,10 @@ Typedefs</h2></td></tr>
 <tr class="memitem:aa59060f6eceb53949052e8072d070f7a"><td class="memItemLeft" align="right" valign="top"><a id="aa59060f6eceb53949052e8072d070f7a"></a>
 typedef struct <a class="el" href="struct_t_window.html">TWindow</a>&#160;</td><td class="memItemRight" valign="bottom"><b>TWindow</b></td></tr>
 <tr class="separator:aa59060f6eceb53949052e8072d070f7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9091c8f320d91adda62b6cd5816496ba"><td class="memItemLeft" align="right" valign="top"><a id="a9091c8f320d91adda62b6cd5816496ba"></a>
+typedef enum <a class="el" href="cache_8h.html#a9324ae99244636f1aada6711d34d6b72">TResource_Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cache_8h.html#a9091c8f320d91adda62b6cd5816496ba">TResource_Type</a></td></tr>
+<tr class="memdesc:a9091c8f320d91adda62b6cd5816496ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constants of the types of resources. <br /></td></tr>
+<tr class="separator:a9091c8f320d91adda62b6cd5816496ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69695e43d16b2817093b141032ab4625"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct_t_resource___node.html">TResource_Node</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cache_8h.html#a69695e43d16b2817093b141032ab4625">TResource_Node</a></td></tr>
 <tr class="memdesc:a69695e43d16b2817093b141032ab4625"><td class="mdescLeft">&#160;</td><td class="mdescRight">A linked list for resource caching database.  <a href="#a69695e43d16b2817093b141032ab4625">More...</a><br /></td></tr>
 <tr class="separator:a69695e43d16b2817093b141032ab4625"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -99,20 +105,26 @@ typedef struct <a class="el" href="struct_t_window.html">TWindow</a>&#160;</td><
 <tr class="memdesc:a72d0c8a07bc2426ad121fc04c688917f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Object oriented structure representing a caching util.  <a href="#a72d0c8a07bc2426ad121fc04c688917f">More...</a><br /></td></tr>
 <tr class="separator:a72d0c8a07bc2426ad121fc04c688917f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a9324ae99244636f1aada6711d34d6b72"><td class="memItemLeft" align="right" valign="top"><a id="a9324ae99244636f1aada6711d34d6b72"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cache_8h.html#a9324ae99244636f1aada6711d34d6b72">TResource_Type</a> { <b>GRAPHICAL</b>, 
+<b>SHORT_AUDIO</b>, 
+<b>LONG_AUDIO</b>
+ }</td></tr>
+<tr class="memdesc:a9324ae99244636f1aada6711d34d6b72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constants of the types of resources. <br /></td></tr>
+<tr class="separator:a9324ae99244636f1aada6711d34d6b72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad7e556b0553ef6e0e744e12509324517"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cache_8h.html#ad7e556b0553ef6e0e744e12509324517">New_TResourceCache</a> (<a class="el" href="struct_t_window.html">TWindow</a> *window, unsigned int max_cache)</td></tr>
-<tr class="memdesc:ad7e556b0553ef6e0e744e12509324517"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor for create a <a class="el" href="struct_t_resource_cache.html" title="Object oriented structure representing a caching util.">TResourceCache</a> object.  <a href="#ad7e556b0553ef6e0e744e12509324517">More...</a><br /></td></tr>
-<tr class="separator:ad7e556b0553ef6e0e744e12509324517"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9077d7f956630a1c450f48f989fae84d"><td class="memItemLeft" align="right" valign="top">SDL_Surface *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cache_8h.html#a9077d7f956630a1c450f48f989fae84d">TResourceCache_CacheResource</a> (<a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *this, const char *res_path)</td></tr>
-<tr class="memdesc:a9077d7f956630a1c450f48f989fae84d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for add to cache a resource.  <a href="#a9077d7f956630a1c450f48f989fae84d">More...</a><br /></td></tr>
-<tr class="separator:a9077d7f956630a1c450f48f989fae84d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a872ec9eb41b559bcc92287628f862b19"><td class="memItemLeft" align="right" valign="top">SDL_Surface *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cache_8h.html#a872ec9eb41b559bcc92287628f862b19">TResourceCache_FetchSurface</a> (<a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *this, const char *res_path)</td></tr>
-<tr class="memdesc:a872ec9eb41b559bcc92287628f862b19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for fetch a resource Surface from cache or a new resource if not cached.  <a href="#a872ec9eb41b559bcc92287628f862b19">More...</a><br /></td></tr>
-<tr class="separator:a872ec9eb41b559bcc92287628f862b19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff0ff511ac9da9f59206c1ce75e667cb"><td class="memItemLeft" align="right" valign="top">SDL_Texture *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cache_8h.html#aff0ff511ac9da9f59206c1ce75e667cb">TResourceCache_FetchTexture</a> (<a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *this, const char *res_path)</td></tr>
-<tr class="memdesc:aff0ff511ac9da9f59206c1ce75e667cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for fetch a resource Texture from cache or a new resource if not cached.  <a href="#aff0ff511ac9da9f59206c1ce75e667cb">More...</a><br /></td></tr>
-<tr class="separator:aff0ff511ac9da9f59206c1ce75e667cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2a6dcdd5be0dcfbd07d746ac3836d85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cache_8h.html#ab2a6dcdd5be0dcfbd07d746ac3836d85">New_TResourceCache</a> (<a class="el" href="struct_t_window.html">TWindow</a> *window, unsigned int max_cache)</td></tr>
+<tr class="memdesc:ab2a6dcdd5be0dcfbd07d746ac3836d85"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constructor for create a <a class="el" href="struct_t_resource_cache.html" title="Object oriented structure representing a caching util.">TResourceCache</a> object.  <a href="#ab2a6dcdd5be0dcfbd07d746ac3836d85">More...</a><br /></td></tr>
+<tr class="separator:ab2a6dcdd5be0dcfbd07d746ac3836d85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a043cd6999095a7fad25f3cc17e2b7fc7"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cache_8h.html#a043cd6999095a7fad25f3cc17e2b7fc7">TResourceCache_CacheResource</a> (<a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *this, const char *res_path, <a class="el" href="cache_8h.html#a9324ae99244636f1aada6711d34d6b72">TResource_Type</a> type)</td></tr>
+<tr class="memdesc:a043cd6999095a7fad25f3cc17e2b7fc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for add to cache a resource.  <a href="#a043cd6999095a7fad25f3cc17e2b7fc7">More...</a><br /></td></tr>
+<tr class="separator:a043cd6999095a7fad25f3cc17e2b7fc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e715ac8d0b084aaca6f9c2b28da0d5b"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cache_8h.html#a5e715ac8d0b084aaca6f9c2b28da0d5b">TResourceCache_FetchResource</a> (<a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *this, const char *res_path, <a class="el" href="cache_8h.html#a9324ae99244636f1aada6711d34d6b72">TResource_Type</a> type)</td></tr>
+<tr class="memdesc:a5e715ac8d0b084aaca6f9c2b28da0d5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for fetch a resource from cache or a new resource if not cached.  <a href="#a5e715ac8d0b084aaca6f9c2b28da0d5b">More...</a><br /></td></tr>
+<tr class="separator:a5e715ac8d0b084aaca6f9c2b28da0d5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af19e137774ae487b99291b1c449bcc3b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cache_8h.html#af19e137774ae487b99291b1c449bcc3b">TResourceCache_ClearCache</a> (<a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *this)</td></tr>
 <tr class="memdesc:af19e137774ae487b99291b1c449bcc3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for clear the cache.  <a href="#af19e137774ae487b99291b1c449bcc3b">More...</a><br /></td></tr>
 <tr class="separator:af19e137774ae487b99291b1c449bcc3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -159,14 +171,14 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ad7e556b0553ef6e0e744e12509324517"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7e556b0553ef6e0e744e12509324517">&#9670;&nbsp;</a></span>New_TResourceCache()</h2>
+<a id="ab2a6dcdd5be0dcfbd07d746ac3836d85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2a6dcdd5be0dcfbd07d746ac3836d85">&#9670;&nbsp;</a></span>New_TResourceCache()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_t_resource_cache.html">TResourceCache</a> * New_TResourceCache </td>
+          <td class="memname"><a class="el" href="struct_t_resource_cache.html">TResourceCache</a>* New_TResourceCache </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_t_window.html">TWindow</a> *&#160;</td>
           <td class="paramname"><em>window</em>, </td>
@@ -197,14 +209,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a9077d7f956630a1c450f48f989fae84d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9077d7f956630a1c450f48f989fae84d">&#9670;&nbsp;</a></span>TResourceCache_CacheResource()</h2>
+<a id="a043cd6999095a7fad25f3cc17e2b7fc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a043cd6999095a7fad25f3cc17e2b7fc7">&#9670;&nbsp;</a></span>TResourceCache_CacheResource()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">SDL_Surface * TResourceCache_CacheResource </td>
+          <td class="memname">void* TResourceCache_CacheResource </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *&#160;</td>
           <td class="paramname"><em>this</em>, </td>
@@ -213,7 +225,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>res_path</em>&#160;</td>
+          <td class="paramname"><em>res_path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="cache_8h.html#a9324ae99244636f1aada6711d34d6b72">TResource_Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -228,6 +246,7 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">this</td><td>A pointer to the cache manager object. </td></tr>
     <tr><td class="paramname">res_path</td><td>The path of the resource to cache. </td></tr>
+    <tr><td class="paramname">type</td><td>The type of resource to cache. </td></tr>
   </table>
   </dd>
 </dl>
@@ -263,14 +282,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a872ec9eb41b559bcc92287628f862b19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a872ec9eb41b559bcc92287628f862b19">&#9670;&nbsp;</a></span>TResourceCache_FetchSurface()</h2>
+<a id="a5e715ac8d0b084aaca6f9c2b28da0d5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e715ac8d0b084aaca6f9c2b28da0d5b">&#9670;&nbsp;</a></span>TResourceCache_FetchResource()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">SDL_Surface * TResourceCache_FetchSurface </td>
+          <td class="memname">void* TResourceCache_FetchResource </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *&#160;</td>
           <td class="paramname"><em>this</em>, </td>
@@ -279,7 +298,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>res_path</em>&#160;</td>
+          <td class="paramname"><em>res_path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="cache_8h.html#a9324ae99244636f1aada6711d34d6b72">TResource_Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -289,55 +314,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Method for fetch a resource Surface from cache or a new resource if not cached. </p>
+<p>Method for fetch a resource from cache or a new resource if not cached. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">this</td><td>A pointer to the cache manager object. </td></tr>
     <tr><td class="paramname">res_path</td><td>The path of the resource to cache. </td></tr>
+    <tr><td class="paramname">type</td><td>The type of resource to cache. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Return an SDL_Surface of the resource.</dd></dl>
-<p>You do not have to call this method directly. You must use the FetchSurface method of the <a class="el" href="struct_t_resource_cache.html" title="Object oriented structure representing a caching util.">TResourceCache</a> structure like this: my_cache-&gt;FetchSurface(my_cache, "images/sample_resource.png"); </p>
-
-</div>
-</div>
-<a id="aff0ff511ac9da9f59206c1ce75e667cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff0ff511ac9da9f59206c1ce75e667cb">&#9670;&nbsp;</a></span>TResourceCache_FetchTexture()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">SDL_Texture * TResourceCache_FetchTexture </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *&#160;</td>
-          <td class="paramname"><em>this</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>res_path</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Method for fetch a resource Texture from cache or a new resource if not cached. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">this</td><td>A pointer to the cache manager object. </td></tr>
-    <tr><td class="paramname">res_path</td><td>The path of the resource to cache. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Return an SDL_Texture of the resource.</dd></dl>
-<p>You do not have to call this method directly. You must use the FetchTexture method of the <a class="el" href="struct_t_resource_cache.html" title="Object oriented structure representing a caching util.">TResourceCache</a> structure like this: my_cache-&gt;FetchTexture(my_cache, "images/sample_resource.png"); </p>
+<dl class="section return"><dt>Returns</dt><dd>Return an SDL object of the resource.</dd></dl>
+<p>You do not have to call this method directly. You must use the FetchResource method of the <a class="el" href="struct_t_resource_cache.html" title="Object oriented structure representing a caching util.">TResourceCache</a> structure like this: my_cache-&gt;FetchResource(my_cache, "images/sample_resource.png"); </p>
 
 </div>
 </div>

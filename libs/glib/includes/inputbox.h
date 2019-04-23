@@ -59,7 +59,6 @@ typedef struct TInput {
 } TInput ;
 
 /**
- * @fn TInput* TInput* New_TInput(TScene *scene, TSprite *input_sprite, SDL_Color color, size_t len, const char *placeholder, TTF_Font *font)
  * @brief The constructor for create a TInput object.
  *
  * @param scene A pointer to the scene object.
@@ -76,7 +75,6 @@ TInput* New_TInput(
 );
 
 /**
- * @fn void TInput_Draw(TInput *this, TScene *scene)
  * @brief Method for drawing the input box in the interface.
  *
  * @param this A pointer to the input object to draw.
@@ -89,7 +87,6 @@ TInput* New_TInput(
 void TInput_Draw(TInput *this, TScene *scene);
 
 /**
- * @fn void TInput_Event_Handler(TInput *this, SDL_Event event)
  * @brief Method to process an SDL event for manage text input and click focus.
  *
  * @param this A pointer to the input box object.
@@ -102,7 +99,6 @@ void TInput_Draw(TInput *this, TScene *scene);
 void TInput_Event_Handler(TInput *this, SDL_Event event);
 
 /**
- * @fn void TInput_New_Free(TInput *this)
  * @brief Method to free all ressources take by the input box.
  *
  * @param this A pointer to the input box object to free.

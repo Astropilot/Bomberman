@@ -26,7 +26,6 @@
 #include "network/message.h"
 
 /**
- * @fn void handle_lobby_logic(TLobbyClient *lobby, TMessage message, int packet_id)
  * @brief Function that apply the lobby logic corresponding to the packet type received.
  *
  * @param lobby A pointer to the lobby instance.

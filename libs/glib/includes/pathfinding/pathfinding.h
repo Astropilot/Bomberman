@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file pathfinding.h
+ * @file pathfinding/pathfinding.h
  * @brief Some utils function around Graph and Path finding.
  */
 

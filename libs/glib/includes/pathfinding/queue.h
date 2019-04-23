@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file queue.h
+ * @file pathfinding/queue.h
  * @brief Header file of the queue data structure.
  */
 
@@ -45,7 +45,6 @@ typedef struct queue_t {
 } queue_t ;
 
 /**
- * @fn queue_t *create_queue(void)
  * @brief Function to create a new queue.
  *
  * @return Return a new queue or NULL if the creation failed.
@@ -53,7 +52,6 @@ typedef struct queue_t {
 queue_t *create_queue(void);
 
 /**
- * @fn unsigned int push_queue(queue_t *queue, void *data)
  * @brief Function to push a new element in a queue.
  *
  * @param queue The queue.
@@ -63,7 +61,6 @@ queue_t *create_queue(void);
 unsigned int push_queue(queue_t *queue, void *data);
 
 /**
- * @fn void *pop_queue(queue_t *queue)
  * @brief Function to pop a element of a queue.
  *
  * @param queue The queue.
@@ -72,7 +69,6 @@ unsigned int push_queue(queue_t *queue, void *data);
 void *pop_queue(queue_t *queue);
 
 /**
- * @fn unsigned int is_present_in_queue(queue_t *queue, void *data)
  * @brief Function to check if a element is in a queue.
  *
  * @param queue The queue.
@@ -82,7 +78,6 @@ void *pop_queue(queue_t *queue);
 unsigned int is_present_in_queue(queue_t *queue, void *data);
 
 /**
- * @fn unsigned int is_queue_empty(queue_t *queue)
  * @brief Function to check if queue is empty.
  *
  * @param queue The queue.
@@ -91,7 +86,6 @@ unsigned int is_present_in_queue(queue_t *queue, void *data);
 unsigned int is_queue_empty(queue_t *queue);
 
 /**
- * @fn void free_queue(queue_t *queue)
  * @brief Function to free up resources in a queue.
  *
  * @param queue The queue.

@@ -44,7 +44,6 @@ typedef struct TAckMinionUpdatePacket {
 } TAckMinionUpdatePacket ;
 
 /**
- * @fn TAckMinionUpdatePacket *New_TAckMinionUpdatePacket(unsigned char *raw)
  * @brief The constructor for create a TAckMinionUpdatePacket object.
  *
  * @return A memory allocated object of the packet.
@@ -52,7 +51,6 @@ typedef struct TAckMinionUpdatePacket {
 TAckMinionUpdatePacket *New_TAckMinionUpdatePacket(unsigned char *raw);
 
 /**
- * @fn int TAckMinionUpdatePacket_Serialize(TAckMinionUpdatePacket *this)
  * @brief Method to serialize the packet into a low-level buffer.
  *
  * @param this A pointer to the packet object.
@@ -65,7 +63,6 @@ TAckMinionUpdatePacket *New_TAckMinionUpdatePacket(unsigned char *raw);
 int TAckMinionUpdatePacket_Serialize(TAckMinionUpdatePacket *this);
 
 /**
- * @fn void TAckMinionUpdatePacket_Unserialize(TAckMinionUpdatePacket *this)
  * @brief Method to de-serialize the low-level buffer into the packet.
  *
  * @param this A pointer to the packet object.
@@ -77,7 +74,6 @@ int TAckMinionUpdatePacket_Serialize(TAckMinionUpdatePacket *this);
 void TAckMinionUpdatePacket_Unserialize(TAckMinionUpdatePacket *this);
 
 /**
- * @fn void TAckMinionUpdatePacket_New_Free(TAckMinionUpdatePacket *this)
  * @brief Method to free the resource take by the object.
  *
  * @param this A pointer to the packet object.

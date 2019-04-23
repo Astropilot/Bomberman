@@ -42,7 +42,6 @@ typedef struct TReqPlaceBombPacket {
 } TReqPlaceBombPacket ;
 
 /**
- * @fn TReqPlaceBombPacket *New_TReqPlaceBombPacket(unsigned char *raw)
  * @brief The constructor for create a TReqPlaceBombPacket object.
  *
  * @return A memory allocated object of the packet.
@@ -50,7 +49,6 @@ typedef struct TReqPlaceBombPacket {
 TReqPlaceBombPacket *New_TReqPlaceBombPacket(unsigned char *raw);
 
 /**
- * @fn int TReqPlaceBombPacket_Serialize(TReqPlaceBombPacket *this)
  * @brief Method to serialize the packet into a low-level buffer.
  *
  * @param this A pointer to the packet object.
@@ -63,7 +61,6 @@ TReqPlaceBombPacket *New_TReqPlaceBombPacket(unsigned char *raw);
 int TReqPlaceBombPacket_Serialize(TReqPlaceBombPacket *this);
 
 /**
- * @fn void TReqPlaceBombPacket_Unserialize(TReqPlaceBombPacket *this)
  * @brief Method to de-serialize the low-level buffer into the packet.
  *
  * @param this A pointer to the packet object.
@@ -75,7 +72,6 @@ int TReqPlaceBombPacket_Serialize(TReqPlaceBombPacket *this);
 void TReqPlaceBombPacket_Unserialize(TReqPlaceBombPacket *this);
 
 /**
- * @fn void TReqPlaceBombPacket_New_Free(TReqPlaceBombPacket *this)
  * @brief Method to free the resource take by the object.
  *
  * @param this A pointer to the packet object.

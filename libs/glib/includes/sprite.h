@@ -46,7 +46,6 @@ typedef struct TSprite {
 } TSprite ;
 
 /**
- * @fn TSprite* New_TSprite(TScene *scene, const char *file, SDL_Rect pos)
  * @brief The constructor for create a TSprite object.
  *
  * @param scene A pointer to the scene object.
@@ -57,7 +56,6 @@ typedef struct TSprite {
 TSprite* New_TSprite(TScene *scene, const char *file, SDL_Rect pos);
 
 /**
- * @fn void TSprite_Draw(TSprite *this, TScene *scene)
  * @brief Method for drawing the sprite in the interface.
  *
  * @param this A pointer to the sprite object to draw.
@@ -70,7 +68,6 @@ TSprite* New_TSprite(TScene *scene, const char *file, SDL_Rect pos);
 void TSprite_Draw(TSprite *this, TScene *scene);
 
 /**
- * @fn void TSprite_New_Free(TSprite *this)
  * @brief Method to free all ressources take by the sprite.
  *
  * @param this A pointer to the sprite object to free.

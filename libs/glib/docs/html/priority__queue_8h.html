@@ -97,15 +97,15 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0c798d41a0023dc672587ec774a128d7"><td class="memItemLeft" align="right" valign="top"><a id="a0c798d41a0023dc672587ec774a128d7"></a>
-<a class="el" href="structpriority__queue__t.html">priority_queue_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>create_priority_queue</b> (int(*compare)(void *, void *))</td></tr>
+<tr class="memitem:a0c798d41a0023dc672587ec774a128d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpriority__queue__t.html">priority_queue_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="priority__queue_8h.html#a0c798d41a0023dc672587ec774a128d7">create_priority_queue</a> (int(*compare)(void *, void *))</td></tr>
+<tr class="memdesc:a0c798d41a0023dc672587ec774a128d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to create a new priority queue.  <a href="#a0c798d41a0023dc672587ec774a128d7">More...</a><br /></td></tr>
 <tr class="separator:a0c798d41a0023dc672587ec774a128d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abdfed927f502f6be54a10e6e9c7a8a64"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="priority__queue_8h.html#abdfed927f502f6be54a10e6e9c7a8a64">push_priority_queue</a> (<a class="el" href="structpriority__queue__t.html">priority_queue_t</a> *pqueue, void *data)</td></tr>
 <tr class="memdesc:abdfed927f502f6be54a10e6e9c7a8a64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to push a new element in a priority queue.  <a href="#abdfed927f502f6be54a10e6e9c7a8a64">More...</a><br /></td></tr>
 <tr class="separator:abdfed927f502f6be54a10e6e9c7a8a64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a018e9e6ef04014121f02c156999478f5"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="priority__queue_8h.html#a018e9e6ef04014121f02c156999478f5">pop_priority_queue</a> (<a class="el" href="structpriority__queue__t.html">priority_queue_t</a> *pqueue)</td></tr>
-<tr class="memdesc:a018e9e6ef04014121f02c156999478f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to pop a element of a priority queue.  <a href="#a018e9e6ef04014121f02c156999478f5">More...</a><br /></td></tr>
-<tr class="separator:a018e9e6ef04014121f02c156999478f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f4a7da1550fc76d73c5677e96a8354a"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="priority__queue_8h.html#a8f4a7da1550fc76d73c5677e96a8354a">pop_priority_queue</a> (<a class="el" href="structpriority__queue__t.html">priority_queue_t</a> *pqueue)</td></tr>
+<tr class="memdesc:a8f4a7da1550fc76d73c5677e96a8354a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to pop a element of a priority queue.  <a href="#a8f4a7da1550fc76d73c5677e96a8354a">More...</a><br /></td></tr>
+<tr class="separator:a8f4a7da1550fc76d73c5677e96a8354a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae2388fed0e84616ebfa926952d6da194"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="priority__queue_8h.html#ae2388fed0e84616ebfa926952d6da194">is_present_in_priority_queue</a> (<a class="el" href="structpriority__queue__t.html">priority_queue_t</a> *pqueue, void *data)</td></tr>
 <tr class="memdesc:ae2388fed0e84616ebfa926952d6da194"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to check if a element is in a priority queue.  <a href="#ae2388fed0e84616ebfa926952d6da194">More...</a><br /></td></tr>
 <tr class="separator:ae2388fed0e84616ebfa926952d6da194"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,6 +154,33 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a0c798d41a0023dc672587ec774a128d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c798d41a0023dc672587ec774a128d7">&#9670;&nbsp;</a></span>create_priority_queue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structpriority__queue__t.html">priority_queue_t</a>* create_priority_queue </td>
+          <td>(</td>
+          <td class="paramtype">int(*)(void *, void *)&#160;</td>
+          <td class="paramname"><em>compare</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to create a new priority queue. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">compare</td><td>The comparison function that will be used to order the elements. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Return a new priority queue or NULL if the creation failed. </dd></dl>
+
+</div>
+</div>
 <a id="a8bd6a9bf046a6e1b9ade20705a7d7242"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8bd6a9bf046a6e1b9ade20705a7d7242">&#9670;&nbsp;</a></span>free_priority_queue()</h2>
 
@@ -245,14 +272,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a018e9e6ef04014121f02c156999478f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a018e9e6ef04014121f02c156999478f5">&#9670;&nbsp;</a></span>pop_priority_queue()</h2>
+<a id="a8f4a7da1550fc76d73c5677e96a8354a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f4a7da1550fc76d73c5677e96a8354a">&#9670;&nbsp;</a></span>pop_priority_queue()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void * pop_priority_queue </td>
+          <td class="memname">void* pop_priority_queue </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structpriority__queue__t.html">priority_queue_t</a> *&#160;</td>
           <td class="paramname"><em>pqueue</em></td><td>)</td>

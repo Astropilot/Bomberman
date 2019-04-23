@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file message.h
+ * @file network/message.h
  * @brief Header file of the message class of gLib.
  *
  * This class allows you to create and manipulate high-level messages.

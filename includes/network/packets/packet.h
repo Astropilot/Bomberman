@@ -70,7 +70,6 @@ typedef struct TPacket {
 } TPacket ;
 
 /**
- * @fn int extract_packet_id(unsigned char *raw_packet)
  * @brief Method to extract the packet ID (type) from a raw low-level buffer.
  *
  * @param raw_packet The low-level buffer of the packet.
@@ -79,7 +78,6 @@ typedef struct TPacket {
 int extract_packet_id(unsigned char *raw_packet);
 
 /**
- * @fn TMessage packet_to_message(TPacket *packet, unsigned int auto_free)
  * @brief Method convert a generic packet into a TMessage object.
  *
  * @param packet The packet to convert.

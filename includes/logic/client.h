@@ -26,7 +26,6 @@
 #include "network/message.h"
 
 /**
- * @fn void handle_game_logic(TGameClient *game, TMessage message, int packet_id)
  * @brief Function that apply the game logic corresponding to the packet type received.
  *
  * @param game A pointer to the game instance.

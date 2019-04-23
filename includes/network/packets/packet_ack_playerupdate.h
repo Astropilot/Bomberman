@@ -44,7 +44,6 @@ typedef struct TAckPlayerUpdatePacket {
 } TAckPlayerUpdatePacket ;
 
 /**
- * @fn TAckPlayerUpdatePacket *New_TAckPlayerUpdatePacket(unsigned char *raw)
  * @brief The constructor for create a TAckPlayerUpdatePacket object.
  *
  * @return A memory allocated object of the packet.
@@ -52,7 +51,6 @@ typedef struct TAckPlayerUpdatePacket {
 TAckPlayerUpdatePacket *New_TAckPlayerUpdatePacket(unsigned char *raw);
 
 /**
- * @fn int TAckPlayerUpdatePacket_Serialize(TAckPlayerUpdatePacket *this)
  * @brief Method to serialize the packet into a low-level buffer.
  *
  * @param this A pointer to the packet object.
@@ -65,7 +63,6 @@ TAckPlayerUpdatePacket *New_TAckPlayerUpdatePacket(unsigned char *raw);
 int TAckPlayerUpdatePacket_Serialize(TAckPlayerUpdatePacket *this);
 
 /**
- * @fn void TAckPlayerUpdatePacket_Unserialize(TAckPlayerUpdatePacket *this)
  * @brief Method to de-serialize the low-level buffer into the packet.
  *
  * @param this A pointer to the packet object.
@@ -77,7 +74,6 @@ int TAckPlayerUpdatePacket_Serialize(TAckPlayerUpdatePacket *this);
 void TAckPlayerUpdatePacket_Unserialize(TAckPlayerUpdatePacket *this);
 
 /**
- * @fn void TAckPlayerUpdatePacket_New_Free(TAckPlayerUpdatePacket *this)
  * @brief Method to free the resource take by the object.
  *
  * @param this A pointer to the packet object.

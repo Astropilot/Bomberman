@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file priority_queue.h
+ * @file pathfinding/priority_queue.h
  * @brief Header file of the priority queue data structure.
  */
 
@@ -45,7 +45,6 @@ typedef struct priority_queue_t {
 } priority_queue_t ;
 
 /**
- * @fn priority_queue_t *create_priority_queue(int(*compare)(void*, void*))
  * @brief Function to create a new priority queue.
  *
  * @param compare The comparison function that will be used to order the elements.
@@ -54,7 +53,6 @@ typedef struct priority_queue_t {
 priority_queue_t *create_priority_queue(int(*compare)(void*, void*));
 
 /**
- * @fn unsigned int push_priority_queue(priority_queue_t *pqueue, void *data)
  * @brief Function to push a new element in a priority queue.
  *
  * @param pqueue The priority queue.
@@ -64,7 +62,6 @@ priority_queue_t *create_priority_queue(int(*compare)(void*, void*));
 unsigned int push_priority_queue(priority_queue_t *pqueue, void *data);
 
 /**
- * @fn void *pop_priority_queue(priority_queue_t *pqueue)
  * @brief Function to pop a element of a priority queue.
  *
  * @param pqueue The priority queue.
@@ -73,7 +70,6 @@ unsigned int push_priority_queue(priority_queue_t *pqueue, void *data);
 void *pop_priority_queue(priority_queue_t *pqueue);
 
 /**
- * @fn unsigned int is_present_in_priority_queue(priority_queue_t *pqueue, void *data)
  * @brief Function to check if a element is in a priority queue.
  *
  * @param pqueue The priority queue.
@@ -83,7 +79,6 @@ void *pop_priority_queue(priority_queue_t *pqueue);
 unsigned int is_present_in_priority_queue(priority_queue_t *pqueue, void *data);
 
 /**
- * @fn unsigned int is_priority_queue_empty(priority_queue_t *pqueue)
  * @brief Function to check if priority queue is empty.
  *
  * @param pqueue The priority queue.
@@ -92,7 +87,6 @@ unsigned int is_present_in_priority_queue(priority_queue_t *pqueue, void *data);
 unsigned int is_priority_queue_empty(priority_queue_t *pqueue);
 
 /**
- * @fn void free_priority_queue(priority_queue_t *pqueue)
  * @brief Function to free up resources in a priority queue.
  *
  * @param pqueue The priority queue.

@@ -28,7 +28,6 @@
 typedef struct TScene TScene;
 
 /**
- * @fn SDL_Texture *createText(TScene *scene, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect *pos)
  * @brief Util function for create a SDL texture from a text, a font and a color.
  *
  * @param scene A pointer to the window object.
@@ -41,7 +40,6 @@ typedef struct TScene TScene;
 SDL_Texture *createText(TScene *scene, const char *text, TTF_Font *font, SDL_Color color, SDL_Rect *pos);
 
 /**
- * @fn TTF_Font *loadFont(const char *font_file, unsigned int font_size)
  * @brief Util function for load a font file with a specific size.
  *
  * @param font_file The path of the font file.
@@ -51,7 +49,6 @@ SDL_Texture *createText(TScene *scene, const char *text, TTF_Font *font, SDL_Col
 TTF_Font *loadFont(const char *font_file, unsigned int font_size);
 
 /**
- * @fn unsigned long hash(const char *str)
  * @brief Util function for hash a string into a unsigned long number.
  *
  * @param str The string to hash.

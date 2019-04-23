@@ -52,7 +52,6 @@ typedef struct TAckBombExplodePacket {
 } TAckBombExplodePacket ;
 
 /**
- * @fn TAckBombExplodePacket *New_TAckBombExplodePacket(unsigned char *raw)
  * @brief The constructor for create a TAckBombExplodePacket object.
  *
  * @return A memory allocated object of the packet.
@@ -60,7 +59,6 @@ typedef struct TAckBombExplodePacket {
 TAckBombExplodePacket *New_TAckBombExplodePacket(unsigned char *raw);
 
 /**
- * @fn int TAckBombExplodePacket_Serialize(TAckBombExplodePacket *this)
  * @brief Method to serialize the packet into a low-level buffer.
  *
  * @param this A pointer to the packet object.
@@ -73,7 +71,6 @@ TAckBombExplodePacket *New_TAckBombExplodePacket(unsigned char *raw);
 int TAckBombExplodePacket_Serialize(TAckBombExplodePacket *this);
 
 /**
- * @fn void TAckBombExplodePacket_Unserialize(TAckBombExplodePacket *this)
  * @brief Method to de-serialize the low-level buffer into the packet.
  *
  * @param this A pointer to the packet object.
@@ -85,7 +82,6 @@ int TAckBombExplodePacket_Serialize(TAckBombExplodePacket *this);
 void TAckBombExplodePacket_Unserialize(TAckBombExplodePacket *this);
 
 /**
- * @fn void TAckBombExplodePacket_New_Free(TAckBombExplodePacket *this)
  * @brief Method to free the resource take by the object.
  *
  * @param this A pointer to the packet object.

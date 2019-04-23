@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file packer.h
+ * @file network/packer.h
  * @brief Header file of utils funtions for creating advanded packets.
  *
  * This file provide a lot of functions for creating advanded packets.
@@ -23,7 +23,6 @@
 #define GLIB_PACKER_H_
 
 /**
- * @fn unsigned char *pack_int(unsigned char *buffer, int i)
  * @brief Transform and add an integer to an unsigned char buffer.
  *
  * @param buffer The buffer that will receive the integer.
@@ -34,7 +33,6 @@
 unsigned char *pack_int(unsigned char *buffer, int i);
 
 /**
- * @fn unsigned char *unpack_int(unsigned char *buffer, int *i)
  * @brief Extract an integer from a unsigned char buffer.
  *
  * @param buffer The buffer that contains the integer.
@@ -45,7 +43,6 @@ unsigned char *pack_int(unsigned char *buffer, int i);
 unsigned char *unpack_int(unsigned char *buffer, int *i);
 
 /**
- * @fn unsigned char *pack_uint(unsigned char *buffer, unsigned int ui)
  * @brief Transform and add an unsigned integer to an unsigned char buffer.
  *
  * @param buffer The buffer that will receive the unsigned integer.
@@ -56,7 +53,6 @@ unsigned char *unpack_int(unsigned char *buffer, int *i);
 unsigned char *pack_uint(unsigned char *buffer, unsigned int ui);
 
 /**
- * @fn unsigned char *unpack_uint(unsigned char *buffer, unsigned int *ui)
  * @brief Extract an unsigned integer from a unsigned char buffer.
  *
  * @param buffer The buffer that contains the unsigned integer.
@@ -67,7 +63,6 @@ unsigned char *pack_uint(unsigned char *buffer, unsigned int ui);
 unsigned char *unpack_uint(unsigned char *buffer, unsigned int *ui);
 
 /**
- * @fn unsigned char *pack_char(unsigned char *buffer, char chr)
  * @brief Transform and add an char to an unsigned char buffer.
  *
  * @param buffer The buffer that will receive the char.
@@ -78,7 +73,6 @@ unsigned char *unpack_uint(unsigned char *buffer, unsigned int *ui);
 unsigned char *pack_char(unsigned char *buffer, char chr);
 
 /**
- * @fn unsigned char *unpack_char(unsigned char *buffer, char *chr)
  * @brief Extract an char from a unsigned char buffer.
  *
  * @param buffer The buffer that contains the char.
@@ -89,7 +83,6 @@ unsigned char *pack_char(unsigned char *buffer, char chr);
 unsigned char *unpack_char(unsigned char *buffer, char *chr);
 
 /**
- * @fn unsigned char *pack_string(unsigned char *buffer, const char *str)
  * @brief Transform and add an char array to an unsigned char buffer.
  *
  * @param buffer The buffer that will receive the char array.
@@ -100,7 +93,6 @@ unsigned char *unpack_char(unsigned char *buffer, char *chr);
 unsigned char *pack_string(unsigned char *buffer, const char *str);
 
 /**
- * @fn unsigned char *unpack_string(unsigned char *buffer, char *str)
  * @brief Extract an char array from a unsigned char buffer.
  *
  * @param buffer The buffer that contains the char array.

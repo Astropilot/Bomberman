@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file client.h
+ * @file network/client.h
  * @brief Header file of the client class of gLib.
  *
  * This class allows you to create a socket client with
@@ -66,7 +66,6 @@ typedef struct TClient {
 } TClient ;
 
 /**
- * @fn TClient *New_TClient(void)
  * @brief The constructor for create a TClient object.
  *
  * @return A memory allocated object of the client.
@@ -74,7 +73,6 @@ typedef struct TClient {
 TClient *New_TClient(void);
 
 /**
- * @fn int TClient_Connect(TClient *this, const char *addr, unsigned short int port)
  * @brief Method to connect to a server.
  *
  * @param this A pointer to the client object.
@@ -89,7 +87,6 @@ TClient *New_TClient(void);
 int TClient_Connect(TClient *this, const char *addr, unsigned short int port);
 
 /**
- * @fn int TClient_Send(TClient *this, TMessage message)
  * @brief Method to send a message to the server.
  *
  * @param this A pointer to the client object.
@@ -103,7 +100,6 @@ int TClient_Connect(TClient *this, const char *addr, unsigned short int port);
 int TClient_Send(TClient *this, TMessage message);
 
 /**
- * @fn int TClient_Recv(TClient *this, TMessage *message)
  * @brief Method to receive a message from the server. This method is non-blocking.
  *
  * @param this A pointer to the client object.
@@ -118,7 +114,6 @@ int TClient_Send(TClient *this, TMessage message);
 int TClient_Recv(TClient *this, TMessage *message);
 
 /**
- * @fn void TClient_Start_Recv(TClient *this, TServer *server)
  * @brief Method to start listening for message in an asynchronous way.
  *
  * @param this A pointer to the client object.
@@ -131,7 +126,6 @@ int TClient_Recv(TClient *this, TMessage *message);
 void TClient_Start_Recv(TClient *this, TServer *server);
 
 /**
- * @fn void TClient_Stop_Recv(TClient *this)
  * @brief Method to stop listening for message in an asynchronous way.
  *
  * @param this A pointer to the client object.
@@ -143,7 +137,6 @@ void TClient_Start_Recv(TClient *this, TServer *server);
 void TClient_Stop_Recv(TClient *this);
 
 /**
- * @fn void TClient_Disconnect(TClient *this)
  * @brief Method to disconnect from server.
  *
  * @param this A pointer to the client object.
@@ -155,7 +148,6 @@ void TClient_Stop_Recv(TClient *this);
 void TClient_Disconnect(TClient *this);
 
 /**
- * @fn void TClient_New_Free(TClient *this)
  * @brief Method to free all ressources take by the client.
  *
  * @param this A pointer to the client object.

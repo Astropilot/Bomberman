@@ -25,7 +25,6 @@
 #include "glib.h"
 
 /**
- * @fn TScene* New_MainMenuScene(void)
  * @brief The constructor for create a Main Menu scene object.
  *
  * @return A memory allocated object of the Main Menu scene.

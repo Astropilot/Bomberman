@@ -120,6 +120,12 @@ static void On_Load(TScene* scene, int argc, va_list args)
     strcpy(input_username->text, "");
     strcpy(input_serverip->text, "");
     strcpy(input_serverport->text, "");
+
+    if (scene->Is_BackgroundMusic_Paused(scene) && scene->Is_BackgroundMusic_Playing(scene)) {
+        scene->Resume_BackgroundMusic(scene);
+    } else {
+        scene->Play_BackgroundMusic(scene, SOUND_PATH "theme_bg.wav", -1);
+    }
 }
 
 static void On_Event(TScene* scene, SDL_Event event)
@@ -166,6 +172,7 @@ static void On_Unload(TScene* scene)
     if (IS_DEBUG)
         printf("Scene [%s]: On_Unload method called\n", scene->scene_id);
     SDL_StopTextInput();
+    scene->Pause_BackgroundMusic(scene, 0);
 }
 
 static void Finish(TScene* scene)

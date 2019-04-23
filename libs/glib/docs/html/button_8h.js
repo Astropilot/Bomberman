@@ -8,7 +8,7 @@ var button_8h =
       [ "BUTTON_NORMAL", "button_8h.html#a9b4fd6c74b9fb7eb37f063f67c143190a06ffeb2163a93c4005a9391ec4dc1c0f", null ],
       [ "BUTTON_HOVER", "button_8h.html#a9b4fd6c74b9fb7eb37f063f67c143190ad0ad1a7fd2300cea7c67a3ecf6675776", null ]
     ] ],
-    [ "New_TButton", "button_8h.html#a88f0c5e48cdb607c775ef3468d6f9dac", null ],
+    [ "New_TButton", "button_8h.html#a8338fa751a7d32b7fca222c03df29a95", null ],
     [ "TButton_Draw", "button_8h.html#ab18fbdf4b5fd0ab857e9cb8edcc7bb15", null ],
     [ "TButton_Event_Handler", "button_8h.html#a481c87b7992b257f7414b0229d3be606", null ],
     [ "TButton_New_Free", "button_8h.html#abb1d85f81a349858abd59ee3f6c27db1", null ]

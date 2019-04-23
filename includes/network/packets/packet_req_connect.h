@@ -42,7 +42,6 @@ typedef struct TReqConnectPacket {
 } TReqConnectPacket ;
 
 /**
- * @fn TReqConnectPacket *New_TReqConnectPacket(unsigned char *raw)
  * @brief The constructor for create a TReqConnectPacket object.
  *
  * @return A memory allocated object of the packet.
@@ -50,7 +49,6 @@ typedef struct TReqConnectPacket {
 TReqConnectPacket *New_TReqConnectPacket(unsigned char *raw);
 
 /**
- * @fn int TReqConnectPacket_Serialize(TReqConnectPacket *this)
  * @brief Method to serialize the packet into a low-level buffer.
  *
  * @param this A pointer to the packet object.
@@ -63,7 +61,6 @@ TReqConnectPacket *New_TReqConnectPacket(unsigned char *raw);
 int TReqConnectPacket_Serialize(TReqConnectPacket *this);
 
 /**
- * @fn void TReqConnectPacket_Unserialize(TReqConnectPacket *this)
  * @brief Method to de-serialize the low-level buffer into the packet.
  *
  * @param this A pointer to the packet object.
@@ -75,7 +72,6 @@ int TReqConnectPacket_Serialize(TReqConnectPacket *this);
 void TReqConnectPacket_Unserialize(TReqConnectPacket *this);
 
 /**
- * @fn void TReqConnectPacket_New_Free(TReqConnectPacket *this)
  * @brief Method to free the resource take by the object.
  *
  * @param this A pointer to the packet object.

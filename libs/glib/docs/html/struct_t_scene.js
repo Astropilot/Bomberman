@@ -12,12 +12,17 @@ var struct_t_scene =
     [ "Get_Drawable", "struct_t_scene.html#aa0fc9c62cc362cdda4356b315cddc1c6", null ],
     [ "Init", "struct_t_scene.html#a0f58127f927ffaa56da983d9de7c63d6", null ],
     [ "initialized", "struct_t_scene.html#af00a707f65afa5d0f6cf27ec821bb763", null ],
+    [ "Is_BackgroundMusic_Paused", "struct_t_scene.html#a7182f02040518ade38b606326d31de72", null ],
+    [ "Is_BackgroundMusic_Playing", "struct_t_scene.html#a849e0308bba322ee3094878a87538090", null ],
     [ "On_Event", "struct_t_scene.html#ae62672a247aa2ffe363f2751e355863f", null ],
     [ "On_Load", "struct_t_scene.html#afd20c4190d33d248809bb7954dcec77f", null ],
     [ "On_Tick", "struct_t_scene.html#a055062a7a3fa6dad194085bc48b6b806", null ],
     [ "On_Unload", "struct_t_scene.html#aacf83fb32b3d8188acbdc2e3517d634a", null ],
+    [ "Pause_BackgroundMusic", "struct_t_scene.html#ac73c26cfb6a4a5fdf3fee63e572e9d64", null ],
+    [ "Play_BackgroundMusic", "struct_t_scene.html#aba5b0d77def605c9f927c1ab0ea8cf92", null ],
     [ "Remove_Drawable", "struct_t_scene.html#a4a1bb4df60d9fccd55c4199010d1ff66", null ],
     [ "Remove_Drawable_Obj", "struct_t_scene.html#a44d4ef2be0f5002fb4c38236066c6928", null ],
+    [ "Resume_BackgroundMusic", "struct_t_scene.html#a2bd21ec27eddbb3ebce614cffe7efa06", null ],
     [ "scene_id", "struct_t_scene.html#ab669ed8b6ade65dc945cf32770a12728", null ],
     [ "window", "struct_t_scene.html#a94dd3ceb68e26e845a2c1da8f13c9c15", null ]
 ];

@@ -48,25 +48,24 @@ typedef enum TButton_State {
  */
 typedef struct TButton {
 
-    void(*Draw)(struct TButton*, TScene*); /*!< Draw method. */
+    void(*Draw)(struct TButton*, TScene*);                      /*!< Draw method. */
 
-    void(*Free)(struct TButton*); /*!< Free (ressources) method. */
+    void(*Free)(struct TButton*);                               /*!< Free (ressources) method. */
 
-    unsigned int is_visible;     /*!< Boolean to know if the drawable can be drawed automatically. */
+    unsigned int is_visible;                                    /*!< Boolean to know if the drawable can be drawed automatically. */
 
-    void(*On_Click)(struct TButton*, TScene*); /*!< Callback called when a click event occurs. */
+    void(*On_Click)(struct TButton*, TScene*);                  /*!< Callback called when a click event occurs. */
 
-    void(*Event_Handler)(struct TButton*, TScene*, SDL_Event); /*!< Method call for processing SDL event */
+    void(*Event_Handler)(struct TButton*, TScene*, SDL_Event);  /*!< Method call for processing SDL event */
 
-    TSprite *btn_sprite; /*!< A sprite for the button in normal state. */
-    TSprite *btn_hover_sprite; /*!< A sprite for the button in hover state. */
-    TButton_State state; /*!< The actual state of the button. */
-    SDL_Rect pos; /*!< The position and size of the button. */
+    TSprite *btn_sprite;            /*!< A sprite for the button in normal state. */
+    TSprite *btn_hover_sprite;      /*!< A sprite for the button in hover state. */
+    TButton_State state;            /*!< The actual state of the button. */
+    SDL_Rect pos;                   /*!< The position and size of the button. */
 
 } TButton ;
 
 /**
- * @fn TButton* New_TButton(TScene *scene, const char *btn_s, const char *btn_hs, SDL_Rect pos)
  * @brief The constructor for create a TButton object.
  *
  * @param scene A pointer to the scene object.
@@ -78,7 +77,6 @@ typedef struct TButton {
 TButton* New_TButton(TScene *scene, const char *btn_s, const char *btn_hs, SDL_Rect pos);
 
 /**
- * @fn void TButton_Draw(TButton *this, TScene *scene)
  * @brief Method for drawing the button in the interface.
  *
  * @param this A pointer to the button object to draw.
@@ -91,7 +89,6 @@ TButton* New_TButton(TScene *scene, const char *btn_s, const char *btn_hs, SDL_R
 void TButton_Draw(TButton *this, TScene *scene);
 
 /**
- * @fn void TButton_Event_Handler(TButton *this, TScene *scene, SDL_Event event)
  * @brief Method to process an SDL event and change the status of the button or manage clicks.
  *
  * @param this A pointer to the button object.
@@ -105,7 +102,6 @@ void TButton_Draw(TButton *this, TScene *scene);
 void TButton_Event_Handler(TButton *this, TScene *scene, SDL_Event event);
 
 /**
- * @fn void TButton_New_Free(TButton *this)
  * @brief Method to free all ressources take by the button.
  *
  * @param this A pointer to the button object to free.

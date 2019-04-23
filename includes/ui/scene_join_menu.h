@@ -25,7 +25,6 @@
 #include "glib.h"
 
 /**
- * @fn TScene* New_JoinMenuScene(void)
  * @brief The constructor for create a Join Menu scene object.
  *
  * @return A memory allocated object of the Join Menu scene.

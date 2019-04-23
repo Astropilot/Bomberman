@@ -53,7 +53,6 @@ typedef struct TAnimatedSprite {
 } TAnimatedSprite ;
 
 /**
- * @fn TAnimatedSprite* New_TAnimatedSprite(TScene *scene, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations)
  * @brief The constructor for create a TAnimatedSprite object.
  *
  * @param scene A pointer to the scene object.
@@ -67,7 +66,6 @@ typedef struct TAnimatedSprite {
 TAnimatedSprite* New_TAnimatedSprite(TScene *scene, const char *file, SDL_Rect size, SDL_Rect pos, size_t speed, int animations);
 
 /**
- * @fn void TAnimatedSprite_Draw(TAnimatedSprite *this, TScene *scene)
  * @brief Method for drawing the animated sprite in the interface.
  *
  * @param this A pointer to the animated sprite object to draw.
@@ -80,7 +78,6 @@ TAnimatedSprite* New_TAnimatedSprite(TScene *scene, const char *file, SDL_Rect s
 void TAnimatedSprite_Draw(TAnimatedSprite *this, TScene *scene);
 
 /**
- * @fn void TAnimatedSprite_New_Free(TAnimatedSprite *this)
  * @brief Method to free all ressources take by the animated sprite.
  *
  * @param this A pointer to the animated sprite object to free.

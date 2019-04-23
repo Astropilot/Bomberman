@@ -43,7 +43,6 @@ typedef struct TReqMovePlayerPacket {
 } TReqMovePlayerPacket ;
 
 /**
- * @fn TReqMovePlayerPacket *New_TReqMovePlayerPacket(unsigned char *raw)
  * @brief The constructor for create a TReqMovePlayerPacket object.
  *
  * @return A memory allocated object of the packet.
@@ -51,7 +50,6 @@ typedef struct TReqMovePlayerPacket {
 TReqMovePlayerPacket *New_TReqMovePlayerPacket(unsigned char *raw);
 
 /**
- * @fn int TReqMovePlayerPacket_Serialize(TReqMovePlayerPacket *this)
  * @brief Method to serialize the packet into a low-level buffer.
  *
  * @param this A pointer to the packet object.
@@ -64,7 +62,6 @@ TReqMovePlayerPacket *New_TReqMovePlayerPacket(unsigned char *raw);
 int TReqMovePlayerPacket_Serialize(TReqMovePlayerPacket *this);
 
 /**
- * @fn void TReqMovePlayerPacket_Unserialize(TReqMovePlayerPacket *this)
  * @brief Method to de-serialize the low-level buffer into the packet.
  *
  * @param this A pointer to the packet object.
@@ -76,7 +73,6 @@ int TReqMovePlayerPacket_Serialize(TReqMovePlayerPacket *this);
 void TReqMovePlayerPacket_Unserialize(TReqMovePlayerPacket *this);
 
 /**
- * @fn void TReqMovePlayerPacket_New_Free(TReqMovePlayerPacket *this)
  * @brief Method to free the resource take by the object.
  *
  * @param this A pointer to the packet object.

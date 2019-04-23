@@ -27,7 +27,6 @@
 #include "window.h"
 
 /**
- * @fn unsigned int loadImageResource(TWindow *window, const char *path, SDL_Surface **surface, SDL_Texture **texture)
  * @brief Function for load and create a SDL_Surface and SDL_Texture.
  *
  * @param window A pointer to the window object.

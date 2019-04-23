@@ -55,7 +55,7 @@ static void TAnimatedSprites_Init(TAnimatedSprites *this, TScene *scene, const c
         char file_path[128];
 
         sprintf(file_path, this->file_template, i);
-        this->textures[i] = cache->FetchTexture(cache, file_path);
+        this->textures[i] = (SDL_Texture*)cache->FetchResource(cache, file_path, GRAPHICAL);
     }
     this->is_visible = 1;
 }

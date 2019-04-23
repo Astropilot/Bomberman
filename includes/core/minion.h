@@ -44,7 +44,6 @@ typedef struct minion_t {
 } minion_t ;
 
 /**
- * @fn void init_minion(minion_t *minion)
  * @brief Initializes a minion with default values.
  *
  * @param minion A pointer to the minion to initialize.
@@ -52,7 +51,6 @@ typedef struct minion_t {
 void init_minion(minion_t *minion);
 
 /**
- * @fn void minion_handle_logic(minion_t *minion, unsigned int current_time, TGameServer *game_server)
  * @brief Handle the logic of the minion, including movement and heal actions.
  *
  * @param minion A pointer to the minion.
@@ -62,7 +60,6 @@ void init_minion(minion_t *minion);
 void minion_handle_logic(minion_t *minion, unsigned int current_time, TGameServer *game_server);
 
 /**
- * @fn int get_nearest_player(minion_t minion, player_t *players)
  * @brief Returns the player closest to the minion.
  *
  * @param minion A pointer to the minion.
@@ -72,7 +69,6 @@ void minion_handle_logic(minion_t *minion, unsigned int current_time, TGameServe
 int get_nearest_player(minion_t minion, player_t *players);
 
 /**
- * @fn void move_to_target(minion_t *minion, player_t player)
  * @brief Moves the minion towards the given player.
  *
  * @param minion A pointer to the minion.

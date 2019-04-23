@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file graph.h
+ * @file pathfinding/graph.h
  * @brief Header file of the graph component of gLib.
  *
  * This file provides all the functions necessary for the manipulation
@@ -29,7 +29,7 @@
  * vertice_t is a representation of a node of a graph.
  */
 typedef struct vertice_t {
-    unsigned int x;                      /*!< The x-axis position of the node. */
+    unsigned int x;                     /*!< The x-axis position of the node. */
     unsigned int y;                     /*!< The y-axis position of the node. */
     int cost;                           /*!< Internal cost for path finding algorithms. */
     int heuristic;                      /*!< Internal heuristic for path finding algorithms. */
@@ -64,7 +64,6 @@ typedef struct graph_t {
 } graph_t ;
 
 /**
- * @fn vertice_t *new_vertice(unsigned int x, unsigned int y)
  * @brief Function to create a new graph node.
  *
  * @param x The position on the x-axis.
@@ -74,7 +73,6 @@ typedef struct graph_t {
 vertice_t *new_vertice(unsigned int x, unsigned int y);
 
 /**
- * @fn adjacency_list_node_t *new_adjacency_node(vertice_t *vertice)
  * @brief Function to create a new node of adjacency list.
  *
  * @param vertice The node on which its neighbors will be added.
@@ -83,7 +81,6 @@ vertice_t *new_vertice(unsigned int x, unsigned int y);
 adjacency_list_node_t *new_adjacency_node(vertice_t *vertice);
 
 /**
- * @fn graph_t *create_graph(unsigned int width, unsigned int height)
  * @brief Function to create a new graph from a 2D map.
  *
  * @param width The width of the 2D map.
@@ -93,7 +90,6 @@ adjacency_list_node_t *new_adjacency_node(vertice_t *vertice);
 graph_t *create_graph(unsigned int width, unsigned int height);
 
 /**
- * @fn void init_vertices(graph_t *graph)
  * @brief Create all node corresponding to a 2D map and add the edges.
  *
  * @param graph The graph to initialize.
@@ -101,7 +97,6 @@ graph_t *create_graph(unsigned int width, unsigned int height);
 void init_vertices(graph_t *graph);
 
 /**
- * @fn void add_edge(graph_t *graph, vertice_t *src, vertice_t *dest)
  * @brief Add a edge between two node in a graph. In the case of a
  * non-oriented graph, remember to call this function with the nodes in the other direction.
  *
@@ -112,7 +107,6 @@ void init_vertices(graph_t *graph);
 void add_edge(graph_t *graph, vertice_t *src, vertice_t *dest);
 
 /**
- * @fn adjacency_list_node_t *get_neighbors(graph_t *graph, vertice_t *vertice)
  * @brief Return all the neighbors of a node.
  *
  * @param graph The graph.
@@ -122,7 +116,6 @@ void add_edge(graph_t *graph, vertice_t *src, vertice_t *dest);
 adjacency_list_node_t *get_neighbors(graph_t *graph, vertice_t *vertice);
 
 /**
- * @fn void free_graph(graph_t *graph)
  * @brief Free the resources of a graph.
  *
  * @param graph The graph.

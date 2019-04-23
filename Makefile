@@ -13,7 +13,7 @@
 
 CC		= gcc
 CFLAGS	= -Wall -Wextra -Werror -g -Iincludes/ -Ilibs/glib/includes
-SDL		= -lSDL2 -lSDL2_ttf -lSDL2_image
+SDL		= -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer
 LIBGLIB	= libglib.a
 
 FOLDER  = build/

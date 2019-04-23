@@ -20,6 +20,7 @@ var annotated_dup =
     [ "TScene", "struct_t_scene.html", "struct_t_scene" ],
     [ "TScene_Node", "struct_t_scene___node.html", "struct_t_scene___node" ],
     [ "TServer", "struct_t_server.html", "struct_t_server" ],
+    [ "TSound", "struct_t_sound.html", "struct_t_sound" ],
     [ "TSprite", "struct_t_sprite.html", "struct_t_sprite" ],
     [ "TText", "struct_t_text.html", "struct_t_text" ],
     [ "TWindow", "struct_t_window.html", "struct_t_window" ],

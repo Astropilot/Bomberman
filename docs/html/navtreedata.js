@@ -24,7 +24,7 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "Bomberman", "index.html", [
-    [ "Bomberman <img src=\"https://img.shields.io/badge/Made%20with-E2%9DA4EFB8%8F-yellow.svg\" alt=\"Made with love\"/> <a href=\"./LICENSE\"><img src=\"https://img.shields.io/badge/license-MIT-green.svg\" alt=\"MIT license\"/></a>", "md__r_e_a_d_m_e.html", null ],
+    [ "README", "md__r_e_a_d_m_e.html", null ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
       [ "Data Structure Index", "classes.html", null ],
@@ -50,8 +50,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"packet__ack__endgame_8h.html#ae9540f2756dba978dc3d32544c59431ead1cb40a0245d392ac672f7bb0c76aa56",
-"struct_t_game_server.html#a973dc11c7f9c09051fa782fde7863008"
+"packet__ack__endgame_8h.html#ae9540f2756dba978dc3d32544c59431ea61f3c57b6943c85413975507aede78cd",
+"struct_t_game_server.html#a7553b9498f06a443738ab05c41473c13"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

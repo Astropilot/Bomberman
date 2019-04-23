@@ -42,7 +42,6 @@ typedef struct TReqReadyPacket {
 } TReqReadyPacket ;
 
 /**
- * @fn TReqReadyPacket *New_TReqReadyPacket(unsigned char *raw)
  * @brief The constructor for create a TReqReadyPacket object.
  *
  * @return A memory allocated object of the packet.
@@ -50,7 +49,6 @@ typedef struct TReqReadyPacket {
 TReqReadyPacket *New_TReqReadyPacket(unsigned char *raw);
 
 /**
- * @fn int TReqReadyPacket_Serialize(TReqReadyPacket *this)
  * @brief Method to serialize the packet into a low-level buffer.
  *
  * @param this A pointer to the packet object.
@@ -63,7 +61,6 @@ TReqReadyPacket *New_TReqReadyPacket(unsigned char *raw);
 int TReqReadyPacket_Serialize(TReqReadyPacket *this);
 
 /**
- * @fn void TReqReadyPacket_Unserialize(TReqReadyPacket *this)
  * @brief Method to de-serialize the low-level buffer into the packet.
  *
  * @param this A pointer to the packet object.
@@ -75,7 +72,6 @@ int TReqReadyPacket_Serialize(TReqReadyPacket *this);
 void TReqReadyPacket_Unserialize(TReqReadyPacket *this);
 
 /**
- * @fn void TReqReadyPacket_New_Free(TReqReadyPacket *this)
  * @brief Method to free the resource take by the object.
  *
  * @param this A pointer to the packet object.

@@ -26,7 +26,6 @@
 #include "network/game/lobby.h"
 
 /**
- * @fn TScene* New_LobbyScene(TLobbyClient *m_lobbyclient)
  * @brief The constructor for create a Lobby scene object.
  *
  * @param m_lobbyclient A pointer to the lobby client.

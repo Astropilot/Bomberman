@@ -41,7 +41,6 @@ typedef struct TAckStartGamePacket {
 } TAckStartGamePacket ;
 
 /**
- * @fn TAckStartGamePacket *New_TAckStartGamePacket(unsigned char *raw)
  * @brief The constructor for create a TAckStartGamePacket object.
  *
  * @return A memory allocated object of the packet.
@@ -49,7 +48,6 @@ typedef struct TAckStartGamePacket {
 TAckStartGamePacket *New_TAckStartGamePacket(unsigned char *raw);
 
 /**
- * @fn int TAckStartGamePacket_Serialize(TAckStartGamePacket *this)
  * @brief Method to serialize the packet into a low-level buffer.
  *
  * @param this A pointer to the packet object.
@@ -62,7 +60,6 @@ TAckStartGamePacket *New_TAckStartGamePacket(unsigned char *raw);
 int TAckStartGamePacket_Serialize(TAckStartGamePacket *this);
 
 /**
- * @fn void TAckStartGamePacket_Unserialize(TAckStartGamePacket *this)
  * @brief Method to de-serialize the low-level buffer into the packet.
  *
  * @param this A pointer to the packet object.
@@ -74,7 +71,6 @@ int TAckStartGamePacket_Serialize(TAckStartGamePacket *this);
 void TAckStartGamePacket_Unserialize(TAckStartGamePacket *this);
 
 /**
- * @fn void TAckStartGamePacket_New_Free(TAckStartGamePacket *this)
  * @brief Method to free the resource take by the object.
  *
  * @param this A pointer to the packet object.

@@ -14,8 +14,11 @@
 #include <string.h>
 #include <stdarg.h>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 
 #include "scene.h"
+#include "window.h"
+#include "cache.h"
 #include "utils.h"
 
 static void TScene_Init(TScene *this, const char *scene_id);
@@ -43,6 +46,11 @@ static void TScene_Init(TScene *this, const char *scene_id)
     this->Get_Drawable = TScene_Get_Drawable;
     this->Draw_Drawables = TScene_Draw_Drawables;
     this->Free_All_Drawables = TScene_Free_All_Drawables;
+    this->Play_BackgroundMusic = TScene_Play_BackgroundMusic;
+    this->Is_BackgroundMusic_Playing = TScene_Is_BackgroundMusic_Playing;
+    this->Is_BackgroundMusic_Paused = TScene_Is_BackgroundMusic_Paused;
+    this->Pause_BackgroundMusic = TScene_Pause_BackgroundMusic;
+    this->Resume_BackgroundMusic = TScene_Resume_BackgroundMusic;
     this->window = NULL;
     this->scene_id = strdup(scene_id);
     this->initialized = 0;
@@ -231,6 +239,54 @@ void TScene_Free_All_Drawables(TScene *this, unsigned int free_strategy)
             }
         }
     }
+}
+
+void TScene_Play_BackgroundMusic(TScene *this, const char *music_path, int plays)
+{
+    if (!this || !music_path) return;
+
+    Mix_Music *bg_music = NULL;
+    TResourceCache *cache = this->window->cache_manager;
+
+    bg_music = (Mix_Music*)cache->FetchResource(cache, music_path, LONG_AUDIO);
+    if (bg_music) {
+        Mix_VolumeMusic(MIX_MAX_VOLUME/2);
+        Mix_PlayMusic(bg_music, plays);
+    }
+}
+
+int TScene_Is_BackgroundMusic_Playing(TScene *this)
+{
+    if (!this) return (0);
+
+    return (Mix_PlayingMusic());
+}
+
+int TScene_Is_BackgroundMusic_Paused(TScene *this)
+{
+    if (!this) return (0);
+
+    return (Mix_PausedMusic());
+}
+
+void TScene_Pause_BackgroundMusic(TScene *this, int reset)
+{
+    if (!this) return;
+
+    if (this->Is_BackgroundMusic_Playing(this)) {
+        if (!reset) {
+            Mix_PauseMusic();
+        } else {
+            Mix_HaltMusic();
+        }
+    }
+}
+
+void TScene_Resume_BackgroundMusic(TScene *this)
+{
+    if (!this) return;
+
+    Mix_ResumeMusic();
 }
 
 void TScene_New_Free(TScene *this)

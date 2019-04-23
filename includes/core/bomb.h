@@ -90,7 +90,6 @@ typedef struct bomb_node_t {
 } bomb_node_t ;
 
 /**
- * @fn void add_bomb(bomb_node_t **bombs_head, bomb_t *bomb)
  * @brief Method for adding a bomb to a bomb linked list.
  *
  * @param bombs_head A pointer to the linked list.
@@ -99,7 +98,6 @@ typedef struct bomb_node_t {
 void add_bomb(bomb_node_t **bombs_head, bomb_t *bomb);
 
 /**
- * @fn void remove_bomb(bomb_node_t **bombs_head, bomb_t *bomb)
  * @brief Method for deleting a bomb from a bomb linked list.
  *
  * @param bombs_head A pointer to the linked list.
@@ -108,7 +106,6 @@ void add_bomb(bomb_node_t **bombs_head, bomb_t *bomb);
 void remove_bomb(bomb_node_t **bombs_head, bomb_t *bomb);
 
 /**
- * @fn void do_bomb_logic(TMap *map, bomb_t *bomb, TServer *server)
  * @brief Call the logic function corresponding to the bomb type.
  *
  * @param map A pointer to the game map.

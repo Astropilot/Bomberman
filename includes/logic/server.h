@@ -27,7 +27,6 @@
 #include "network/client.h"
 
 /**
- * @fn void handle_server_logic(TGameServer *server, TClient *client, TMessage message, int packet_id)
  * @brief Function that apply the server logic corresponding to the packet type received.
  *
  * @param server A pointer to the server instance.

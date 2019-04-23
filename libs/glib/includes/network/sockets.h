@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file sockets.h
+ * @file network/sockets.h
  * @brief Header file for define socket API functions.
  *
  * Header file for define socket API functions.
@@ -49,7 +49,6 @@ typedef struct in_addr IN_ADDR;             /*!< Rename for Windows compatibilit
 #endif
 
 /**
- * @fn int InitNetworking(void)
  * @brief Initialize the sockets API according to your operating system.
  *
  * @return Returns 0 if everything went well, otherwise a specific error code is returned.
@@ -57,7 +56,6 @@ typedef struct in_addr IN_ADDR;             /*!< Rename for Windows compatibilit
 int InitNetworking(void);
 
 /**
- * @fn int ResetNetworking(void)
  * @brief Reset and finish the sockets API according to your operating system.
  *
  * @return Returns 0 if everything went well, otherwise a specific error code is returned.
@@ -65,7 +63,6 @@ int InitNetworking(void);
 int ResetNetworking(void);
 
 /**
- * @fn int SocketNonBlocking(SOCKET socket, unsigned int blocking)
  * @brief Set a specific socket into blocking or non-blocking state.
  *
  * @param socket The socket to modifiy.

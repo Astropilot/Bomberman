@@ -21,6 +21,7 @@ var main_8h =
     [ "MINION_PATH", "main_8h.html#ac7f70e5dce6f0fc513c4053335224cc8", null ],
     [ "PLAYER_MAX_LIFE", "main_8h.html#ae5fdb6f6e7c67199041b03f71c5b3e2e", null ],
     [ "RES_PATH", "main_8h.html#a793644bd88146828177a2a4f57e3bf01", null ],
+    [ "SOUND_PATH", "main_8h.html#a0cddd00188860f4630584837ad3bd8a8", null ],
     [ "WIN_HEIGHT", "main_8h.html#a0a33b1743038db1adbbf1045aa839b38", null ],
     [ "WIN_WIDTH", "main_8h.html#a2e6ef411e0ff00ad889788b6cde701b5", null ],
     [ "lobby_args_t", "main_8h.html#abb69f06e6335bdcdbee10e3f7a6da318", null ]

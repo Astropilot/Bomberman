@@ -57,7 +57,6 @@ typedef struct TLobbyClient {
 } TLobbyClient ;
 
 /**
- * @fn TLobbyClient* New_TLobbyClient()
  * @brief The constructor for create a TLobbyClient object.
  *
  * @return A memory allocated object of the lobby client.
@@ -65,7 +64,6 @@ typedef struct TLobbyClient {
 TLobbyClient* New_TLobbyClient();
 
 /**
- * @fn TScene *TLobbyClient_Register_Scene(TLobbyClient *this, TScene *scene)
  * @brief Method for register the UI scene responsible for displaying the lobby.
  *
  * @param this A pointer to the lobby client object.
@@ -79,7 +77,6 @@ TLobbyClient* New_TLobbyClient();
 TScene *TLobbyClient_Register_Scene(TLobbyClient *this, TScene *scene);
 
 /**
- * @fn void TLobbyClient_Start_Server(TLobbyClient *this, int port, int max_clients)
  * @brief Method to create a new game server in background.
  *
  * @param this A pointer to the lobby client object.
@@ -93,7 +90,6 @@ TScene *TLobbyClient_Register_Scene(TLobbyClient *this, TScene *scene);
 void TLobbyClient_Start_Server(TLobbyClient *this, int port, int max_clients);
 
 /**
- * @fn void TLobbyClient_Join_Lobby(TLobbyClient *this, const char *username, const char *ip, int port)
  * @brief Method to join the lobby of a hosted game.
  *
  * @param this A pointer to the lobby client object.
@@ -108,7 +104,6 @@ void TLobbyClient_Start_Server(TLobbyClient *this, int port, int max_clients);
 void TLobbyClient_Join_Lobby(TLobbyClient *this, const char *username, const char *ip, int port);
 
 /**
- * @fn void TLobbyClient_Start_Game(TLobbyClient *this)
  * @brief Method to inform the server that the game owner want to start the game.
  *
  * @param this A pointer to the lobby client object.
@@ -120,7 +115,6 @@ void TLobbyClient_Join_Lobby(TLobbyClient *this, const char *username, const cha
 void TLobbyClient_Start_Game(TLobbyClient *this);
 
 /**
- * @fn void TLobbyClient_Handle_Messages(TLobbyClient *this)
  * @brief Method that handle the messages sended by the server.
  *
  * @param this A pointer to the lobby client object.
@@ -132,7 +126,6 @@ void TLobbyClient_Start_Game(TLobbyClient *this);
 void TLobbyClient_Handle_Messages(TLobbyClient *this);
 
 /**
- * @fn void TLobbyClient_Leave_Lobby(TLobbyClient *this)
  * @brief Method to inform the server that this client leave the lobby.
  *
  * @param this A pointer to the lobby client object.
@@ -144,7 +137,6 @@ void TLobbyClient_Handle_Messages(TLobbyClient *this);
 void TLobbyClient_Leave_Lobby(TLobbyClient *this);
 
 /**
- * @fn void TLobbyClient_New_Free(TLobbyClient *this)
  * @brief Method to free all ressources take by the lobby client.
  *
  * @param this A pointer to the lobby client object to free.

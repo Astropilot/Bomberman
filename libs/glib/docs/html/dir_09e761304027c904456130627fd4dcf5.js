@@ -9,6 +9,7 @@ var dir_09e761304027c904456130627fd4dcf5 =
     [ "inputbox.h", "inputbox_8h.html", "inputbox_8h" ],
     [ "resource.h", "resource_8h.html", "resource_8h" ],
     [ "scene.h", "scene_8h.html", "scene_8h" ],
+    [ "sound.h", "sound_8h.html", "sound_8h" ],
     [ "sprite.h", "sprite_8h.html", "sprite_8h" ],
     [ "sprite_animated.h", "sprite__animated_8h.html", "sprite__animated_8h" ],
     [ "sprites_animated.h", "sprites__animated_8h.html", "sprites__animated_8h" ],

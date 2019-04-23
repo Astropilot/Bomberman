@@ -73,7 +73,6 @@ typedef struct TAckDisconnectPacket {
 } TAckDisconnectPacket ;
 
 /**
- * @fn TReqDisconnectPacket *New_TReqDisconnectPacket(unsigned char *raw)
  * @brief The constructor for create a TReqDisconnectPacket object.
  *
  * @return A memory allocated object of the packet.
@@ -81,7 +80,6 @@ typedef struct TAckDisconnectPacket {
 TReqDisconnectPacket *New_TReqDisconnectPacket(unsigned char *raw);
 
 /**
- * @fn int TReqDisconnectPacket_Serialize(TReqDisconnectPacket *this)
  * @brief Method to serialize the packet into a low-level buffer.
  *
  * @param this A pointer to the packet object.
@@ -94,7 +92,6 @@ TReqDisconnectPacket *New_TReqDisconnectPacket(unsigned char *raw);
 int TReqDisconnectPacket_Serialize(TReqDisconnectPacket *this);
 
 /**
- * @fn void TReqDisconnectPacket_Unserialize(TReqDisconnectPacket *this)
  * @brief Method to de-serialize the low-level buffer into the packet.
  *
  * @param this A pointer to the packet object.
@@ -106,7 +103,6 @@ int TReqDisconnectPacket_Serialize(TReqDisconnectPacket *this);
 void TReqDisconnectPacket_Unserialize(TReqDisconnectPacket *this);
 
 /**
- * @fn void TReqDisconnectPacket_New_Free(TReqDisconnectPacket *this)
  * @brief Method to free the resource take by the object.
  *
  * @param this A pointer to the packet object.
@@ -118,7 +114,6 @@ void TReqDisconnectPacket_Unserialize(TReqDisconnectPacket *this);
 void TReqDisconnectPacket_New_Free(TReqDisconnectPacket *this);
 
 /**
- * @fn TAckDisconnectPacket *New_TAckDisconnectPacket(unsigned char *raw)
  * @brief The constructor for create a TAckDisconnectPacket object.
  *
  * @return A memory allocated object of the packet.
@@ -126,7 +121,6 @@ void TReqDisconnectPacket_New_Free(TReqDisconnectPacket *this);
 TAckDisconnectPacket *New_TAckDisconnectPacket(unsigned char *raw);
 
 /**
- * @fn int TAckDisconnectPacket_Serialize(TAckDisconnectPacket *this)
  * @brief Method to serialize the packet into a low-level buffer.
  *
  * @param this A pointer to the packet object.
@@ -139,7 +133,6 @@ TAckDisconnectPacket *New_TAckDisconnectPacket(unsigned char *raw);
 int TAckDisconnectPacket_Serialize(TAckDisconnectPacket *this);
 
 /**
- * @fn void TAckDisconnectPacket_Unserialize(TAckDisconnectPacket *this)
  * @brief Method to de-serialize the low-level buffer into the packet.
  *
  * @param this A pointer to the packet object.
@@ -151,7 +144,6 @@ int TAckDisconnectPacket_Serialize(TAckDisconnectPacket *this);
 void TAckDisconnectPacket_Unserialize(TAckDisconnectPacket *this);
 
 /**
- * @fn void TAckDisconnectPacket_New_Free(TAckDisconnectPacket *this)
  * @brief Method to free the resource take by the object.
  *
  * @param this A pointer to the packet object.

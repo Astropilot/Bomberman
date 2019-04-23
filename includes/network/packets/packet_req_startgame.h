@@ -42,7 +42,6 @@ typedef struct TReqStartGamePacket {
 } TReqStartGamePacket ;
 
 /**
- * @fn TReqStartGamePacket *New_TReqStartGamePacket(unsigned char *raw)
  * @brief The constructor for create a TReqStartGamePacket object.
  *
  * @return A memory allocated object of the packet.
@@ -50,7 +49,6 @@ typedef struct TReqStartGamePacket {
 TReqStartGamePacket *New_TReqStartGamePacket(unsigned char *raw);
 
 /**
- * @fn int TReqStartGamePacket_Serialize(TReqStartGamePacket *this)
  * @brief Method to serialize the packet into a low-level buffer.
  *
  * @param this A pointer to the packet object.
@@ -63,7 +61,6 @@ TReqStartGamePacket *New_TReqStartGamePacket(unsigned char *raw);
 int TReqStartGamePacket_Serialize(TReqStartGamePacket *this);
 
 /**
- * @fn void TReqStartGamePacket_Unserialize(TReqStartGamePacket *this)
  * @brief Method to de-serialize the low-level buffer into the packet.
  *
  * @param this A pointer to the packet object.
@@ -75,7 +72,6 @@ int TReqStartGamePacket_Serialize(TReqStartGamePacket *this);
 void TReqStartGamePacket_Unserialize(TReqStartGamePacket *this);
 
 /**
- * @fn void TReqStartGamePacket_New_Free(TReqStartGamePacket *this)
  * @brief Method to free the resource take by the object.
  *
  * @param this A pointer to the packet object.

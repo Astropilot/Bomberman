@@ -91,6 +91,11 @@ static void On_Load(TScene* scene, int argc, va_list args)
 
     btn_quit->state = BUTTON_NORMAL;
 
+    if (scene->Is_BackgroundMusic_Playing(scene)) {
+        scene->Pause_BackgroundMusic(scene, 1);
+    }
+    scene->Play_BackgroundMusic(scene, SOUND_PATH "lobby_bg.wav", -1);
+
     if (!param.server_ip) {
         lobbyclient->Start_Server(lobbyclient, param.port, MAX_PLAYERS);
         lobbyclient->Join_Lobby(lobbyclient, param.username, "127.0.0.1", param.port);
@@ -144,6 +149,7 @@ static void On_Unload(TScene* scene)
 {
     if (IS_DEBUG)
         printf("Scene [%s]: On_Unload method called\n", scene->scene_id);
+    scene->Pause_BackgroundMusic(scene, 1);
 }
 
 static void Finish(TScene* scene)

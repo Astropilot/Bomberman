@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"struct_t_game_server.html#a7553b9498f06a443738ab05c41473c13":[1,0,20,1],
 "struct_t_game_server.html#a973dc11c7f9c09051fa782fde7863008":[1,0,20,5],
 "struct_t_game_server.html#aba48f49664c81a3fc767a96e6d5bae80":[1,0,20,2],
 "struct_t_game_server.html#abdaf94f1366fa2849d2900174ba1760f":[1,0,20,9],

@@ -25,7 +25,6 @@
 #include "glib.h"
 
 /**
- * @fn TScene* New_HostMenuScene(void)
  * @brief The constructor for create a Host Menu scene object.
  *
  * @return A memory allocated object of the Host Menu scene.

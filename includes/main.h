@@ -54,6 +54,7 @@
 
 #define RES_PATH "images/"                  /*!< The path for the sprite resources. */
 #define FONT_PATH "fonts/"                  /*!< The path for the font resources. */
+#define SOUND_PATH "sounds/"                /*!< The path for the sound resources. */
 #define CHAR_PATH RES_PATH "character/"     /*!< The path for the character specific resources. */
 #define MINION_PATH RES_PATH "minion/"      /*!< The path for the minion specific resources. */
 #define MAP_PATH RES_PATH "map/"            /*!< The path for the map specific resources. */

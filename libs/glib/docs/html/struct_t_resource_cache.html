@@ -77,12 +77,10 @@ $(document).ready(function(){initNavTree('struct_t_resource_cache.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a4b05f643741bdc02582562a4900ea924"><td class="memItemLeft" align="right" valign="top">SDL_Surface *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_resource_cache.html#a4b05f643741bdc02582562a4900ea924">CacheResource</a> )(struct <a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *, const char *)</td></tr>
-<tr class="separator:a4b05f643741bdc02582562a4900ea924"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbebdba056ca3a367710cd32ad07cd0a"><td class="memItemLeft" align="right" valign="top">SDL_Surface *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_resource_cache.html#adbebdba056ca3a367710cd32ad07cd0a">FetchSurface</a> )(struct <a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *, const char *)</td></tr>
-<tr class="separator:adbebdba056ca3a367710cd32ad07cd0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae00f4b4e8dd854e05381045034998bc1"><td class="memItemLeft" align="right" valign="top">SDL_Texture *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_resource_cache.html#ae00f4b4e8dd854e05381045034998bc1">FetchTexture</a> )(struct <a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *, const char *)</td></tr>
-<tr class="separator:ae00f4b4e8dd854e05381045034998bc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacc4fd2e869aa8992d0749ad60508af3"><td class="memItemLeft" align="right" valign="top">void *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_resource_cache.html#aacc4fd2e869aa8992d0749ad60508af3">CacheResource</a> )(struct <a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *, const char *, <a class="el" href="cache_8h.html#a9324ae99244636f1aada6711d34d6b72">TResource_Type</a>)</td></tr>
+<tr class="separator:aacc4fd2e869aa8992d0749ad60508af3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8d00a4960d14c6aaef4ee918f88e05d"><td class="memItemLeft" align="right" valign="top">void *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_resource_cache.html#af8d00a4960d14c6aaef4ee918f88e05d">FetchResource</a> )(struct <a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *, const char *, <a class="el" href="cache_8h.html#a9324ae99244636f1aada6711d34d6b72">TResource_Type</a>)</td></tr>
+<tr class="separator:af8d00a4960d14c6aaef4ee918f88e05d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a730d2c29cc96da36f757e7f84545c2d2"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_resource_cache.html#a730d2c29cc96da36f757e7f84545c2d2">ClearCache</a> )(struct <a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *)</td></tr>
 <tr class="separator:a730d2c29cc96da36f757e7f84545c2d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa79b42cb3c2fa2d82f3166a94d8d0dc4"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_resource_cache.html#aa79b42cb3c2fa2d82f3166a94d8d0dc4">Free</a> )(struct <a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *)</td></tr>
@@ -115,14 +113,14 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="a4b05f643741bdc02582562a4900ea924"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b05f643741bdc02582562a4900ea924">&#9670;&nbsp;</a></span>CacheResource</h2>
+<a id="aacc4fd2e869aa8992d0749ad60508af3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacc4fd2e869aa8992d0749ad60508af3">&#9670;&nbsp;</a></span>CacheResource</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">SDL_Surface*(* CacheResource) (struct <a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *, const char *)</td>
+          <td class="memname">void*(* CacheResource) (struct <a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *, const char *, <a class="el" href="cache_8h.html#a9324ae99244636f1aada6711d34d6b72">TResource_Type</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -160,33 +158,18 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a id="adbebdba056ca3a367710cd32ad07cd0a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adbebdba056ca3a367710cd32ad07cd0a">&#9670;&nbsp;</a></span>FetchSurface</h2>
+<a id="af8d00a4960d14c6aaef4ee918f88e05d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8d00a4960d14c6aaef4ee918f88e05d">&#9670;&nbsp;</a></span>FetchResource</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">SDL_Surface*(* FetchSurface) (struct <a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *, const char *)</td>
+          <td class="memname">void*(* FetchResource) (struct <a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *, const char *, <a class="el" href="cache_8h.html#a9324ae99244636f1aada6711d34d6b72">TResource_Type</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Method for fetch a resource Surface. </p>
-
-</div>
-</div>
-<a id="ae00f4b4e8dd854e05381045034998bc1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae00f4b4e8dd854e05381045034998bc1">&#9670;&nbsp;</a></span>FetchTexture</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">SDL_Texture*(* FetchTexture) (struct <a class="el" href="struct_t_resource_cache.html">TResourceCache</a> *, const char *)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Method for fetch a resource Texture. </p>
+<p>Method for fetch a resource. </p>
 
 </div>
 </div>

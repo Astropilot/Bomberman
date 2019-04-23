@@ -116,6 +116,7 @@ static void On_Unload(TScene* scene)
 {
     if (IS_DEBUG)
         printf("Scene [%s]: On_Unload method called\n", scene->scene_id);
+    scene->Pause_BackgroundMusic(scene, 1);
 }
 
 static void Finish(TScene* scene)

@@ -52,7 +52,6 @@ typedef struct TWindow {
 } TWindow ;
 
 /**
- * @fn TWindow* New_TWindow(unsigned int max_caching)
  * @brief The constructor for create a TWindow object.
  *
  * @param max_caching The maximum amount of resources that can be cached.
@@ -61,7 +60,6 @@ typedef struct TWindow {
 TWindow* New_TWindow(unsigned int max_caching);
 
 /**
- * @fn int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *scene_id, unsigned int fps)
  * @brief Method for creating and showing the SDL window.
  *
  * @param this A pointer to the window object.
@@ -78,7 +76,6 @@ TWindow* New_TWindow(unsigned int max_caching);
 int TWindow_Create_Window(TWindow *this, const char *title, int width, int height, const char *scene_id, unsigned int fps);
 
 /**
- * @fn void TWindow_Add_Scene(TWindow *this, TScene *scene)
  * @brief Method for adding a scene to the window.
  *
  * @param this A pointer to the window object.
@@ -91,7 +88,6 @@ int TWindow_Create_Window(TWindow *this, const char *title, int width, int heigh
 void TWindow_Add_Scene(TWindow *this, TScene *scene);
 
 /**
- * @fn void TWindow_Show_Scene(TWindow *this, const char *scene_id, int argc, ...)
  * @brief Method for showing a scene to the window.
  *
  * @param this A pointer to the window object.
@@ -105,7 +101,6 @@ void TWindow_Add_Scene(TWindow *this, TScene *scene);
 void TWindow_Show_Scene(TWindow *this, const char *scene_id, int argc, ...);
 
 /**
- * @fn void TWindow_New_Free(TWindow *this)
  * @brief Method to free all ressources take by the window and scenes.
  *
  * @param this A pointer to the window object to free.

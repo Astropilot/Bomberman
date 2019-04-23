@@ -25,7 +25,6 @@
 #include "core/map.h"
 
 /**
- * @fn unsigned int do_extra_logic(player_t *player, object_type_t extra_type)
  * @brief Function that apply an extra to the player specs.
  *
  * @param player A pointer to the player who take the extra.
@@ -35,7 +34,6 @@
 unsigned int do_extra_logic(player_t *player, object_type_t extra_type);
 
 /**
- * @fn char *extra_to_resource(object_type_t extra_type)
  * @brief Function that give the resource path according to the extra_type given.
  *
  * @param extra_type The type of extra whose path to the resource is desired.

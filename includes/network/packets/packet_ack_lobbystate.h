@@ -42,7 +42,6 @@ typedef struct TAckLobbyStatePacket {
 } TAckLobbyStatePacket ;
 
 /**
- * @fn TAckLobbyStatePacket *New_TAckLobbyStatePacket(unsigned char *raw)
  * @brief The constructor for create a TAckLobbyStatePacket object.
  *
  * @return A memory allocated object of the packet.
@@ -50,7 +49,6 @@ typedef struct TAckLobbyStatePacket {
 TAckLobbyStatePacket *New_TAckLobbyStatePacket(unsigned char *raw);
 
 /**
- * @fn int TAckLobbyStatePacket_Serialize(TAckLobbyStatePacket *this)
  * @brief Method to serialize the packet into a low-level buffer.
  *
  * @param this A pointer to the packet object.
@@ -63,7 +61,6 @@ TAckLobbyStatePacket *New_TAckLobbyStatePacket(unsigned char *raw);
 int TAckLobbyStatePacket_Serialize(TAckLobbyStatePacket *this);
 
 /**
- * @fn void TAckLobbyStatePacket_Unserialize(TAckLobbyStatePacket *this)
  * @brief Method to de-serialize the low-level buffer into the packet.
  *
  * @param this A pointer to the packet object.
@@ -75,7 +72,6 @@ int TAckLobbyStatePacket_Serialize(TAckLobbyStatePacket *this);
 void TAckLobbyStatePacket_Unserialize(TAckLobbyStatePacket *this);
 
 /**
- * @fn void TAckLobbyStatePacket_New_Free(TAckLobbyStatePacket *this)
  * @brief Method to free the resource take by the object.
  *
  * @param this A pointer to the packet object.

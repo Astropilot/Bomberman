@@ -184,9 +184,14 @@ static void handle_move(TGameClient *game, TMessage message)
 
     if (p_mv->take_extra) {
         int x_tmp, y_tmp;
+        TSound *power_up = (TSound*)game->game_scene->Get_Drawable(
+            game->game_scene, "POWER_UP"
+        );
+
         pix_to_map((int)player.pos.x, (int)player.pos.y, &x_tmp, &y_tmp);
         sprintf(id, "EXTRA_%d_%d", y_tmp, x_tmp);
         game->game_scene->Free_Drawable(game->game_scene, id);
+        power_up->Play(power_up, 1);
     }
 
     free(id);
@@ -206,11 +211,13 @@ static void handle_placebomb(TGameClient *game, TMessage message)
             game->game_scene, BOMB_PATH "static_bomb_%02d.png", 3,
             size_bomb, pos_bomb, 100, -1
         );
+        TSound *bomb_pose = (TSound*)game->game_scene->Get_Drawable(game->game_scene, "BOMB_POSE");
 
         sprintf(bomb_id, "BOMB_%u", p_ab->bomb_id);
         game->game_scene->Add_Drawable(game->game_scene, (TDrawable*)sp, bomb_id, 2, GLIB_FREE_ON_UNLOAD);
         free(bomb_id);
         game->bomb_offset = p_ab->bomb_id;
+        bomb_pose->Play(bomb_pose, 1);
     }
 
     p_ab->Free(p_ab);
@@ -254,7 +261,7 @@ static void handle_bombexplode(TGameClient *game, TMessage message)
         map_to_pix((int)p_b->flames_blocks[i].x, (int)p_b->flames_blocks[i].y, &pos_flame.x, &pos_flame.y);
         TAnimatedSprites *sp_flame = New_TAnimatedSprites(
             game->game_scene, BOMB_PATH "flame_%02d.png", 5,
-            size_flame, pos_flame, 128, 2
+            size_flame, pos_flame, 128, 1
         );
         game->game_scene->Add_Drawable(
             game->game_scene, (TDrawable*)sp_flame, "FLAME",
@@ -276,6 +283,13 @@ static void handle_bombexplode(TGameClient *game, TMessage message)
             3, GLIB_FREE_ON_UNLOAD
         );
     }
+
+    TSound *bomb_explode = (TSound*)game->game_scene->Get_Drawable(
+        game->game_scene, "BOMB_EXPLODE"
+    );
+
+    bomb_explode->Play(bomb_explode, 1);
+
     free(id);
     p_b->Free(p_b);
 }

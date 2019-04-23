@@ -39,7 +39,7 @@ static void TAnimatedSprite_Init(TAnimatedSprite *this, TScene *scene, const cha
     int w, h;
     TResourceCache *cache = scene->window->cache_manager;
 
-    this->texture = cache->FetchTexture(cache, file);
+    this->texture = (SDL_Texture*)cache->FetchResource(cache, file, GRAPHICAL);
     if (!this->texture) return;
     this->Draw = TAnimatedSprite_Draw;
     this->file = strdup(file);

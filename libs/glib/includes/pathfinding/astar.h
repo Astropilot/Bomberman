@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file astar.h
+ * @file pathfinding/astar.h
  * @brief Header file of the A* algorithm.
  *
  * The A* algorithm allows you to search for a shorter path in a graph.
@@ -25,7 +25,6 @@
 #include "pathfinding/graph.h"
 
 /**
- * @fn int astar_search(graph_t *graph, int(*node_cost)(int, int), vertice_t *start, vertice_t *goal)
  * @brief Launches a search for a shorter path and returns if a path has been found or not.
  *
  * @param graph The graph to navigate in.

@@ -70,7 +70,6 @@ typedef struct player_t {
 } player_t ;
 
 /**
- * @fn unsigned int next_id(player_t *players)
  * @brief Get the smallest possible ID for a new player.
  *
  * @param players The list of all players.
@@ -79,7 +78,6 @@ typedef struct player_t {
 unsigned int next_id(player_t *players);
 
 /**
- * @fn void init_player(player_t *player, int id, const char *username)
  * @brief Initializes a new player from his new ID and username.
  *
  * @param player A pointer to the new player.
@@ -89,7 +87,6 @@ unsigned int next_id(player_t *players);
 void init_player(player_t *player, int id, const char *username);
 
 /**
- * @fn unsigned int alive_players(player_t *players)
  * @brief Return the number of players alive in a player list.
  *
  * @param players The list of players.
@@ -98,7 +95,6 @@ void init_player(player_t *player, int id, const char *username);
 unsigned int alive_players(player_t *players);
 
 /**
- * @fn player_t *get_first_alive_player(player_t *players)
  * @brief Return the first player alive found in a player list.
  *
  * @param players The list of players.
@@ -107,7 +103,6 @@ unsigned int alive_players(player_t *players);
 player_t *get_first_alive_player(player_t *players);
 
 /**
- * @fn void reset_player(player_t *player)
  * @brief Reset a player.
  *
  * @param player A pointer to the player to reset.

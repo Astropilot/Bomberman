@@ -56,7 +56,6 @@ typedef struct TAckEndGamePacket {
 } TAckEndGamePacket ;
 
 /**
- * @fn TAckEndGamePacket *New_TAckEndGamePacket(unsigned char *raw)
  * @brief The constructor for create a TAckEndGamePacket object.
  *
  * @return A memory allocated object of the packet.
@@ -64,7 +63,6 @@ typedef struct TAckEndGamePacket {
 TAckEndGamePacket *New_TAckEndGamePacket(unsigned char *raw);
 
 /**
- * @fn int TAckEndGamePacket_Serialize(TAckEndGamePacket *this)
  * @brief Method to serialize the packet into a low-level buffer.
  *
  * @param this A pointer to the packet object.
@@ -77,7 +75,6 @@ TAckEndGamePacket *New_TAckEndGamePacket(unsigned char *raw);
 int TAckEndGamePacket_Serialize(TAckEndGamePacket *this);
 
 /**
- * @fn void TAckEndGamePacket_Unserialize(TAckEndGamePacket *this)
  * @brief Method to de-serialize the low-level buffer into the packet.
  *
  * @param this A pointer to the packet object.
@@ -89,7 +86,6 @@ int TAckEndGamePacket_Serialize(TAckEndGamePacket *this);
 void TAckEndGamePacket_Unserialize(TAckEndGamePacket *this);
 
 /**
- * @fn void TAckEndGamePacket_New_Free(TAckEndGamePacket *this)
  * @brief Method to free the resource take by the object.
  *
  * @param this A pointer to the packet object.

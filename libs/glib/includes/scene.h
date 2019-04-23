@@ -58,6 +58,16 @@ typedef struct TScene {
 
     void(*Free_All_Drawables)(struct TScene*, unsigned int);                                /*!< Method for freeing all the drawable according to the free strategy given. */
 
+    void(*Play_BackgroundMusic)(struct TScene*, const char*, int);                          /*!< Method for play a background music. */
+
+    int(*Is_BackgroundMusic_Playing)(struct TScene*);                                       /*!< Method for know if the music is playing. */
+
+    int(*Is_BackgroundMusic_Paused)(struct TScene*);                                        /*!< Method for know if the music is paused. */
+
+    void(*Pause_BackgroundMusic)(struct TScene*, int);                                      /*!< Method for pause playing the background music. */
+
+    void(*Resume_BackgroundMusic)(struct TScene*);                                          /*!< Method for unpause the background music. */
+
     void(*Init)(struct TScene*);                                                            /*!< Method to be defined on the TScene creation. Called one time on first show. */
 
     void(*On_Load)(struct TScene*, int, va_list);                                           /*!< Method to be defined on the TScene creation. Called each time the scene is shown. */
@@ -75,7 +85,8 @@ typedef struct TScene {
     TWindow *window;                                        /*!< The main window. */
     char *scene_id;                                         /*!< The ID of the scene. */
     unsigned int initialized;                               /*!< Boolean to know if the scene has been initialized or not. */
-    TDrawable_Node *drawables_head;                          /*!< A linked list of drawables. */
+    TDrawable_Node *drawables_head;                         /*!< A linked list of drawables. */
+    //char *bg_music;                                         /*!< A optionnal background music. */
 
 } TScene ;
 
@@ -90,7 +101,6 @@ typedef struct TScene_Node {
 } TScene_Node ;
 
 /**
- * @fn TScene* New_TScene(const char *scene_id)
  * @brief The constructor for create a TScene object.
  *
  * @param scene_id A unique ID.
@@ -99,7 +109,6 @@ typedef struct TScene_Node {
 TScene* New_TScene(const char *scene_id);
 
 /**
- * @fn void TScene_Add_Drawable(TScene *this, TDrawable *drawable, const char *id, unsigned int priority, unsigned int free_strategy)
  * @brief Method for adding a drawable to the scene.
  *
  * @param this A pointer to the scene object.
@@ -115,7 +124,6 @@ TScene* New_TScene(const char *scene_id);
 void TScene_Add_Drawable(TScene *this, TDrawable *drawable, const char *id, unsigned int priority, unsigned int free_strategy);
 
 /**
- * @fn TDrawable *TScene_Remove_Drawable(TScene *this, const char *id)
  * @brief Method for deleting a drawable. The drawable is not free !
  *
  * @param this A pointer to the scene object.
@@ -129,7 +137,6 @@ void TScene_Add_Drawable(TScene *this, TDrawable *drawable, const char *id, unsi
 TDrawable *TScene_Remove_Drawable(TScene *this, const char *id);
 
 /**
- * @fn unsigned int TScene_Remove_Drawable_Obj(TScene *this, TDrawable *drawable)
  * @brief Method for deleting a drawable. The drawable is not free !
  *
  * @param this A pointer to the scene object.
@@ -143,7 +150,6 @@ TDrawable *TScene_Remove_Drawable(TScene *this, const char *id);
 unsigned int TScene_Remove_Drawable_Obj(TScene *this, TDrawable *drawable);
 
 /**
- * @fn unsigned int TScene_Free_Drawable(TScene *this, const char *id)
  * @brief Method for deleting and free the first drawable found by ID.
  *
  * @param this A pointer to the scene object.
@@ -157,7 +163,6 @@ unsigned int TScene_Remove_Drawable_Obj(TScene *this, TDrawable *drawable);
 unsigned int TScene_Free_Drawable(TScene *this, const char *id);
 
 /**
- * @fn unsigned int TScene_Free_Drawable_Obj(TScene *this, TDrawable *drawable)
  * @brief Method for deleting and free a drawable.
  *
  * @param this A pointer to the scene object.
@@ -171,7 +176,6 @@ unsigned int TScene_Free_Drawable(TScene *this, const char *id);
 unsigned int TScene_Free_Drawable_Obj(TScene *this, TDrawable *drawable);
 
 /**
- * @fn unsigned int TScene_Free_Drawables(TScene *this, const char *id)
  * @brief Method for deleting and free all the drawables that share the same ID.
  *
  * @param this A pointer to the scene object.
@@ -185,7 +189,6 @@ unsigned int TScene_Free_Drawable_Obj(TScene *this, TDrawable *drawable);
 unsigned int TScene_Free_Drawables(TScene *this, const char *id);
 
 /**
- * @fn TDrawable *TScene_Get_Drawable(TScene *this, const char *id)
  * @brief Method for getting a drawable.
  *
  * @param this A pointer to the scene object.
@@ -199,7 +202,6 @@ unsigned int TScene_Free_Drawables(TScene *this, const char *id);
 TDrawable *TScene_Get_Drawable(TScene *this, const char *id);
 
 /**
- * @fn void TScene_Draw_Drawables(TScene *this)
  * @brief Method for drawing all drawables in the scene.
  *
  * @param this A pointer to the scene object.
@@ -211,7 +213,6 @@ TDrawable *TScene_Get_Drawable(TScene *this, const char *id);
 void TScene_Draw_Drawables(TScene *this);
 
 /**
- * @fn void TScene_Free_All_Drawables(TScene *this, unsigned int free_strategy)
  * @brief Method for freeing all the drawable according to the free strategy given.
  *
  * @param this A pointer to the scene object.
@@ -224,7 +225,66 @@ void TScene_Draw_Drawables(TScene *this);
 void TScene_Free_All_Drawables(TScene *this, unsigned int free_strategy);
 
 /**
- * @fn void TScene_New_Free(TScene *this)
+ * @brief Method for play a background music.
+ *
+ * @param this A pointer to the scene object.
+ * @param music_path The path to the music file.
+ * @param plays The number of times the music must be played, -1 for loop playback.
+ *
+ * You do not have to call this method directly. You must use the
+ * Play_BackgroundMusic method of the TScene structure like this:
+ * my_scene->Play_BackgroundMusic(my_scene, "my_music.wav", 1);
+ */
+void TScene_Play_BackgroundMusic(TScene *this, const char *music_path, int plays);
+
+/**
+ * @brief Method for know if the music is playing.
+ *
+ * @param this A pointer to the scene object.
+ * @return Return 1 if the music is playing, 0 otherwise.
+ *
+ * You do not have to call this method directly. You must use the
+ * Is_BackgroundMusic_Playing method of the TScene structure like this:
+ * my_scene->Is_BackgroundMusic_Playing(my_scene);
+ */
+int TScene_Is_BackgroundMusic_Playing(TScene *this);
+
+/**
+ * @brief Method for know if the music is paused.
+ *
+ * @param this A pointer to the scene object.
+ * @return Return 1 if the music is paused, 0 otherwise.
+ *
+ * You do not have to call this method directly. You must use the
+ * Is_BackgroundMusic_Paused method of the TScene structure like this:
+ * my_scene->Is_BackgroundMusic_Paused(my_scene);
+ */
+int TScene_Is_BackgroundMusic_Paused(TScene *this);
+
+/**
+ * @brief Method for pause playing the background music.
+ *
+ * @param this A pointer to the scene object.
+ * @param reset Set 1 to completly stop the music, 0 if you want to pause for futur resume.
+ *
+ * You do not have to call this method directly. You must use the
+ * Pause_BackgroundMusic method of the TScene structure like this:
+ * my_scene->Pause_BackgroundMusic(my_scene, 0); // Pause
+ */
+void TScene_Pause_BackgroundMusic(TScene *this, int reset);
+
+/**
+ * @brief Method for unpause the background music.
+ *
+ * @param this A pointer to the scene object.
+ *
+ * You do not have to call this method directly. You must use the
+ * Resume_BackgroundMusic method of the TScene structure like this:
+ * my_scene->Resume_BackgroundMusic(my_scene);
+ */
+void TScene_Resume_BackgroundMusic(TScene *this);
+
+/**
  * @brief Method to free all ressources take by the scene, drawables included.
  *
  * @param this A pointer to the scene object to free.

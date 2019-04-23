@@ -142,6 +142,24 @@ static void On_Load(TScene* scene, int argc, va_list args)
         "MINION", 2, GLIB_FREE_ON_UNLOAD
     );
 
+    TSound *bomb_pose = New_TSound(scene, SOUND_PATH "bomb_pose.wav");
+    TSound *bomb_explode = New_TSound(scene, SOUND_PATH "bomb_explode.wav");
+    TSound *power_up = New_TSound(scene, SOUND_PATH "power_up.wav");
+    scene->Add_Drawable(scene, (TDrawable*)bomb_pose,
+        "BOMB_POSE", 999, GLIB_FREE_ON_FINISH
+    );
+    scene->Add_Drawable(scene, (TDrawable*)bomb_explode,
+        "BOMB_EXPLODE", 999, GLIB_FREE_ON_FINISH
+    );
+    scene->Add_Drawable(scene, (TDrawable*)power_up,
+        "POWER_UP", 999, GLIB_FREE_ON_FINISH
+    );
+
+    if (scene->Is_BackgroundMusic_Playing(scene)) {
+        scene->Pause_BackgroundMusic(scene, 1);
+    }
+    scene->Play_BackgroundMusic(scene, SOUND_PATH "game_bg.wav", -1);
+
     gameclient->Ready(gameclient);
 
     SDL_RenderClear(scene->window->renderer_window);
@@ -283,6 +301,7 @@ static void On_Unload(TScene* scene)
 {
     if (IS_DEBUG)
         printf("Scene [%s]: On_Unload method called\n", scene->scene_id);
+    scene->Pause_BackgroundMusic(scene, 1);
 }
 
 static void Finish(TScene* scene)

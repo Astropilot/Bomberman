@@ -26,7 +26,6 @@
 #include "network/game/client.h"
 
 /**
- * @fn TScene* New_GameScene(TGameClient *m_gameclient)
  * @brief The constructor for create a Game scene object.
  *
  * @param m_gameclient A pointer to the game client.
@@ -35,7 +34,6 @@
 TScene* New_GameScene(TGameClient *m_gameclient);
 
 /**
- * @fn void GameScene_UpdatePlayerInfo(TScene *scene, player_t player)
  * @brief Additional method for update a info-box of a player.
  *
  * @param scene The actual GameScene instance.

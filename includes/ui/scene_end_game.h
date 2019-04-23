@@ -25,7 +25,6 @@
 #include "glib.h"
 
 /**
- * @fn TScene* New_EndGameScene(void)
  * @brief The constructor for create a End Game scene object.
  *
  * @return A memory allocated object of the End Game scene.

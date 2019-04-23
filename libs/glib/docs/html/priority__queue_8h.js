@@ -8,6 +8,6 @@ var priority__queue_8h =
     [ "free_priority_queue", "priority__queue_8h.html#a8bd6a9bf046a6e1b9ade20705a7d7242", null ],
     [ "is_present_in_priority_queue", "priority__queue_8h.html#ae2388fed0e84616ebfa926952d6da194", null ],
     [ "is_priority_queue_empty", "priority__queue_8h.html#a055f3b79c97712ed027c5ecf8fcc5097", null ],
-    [ "pop_priority_queue", "priority__queue_8h.html#a018e9e6ef04014121f02c156999478f5", null ],
+    [ "pop_priority_queue", "priority__queue_8h.html#a8f4a7da1550fc76d73c5677e96a8354a", null ],
     [ "push_priority_queue", "priority__queue_8h.html#abdfed927f502f6be54a10e6e9c7a8a64", null ]
 ];

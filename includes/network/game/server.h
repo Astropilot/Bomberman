@@ -53,7 +53,6 @@ typedef struct TGameServer {
 } TGameServer ;
 
 /**
- * @fn TGameServer* New_TGameServer()
  * @brief The constructor for create a TGameServer object.
  *
  * @return A memory allocated object of the game server.
@@ -61,7 +60,6 @@ typedef struct TGameServer {
 TGameServer* New_TGameServer();
 
 /**
- * @fn void TGameServer_Start(TGameServer *this, int port, int max_clients)
  * @brief Start the network server on the given port with a maximum clients authorized.
  *
  * @param this A pointer to the game server object.
@@ -75,7 +73,6 @@ TGameServer* New_TGameServer();
 void TGameServer_Start(TGameServer *this, int port, int max_clients);
 
 /**
- * @fn void TGameServer_Stop(TGameServer *this)
  * @brief Stop the network server.
  *
  * @param this A pointer to the game server object.
@@ -87,7 +84,6 @@ void TGameServer_Start(TGameServer *this, int port, int max_clients);
 void TGameServer_Stop(TGameServer *this);
 
 /**
- * @fn void TGameServer_New_Free(TGameServer *this)
  * @brief Method to free all ressources take by the game server.
  *
  * @param this A pointer to the game server object to free.

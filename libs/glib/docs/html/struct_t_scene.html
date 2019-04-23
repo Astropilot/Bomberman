@@ -95,6 +95,16 @@ Data Fields</h2></td></tr>
 <tr class="separator:a569325dde44a0d046e01ce78331ca7fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aea424154e75ae5a3b321ba5cc47bc7d6"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_scene.html#aea424154e75ae5a3b321ba5cc47bc7d6">Free_All_Drawables</a> )(struct <a class="el" href="struct_t_scene.html">TScene</a> *, unsigned int)</td></tr>
 <tr class="separator:aea424154e75ae5a3b321ba5cc47bc7d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba5b0d77def605c9f927c1ab0ea8cf92"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_scene.html#aba5b0d77def605c9f927c1ab0ea8cf92">Play_BackgroundMusic</a> )(struct <a class="el" href="struct_t_scene.html">TScene</a> *, const char *, int)</td></tr>
+<tr class="separator:aba5b0d77def605c9f927c1ab0ea8cf92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a849e0308bba322ee3094878a87538090"><td class="memItemLeft" align="right" valign="top">int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_scene.html#a849e0308bba322ee3094878a87538090">Is_BackgroundMusic_Playing</a> )(struct <a class="el" href="struct_t_scene.html">TScene</a> *)</td></tr>
+<tr class="separator:a849e0308bba322ee3094878a87538090"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7182f02040518ade38b606326d31de72"><td class="memItemLeft" align="right" valign="top">int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_scene.html#a7182f02040518ade38b606326d31de72">Is_BackgroundMusic_Paused</a> )(struct <a class="el" href="struct_t_scene.html">TScene</a> *)</td></tr>
+<tr class="separator:a7182f02040518ade38b606326d31de72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac73c26cfb6a4a5fdf3fee63e572e9d64"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_scene.html#ac73c26cfb6a4a5fdf3fee63e572e9d64">Pause_BackgroundMusic</a> )(struct <a class="el" href="struct_t_scene.html">TScene</a> *, int)</td></tr>
+<tr class="separator:ac73c26cfb6a4a5fdf3fee63e572e9d64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bd21ec27eddbb3ebce614cffe7efa06"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_scene.html#a2bd21ec27eddbb3ebce614cffe7efa06">Resume_BackgroundMusic</a> )(struct <a class="el" href="struct_t_scene.html">TScene</a> *)</td></tr>
+<tr class="separator:a2bd21ec27eddbb3ebce614cffe7efa06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f58127f927ffaa56da983d9de7c63d6"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_scene.html#a0f58127f927ffaa56da983d9de7c63d6">Init</a> )(struct <a class="el" href="struct_t_scene.html">TScene</a> *)</td></tr>
 <tr class="separator:a0f58127f927ffaa56da983d9de7c63d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd20c4190d33d248809bb7954dcec77f"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_scene.html#afd20c4190d33d248809bb7954dcec77f">On_Load</a> )(struct <a class="el" href="struct_t_scene.html">TScene</a> *, int, va_list)</td></tr>
@@ -302,6 +312,36 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="a7182f02040518ade38b606326d31de72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7182f02040518ade38b606326d31de72">&#9670;&nbsp;</a></span>Is_BackgroundMusic_Paused</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int(* Is_BackgroundMusic_Paused) (struct <a class="el" href="struct_t_scene.html">TScene</a> *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Method for know if the music is paused. </p>
+
+</div>
+</div>
+<a id="a849e0308bba322ee3094878a87538090"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a849e0308bba322ee3094878a87538090">&#9670;&nbsp;</a></span>Is_BackgroundMusic_Playing</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int(* Is_BackgroundMusic_Playing) (struct <a class="el" href="struct_t_scene.html">TScene</a> *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Method for know if the music is playing. </p>
+
+</div>
+</div>
 <a id="ae62672a247aa2ffe363f2751e355863f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae62672a247aa2ffe363f2751e355863f">&#9670;&nbsp;</a></span>On_Event</h2>
 
@@ -362,6 +402,36 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a id="ac73c26cfb6a4a5fdf3fee63e572e9d64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac73c26cfb6a4a5fdf3fee63e572e9d64">&#9670;&nbsp;</a></span>Pause_BackgroundMusic</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* Pause_BackgroundMusic) (struct <a class="el" href="struct_t_scene.html">TScene</a> *, int)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Method for pause playing the background music. </p>
+
+</div>
+</div>
+<a id="aba5b0d77def605c9f927c1ab0ea8cf92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba5b0d77def605c9f927c1ab0ea8cf92">&#9670;&nbsp;</a></span>Play_BackgroundMusic</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* Play_BackgroundMusic) (struct <a class="el" href="struct_t_scene.html">TScene</a> *, const char *, int)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Method for play a background music. </p>
+
+</div>
+</div>
 <a id="a4a1bb4df60d9fccd55c4199010d1ff66"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4a1bb4df60d9fccd55c4199010d1ff66">&#9670;&nbsp;</a></span>Remove_Drawable</h2>
 
@@ -389,6 +459,21 @@ Data Fields</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Method for deleting a drawable. </p>
+
+</div>
+</div>
+<a id="a2bd21ec27eddbb3ebce614cffe7efa06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bd21ec27eddbb3ebce614cffe7efa06">&#9670;&nbsp;</a></span>Resume_BackgroundMusic</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* Resume_BackgroundMusic) (struct <a class="el" href="struct_t_scene.html">TScene</a> *)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Method for unpause the background music. </p>
 
 </div>
 </div>

@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file network.h
+ * @file network/network.h
  * @brief Wrapper around the socket API.
  *
  * The network part is a wrapper around the socket API providing higher-level

@@ -9,8 +9,8 @@ var packet__disconnect_8h =
       [ "USER_QUIT", "packet__disconnect_8h.html#abc623012e2b4f78b91fb783d4d6e36bfa3fb4434b67fa51e9d847e3dba6c61f29", null ],
       [ "MASTER_LEAVE", "packet__disconnect_8h.html#abc623012e2b4f78b91fb783d4d6e36bfaa8cc77a8ad22db55aaf23148f4da51bc", null ]
     ] ],
-    [ "New_TAckDisconnectPacket", "packet__disconnect_8h.html#a41a1978bdc164cf67a67fa2bdc517533", null ],
-    [ "New_TReqDisconnectPacket", "packet__disconnect_8h.html#a7259d9a5027efcd9ca3b9480795cc06e", null ],
+    [ "New_TAckDisconnectPacket", "packet__disconnect_8h.html#a3221328bc84053769890906e0254896a", null ],
+    [ "New_TReqDisconnectPacket", "packet__disconnect_8h.html#ac6792fd662b6947d1b47088ed029ba60", null ],
     [ "TAckDisconnectPacket_New_Free", "packet__disconnect_8h.html#acd75338f6e84dcb972977d170ce07385", null ],
     [ "TAckDisconnectPacket_Serialize", "packet__disconnect_8h.html#a28d4814dc2aa32f214c6da512abdbe5b", null ],
     [ "TAckDisconnectPacket_Unserialize", "packet__disconnect_8h.html#a8faae934c6582bc08cdf35a0280fd0d3", null ],

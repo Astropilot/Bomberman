@@ -56,7 +56,6 @@ typedef struct TAckConnectPacket {
 } TAckConnectPacket ;
 
 /**
- * @fn TAckConnectPacket *New_TAckConnectPacket(unsigned char *raw)
  * @brief The constructor for create a TAckConnectPacket object.
  *
  * @return A memory allocated object of the packet.
@@ -64,7 +63,6 @@ typedef struct TAckConnectPacket {
 TAckConnectPacket *New_TAckConnectPacket(unsigned char *raw);
 
 /**
- * @fn int TAckConnectPacket_Serialize(TAckConnectPacket *this)
  * @brief Method to serialize the packet into a low-level buffer.
  *
  * @param this A pointer to the packet object.
@@ -77,7 +75,6 @@ TAckConnectPacket *New_TAckConnectPacket(unsigned char *raw);
 int TAckConnectPacket_Serialize(TAckConnectPacket *this);
 
 /**
- * @fn void TAckConnectPacket_Unserialize(TAckConnectPacket *this)
  * @brief Method to de-serialize the low-level buffer into the packet.
  *
  * @param this A pointer to the packet object.
@@ -89,7 +86,6 @@ int TAckConnectPacket_Serialize(TAckConnectPacket *this);
 void TAckConnectPacket_Unserialize(TAckConnectPacket *this);
 
 /**
- * @fn void TAckConnectPacket_New_Free(TAckConnectPacket *this)
  * @brief Method to free the resource take by the object.
  *
  * @param this A pointer to the packet object.

@@ -66,7 +66,7 @@ typedef struct object_t {
  */
 typedef struct TMap {
 
-    void(*Generate)(struct TMap*);                      /*!< Method for generate a new map. */
+    void(*Generate)(struct TMap*);                                          /*!< Method for generate a new map. */
 
     unsigned int(*Move_Player)(struct TMap*, unsigned int, direction_t);    /*!< Method for move a specific player in a given direction. */
 
@@ -86,7 +86,6 @@ typedef struct TMap {
 } TMap ;
 
 /**
- * @fn TMap *New_TMap(unsigned int max_clients)
  * @brief The constructor for create a TMap object.
  *
  * @param max_clients The maximum number of players that can be on the map.
@@ -95,7 +94,6 @@ typedef struct TMap {
 TMap *New_TMap(unsigned int max_clients);
 
 /**
- * @fn void TMap_Generate(TMap *this)
  * @brief Method for generate a random map.
  *
  * @param this A pointer to the map object.
@@ -107,7 +105,6 @@ TMap *New_TMap(unsigned int max_clients);
 void TMap_Generate(TMap *this);
 
 /**
- * @fn unsigned int TMap_Move_Player(TMap *this, unsigned int player_id, direction_t direction)
  * @brief Method for moving a player on the map with a given direction.
  *
  * @param this A pointer to the map object.
@@ -122,7 +119,6 @@ void TMap_Generate(TMap *this);
 unsigned int TMap_Move_Player(TMap *this, unsigned int player_id, direction_t direction);
 
 /**
- * @fn bomb_status_t TMap_Place_Bomb(TMap *this, unsigned int player_id, bomb_reason_t *reason)
  * @brief Method for drop a bomb at the player position.
  *
  * @param this A pointer to the map object.
@@ -137,7 +133,6 @@ unsigned int TMap_Move_Player(TMap *this, unsigned int player_id, direction_t di
 bomb_status_t TMap_Place_Bomb(TMap *this, unsigned int player_id, bomb_reason_t *reason);
 
 /**
- * @fn void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TServer *server)
  * @brief Method for explode a specific bomb.
  *
  * @param this A pointer to the map object.
@@ -151,7 +146,6 @@ bomb_status_t TMap_Place_Bomb(TMap *this, unsigned int player_id, bomb_reason_t 
 void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TServer *server);
 
 /**
- * @fn void TMap_New_Free(TMap *this)
  * @brief Method to free all ressources take by the map.
  *
  * @param this A pointer to the map object to free.

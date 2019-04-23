@@ -35,7 +35,6 @@ typedef struct pos_t {
 } pos_t ;
 
 /**
- * @fn int rand_int(int max)
  * @brief Return a random integer between 0 and a max given.
  *
  * @param max The maximum value.
@@ -44,7 +43,6 @@ typedef struct pos_t {
 int rand_int(int max);
 
 /**
- * @fn int rand_range_int(int min, int max)
  * @brief Return a random integer between a min and a max given.
  *
  * @param min The minimum value.
@@ -54,7 +52,6 @@ int rand_int(int max);
 int rand_range_int(int min, int max);
 
 /**
- * @fn void map_to_pix(int x0, int y0, int *x1, int *y1)
  * @brief Convert a map position into a pixel position for the client side.
  *
  * @param x0 The x-axis on the map.
@@ -65,7 +62,6 @@ int rand_range_int(int min, int max);
 void map_to_pix(int x0, int y0, int *x1, int *y1);
 
 /**
- * @fn void pix_to_map(int x0, int y0, int *x1, int *y1)
  * @brief Convert a pixel position into a map position for the server side.
  *
  * @param x0 The x-axis in pixel.

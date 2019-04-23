@@ -35,8 +35,7 @@ static void TResourceCache_Init(TResourceCache *this, TWindow *window, unsigned 
     if (!this || !window) return;
 
     this->CacheResource = TResourceCache_CacheResource;
-    this->FetchSurface = TResourceCache_FetchSurface;
-    this->FetchTexture = TResourceCache_FetchTexture;
+    this->FetchResource = TResourceCache_FetchResource;
     this->ClearCache = TResourceCache_ClearCache;
     this->cache = NULL;
     this->count_cache = 0;
@@ -44,25 +43,31 @@ static void TResourceCache_Init(TResourceCache *this, TWindow *window, unsigned 
     this->window = window;
 }
 
-SDL_Surface *TResourceCache_CacheResource(TResourceCache *this, const char *res_path)
+void *TResourceCache_CacheResource(TResourceCache *this, const char *res_path, TResource_Type type)
 {
     if (!this || !res_path) return (NULL);
 
     if (this->count_cache >= this->max_caching) return (NULL);
 
-    SDL_Surface *surface;
-    unsigned int res_load;
+    void *resource = NULL;
     unsigned int added = 0;
 
-    res_load = loadImageResource(this->window, res_path, &surface, NULL);
-    if (!res_load) return (NULL);
+    if (type == GRAPHICAL)
+        loadImageResource(this->window, res_path, (SDL_Surface**)&resource, NULL);
+    if (type == SHORT_AUDIO)
+        resource = (void*)Mix_LoadWAV(res_path);
+    if (type == LONG_AUDIO)
+        resource = (void*)Mix_LoadMUS(res_path);
+
+    if (!resource) return (NULL);
 
     if (!this->cache) {
         TResource_Node *res_node = malloc(sizeof(TResource_Node));
 
         if (res_node) {
             res_node->res_id = hash(res_path);
-            res_node->surface = surface;
+            res_node->resource = resource;
+            res_node->type = type;
             res_node->next = NULL;
             this->cache = res_node;
             this->count_cache++;
@@ -76,61 +81,52 @@ SDL_Surface *TResourceCache_CacheResource(TResourceCache *this, const char *res_
         current->next = malloc(sizeof(TResource_Node));
         if (current->next) {
             current->next->res_id = hash(res_path);
-            current->next->surface = surface;
+            current->next->resource = resource;
+            current->next->type = type;
             current->next->next = NULL;
             this->count_cache++;
             added = 1;
         }
     }
     if (!added) {
-        SDL_FreeSurface(surface);
-        surface = NULL;
+        if (type == GRAPHICAL)
+            SDL_FreeSurface((SDL_Surface*)resource);
+        if (type == SHORT_AUDIO)
+            Mix_FreeChunk((Mix_Chunk*)resource);
+        if (type == LONG_AUDIO)
+            Mix_FreeMusic((Mix_Music*)resource);
+        resource = NULL;
     }
-    return (surface);
+    return (resource);
 }
 
-SDL_Surface *TResourceCache_FetchSurface(TResourceCache *this, const char *res_path)
+void *TResourceCache_FetchResource(TResourceCache *this, const char *res_path, TResource_Type type)
 {
     if (!this || !res_path) return (NULL);
 
     TResource_Node *current = this->cache;
     unsigned long uid = hash(res_path);
-    SDL_Surface *surface = NULL;
+    void *resource = NULL;
 
     while (current != NULL) {
         if (current->res_id == uid) {
-            return (current->surface);
+            if (current->type == GRAPHICAL)
+                return SDL_CreateTextureFromSurface(this->window->renderer_window, (SDL_Surface*)current->resource);
+            else
+                return (current->resource);
         }
         current = current->next;
     }
-    surface = this->CacheResource(this, res_path);
-    if (!surface)
-        loadImageResource(this->window, res_path, &surface, NULL);
-    return (surface);
-}
 
-SDL_Texture *TResourceCache_FetchTexture(TResourceCache *this, const char *res_path)
-{
-    if (!this || !res_path) return (NULL);
+    resource = this->CacheResource(this, res_path, type);
+    if (type != GRAPHICAL)
+        return (resource);
 
-    TResource_Node *current = this->cache;
-    unsigned long uid = hash(res_path);
-    SDL_Surface *surface = NULL;
-    SDL_Texture *texture = NULL;
-
-    while (current != NULL) {
-        if (current->res_id == uid) {
-            return SDL_CreateTextureFromSurface(this->window->renderer_window, current->surface);
-        }
-        current = current->next;
-    }
-    surface = this->CacheResource(this, res_path);
-    if (!surface) {
-        loadImageResource(this->window, res_path, NULL, &texture);
-    } else {
-        texture = SDL_CreateTextureFromSurface(this->window->renderer_window, surface);
-    }
-    return (texture);
+    if (!resource) {
+        loadImageResource(this->window, res_path, NULL, (SDL_Texture**)&resource);
+        return (resource);
+    } else
+        return SDL_CreateTextureFromSurface(this->window->renderer_window, (SDL_Surface*)resource);
 }
 
 void TResourceCache_ClearCache(TResourceCache *this)
@@ -140,8 +136,14 @@ void TResourceCache_ClearCache(TResourceCache *this)
     TResource_Node *current = this->cache;
     TResource_Node *tmp = NULL;
     while (current != NULL) {
-        if (current->surface)
-            SDL_FreeSurface(current->surface);
+        if (current->resource) {
+            if (current->type == GRAPHICAL)
+                SDL_FreeSurface((SDL_Surface*)current->resource);
+            if (current->type == SHORT_AUDIO)
+                Mix_FreeChunk((Mix_Chunk*)current->resource);
+            if (current->type == LONG_AUDIO)
+                Mix_FreeMusic((Mix_Music*)current->resource);
+        }
 
         tmp = current;
         current = current->next;

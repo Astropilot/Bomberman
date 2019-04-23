@@ -12,7 +12,7 @@
 *******************************************************************************/
 
 /**
- * @file server.h
+ * @file network/server.h
  * @brief Header file of the server class of gLib.
  *
  * This class allows you to create a socket server with
@@ -50,7 +50,7 @@ typedef struct TServer {
 
     void(*Send_Broadcast)(struct TServer*, TMessage);       /*!< Send a message to all connected clients. */
 
-    unsigned int(*CountClients)(struct TServer*);                 /*!< Get the number of connected clients. */
+    unsigned int(*CountClients)(struct TServer*);           /*!< Get the number of connected clients. */
 
     void(*Disconnect_Client)(struct TServer*, TClient*);    /*!< Disconnect a specific client. */
 
@@ -71,7 +71,6 @@ typedef struct TServer {
 } TServer ;
 
 /**
- * @fn TServer* New_TServer(unsigned short int port, unsigned int max_c)
  * @brief The constructor for create a TServer object.
  *
  * @param port The port to listening.
@@ -81,7 +80,6 @@ typedef struct TServer {
 TServer* New_TServer(unsigned short int port, unsigned int max_c);
 
 /**
- * @fn void TServer_Start_Listenning(TServer *this)
  * @brief Start listening for new clients. (Asynchrone)
  *
  * @param this A pointer to the server object.
@@ -93,7 +91,6 @@ TServer* New_TServer(unsigned short int port, unsigned int max_c);
 void TServer_Start_Listenning(TServer *this);
 
 /**
- * @fn void TServer_Stop_Listenning(TServer *this)
  * @brief Stop listening for new clients.
  *
  * @param this A pointer to the server object.
@@ -105,7 +102,6 @@ void TServer_Start_Listenning(TServer *this);
 void TServer_Stop_Listenning(TServer *this);
 
 /**
- * @fn void TServer_Send_Broadcast(TServer *this, TMessage message)
  * @brief Send a message to all connected clients.
  *
  * @param this A pointer to the server object.
@@ -118,7 +114,6 @@ void TServer_Stop_Listenning(TServer *this);
 void TServer_Send_Broadcast(TServer *this, TMessage message);
 
 /**
- * @fn unsigned int TServer_CountClients(TServer *this)
  * @brief Return the number of connected clients.
  *
  * @param this A pointer to the server object.
@@ -131,7 +126,6 @@ void TServer_Send_Broadcast(TServer *this, TMessage message);
 unsigned int TServer_CountClients(TServer *this);
 
 /**
- * @fn void TServer_Disconnect_Client(TServer *this, TClient *client)
  * @brief Disconnect a client and remove it from the server.
  *
  * @param this A pointer to the server object.
@@ -144,7 +138,6 @@ unsigned int TServer_CountClients(TServer *this);
 void TServer_Disconnect_Client(TServer *this, TClient *client);
 
 /**
- * @fn void TServer_New_Free(TServer *this)
  * @brief Method to free all ressources take by the server and clients.
  *
  * @param this A pointer to the server object.

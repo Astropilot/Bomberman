@@ -38,7 +38,7 @@ static void TSprite_Init(TSprite *this, TScene *scene, const char *file, SDL_Rec
 
     TResourceCache *cache = scene->window->cache_manager;
 
-    this->texture = cache->FetchTexture(cache, file);
+    this->texture = (SDL_Texture*)cache->FetchResource(cache, file, GRAPHICAL);
     if (!this->texture) return;
     this->Draw = TSprite_Draw;
     this->file = strdup(file);
