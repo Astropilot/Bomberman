@@ -34,6 +34,7 @@
 #include "text.h"
 #include "button.h"
 #include "inputbox.h"
+#include "slider.h"
 #include "sound.h"
 #include "utils.h"
 

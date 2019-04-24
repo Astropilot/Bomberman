@@ -34,7 +34,7 @@ OBJ		= $(SRC:.c=.o)
 all: $(TARGET)
 
 $(TARGET): makeglib $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(FOLDER)$(TARGET) $(SDL) $(GLIB)
+	$(CC) $(CFLAGS) $(OBJ) -o $(FOLDER)$(TARGET) $(SDL) $(GLIB) -lm
 
 makeglib:
 	cd libs/glib && $(MAKE)

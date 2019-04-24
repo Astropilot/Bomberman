@@ -26,6 +26,7 @@ static void On_Unload(TScene *scene);
 static void On_Finish(TScene *scene);
 
 static void On_Click_Play_Button(TButton *button, TScene *scene);
+static void On_MinValueChange(TSlider *slider, TScene *scene, int value);
 
 TScene* New_HostMenuScene(void)
 {
@@ -71,12 +72,35 @@ static void On_Init(TScene* scene)
         color, 5, "Server port", font
     );
 
-    SDL_Rect pos_button_play = {(WIN_WIDTH / 2) - (410 / 2), (pos2.y + pos2.h) + 15, 410, 64};
+    SDL_Rect pos_button_play = {(WIN_WIDTH / 2) - (410 / 2), WIN_HEIGHT - 64 - 15, 410, 64};
     TButton *btn_play = New_TButton(scene,
         RES_PATH "button_create_normal.png",
         RES_PATH "button_create_hover.png", pos_button_play
     );
     btn_play->On_Click = On_Click_Play_Button;
+
+
+    SDL_Rect pos_slider = {(WIN_WIDTH / 2) - (410 / 2), (pos2.y + pos2.h) + 15, 410, 20};
+    SDL_Rect pos_txt_slidermin = {0, 0, 0, 0};
+    SDL_Point size_btn = {10, 20};
+    TSlider *slider_min = New_TSlider(scene,
+        RES_PATH "slider_bg.png", RES_PATH "slider.png",
+        pos_slider, size_btn, 2, 4, 2
+    );
+    slider_min->On_ValueChange = On_MinValueChange;
+
+    font = loadFont(FONT_PATH "fixedsys.ttf", 24);
+    TText *txt_slider_min = New_TText(scene, "Minimum de joueurs: 2", font, color, pos_txt_slidermin);
+    txt_slider_min->pos.x = pos_slider.x - (txt_slider_min->pos.w) - 5;
+    txt_slider_min->pos.y = pos_slider.y;
+
+    scene->Add_Drawable(scene, (TDrawable*)slider_min,
+        "SLIDER_MIN", 1, GLIB_FREE_ON_FINISH
+    );
+    scene->Add_Drawable(scene, (TDrawable*)txt_slider_min,
+        "LABEL_SLIDER_MIN", 1, GLIB_FREE_ON_FINISH
+    );
+
 
     scene->Add_Drawable(scene, (TDrawable*)sp_bg,
         "BG", 999, GLIB_FREE_ON_FINISH
@@ -95,6 +119,19 @@ static void On_Init(TScene* scene)
     );
 }
 
+static void On_MinValueChange(TSlider *slider, TScene *scene, int value)
+{
+    TText *label_slider_min = (TText*)scene->Get_Drawable(scene, "LABEL_SLIDER_MIN");
+    char *status = malloc(sizeof(char) * 255);
+
+    sprintf(status, "Minimum de joueurs: %d", value);
+    label_slider_min->Change_Text(label_slider_min, scene, status);
+    label_slider_min->pos.x = slider->pos.x - (label_slider_min->pos.w) - 5;
+    label_slider_min->pos.y = slider->pos.y;
+
+    free(status);
+}
+
 static void On_Load(TScene* scene, int argc, va_list args)
 {
     if (IS_DEBUG)
@@ -102,12 +139,19 @@ static void On_Load(TScene* scene, int argc, va_list args)
     TInput *input_username = (TInput*)scene->Get_Drawable(scene, "INPUT_USER");
     TInput *input_serverport = (TInput*)scene->Get_Drawable(scene, "INPUT_PORT");
     TButton *btn_play = (TButton*)scene->Get_Drawable(scene, "BTN_PLAY");
+    TSlider *slider_min = (TSlider*)scene->Get_Drawable(scene, "SLIDER_MIN");
+    TText *label_slider_min = (TText*)scene->Get_Drawable(scene, "LABEL_SLIDER_MIN");
 
     SDL_StartTextInput();
 
     btn_play->state = BUTTON_NORMAL;
     strcpy(input_username->text, "");
     strcpy(input_serverport->text, "");
+
+    slider_min->value = 2;
+    label_slider_min->Change_Text(label_slider_min, scene, "Minimum de joueurs: 2");
+    label_slider_min->pos.x = slider_min->pos.x - (label_slider_min->pos.w) - 5;
+    label_slider_min->pos.y = slider_min->pos.y;
 
     if (scene->Is_BackgroundMusic_Paused(scene) && scene->Is_BackgroundMusic_Playing(scene)) {
         scene->Resume_BackgroundMusic(scene);
@@ -121,10 +165,12 @@ static void On_Event(TScene* scene, SDL_Event event)
     TInput *input_username = (TInput*)scene->Get_Drawable(scene, "INPUT_USER");
     TInput *input_serverport = (TInput*)scene->Get_Drawable(scene, "INPUT_PORT");
     TButton *btn_play = (TButton*)scene->Get_Drawable(scene, "BTN_PLAY");
+    TSlider *slider_min = (TSlider*)scene->Get_Drawable(scene, "SLIDER_MIN");
 
     btn_play->Event_Handler(btn_play, scene, event);
     input_username->Event_Handler(input_username, event);
     input_serverport->Event_Handler(input_serverport, event);
+    slider_min->Event_Handler(slider_min, scene, event);
     if (event.type == SDL_KEYUP) {
         if (event.key.keysym.sym == SDLK_ESCAPE)
             scene->window->Show_Scene(scene->window, "SCENE_MAIN_MENU", 0);
