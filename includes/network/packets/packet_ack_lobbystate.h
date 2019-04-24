@@ -22,6 +22,8 @@
 #ifndef PACKET_ACK_LOBBYSTATE_H_
 #define PACKET_ACK_LOBBYSTATE_H_
 
+#include "core/player.h"
+
 /**
  * @brief An class representing the server response lobby state packet.
  *
@@ -38,6 +40,7 @@ typedef struct TAckLobbyStatePacket {
     unsigned char *raw_packet;                          /*!< The low-leve buffer when packet is serialized. */
     int packet_id;                                      /*!< The packet ID. */
     unsigned int nb_players;                            /*!< The actual number of player in the lobby. */
+    player_t *players;                                  /*!< The list of players. */
 
 } TAckLobbyStatePacket ;
 

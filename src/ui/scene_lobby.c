@@ -50,22 +50,49 @@ TScene* New_LobbyScene(TLobbyClient *m_lobbyclient)
 
 static void On_Init(TScene* scene)
 {
-    SDL_Rect pos_button_start = {(WIN_WIDTH / 2) - (410 / 2), 400, 410, 64};
+    SDL_Rect pos_button_start = {15, WIN_HEIGHT - 64 - 15, 410, 64};
     btn_start = New_TButton(scene,
         RES_PATH "button_startgame_normal.png",
         RES_PATH "button_startgame_hover.png", pos_button_start
     );
     btn_start->On_Click = On_Click_Start_Button;
 
-    SDL_Rect pos_button_quit = {(WIN_WIDTH / 2) - (410 / 2), (pos_button_start.y + pos_button_start.h) + 15, 410, 64};
+    SDL_Rect pos_button_quit = {WIN_WIDTH - 410 - 15, WIN_HEIGHT - 64 - 15, 410, 64};
     TButton *btn_quit = New_TButton(scene,
         RES_PATH "button_quit_normal.png",
         RES_PATH "button_quit_hover.png", pos_button_quit
     );
     btn_quit->On_Click = On_Click_Quit_Button;
 
+    SDL_Rect pos_sprite_bg = {0, 0, 430, 242};
+    SDL_Rect size_sprite_bg = {0, 0, 1280, 720};
+    TAnimatedSprite *sp_bg = New_TAnimatedSprite(scene,
+        RES_PATH "animated_background.png", pos_sprite_bg,
+        size_sprite_bg, 52, -1
+    );
+
+    SDL_Rect pos_ui = {0, 0, 1280, 720};
+    TSprite *sp_ui = New_TSprite(scene,
+        RES_PATH "lobby_background.png", pos_ui
+    );
+
+    SDL_Rect size = {0, 0, 200, 200};
+    SDL_Rect pos = {216, 589, 32, 32};
+    TAnimatedSprites *sp_loader = New_TAnimatedSprites(scene,
+        RES_PATH "loader/frame-%02d.png", 30, size, pos, 40, -1
+    );
+
+    scene->Add_Drawable(scene, (TDrawable*)sp_bg,
+        "BG", 999, GLIB_FREE_ON_FINISH
+    );
+    scene->Add_Drawable(scene, (TDrawable*)sp_ui,
+        "BG", 3, GLIB_FREE_ON_FINISH
+    );
     scene->Add_Drawable(scene, (TDrawable*)btn_quit,
         "BTN_QUIT", 1, GLIB_FREE_ON_FINISH
+    );
+    scene->Add_Drawable(scene, (TDrawable*)sp_loader,
+        "LOADER", 1, GLIB_FREE_ON_FINISH
     );
 }
 
@@ -81,7 +108,7 @@ static void On_Load(TScene* scene, int argc, va_list args)
     TTF_Font *font = loadFont(FONT_PATH "fixedsys.ttf", 24);
     TText *txt_label = New_TText(scene, "Connexion en cours...", font, color, pos_label);
     txt_label->pos.x = (WIN_WIDTH / 2) - (txt_label->pos.w / 2);
-    txt_label->pos.y = (WIN_HEIGHT / 2) - (txt_label->pos.h / 2);
+    txt_label->pos.y = 585;
 
     scene->Add_Drawable(scene, (TDrawable*)txt_label,
         "LABEL_STATUS", 1, GLIB_FREE_ON_UNLOAD

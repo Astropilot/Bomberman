@@ -51,7 +51,7 @@ static void handle_connect(TLobbyClient *lobby, TMessage message)
     p_ac->Unserialize(p_ac);
 
     if (p_ac->status != OK) {
-        lobby->player = (int)p_ac->player;
+        lobby->player = -1;
         lobby->Leave_Lobby(lobby);
     } else
         lobby->player = (int)p_ac->player;
@@ -68,6 +68,7 @@ static void handle_lobbystate(TLobbyClient *lobby, TMessage message)
 {
     TText *txt_label = NULL;
     TAckLobbyStatePacket *p_as = New_TAckLobbyStatePacket(message.message);
+    unsigned int i;
 
     p_as->Unserialize(p_as);
     lobby->nb_players = p_as->nb_players;
@@ -77,7 +78,25 @@ static void handle_lobbystate(TLobbyClient *lobby, TMessage message)
     txt_label = (TText*)lobby->lobby_scene->Get_Drawable(lobby->lobby_scene, "LABEL_STATUS");
     txt_label->Change_Text(txt_label, lobby->lobby_scene, status);
     txt_label->pos.x = (WIN_WIDTH / 2) - (txt_label->pos.w / 2);
-    txt_label->pos.y = (WIN_HEIGHT / 2) - (txt_label->pos.h / 2);
+    txt_label->pos.y = 585;
+
+    lobby->lobby_scene->Free_Drawables(lobby->lobby_scene, "LABEL_USERNAME");
+
+    for (i = 0; i < lobby->nb_players; i++) {
+        SDL_Rect pos_username = {0, 0, 0, 0};
+        SDL_Color color = {255, 255, 255, 255};
+        TTF_Font *font = loadFont(FONT_PATH "fixedsys.ttf", 24);
+        TText *txt_username = New_TText(
+            lobby->lobby_scene, p_as->players[i].username, font, color, pos_username
+        );
+
+        txt_username->pos.x = 446;
+        txt_username->pos.y = 216 + (p_as->players[i].p_id * 92) - (txt_label->pos.h / 2);
+        lobby->lobby_scene->Add_Drawable(
+            lobby->lobby_scene, (TDrawable*)txt_username,
+            "LABEL_USERNAME", 1, GLIB_FREE_ON_UNLOAD
+        );
+    }
 
     free(status);
     p_as->Free(p_as);

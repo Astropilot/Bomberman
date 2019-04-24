@@ -113,10 +113,13 @@ void TLobbyClient_Leave_Lobby(TLobbyClient *this)
     if (!this || !this->client)
         return;
 
-    TReqDisconnectPacket *p_d = New_TReqDisconnectPacket(NULL);
-    p_d->reason = (this->is_owner ? MASTER_LEAVE : USER_QUIT);
-    p_d->player = (unsigned int)this->player;
-    this->client->Send(this->client, packet_to_message((TPacket*)p_d, 1));
+    if (this->player != -1) {
+        TReqDisconnectPacket *p_d = New_TReqDisconnectPacket(NULL);
+
+        p_d->reason = (this->is_owner ? MASTER_LEAVE : USER_QUIT);
+        p_d->player = (unsigned int)this->player;
+        this->client->Send(this->client, packet_to_message((TPacket*)p_d, 1));
+    }
     this->client->Disconnect(this->client);
     this->client->Free(this->client);
     this->client = NULL;

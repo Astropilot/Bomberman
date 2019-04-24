@@ -64,7 +64,7 @@ static void handle_disconnect(TGameServer *game_server, TClient* client, TMessag
     TReqDisconnectPacket *p_d = New_TReqDisconnectPacket(message.message);
     p_d->Unserialize(p_d);
 
-    if (p_d->player >= game_server->server->CountClients(game_server->server)) {
+    if (p_d->player >= (unsigned int)game_server->nb_players) {
         p_d->Free(p_d);
         return;
     }
@@ -74,6 +74,7 @@ static void handle_disconnect(TGameServer *game_server, TClient* client, TMessag
 
         game_server->nb_players--;
         p->nb_players = (int)game_server->nb_players;
+        p->players = game_server->map->players;
         game_server->server->Send_Broadcast(
             game_server->server,
             packet_to_message((TPacket*)p, 1)
@@ -88,8 +89,6 @@ static void handle_connect(TGameServer *game_server, TClient* client, TMessage m
     TReqConnectPacket *p_rc = New_TReqConnectPacket(message.message);
     p_rc->Unserialize(p_rc);
 
-    int nb_clients = (int)game_server->server->CountClients(game_server->server);
-
     if (game_server->game_started) {
         TAckConnectPacket *p_a = New_TAckConnectPacket(NULL);
         p_a->status = GAME_STARTED;
@@ -99,7 +98,7 @@ static void handle_connect(TGameServer *game_server, TClient* client, TMessage m
         return;
     }
 
-    if (nb_clients <= game_server->max_clients) {
+    if (game_server->nb_players <= game_server->max_clients) {
         TAckConnectPacket *p_a = New_TAckConnectPacket(NULL);
         TAckLobbyStatePacket *p = New_TAckLobbyStatePacket(NULL);
 
@@ -110,6 +109,7 @@ static void handle_connect(TGameServer *game_server, TClient* client, TMessage m
 
         game_server->nb_players++;
         p->nb_players = game_server->nb_players;
+        p->players = game_server->map->players;
         game_server->server->Send_Broadcast(
             game_server->server,
             packet_to_message((TPacket*)p, 1)
