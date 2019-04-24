@@ -18,12 +18,12 @@
 #include "glib.h"
 #include "ui/scene_host_menu.h"
 
-static void Init(TScene* scene);
-static void On_Load(TScene* scene, int argc, va_list args);
-static void On_Event(TScene* scene, SDL_Event event);
-static void On_Tick(TScene* scene);
-static void On_Unload(TScene* scene);
-static void Finish(TScene* scene);
+static void On_Init(TScene *scene);
+static void On_Load(TScene *scene, int argc, va_list args);
+static void On_Event(TScene *scene, SDL_Event event);
+static void On_Tick(TScene *scene);
+static void On_Unload(TScene *scene);
+static void On_Finish(TScene *scene);
 
 static void On_Click_Play_Button(TButton *button, TScene *scene);
 
@@ -31,17 +31,17 @@ TScene* New_HostMenuScene(void)
 {
     TScene *frm = New_TScene("SCENE_HOST_MENU");
     if (frm) {
-        frm->Init = Init;
+        frm->On_Init = On_Init;
         frm->On_Load = On_Load;
         frm->On_Event = On_Event;
         frm->On_Tick = On_Tick;
         frm->On_Unload = On_Unload;
-        frm->Finish = Finish;
+        frm->On_Finish = On_Finish;
     }
     return (frm);
 }
 
-static void Init(TScene* scene)
+static void On_Init(TScene* scene)
 {
     TTF_Font *font = NULL;
     SDL_Color color = {255, 255, 255, 255};
@@ -160,7 +160,7 @@ static void On_Unload(TScene* scene)
     scene->Pause_BackgroundMusic(scene, 0);
 }
 
-static void Finish(TScene* scene)
+static void On_Finish(TScene* scene)
 {
     if (IS_DEBUG)
         printf("Scene [%s]: Finish method called\n", scene->scene_id);

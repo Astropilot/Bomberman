@@ -73,8 +73,8 @@ static void TWindow_Finish_Scenes(TWindow *this)
     TScene_Node *current = this->scenes_head;
 
     while (current != NULL) {
-        if (current->scene && current->scene->Finish)
-            current->scene->Finish(current->scene);
+        if (current->scene && current->scene->On_Finish)
+            current->scene->On_Finish(current->scene);
         current = current->next;
     }
 }
@@ -195,8 +195,8 @@ void TWindow_Show_Scene(TWindow *this, const char *scene_id, int argc, ...)
                 tmp_shown_scene->On_Unload(tmp_shown_scene);
             if (tmp_shown_scene)
                 tmp_shown_scene->Free_All_Drawables(tmp_shown_scene, GLIB_FREE_ON_UNLOAD);
-            if (!current->scene->initialized && current->scene->Init) {
-                current->scene->Init(current->scene);
+            if (!current->scene->initialized && current->scene->On_Init) {
+                current->scene->On_Init(current->scene);
                 current->scene->initialized = 1;
             }
             va_list argp;

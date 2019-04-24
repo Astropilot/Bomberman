@@ -8,23 +8,23 @@ Framework around the SDL library allowing to create small 2D video games quickly
 
 ## About
 
-Having dealt with the SDL library many times before, we were tired of always having to re-code the graphical management from zero.<br/>
-We decided for this project to develop a framework around the SDL allowing to set up small 2D games quickly.
+During another project in C with the SDL library, I was getting tired of having to recode the game's graphic management every time. That's why I decided to make my own framework around the SDL allowing to set up as simply as possible small 2D video games.
 
-This framework offers a development architecture more adapted to games and manages the graphic loop as well as the creation and management of many graphic components such as buttons, simple or animated sprites, input fields or simply text.<br/>
+This framework offers a development architecture more adapted to games and manages the graphic loop as well as the creation and management of many graphic components such as buttons, simple or animated sprites, input fields, sounds or simply text.<br/>
 gLib is extensible, which means that you can develop your own graphical components and use them with the resource manager.
 
-In addition to providing high-level support to the SDL, it also provides support for the creation of a client/server architecture to integrate a concept of network multiplayers into your game.
+In addition to providing high-level support to SDL, it also provides support for the creation of a client/server architecture to integrate a network multiplayer concept into your game as well as pathfinding algorithms.
 
-The framework has been designed to be efficient and cross-platform.
+The framework is currently compatible with Linux (tested on Debian 8 & 9), Windows (tested on Windows 10 x86 and x64) and Mac OSX.
 
-## How to compile and use
-
-Currently we can compile the framework under Debian 8 & 9, Windows 10 x86 and x64, and Mac OSX !
+## How to compile
 
 ### Prerequisites
 
-You will need SDL 2 as well as the SDL2_Image, SDL2_TTf and SDL2_Mixer extensions.
+* [SDL2](https://www.libsdl.org/download-2.0.php)
+* [SDL_image 2.0](https://www.libsdl.org/projects/SDL_image/)
+* [SDL_ttf 2.0](https://www.libsdl.org/projects/SDL_ttf/)
+* [SDL_mixer 2.0](https://www.libsdl.org/projects/SDL_mixer/)
 
 ### Compile [GNU/Linux / OSX]
 
@@ -37,6 +37,40 @@ gLib$> make
 ### Compile [Windows x86 & x64]
 
 We recommend that you use Visual Studio and import the header and source files.
+
+## How to use
+
+First import the `includes` folder into your project and include the `glib.h` file.
+In your compilation tool add a reference to the static library `libglib.a` previously compiled.
+
+All the documentation of the framework is available in the wiki of the [git repository](https://github.com/Astropilot/gLib/wiki).
+
+Here is a simple example:
+
+```
+├── includes
+│   ├── glib.h
+│   └── ...
+├── libglib.a
+└── main.c
+```
+
+main.c:
+```c
+#include <stdlib.h>
+
+#include "glib.h"
+
+int main(void)
+{
+    return (EXIT_SUCCESS);
+}
+```
+
+Compilation:
+```bash
+$ gcc main.c -o mygame -Iincludes/ -lglib
+```
 
 ## Credits
 

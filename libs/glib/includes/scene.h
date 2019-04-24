@@ -68,7 +68,7 @@ typedef struct TScene {
 
     void(*Resume_BackgroundMusic)(struct TScene*);                                          /*!< Method for unpause the background music. */
 
-    void(*Init)(struct TScene*);                                                            /*!< Method to be defined on the TScene creation. Called one time on first show. */
+    void(*On_Init)(struct TScene*);                                                         /*!< Method to be defined on the TScene creation. Called one time on first show. */
 
     void(*On_Load)(struct TScene*, int, va_list);                                           /*!< Method to be defined on the TScene creation. Called each time the scene is shown. */
 
@@ -78,7 +78,7 @@ typedef struct TScene {
 
     void(*On_Unload)(struct TScene*);                                                       /*!< Method to be defined on the TScene creation. Called each time the scene become invisible. */
 
-    void(*Finish)(struct TScene*);                                                          /*!< Method to be defined on the TScene creation. Called one time at the end of the program. */
+    void(*On_Finish)(struct TScene*);                                                       /*!< Method to be defined on the TScene creation. Called one time at the end of the program. */
 
     void(*Free)(struct TScene*);                                                            /*!< Method for free all TScene ressources, include drawables. */
 
@@ -86,7 +86,6 @@ typedef struct TScene {
     char *scene_id;                                         /*!< The ID of the scene. */
     unsigned int initialized;                               /*!< Boolean to know if the scene has been initialized or not. */
     TDrawable_Node *drawables_head;                         /*!< A linked list of drawables. */
-    //char *bg_music;                                         /*!< A optionnal background music. */
 
 } TScene ;
 

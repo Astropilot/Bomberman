@@ -20,12 +20,12 @@
 #include "network/packets/packet_ack_endgame.h"
 #include "ui/scene_end_game.h"
 
-static void Init(TScene* scene);
-static void On_Load(TScene* scene, int argc, va_list args);
-static void On_Event(TScene* scene, SDL_Event event);
-static void On_Tick(TScene* scene);
-static void On_Unload(TScene* scene);
-static void Finish(TScene* scene);
+static void On_Init(TScene *scene);
+static void On_Load(TScene *scene, int argc, va_list args);
+static void On_Event(TScene *scene, SDL_Event event);
+static void On_Tick(TScene *scene);
+static void On_Unload(TScene *scene);
+static void On_Finish(TScene *scene);
 
 static void On_Click_Menu_Button(TButton *button, TScene *scene);
 
@@ -33,17 +33,17 @@ TScene* New_EndGameScene(void)
 {
     TScene *frm = New_TScene("SCENE_END_GAME");
     if (frm) {
-        frm->Init = Init;
+        frm->On_Init = On_Init;
         frm->On_Load = On_Load;
         frm->On_Event = On_Event;
         frm->On_Tick = On_Tick;
         frm->On_Unload = On_Unload;
-        frm->Finish = Finish;
+        frm->On_Finish = On_Finish;
     }
     return (frm);
 }
 
-static void Init(TScene* scene)
+static void On_Init(TScene* scene)
 {
     SDL_Rect pos_button = {(WIN_WIDTH / 2) - (410 / 2), WIN_HEIGHT - 64 - 15, 410, 64};
     TButton *btn_menu = New_TButton(scene,
@@ -119,7 +119,7 @@ static void On_Unload(TScene* scene)
     scene->Pause_BackgroundMusic(scene, 1);
 }
 
-static void Finish(TScene* scene)
+static void On_Finish(TScene* scene)
 {
     if (IS_DEBUG)
         printf("Scene [%s]: Finish method called\n", scene->scene_id);

@@ -51,6 +51,12 @@ static void TScene_Init(TScene *this, const char *scene_id)
     this->Is_BackgroundMusic_Paused = TScene_Is_BackgroundMusic_Paused;
     this->Pause_BackgroundMusic = TScene_Pause_BackgroundMusic;
     this->Resume_BackgroundMusic = TScene_Resume_BackgroundMusic;
+    this->On_Init = NULL;
+    this->On_Load = NULL;
+    this->On_Event = NULL;
+    this->On_Tick = NULL;
+    this->On_Unload = NULL;
+    this->On_Finish = NULL;
     this->window = NULL;
     this->scene_id = strdup(scene_id);
     this->initialized = 0;

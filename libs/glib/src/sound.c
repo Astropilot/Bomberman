@@ -41,7 +41,7 @@ static void TSound_Init(TSound *this, TScene *scene, const char *sound_path)
     this->Stop = TSound_Stop;
     this->sound = (Mix_Chunk*)cache->FetchResource(cache, sound_path, SHORT_AUDIO);
     this->channel = -1;
-    this->is_visible = 1;
+    this->is_visible = 0;
 }
 
 
