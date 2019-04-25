@@ -98,7 +98,7 @@ static void handle_connect(TGameServer *game_server, TClient* client, TMessage m
         return;
     }
 
-    if (game_server->nb_players <= game_server->max_clients) {
+    if (game_server->nb_players < game_server->rules.max_players) {
         TAckConnectPacket *p_a = New_TAckConnectPacket(NULL);
         TAckLobbyStatePacket *p = New_TAckLobbyStatePacket(NULL);
 
@@ -132,7 +132,7 @@ static void handle_startgame(TGameServer *game_server, TClient* client, TMessage
     if (p_rs->player == 0) {
         TAckStartGamePacket *p = New_TAckStartGamePacket(NULL);
 
-        game_server->map->Generate(game_server->map);
+        game_server->map->Generate(game_server->map, game_server->rules.chance_breakable_wall);
         game_server->server->Send_Broadcast(
             game_server->server,
             packet_to_message((TPacket*)p, 1)

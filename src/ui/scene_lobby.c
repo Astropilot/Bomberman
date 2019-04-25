@@ -124,7 +124,7 @@ static void On_Load(TScene* scene, int argc, va_list args)
     scene->Play_BackgroundMusic(scene, SOUND_PATH "lobby_bg.wav", -1);
 
     if (!param.server_ip) {
-        lobbyclient->Start_Server(lobbyclient, param.port, MAX_PLAYERS);
+        lobbyclient->Start_Server(lobbyclient, param.port, param.game_rules);
         lobbyclient->Join_Lobby(lobbyclient, param.username, "127.0.0.1", param.port);
     } else {
         lobbyclient->Join_Lobby(lobbyclient, param.username, param.server_ip, param.port);
@@ -136,7 +136,7 @@ static void On_Event(TScene* scene, SDL_Event event)
     TButton *btn_quit = (TButton*)scene->Get_Drawable(scene, "BTN_QUIT");
 
     btn_quit->Event_Handler(btn_quit, scene, event);
-    if (lobbyclient->nb_players >= MIN_PLAYERS && lobbyclient->is_owner)
+    if ((int)lobbyclient->nb_players >= lobbyclient->rules.min_players && lobbyclient->is_owner)
         btn_start->Event_Handler(btn_start, scene, event);
 }
 
@@ -158,7 +158,7 @@ static void On_Tick(TScene* scene)
 {
     SDL_RenderClear(scene->window->renderer_window);
     lobbyclient->Handle_Messages(lobbyclient);
-    if (lobbyclient->nb_players >= MIN_PLAYERS && lobbyclient->is_owner) {
+    if ((int)lobbyclient->nb_players >= lobbyclient->rules.min_players && lobbyclient->is_owner) {
         if (!scene->Get_Drawable(scene, "BTN_START"))
             scene->Add_Drawable(scene, (TDrawable*)btn_start,
                 "BTN_START", 1, GLIB_FREE_ON_FINISH

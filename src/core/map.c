@@ -21,6 +21,7 @@
 #include "core/minion.h"
 #include "core/bomb.h"
 #include "core/utils.h"
+#include "network/game/server.h"
 
 static void TMap_Init(TMap *this, unsigned int max_clients);
 static unsigned int TMap_Take_Extra(TMap *this, player_t *player, int x, int y);
@@ -69,7 +70,7 @@ static void TMap_Init(TMap *this, unsigned int max_clients)
     this->bomb_offset = 0;
 }
 
-void TMap_Generate(TMap *this)
+void TMap_Generate(TMap *this, int chance_breakable_wall)
 {
     if (!this || !this->block_map) return;
 
@@ -87,7 +88,7 @@ void TMap_Generate(TMap *this)
                         (y < MAP_HEIGHT - 2 || x < MAP_WIDTH - 2)
                       ) {
                 // Si chance d'avoir un mur cassable
-                if (rand_int(100) <= CHANCE_BREAKABLE_WALL) {
+                if (rand_int(100) <= chance_breakable_wall) {
                     this->block_map[y][x] = BREAKABLE_WALL;
                 }
             }
@@ -213,12 +214,12 @@ bomb_status_t TMap_Place_Bomb(TMap *this, unsigned int player_id, bomb_reason_t 
     return (BOMB_POSED);
 }
 
-void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TServer *server)
+void TMap_Explose_Bomb(TMap *this, bomb_t *bomb, TGameServer *gserver)
 {
-    if (!this || !this->block_map || !this->players || !bomb || !server)
+    if (!this || !this->block_map || !this->players || !bomb || !gserver)
         return;
 
-    do_bomb_logic(this, bomb, server);
+    do_bomb_logic(this, bomb, gserver);
 }
 
 void TMap_New_Free(TMap *this)

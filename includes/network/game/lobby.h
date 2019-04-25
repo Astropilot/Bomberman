@@ -35,7 +35,7 @@ typedef struct TLobbyClient {
 
     TScene*(*Register_Scene)(struct TLobbyClient*, TScene*);                /*!< Method for register the UI scene used for the lobby. */
 
-    void(*Start_Server)(struct TLobbyClient*, int, int);                    /*!< Method for start the game server. */
+    void(*Start_Server)(struct TLobbyClient*, int, game_rules_t);           /*!< Method for start the game server. */
 
     void(*Join_Lobby)(struct TLobbyClient*, const char*, const char*, int); /*!< Method for joining the lobby. */
 
@@ -53,6 +53,7 @@ typedef struct TLobbyClient {
     unsigned int is_owner;          /*!< A boolean to know if the client is the game owner. */
     int player;                     /*!< The unique ID of the player. */
     unsigned int nb_players;        /*!< The actual number of players in the lobby. */
+    game_rules_t rules;             /*!< The rules of the game. */
 
 } TLobbyClient ;
 
@@ -81,13 +82,13 @@ TScene *TLobbyClient_Register_Scene(TLobbyClient *this, TScene *scene);
  *
  * @param this A pointer to the lobby client object.
  * @param port The port on which the server will listen.
- * @param max_clients The maximum number of clients that will be accepted by the server.
+ * @param rules The rules of the party.
  *
  * You do not have to call this method directly. You must use the
  * Start_Server method of the TLobbyClient structure like this:
- * my_lobbyclient->Start_Server(my_lobbyclient, 3306, 4);
+ * my_lobbyclient->Start_Server(my_lobbyclient, 3306, my_rules);
  */
-void TLobbyClient_Start_Server(TLobbyClient *this, int port, int max_clients);
+void TLobbyClient_Start_Server(TLobbyClient *this, int port, game_rules_t rules);
 
 /**
  * @brief Method to join the lobby of a hosted game.

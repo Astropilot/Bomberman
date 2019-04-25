@@ -22,6 +22,9 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
+#define STR_HELPER(x) #x
+#define STR(x) STR_HELPER(x)
+
 /***************************  UI CONSTS ***************************/
 
 #define WIN_WIDTH 1280                      /*!< The width of the window. */
@@ -45,8 +48,8 @@
 #define BLOCK_INFO_WIDTH 290                /*!< The width in pixels of a information player block.*/
 #define BLOCK_INFO_HEIGHT 95                /*!< The height in pixels of a information player block.*/
 
-#define CHANCE_BREAKABLE_WALL 40            /*!< Percentage chance of breakable walls appearing. */
-#define CHANCE_EXTRA 90                     /*!< Percentage chance of extras appearing (bonus / malus). */
+//#define CHANCE_BREAKABLE_WALL 40            /*!< Percentage chance of breakable walls appearing. */
+//#define CHANCE_EXTRA 90                     /*!< Percentage chance of extras appearing (bonus / malus). */
 
 #define PLAYER_MAX_LIFE 100                 /*!< The maximum life value for a player. */
 
@@ -61,6 +64,18 @@
 #define BOMB_PATH RES_PATH "bomb/"          /*!< The path for the bomb specific resources. */
 
 /**
+ * @brief structure representing a the rules of a party.
+ */
+typedef struct game_rules_t {
+
+    int max_players;            /*!< The maximum number of players allowed to join the game. */
+    int min_players;            /*!< The minimum number of players required to start the game. */
+    int chance_breakable_wall;  /*!< The percentage of chance of breakable walls appearing. */
+    int chance_extra;           /*!< The percentage of chance of extras appearing. */
+
+} game_rules_t ;
+
+/**
  * @brief A structure representing differents args for lobby and game scenes.
  *
  * lobby_args_t is structure representing differents args for
@@ -70,6 +85,7 @@ typedef struct lobby_args_t {
     char *username;             /*!< The username of the player. */
     char *server_ip;            /*!< The IP of the hosted game. */
     int port;                   /*!< The port of the hosted game. */
+    game_rules_t game_rules;    /*!< The rules of the game. */
 } lobby_args_t ;
 
 #endif

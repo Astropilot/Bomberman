@@ -55,13 +55,14 @@ TScene *TLobbyClient_Register_Scene(TLobbyClient *this, TScene *scene)
     return (scene);
 }
 
-void TLobbyClient_Start_Server(TLobbyClient *this, int port, int max_clients)
+void TLobbyClient_Start_Server(TLobbyClient *this, int port, game_rules_t rules)
 {
     if (!this) return;
     this->is_owner = 1;
-    this->gameserver = New_TGameServer();
+    this->rules = rules;
+    this->gameserver = New_TGameServer(rules);
     if (this->gameserver)
-        this->gameserver->Start(this->gameserver, port, max_clients);
+        this->gameserver->Start(this->gameserver, port);
 }
 
 void TLobbyClient_Join_Lobby(TLobbyClient *this, const char *username, const char *ip, int port)

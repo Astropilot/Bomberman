@@ -31,6 +31,8 @@ static void On_MaxValueChange(TSlider *slider, TScene *scene, int value);
 static void On_WallsValueChange(TSlider *slider, TScene *scene, int value);
 static void On_ExtraValueChange(TSlider *slider, TScene *scene, int value);
 
+static game_rules_t game_rules;
+
 TScene* New_HostMenuScene(void)
 {
     TScene *frm = New_TScene("SCENE_HOST_MENU");
@@ -87,24 +89,24 @@ static void On_Init(TScene* scene)
     SDL_Rect pos_slidermin = {(WIN_WIDTH / 2) - (410 / 2), (pos2.y + pos2.h) + 15, 410, 20};
     TSlider *slider_min = New_TSlider(scene,
         RES_PATH "slider_bg.png", RES_PATH "slider.png",
-        pos_slidermin, size_btn, 2, 4, 2
+        pos_slidermin, size_btn, MIN_PLAYERS, MAX_PLAYERS, MIN_PLAYERS
     );
     slider_min->On_ValueChange = On_MinValueChange;
 
     font = loadFont(FONT_PATH "fixedsys.ttf", 24);
-    TText *txt_slider_min = New_TText(scene, "Minimum de joueurs: 2", font, color, pos_txt_slider);
+    TText *txt_slider_min = New_TText(scene, "Minimum de joueurs: " STR(MIN_PLAYERS), font, color, pos_txt_slider);
     txt_slider_min->pos.x = pos_slidermin.x - (txt_slider_min->pos.w) - 5;
     txt_slider_min->pos.y = pos_slidermin.y;
 
     SDL_Rect pos_slidermax = {(WIN_WIDTH / 2) - (410 / 2), (pos_slidermin.y + pos_slidermin.h) + 15, 410, 20};
     TSlider *slider_max = New_TSlider(scene,
         RES_PATH "slider_bg.png", RES_PATH "slider.png",
-        pos_slidermax, size_btn, 2, 4, 4
+        pos_slidermax, size_btn, MIN_PLAYERS, MAX_PLAYERS, MAX_PLAYERS
     );
     slider_max->On_ValueChange = On_MaxValueChange;
 
     font = loadFont(FONT_PATH "fixedsys.ttf", 24);
-    TText *txt_slider_max = New_TText(scene, "Maximum de joueurs: 4", font, color, pos_txt_slider);
+    TText *txt_slider_max = New_TText(scene, "Maximum de joueurs: " STR(MAX_PLAYERS), font, color, pos_txt_slider);
     txt_slider_max->pos.x = pos_slidermax.x - (txt_slider_max->pos.w) - 5;
     txt_slider_max->pos.y = pos_slidermax.y;
 
@@ -185,6 +187,8 @@ static void On_MinValueChange(TSlider *slider, TScene *scene, int value)
     label_slider_min->pos.x = slider->pos.x - (label_slider_min->pos.w) - 5;
     label_slider_min->pos.y = slider->pos.y;
 
+    game_rules.min_players = value;
+
     free(status);
 }
 
@@ -197,6 +201,8 @@ static void On_MaxValueChange(TSlider *slider, TScene *scene, int value)
     label_slider_max->Change_Text(label_slider_max, scene, status);
     label_slider_max->pos.x = slider->pos.x - (label_slider_max->pos.w) - 5;
     label_slider_max->pos.y = slider->pos.y;
+
+    game_rules.max_players = value;
 
     free(status);
 }
@@ -211,6 +217,8 @@ static void On_WallsValueChange(TSlider *slider, TScene *scene, int value)
     label_slider_walls->pos.x = slider->pos.x - (label_slider_walls->pos.w) - 5;
     label_slider_walls->pos.y = slider->pos.y;
 
+    game_rules.chance_breakable_wall = value;
+
     free(status);
 }
 
@@ -223,6 +231,8 @@ static void On_ExtraValueChange(TSlider *slider, TScene *scene, int value)
     label_slider_extra->Change_Text(label_slider_extra, scene, status);
     label_slider_extra->pos.x = slider->pos.x - (label_slider_extra->pos.w) - 5;
     label_slider_extra->pos.y = slider->pos.y;
+
+    game_rules.chance_extra = value;
 
     free(status);
 }
@@ -249,12 +259,12 @@ static void On_Load(TScene* scene, int argc, va_list args)
     strcpy(input_username->text, "");
     strcpy(input_serverport->text, "");
 
-    slider_min->value = 2;
-    label_slider_min->Change_Text(label_slider_min, scene, "Minimum de joueurs: 2");
+    slider_min->value = MIN_PLAYERS;
+    label_slider_min->Change_Text(label_slider_min, scene, "Minimum de joueurs: " STR(MIN_PLAYERS));
     label_slider_min->pos.x = slider_min->pos.x - (label_slider_min->pos.w) - 5;
     label_slider_min->pos.y = slider_min->pos.y;
-    slider_max->value = 4;
-    label_slider_max->Change_Text(label_slider_max, scene, "Maximum de joueurs: 4");
+    slider_max->value = MAX_PLAYERS;
+    label_slider_max->Change_Text(label_slider_max, scene, "Maximum de joueurs: " STR(MAX_PLAYERS));
     label_slider_max->pos.x = slider_max->pos.x - (label_slider_max->pos.w) - 5;
     label_slider_max->pos.y = slider_max->pos.y;
     slider_walls->value = 40;
@@ -265,6 +275,11 @@ static void On_Load(TScene* scene, int argc, va_list args)
     label_slider_extra->Change_Text(label_slider_extra, scene, "Taux d'extras: 90%");
     label_slider_extra->pos.x = slider_extra->pos.x - (label_slider_extra->pos.w) - 5;
     label_slider_extra->pos.y = slider_extra->pos.y;
+
+    game_rules.min_players = MIN_PLAYERS;
+    game_rules.max_players = MAX_PLAYERS;
+    game_rules.chance_breakable_wall = 40;
+    game_rules.chance_extra = 90;
 
     if (scene->Is_BackgroundMusic_Paused(scene) && scene->Is_BackgroundMusic_Playing(scene)) {
         scene->Resume_BackgroundMusic(scene);
@@ -305,7 +320,7 @@ static void On_Click_Play_Button(TButton *button, TScene *scene)
 
     if (strlen(input_username->text) > 0) {
         int port = atoi(input_port->text);
-        lobby_args_t params = {input_username->text, NULL, port};
+        lobby_args_t params = {input_username->text, NULL, port, game_rules};
         scene->window->Show_Scene(scene->window, "SCENE_LOBBY", 1, params);
     }
 }

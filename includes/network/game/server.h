@@ -35,7 +35,7 @@
  */
 typedef struct TGameServer {
 
-    void(*Start)(struct TGameServer*, int, int);    /*!< Start the server on the given port. */
+    void(*Start)(struct TGameServer*, int);         /*!< Start the server on the given port. */
 
     void(*Stop)(struct TGameServer*);               /*!< Stop the server. */
 
@@ -44,33 +44,33 @@ typedef struct TGameServer {
     TServer *server;                                /*!< The network server. */
     SDL_Thread *server_thread;                      /*!< Internal thread handle for server loop. */
     unsigned int is_listenning;                     /*!< A boolean to know if the server is listenning. */
-    int max_clients;                                /*!< The maximum number of players accepted by the server. */
     int nb_players;                                 /*!< The actual number of players connected. */
     int ready_players;                              /*!< The actual number of players ready to play. */
     TMap *map;                                      /*!< The game map. */
     unsigned int game_started;                      /*!< The boolean to know if the game started. */
+    game_rules_t rules;                             /*!< The rules of the game. */
 
 } TGameServer ;
 
 /**
  * @brief The constructor for create a TGameServer object.
  *
+ * @param rules The rules of the party.
  * @return A memory allocated object of the game server.
  */
-TGameServer* New_TGameServer();
+TGameServer* New_TGameServer(game_rules_t rules);
 
 /**
  * @brief Start the network server on the given port with a maximum clients authorized.
  *
  * @param this A pointer to the game server object.
  * @param port The port on which the server will listen.
- * @param max_clients The maximum number of clients that will be accepted by the server.
  *
  * You do not have to call this method directly. You must use the
  * Start method of the TGameServer structure like this:
  * my_gameserver->Start(my_gameserver, 3306, 4);
  */
-void TGameServer_Start(TGameServer *this, int port, int max_clients);
+void TGameServer_Start(TGameServer *this, int port);
 
 /**
  * @brief Stop the network server.

@@ -19,15 +19,16 @@
 #include "core/minion.h"
 #include "main.h"
 #include "core/utils.h"
+#include "network/game/server.h"
 #include "network/server.h"
 #include "network/packets/packet.h"
 #include "network/packets/packet_ack_bombexplode.h"
 #include "network/packets/packet_ack_playerupdate.h"
 #include "network/packets/packet_ack_minionupdate.h"
 
-static void logic_bomb_classic(TMap *map, bomb_t *bomb, TServer *server);
+static void logic_bomb_classic(TMap *map, bomb_t *bomb, TGameServer *gserver);
 
-static void (*bombs_logic[])(TMap*, bomb_t*, TServer*) = {
+static void (*bombs_logic[])(TMap*, bomb_t*, TGameServer*) = {
     [CLASSIC] = logic_bomb_classic
 };
 
@@ -77,13 +78,14 @@ void remove_bomb(bomb_node_t **bombs_head, bomb_t *bomb)
     }
 }
 
-void do_bomb_logic(TMap *map, bomb_t *bomb, TServer *server)
+void do_bomb_logic(TMap *map, bomb_t *bomb, TGameServer *gserver)
 {
-    (*bombs_logic[bomb->type])(map, bomb, server);
+    (*bombs_logic[bomb->type])(map, bomb, gserver);
 }
 
-static void logic_bomb_classic(TMap *map, bomb_t *bomb, TServer *server)
+static void logic_bomb_classic(TMap *map, bomb_t *bomb, TGameServer *gserver)
 {
+    TServer *server = gserver->server;
     player_t *player = &(map->players[bomb->owner_id]);
     TAckBombExplodePacket *packet = New_TAckBombExplodePacket(NULL);
     TAckPlayerUpdatePacket *p_ownerupdate = New_TAckPlayerUpdatePacket(NULL);
@@ -145,7 +147,7 @@ static void logic_bomb_classic(TMap *map, bomb_t *bomb, TServer *server)
                     object_t obj_des = {BREAKABLE_WALL, {x, y}};
 
                     map->block_map[y][x] = NOTHING;
-                    if (rand_int(100) <= CHANCE_EXTRA) {
+                    if (rand_int(100) <= gserver->rules.chance_extra) {
                         object_type_t extra = rand_range_int(BONUS_RANGE, MALUS_SPEED);
                         object_t obj = {extra, {x, y}};
 

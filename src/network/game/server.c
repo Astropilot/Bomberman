@@ -30,7 +30,7 @@ static void On_Message(TServer *server, TClient *client, TMessage message);
 
 static TGameServer *game_server;
 
-TGameServer* New_TGameServer()
+TGameServer* New_TGameServer(game_rules_t rules)
 {
     TGameServer *this = malloc(sizeof(TGameServer));
 
@@ -38,27 +38,26 @@ TGameServer* New_TGameServer()
 
     game_server = this;
     this->server = NULL;
-    this->max_clients = 0;
     this->nb_players = 0;
     this->ready_players = 0;
     this->map = NULL;
     this->is_listenning = 0;
     this->server_thread = NULL;
     this->game_started = 0;
+    this->rules = rules;
     this->Start = TGameServer_Start;
     this->Stop = TGameServer_Stop;
     this->Free = TGameServer_New_Free;
     return (this);
 }
 
-void TGameServer_Start(TGameServer *this, int port, int max_clients)
+void TGameServer_Start(TGameServer *this, int port)
 {
     if (!this) return;
 
     this->server = New_TServer(port, 15);
     this->server->On_Message = On_Message;
-    this->max_clients = max_clients;
-    this->map = New_TMap((size_t)max_clients);
+    this->map = New_TMap(MAX_PLAYERS);
     this->nb_players = 0;
     this->ready_players = 0;
     this->game_started = 0;
@@ -99,10 +98,10 @@ static int TGameServer_Gameloop(void *p_args)
         current_time = SDL_GetTicks();
 
         minion_handle_logic(game_server->map->minion, current_time, game_server);
-        
+
         while (current_bomb != NULL) {
             if (current_time >= current_bomb->bomb->time_explode) {
-                game_server->map->Explose_Bomb(game_server->map, current_bomb->bomb, game_server->server);
+                game_server->map->Explose_Bomb(game_server->map, current_bomb->bomb, game_server);
 
                 tmp_bomb = current_bomb->bomb;
                 current_bomb = current_bomb->next;

@@ -155,7 +155,8 @@ static void On_Click_Play_Button(TButton *button, TScene *scene)
 
     if (strlen(input_username->text) > 0) {
         int port = atoi(input_port->text);
-        lobby_args_t params = {input_username->text, input_ip->text, port};
+        game_rules_t rules = {-1, -1, -1, -1};
+        lobby_args_t params = {input_username->text, input_ip->text, port, rules};
         scene->window->Show_Scene(scene->window, "SCENE_LOBBY", 1, params);
     }
 }
