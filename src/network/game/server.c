@@ -45,6 +45,7 @@ TGameServer* New_TGameServer(game_rules_t rules)
     this->server_thread = NULL;
     this->game_started = 0;
     this->rules = rules;
+    this->player_socks = NULL;
     this->Start = TGameServer_Start;
     this->Stop = TGameServer_Stop;
     this->Free = TGameServer_New_Free;
@@ -55,12 +56,17 @@ void TGameServer_Start(TGameServer *this, int port)
 {
     if (!this) return;
 
+    int i;
+
     this->server = New_TServer(port, 15);
     this->server->On_Message = On_Message;
     this->map = New_TMap(MAX_PLAYERS);
     this->nb_players = 0;
     this->ready_players = 0;
     this->game_started = 0;
+    this->player_socks = malloc(sizeof(TClient*) * MAX_PLAYERS);
+    for (i = 0; i < MAX_PLAYERS; i++)
+        this->player_socks[i] = NULL;
     this->server->Start_Listenning(this->server);
     this->is_listenning = 1;
     this->server_thread = SDL_CreateThread(TGameServer_Gameloop, "TGameServer_Gameloop", NULL);
@@ -143,6 +149,7 @@ void TGameServer_New_Free(TGameServer *this)
     if (this) {
         if (this->map && this->map->Free)
             this->map->Free(this->map);
+        free(this->player_socks);
     }
     free(this);
 }

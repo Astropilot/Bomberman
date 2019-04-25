@@ -64,6 +64,7 @@ static void TSlider_Init(
 void TSlider_Draw(TSlider *this, TScene *scene)
 {
     if (!this || !scene || !this->sprite_bg || !this->sprite_btn) return;
+    if (!this->is_visible) return;
 
     SDL_Rect pos_btn = this->pos;
     int delta;
@@ -85,6 +86,7 @@ void TSlider_Draw(TSlider *this, TScene *scene)
 void TSlider_Event_Handler(TSlider *this, TScene *scene, SDL_Event event)
 {
     if (!this || !scene) return;
+    if (!this->is_visible) return;
 
     if (event.type == SDL_MOUSEBUTTONDOWN)
         this->lclick_pressed = 1;

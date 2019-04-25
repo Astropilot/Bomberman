@@ -45,6 +45,7 @@ static void TButton_Init(TButton *this, TScene *scene, const char *btn_s, const 
 void TButton_Draw(TButton *this, TScene *scene)
 {
     if (!this || !scene || !this->btn_sprite || !this->btn_hover_sprite) return;
+    if (!this->is_visible) return;
 
     this->btn_sprite->pos = this->pos;
     this->btn_hover_sprite->pos = this->pos;
@@ -61,6 +62,7 @@ void TButton_Draw(TButton *this, TScene *scene)
 void TButton_Event_Handler(TButton *this, TScene *scene, SDL_Event event)
 {
     if (!this || !scene) return;
+    if (!this->is_visible) return;
 
     if( event.type == SDL_MOUSEMOTION || event.type == SDL_MOUSEBUTTONUP ) {
         int x;

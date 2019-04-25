@@ -268,7 +268,7 @@ static void On_Event(TScene* scene, SDL_Event event)
     if (!scene) return;
     if (event.type == SDL_KEYUP) {
         if (event.key.keysym.sym == SDLK_ESCAPE)
-            gameclient->Leave_Game(gameclient);
+            gameclient->Leave_Game(gameclient, 1);
         if (event.key.keysym.sym == SDLK_SPACE) {
             gameclient->Place_Bomb(gameclient);
         }
@@ -294,7 +294,7 @@ static void On_Tick(TScene* scene)
     scene->Draw_Drawables(scene);
     SDL_RenderPresent(scene->window->renderer_window);
     if (scene->window->finished)
-        gameclient->Leave_Game(gameclient);
+        gameclient->Leave_Game(gameclient, 1);
 }
 
 static void On_Unload(TScene* scene)

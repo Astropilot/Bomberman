@@ -24,6 +24,7 @@
 #include "network/packets/packet.h"
 #include "network/packets/packet_req_connect.h"
 #include "network/packets/packet_req_startgame.h"
+#include "network/packets/packet_req_kickplayer.h"
 #include "network/packets/packet_disconnect.h"
 
 
@@ -43,6 +44,7 @@ TLobbyClient* New_TLobbyClient()
     this->Start_Server = TLobbyClient_Start_Server;
     this->Join_Lobby = TLobbyClient_Join_Lobby;
     this->Start_Game = TLobbyClient_Start_Game;
+    this->Kick_Player = TLobbyClient_Kick_Player;
     this->Handle_Messages = TLobbyClient_Handle_Messages;
     this->Leave_Lobby = TLobbyClient_Leave_Lobby;
     this->Free = TLobbyClient_New_Free;
@@ -74,7 +76,7 @@ void TLobbyClient_Join_Lobby(TLobbyClient *this, const char *username, const cha
     if (!this->client) return;
     int res = this->client->Connect(this->client, ip, port);
     if (res != 0) {
-        this->Leave_Lobby(this);
+        this->Leave_Lobby(this, 0);
     } else {
         TReqConnectPacket *p_rc = New_TReqConnectPacket(NULL);
 
@@ -89,6 +91,15 @@ void TLobbyClient_Start_Game(TLobbyClient *this)
 
     p_rs->player = this->player;
     this->client->Send(this->client, packet_to_message((TPacket*)p_rs, 1));
+}
+
+void TLobbyClient_Kick_Player(TLobbyClient *this, int player_id)
+{
+    TReqKickPlayerPacket *p_kp = New_TReqKickPlayerPacket(NULL);
+
+    p_kp->player = this->player;
+    p_kp->kick_id = (unsigned int)player_id;
+    this->client->Send(this->client, packet_to_message((TPacket*)p_kp, 1));
 }
 
 void TLobbyClient_Handle_Messages(TLobbyClient *this)
@@ -109,12 +120,12 @@ void TLobbyClient_Handle_Messages(TLobbyClient *this)
     handle_lobby_logic(this, message, packet_id);
 }
 
-void TLobbyClient_Leave_Lobby(TLobbyClient *this)
+void TLobbyClient_Leave_Lobby(TLobbyClient *this, int send_disconnect)
 {
     if (!this || !this->client)
         return;
 
-    if (this->player != -1) {
+    if (this->player != -1 && send_disconnect) {
         TReqDisconnectPacket *p_d = New_TReqDisconnectPacket(NULL);
 
         p_d->reason = (this->is_owner ? MASTER_LEAVE : USER_QUIT);

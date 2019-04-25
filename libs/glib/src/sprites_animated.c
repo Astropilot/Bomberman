@@ -63,6 +63,7 @@ static void TAnimatedSprites_Init(TAnimatedSprites *this, TScene *scene, const c
 void TAnimatedSprites_Draw(TAnimatedSprites *this, TScene *scene)
 {
     if (!this || !scene || !this->textures) return;
+    if (!this->is_visible) return;
 
     unsigned int current_time = 0;
 

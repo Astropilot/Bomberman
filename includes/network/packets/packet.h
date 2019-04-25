@@ -38,18 +38,19 @@ typedef enum packet_t {
     REQ_PLACE_BOMB    = 0x04,
     REQ_MOVE          = 0x05,
     REQ_READY         = 0x06,
+    REQ_KICK_PLAYER   = 0x07,
 
-    ACK_CONNECT       = 0x07,
-    ACK_DISCONNECT    = 0x08,
-    ACK_LOBBY_STATE   = 0x09,
-    ACK_START_GAME    = 0x0A,
-    ACK_GAME_INIT     = 0x0B,
-    ACK_MOVE          = 0x0C,
-    ACK_PLACE_BOMB    = 0x0D,
-    ACK_BOMB_EXPLODE  = 0x0E,
-    ACK_PLAYER_UPDATE = 0x0F,
-    ACK_END_GAME      = 0x10,
-    ACK_MINION_UPDATE = 0x11
+    ACK_CONNECT       = 0x33,
+    ACK_DISCONNECT    = 0x34,
+    ACK_LOBBY_STATE   = 0x35,
+    ACK_START_GAME    = 0x36,
+    ACK_GAME_INIT     = 0x37,
+    ACK_MOVE          = 0x38,
+    ACK_PLACE_BOMB    = 0x39,
+    ACK_BOMB_EXPLODE  = 0x3A,
+    ACK_PLAYER_UPDATE = 0x3B,
+    ACK_END_GAME      = 0x3C,
+    ACK_MINION_UPDATE = 0x3D
 } packet_t;
 
 /**

@@ -49,6 +49,7 @@ typedef struct TGameServer {
     TMap *map;                                      /*!< The game map. */
     unsigned int game_started;                      /*!< The boolean to know if the game started. */
     game_rules_t rules;                             /*!< The rules of the game. */
+    TClient **player_socks;                         /*!< A array containing the network instances of the players. */
 
 } TGameServer ;
 

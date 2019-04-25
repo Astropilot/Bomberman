@@ -74,6 +74,7 @@ static void TInput_Init(
 void TInput_Draw(TInput *this, TScene *scene)
 {
     if (!this || !scene || !this->text || !this->input_sprite) return;
+    if (!this->is_visible) return;
 
     SDL_Texture *text_texture = NULL;
     unsigned int current_time = 0;
@@ -111,6 +112,7 @@ void TInput_Draw(TInput *this, TScene *scene)
 void TInput_Event_Handler(TInput *this, SDL_Event event)
 {
     if (!this || !this->text) return;
+    if (!this->is_visible) return;
 
     SDL_Rect pos_input = this->input_sprite->pos;
 

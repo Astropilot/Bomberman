@@ -66,7 +66,7 @@ void handle_game_logic(TGameClient *game, TMessage message, int packet_id)
 static void handle_disconnect(TGameClient *game, TMessage message)
 {
     free(message.message);
-    game->Leave_Game(game);
+    game->Leave_Game(game, 0);
 }
 
 static void handle_gameinit(TGameClient *game, TMessage message)

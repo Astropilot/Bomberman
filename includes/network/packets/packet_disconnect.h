@@ -30,7 +30,8 @@
  */
 typedef enum leave_reason_t {
     USER_QUIT,
-    MASTER_LEAVE
+    MASTER_LEAVE,
+    KICKED_BY_MASTER
 } leave_reason_t ;
 
 /**

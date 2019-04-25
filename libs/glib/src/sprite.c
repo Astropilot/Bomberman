@@ -49,6 +49,7 @@ static void TSprite_Init(TSprite *this, TScene *scene, const char *file, SDL_Rec
 void TSprite_Draw(TSprite *this, TScene *scene)
 {
     if (!this || !scene || !this->texture) return;
+    if (!this->is_visible) return;
 
     SDL_RenderCopy(scene->window->renderer_window, this->texture, NULL, &this->pos);
 }

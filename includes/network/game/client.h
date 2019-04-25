@@ -44,7 +44,7 @@ typedef struct TGameClient {
 
     void(*Handle_Messages)(struct TGameClient*);                /*!< Method for handle the message sended by the server. */
 
-    void(*Leave_Game)(struct TGameClient*);                     /*!< Method for say to the server that the player left the game. */
+    void(*Leave_Game)(struct TGameClient*, int);                /*!< Method for say to the server that the player left the game. */
 
     void(*Free)(struct TGameClient*);                           /*!< Free (ressources) method. */
 
@@ -126,12 +126,13 @@ void TGameClient_Handle_Messages(TGameClient *this);
  * @brief Method to inform the server that this client leave the game.
  *
  * @param this A pointer to the game client object.
+ * @param send_disconnect If 1 the function will send a disconnect packet to the server.
  *
  * You do not have to call this method directly. You must use the
  * Leave_Game method of the TGameClient structure like this:
- * my_gameclient->Leave_Game(my_gameclient);
+ * my_gameclient->Leave_Game(my_gameclient, 1);
  */
-void TGameClient_Leave_Game(TGameClient *this);
+void TGameClient_Leave_Game(TGameClient *this, int send_disconnect);
 
 /**
  * @brief Method to free all ressources take by the game client.

@@ -57,6 +57,7 @@ static void TAnimatedSprite_Init(TAnimatedSprite *this, TScene *scene, const cha
 void TAnimatedSprite_Draw(TAnimatedSprite *this, TScene *scene)
 {
     if (!this || !scene || !this->texture) return;
+    if (!this->is_visible) return;
 
     SDL_Rect tmp_frame = {this->size.w * this->actual_frame, this->size.y, this->size.w, this->size.h};
     unsigned int current_time = 0;

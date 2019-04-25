@@ -52,7 +52,7 @@ static void handle_connect(TLobbyClient *lobby, TMessage message)
 
     if (p_ac->status != OK) {
         lobby->player = -1;
-        lobby->Leave_Lobby(lobby);
+        lobby->Leave_Lobby(lobby, 0);
     } else
         lobby->player = (int)p_ac->player;
     p_ac->Free(p_ac);
@@ -61,7 +61,7 @@ static void handle_connect(TLobbyClient *lobby, TMessage message)
 static void handle_disconnect(TLobbyClient *lobby, TMessage message)
 {
     free(message.message);
-    lobby->Leave_Lobby(lobby);
+    lobby->Leave_Lobby(lobby, 0);
 }
 
 static void handle_lobbystate(TLobbyClient *lobby, TMessage message)
@@ -82,6 +82,15 @@ static void handle_lobbystate(TLobbyClient *lobby, TMessage message)
 
     lobby->lobby_scene->Free_Drawables(lobby->lobby_scene, "LABEL_USERNAME");
 
+    for (i = 0; i < MAX_PLAYERS; i++) {
+        sprintf(status, "BTN_KICK_%u", i);
+        TButton *btn_kick = (TButton*)lobby->lobby_scene->Get_Drawable(
+            lobby->lobby_scene, status
+        );
+
+        btn_kick->is_visible = 0;
+    }
+
     for (i = 0; i < lobby->nb_players; i++) {
         SDL_Rect pos_username = {0, 0, 0, 0};
         SDL_Color color = {255, 255, 255, 255};
@@ -91,11 +100,20 @@ static void handle_lobbystate(TLobbyClient *lobby, TMessage message)
         );
 
         txt_username->pos.x = 446;
-        txt_username->pos.y = 216 + (p_as->players[i].p_id * 92) - (txt_label->pos.h / 2);
+        txt_username->pos.y = 216 + (p_as->players[i].p_id * 92) - (txt_username->pos.h / 2);
         lobby->lobby_scene->Add_Drawable(
             lobby->lobby_scene, (TDrawable*)txt_username,
             "LABEL_USERNAME", 1, GLIB_FREE_ON_UNLOAD
         );
+
+        if (lobby->is_owner && (int)p_as->players[i].p_id != lobby->player) {
+            sprintf(status, "BTN_KICK_%u", p_as->players[i].p_id);
+            TButton *btn_kick = (TButton*)lobby->lobby_scene->Get_Drawable(
+                lobby->lobby_scene, status
+            );
+
+            btn_kick->is_visible = 1;
+        }
     }
 
     free(status);

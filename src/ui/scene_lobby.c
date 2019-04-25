@@ -27,9 +27,11 @@ static void On_Unload(TScene *scene);
 static void On_Finish(TScene *scene);
 
 static TButton *btn_start;
+static TButton *btns_kick[MAX_PLAYERS];
 
 static void On_Click_Start_Button(TButton *button, TScene *scene);
 static void On_Click_Quit_Button(TButton *button, TScene *scene);
+static void On_Click_Kick_Button(TButton *button, TScene *scene);
 
 static TLobbyClient *lobbyclient;
 
@@ -82,11 +84,34 @@ static void On_Init(TScene* scene)
         RES_PATH "loader/frame-%02d.png", 30, size, pos, 40, -1
     );
 
+    int i;
+    char *id_btn = malloc(sizeof(char) * 25);
+
+    for (i = 0; i < MAX_PLAYERS; i++) {
+        SDL_Rect pos_button_kick = {790, 216 + (i * 92) - 16, 32, 33};
+        TButton *btn_kick = New_TButton(scene,
+            RES_PATH "cross.png",
+            RES_PATH "cross.png", pos_button_kick
+        );
+
+        btn_kick->is_visible = 0;
+        btn_kick->On_Click = On_Click_Kick_Button;
+        sprintf(id_btn, "BTN_KICK_%d", i);
+        scene->Add_Drawable(scene, (TDrawable*)btn_kick,
+            id_btn, 1, GLIB_FREE_ON_FINISH
+        );
+        btns_kick[i] = btn_kick;
+    }
+    free(id_btn);
+
     scene->Add_Drawable(scene, (TDrawable*)sp_bg,
         "BG", 999, GLIB_FREE_ON_FINISH
     );
     scene->Add_Drawable(scene, (TDrawable*)sp_ui,
         "BG", 3, GLIB_FREE_ON_FINISH
+    );
+    scene->Add_Drawable(scene, (TDrawable*)btn_start,
+        "BTN_START", 1, GLIB_FREE_ON_FINISH
     );
     scene->Add_Drawable(scene, (TDrawable*)btn_quit,
         "BTN_QUIT", 1, GLIB_FREE_ON_FINISH
@@ -134,10 +159,19 @@ static void On_Load(TScene* scene, int argc, va_list args)
 static void On_Event(TScene* scene, SDL_Event event)
 {
     TButton *btn_quit = (TButton*)scene->Get_Drawable(scene, "BTN_QUIT");
+    char *id_btn = malloc(sizeof(char) * 25);
+    int i;
 
     btn_quit->Event_Handler(btn_quit, scene, event);
-    if ((int)lobbyclient->nb_players >= lobbyclient->rules.min_players && lobbyclient->is_owner)
-        btn_start->Event_Handler(btn_start, scene, event);
+    btn_start->Event_Handler(btn_start, scene, event);
+
+    for (i = 0; i < MAX_PLAYERS; i++) {
+        sprintf(id_btn, "BTN_KICK_%d", i);
+        TButton *btn_kick = (TButton*)scene->Get_Drawable(scene, id_btn);
+
+        btn_kick->Event_Handler(btn_kick, scene, event);
+    }
+    free(id_btn);
 }
 
 static void On_Click_Start_Button(TButton *button, TScene *scene)
@@ -150,26 +184,34 @@ static void On_Click_Start_Button(TButton *button, TScene *scene)
 static void On_Click_Quit_Button(TButton *button, TScene *scene)
 {
     if (!button || !scene)
-        printf("Button: Join Button pressed!\n");
-    lobbyclient->Leave_Lobby(lobbyclient);
+        printf("Button: Quit Button pressed!\n");
+    lobbyclient->Leave_Lobby(lobbyclient, 1);
+}
+
+static void On_Click_Kick_Button(TButton *button, TScene *scene)
+{
+    int i;
+
+    for (i = 0; i < MAX_PLAYERS; i++) {
+        if (btns_kick[i] == button) {
+            lobbyclient->Kick_Player(lobbyclient, i);
+        }
+    }
+    (void)*scene;
 }
 
 static void On_Tick(TScene* scene)
 {
     SDL_RenderClear(scene->window->renderer_window);
     lobbyclient->Handle_Messages(lobbyclient);
-    if ((int)lobbyclient->nb_players >= lobbyclient->rules.min_players && lobbyclient->is_owner) {
-        if (!scene->Get_Drawable(scene, "BTN_START"))
-            scene->Add_Drawable(scene, (TDrawable*)btn_start,
-                "BTN_START", 1, GLIB_FREE_ON_FINISH
-            );
-    } else {
-        scene->Remove_Drawable(scene, "BTN_START");
-    }
+    if ((int)lobbyclient->nb_players >= lobbyclient->rules.min_players && lobbyclient->is_owner)
+        btn_start->is_visible = 1;
+    else
+        btn_start->is_visible = 0;
     scene->Draw_Drawables(scene);
     SDL_RenderPresent(scene->window->renderer_window);
     if (scene->window->finished)
-        lobbyclient->Leave_Lobby(lobbyclient);
+        lobbyclient->Leave_Lobby(lobbyclient, 1);
 }
 
 static void On_Unload(TScene* scene)

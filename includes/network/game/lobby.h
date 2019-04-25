@@ -41,9 +41,11 @@ typedef struct TLobbyClient {
 
     void(*Start_Game)(struct TLobbyClient*);                                /*!< Method called by the game owner to start the game. */
 
+    void(*Kick_Player)(struct TLobbyClient*, int);                          /*!< Method for kicking a player from the game. */
+
     void(*Handle_Messages)(struct TLobbyClient*);                           /*!< Method for handle the message sended by the server. */
 
-    void(*Leave_Lobby)(struct TLobbyClient*);                               /*!< Method for say to the server that the player left the lobby. */
+    void(*Leave_Lobby)(struct TLobbyClient*, int);                          /*!< Method for say to the server that the player left the lobby. */
 
     void(*Free)(struct TLobbyClient*);                                      /*!< Free (ressources) method. */
 
@@ -116,6 +118,18 @@ void TLobbyClient_Join_Lobby(TLobbyClient *this, const char *username, const cha
 void TLobbyClient_Start_Game(TLobbyClient *this);
 
 /**
+ * @brief Method for kicking a player from the game.
+ *
+ * @param this A pointer to the lobby client object.
+ * @param player_id The ID of the player to kick.
+ *
+ * You do not have to call this method directly. You must use the
+ * Kick_Player method of the TLobbyClient structure like this:
+ * my_lobbyclient->Kick_Player(my_lobbyclient, 1);
+ */
+void TLobbyClient_Kick_Player(TLobbyClient *this, int player_id);
+
+/**
  * @brief Method that handle the messages sended by the server.
  *
  * @param this A pointer to the lobby client object.
@@ -130,12 +144,13 @@ void TLobbyClient_Handle_Messages(TLobbyClient *this);
  * @brief Method to inform the server that this client leave the lobby.
  *
  * @param this A pointer to the lobby client object.
+ * @param send_disconnect If 1 the function will send a disconnect packet to the server.
  *
  * You do not have to call this method directly. You must use the
- * Leave_Game method of the TLobbyClient structure like this:
- * my_lobbyclient->Leave_Game(my_lobbyclient);
+ * Leave_Lobby method of the TLobbyClient structure like this:
+ * my_lobbyclient->Leave_Lobby(my_lobbyclient, 1);
  */
-void TLobbyClient_Leave_Lobby(TLobbyClient *this);
+void TLobbyClient_Leave_Lobby(TLobbyClient *this, int send_disconnect);
 
 /**
  * @brief Method to free all ressources take by the lobby client.

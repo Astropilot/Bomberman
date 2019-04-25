@@ -34,11 +34,13 @@
 #include "network/packets/packet_req_move.h"
 #include "network/packets/packet_req_placebomb.h"
 #include "network/packets/packet_req_startgame.h"
+#include "network/packets/packet_req_kickplayer.h"
 #include "network/packets/packet_req_ready.h"
 
 static void handle_disconnect(TGameServer*, TClient*, TMessage);
 static void handle_connect(TGameServer*, TClient*, TMessage);
 static void handle_startgame(TGameServer*, TClient*, TMessage);
+static void handle_kickplayer(TGameServer*, TClient*, TMessage);
 static void handle_ready(TGameServer*, TClient*, TMessage);
 static void handle_move(TGameServer*, TClient*, TMessage);
 static void handle_placebomb(TGameServer*, TClient*, TMessage);
@@ -49,7 +51,8 @@ static void (*message_handler[])(TGameServer*, TClient*, TMessage) = {
     [REQ_START_GAME] = handle_startgame,
     [REQ_READY] = handle_ready,
     [REQ_MOVE] = handle_move,
-    [REQ_PLACE_BOMB] = handle_placebomb
+    [REQ_PLACE_BOMB] = handle_placebomb,
+    [REQ_KICK_PLAYER] = handle_kickplayer
 };
 
 void handle_server_logic(TGameServer *server, TClient *client, TMessage message, int packet_id)
@@ -69,6 +72,7 @@ static void handle_disconnect(TGameServer *game_server, TClient* client, TMessag
         return;
     }
     reset_player(&(game_server->map->players[p_d->player]));
+    game_server->player_socks[p_d->player] = NULL;
     if (p_d->player != 0 && !game_server->game_started) {
         TAckLobbyStatePacket *p = New_TAckLobbyStatePacket(NULL);
 
@@ -105,6 +109,7 @@ static void handle_connect(TGameServer *game_server, TClient* client, TMessage m
         p_a->status = OK;
         p_a->player = next_id(game_server->map->players);
         init_player(&(game_server->map->players[p_a->player]), p_a->player, p_rc->player_name);
+        game_server->player_socks[p_a->player] = client;
         client->Send(client, packet_to_message((TPacket*)p_a, 1));
 
         game_server->nb_players++;
@@ -140,6 +145,38 @@ static void handle_startgame(TGameServer *game_server, TClient* client, TMessage
     }
     (void)client;
     p_rs->Free(p_rs);
+}
+
+static void handle_kickplayer(TGameServer *game_server, TClient* client, TMessage message)
+{
+    TReqKickPlayerPacket *p_kp = New_TReqKickPlayerPacket(message.message);
+    p_kp->Unserialize(p_kp);
+
+    if (p_kp->player == 0 && p_kp->kick_id > 0) {
+        TAckDisconnectPacket *p_d = New_TAckDisconnectPacket(NULL);
+        TAckLobbyStatePacket *p_ls = New_TAckLobbyStatePacket(NULL);
+
+        p_d->reason = KICKED_BY_MASTER;
+        if (game_server->player_socks[p_kp->kick_id]) {
+            game_server->player_socks[p_kp->kick_id]->Send(
+                game_server->player_socks[p_kp->kick_id],
+                packet_to_message((TPacket*)p_d, 1)
+            );
+        }
+        reset_player(&(game_server->map->players[p_kp->kick_id]));
+
+
+
+        game_server->nb_players--;
+        p_ls->nb_players = (int)game_server->nb_players;
+        p_ls->players = game_server->map->players;
+        game_server->server->Send_Broadcast(
+            game_server->server,
+            packet_to_message((TPacket*)p_ls, 1)
+        );
+    }
+    (void)client;
+    p_kp->Free(p_kp);
 }
 
 static void handle_ready(TGameServer *game_server, TClient* client, TMessage message)

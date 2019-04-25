@@ -56,6 +56,7 @@ void TText_Draw(TText *this, TScene *scene)
 void TText_Change_Text(TText *this, TScene *scene, const char *text)
 {
     if (!this || !scene || !text) return;
+    if (!this->is_visible) return;
 
     free(this->text);
     SDL_DestroyTexture(this->texture);
