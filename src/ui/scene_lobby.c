@@ -59,8 +59,8 @@ static void On_Init(TScene* scene)
 
     SDL_Rect pos_button_quit = {WIN_WIDTH - 410 - 15, WIN_HEIGHT - 64 - 15, 410, 64};
     TButton *btn_quit = New_TButton(scene,
-        RES_PATH "button_quit_normal.png",
-        RES_PATH "button_quit_hover.png", pos_button_quit
+        RES_PATH "button_quitparty_normal.png",
+        RES_PATH "button_quitparty_hover.png", pos_button_quit
     );
     btn_quit->On_Click = On_Click_Quit_Button;
 
